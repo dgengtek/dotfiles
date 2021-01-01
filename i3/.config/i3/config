@@ -169,7 +169,7 @@ bindsym $mod+Control+minus exec i3lock -c 000000
 # screenshots
 bindsym $mod+Print exec screenshot.sh
 bindsym $mod+Control+Print exec screenshot.sh -w
-bindsym $mod+Shift+Print exec maim -s /mnt/nfs/homes/dgeng/screenshots/$(date +%Y%m%d%H%M%S).png
+bindsym $mod+Shift+Print exec screenshot.sh -s
 
 # options
 force_focus_wrapping yes
