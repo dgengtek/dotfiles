@@ -135,8 +135,7 @@ endif
   autocmd FileType anki_vim UltiSnipsAddFiletypes tex.texmath.latex
 "endif
 
-au BufRead,BufNewFile *.adoc setfiletype asciidoc
-au BufRead,BufNewFile *.asciidoc setfiletype asciidoc
+au BufRead,BufNewFile *.adoc,*.asciidoc setfiletype asciidoc
 au BufRead,BufNewFile *.sls setfiletype sls
 au BufRead,BufNewFile *.jinja,*.jinja2,*.j2 setfiletype jinja
 au BufRead,BufNewFile *.yaml,*.yml setfiletype yaml
@@ -188,6 +187,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'https://github.com/fatih/vim-go'
   Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'stephpy/vim-yaml'
+  Plug 'lervag/wiki.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -283,3 +283,8 @@ let wiki_2.auto_tags= 1
 let wiki_2.auto_toc = 1
 
 let g:vimwiki_list = [wiki_1, wiki_2]
+
+let g:wiki_root = '~/wiki'
+let g:wiki_link_target_type = 'adoc'
+let g:wiki_link_extension = '.adoc'
+let g:wiki_filetypes = ['wiki', 'adoc']
