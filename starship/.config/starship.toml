@@ -157,6 +157,7 @@ style = "bold dimmed white"
 [package]
 disabled = false
 
+# requires pyenv installed
 [python]
 disabled = false
 symbol = "🐍 "
