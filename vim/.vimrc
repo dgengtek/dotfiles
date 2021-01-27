@@ -291,3 +291,19 @@ let g:vimwiki_list = [wiki_1, wiki_2]
 " let g:wiki_link_target_type = 'adoc'
 " let g:wiki_link_extension = '.adoc'
 " let g:wiki_filetypes = ['wiki', 'adoc']
+
+" get backlinks
+function! s:markdown_backlinks()
+  call fzf#vim#grep(
+    \ "rg --column --line-number --no-heading --color=always --smart-case ".expand('%'), 1,
+    \ fzf#vim#with_preview('right:50%:hidden', '?'), 0)
+endfunction
+command! Backlinks call s:markdown_backlinks()
+
+" copy to f buffer
+" paste with "fp or <c-r>f
+function! s:copy_filename_as_mdlink()
+  let fname=expand("%")
+  let @f="[[" . expand("#") . "]]"
+endfunction
+autocmd BufLeave * call s:copy_filename_as_mdlink()
