@@ -88,6 +88,9 @@ set wildignore+=*.o,*.obj,.git,*.pyc
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 
+set viminfo='100,<50,s2048,h
+set history=10000
+
 " highlight search
 set hlsearch
 "highlight code longer than 88
