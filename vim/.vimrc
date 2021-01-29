@@ -281,11 +281,17 @@ let wiki_1.auto_toc = 1
 
 let wiki_2 = {}
 let wiki_2.path = '~/mnt/private/vimwiki/'
-let wiki_2.path_html = '~/vimwiki/std/html'
+let wiki_2.path_html = '~/mnt/private/vimwiki/html'
 let wiki_2.auto_tags= 1
 let wiki_2.auto_toc = 1
 
-let g:vimwiki_list = [wiki_1, wiki_2]
+let wiki_3 = {}
+let wiki_3.path = '~/mnt/private/zettelkasten/'
+let wiki_3.path_html = '~/mnt/private/zettelkasten/html'
+let wiki_3.auto_tags= 1
+let wiki_3.auto_toc = 0
+
+let g:vimwiki_list = [wiki_1, wiki_2, wiki_3]
 
 " let g:wiki_root = '~/wiki'
 " let g:wiki_link_target_type = 'adoc'
@@ -307,3 +313,7 @@ function! s:copy_filename_as_mdlink()
   let @f="[[" . expand("#") . "]]"
 endfunction
 autocmd BufLeave * call s:copy_filename_as_mdlink()
+
+command! DateIsoShort :r!date '+\%FT\%H\%M\%S'
+command! DateIso :r!date --iso-8601=seconds
+command! ClearSearch let @/=''
