@@ -6,7 +6,11 @@ alias browser="firefox"
 alias sage_gui="sage -c 'notebook(automatic_login=True)'"
 alias alarm="run.sh -n -q -- mplayer $BEEP"
 alias pdfviewer="zathura"
-alias pdfannotator="xournal"
+alias pdfannotator="xournalpp"
+alias mindmap="freeplane"
+alias mind="freeplane"
+alias webcamrecorder="guvcview"
+alias webcammirror="vlc v4l2:// :input-slave=alsa:// :v4l-vdev='/dev/video0'"
 
 ################################################################################
 # web
@@ -35,8 +39,6 @@ alias echoerr=">&2 echo"
 alias transde="trans en:de"
 alias transen="trans de:en"
 alias transru="trans de:ru"
-alias mindmap="freeplane"
-alias mind="freeplane"
 alias youtube-dl_best="youtube-dl -f ('bestvideo[width>=1920]'/bestvideo)+bestaudio/best"
 alias p=$PAGER
 
@@ -49,5 +51,4 @@ alias r=run.sh
 alias rq="run.sh -q -n --"
 alias rterm="run.sh -q -n -- alacritty"
 alias rshell=rterm
-alias runterm=rterm
 alias runshell=runterm
