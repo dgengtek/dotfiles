@@ -264,6 +264,7 @@ augroup END
 
 
 " vimwiki
+let g:vimwiki_global_ext = 0 
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_hl_cb_checked = 1
 let g:vimwiki_url_maxsave = 40
@@ -297,6 +298,7 @@ let g:vimwiki_list = [wiki_1, wiki_2, wiki_3]
 " let g:wiki_link_target_type = 'adoc'
 " let g:wiki_link_extension = '.adoc'
 " let g:wiki_filetypes = ['wiki', 'adoc']
+" let g:wiki_mappings_use_defaults = 'local'
 
 " get backlinks
 function! s:markdown_backlinks()
