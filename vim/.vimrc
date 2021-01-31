@@ -168,7 +168,7 @@ set statusline+=%*
 " PlugSnapshot[!] [output path] 	Generate script for restoring the current snapshot of the plugins
 call plug#begin('~/.vim/plugged')
   Plug 'vimwiki/vimwiki'
-  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdcommenter'
   Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-surround'
@@ -190,7 +190,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'https://github.com/fatih/vim-go'
   Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'stephpy/vim-yaml'
-  " Plug 'lervag/wiki.vim'
+  Plug 'lervag/wiki.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -294,11 +294,11 @@ let wiki_3.auto_toc = 0
 
 let g:vimwiki_list = [wiki_1, wiki_2, wiki_3]
 
-" let g:wiki_root = '~/wiki'
-" let g:wiki_link_target_type = 'adoc'
-" let g:wiki_link_extension = '.adoc'
-" let g:wiki_filetypes = ['wiki', 'adoc']
-" let g:wiki_mappings_use_defaults = 'local'
+let g:wiki_root = '~/wiki'
+let g:wiki_link_target_type = 'adoc'
+let g:wiki_link_extension = '.adoc'
+let g:wiki_filetypes = ['adoc']
+let g:wiki_mappings_use_defaults = 'local'
 
 " get backlinks
 function! s:markdown_backlinks()
