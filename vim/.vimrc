@@ -306,7 +306,7 @@ command! Backlinks call s:markdown_backlinks()
 " paste with "fp or <c-r>f
 autocmd BufLeave * let @f=expand('#')
 
-command! DateIsoShort :r!date '+\%Y%m%dT\%H\%M\%S'
+command! DateIsoShort :r!date '+\%Y\%m\%dT\%H\%M\%S'
 command! DateIso :r!date --iso-8601=seconds
 command! ClearSearch let @/=''
 
