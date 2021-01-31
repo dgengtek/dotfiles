@@ -286,13 +286,7 @@ let wiki_2.path_html = '~/mnt/private/vimwiki/html'
 let wiki_2.auto_tags= 1
 let wiki_2.auto_toc = 1
 
-let wiki_3 = {}
-let wiki_3.path = '~/mnt/private/zettelkasten/'
-let wiki_3.path_html = '~/mnt/private/zettelkasten/html'
-let wiki_3.auto_tags= 1
-let wiki_3.auto_toc = 0
-
-let g:vimwiki_list = [wiki_1, wiki_2, wiki_3]
+let g:vimwiki_list = [wiki_1, wiki_2]
 
 let g:wiki_root = '~/wiki'
 let g:wiki_link_target_type = 'adoc'
@@ -303,19 +297,25 @@ let g:wiki_mappings_use_defaults = 'local'
 " get backlinks
 function! s:markdown_backlinks()
   call fzf#vim#grep(
-    \ "rg --column --line-number --no-heading --color=always --smart-case ".expand('%'), 1,
+    \ "rg --column --line-number --no-heading --color=always --smart-case " . @% , 1,
     \ fzf#vim#with_preview('right:50%:hidden', '?'), 0)
 endfunction
 command! Backlinks call s:markdown_backlinks()
 
 " copy to f buffer
 " paste with "fp or <c-r>f
-function! s:copy_filename_as_mdlink()
-  let fname=expand("%")
-  let @f="[[" . expand("#") . "]]"
-endfunction
-autocmd BufLeave * call s:copy_filename_as_mdlink()
+autocmd BufLeave * let @f=expand('#')
 
-command! DateIsoShort :r!date '+\%FT\%H\%M\%S'
+command! DateIsoShort :r!date '+\%Y%m%dT\%H\%M\%S'
 command! DateIso :r!date --iso-8601=seconds
 command! ClearSearch let @/=''
+
+" capture output of a vim command
+function! Exec(command)
+    redir =>output
+    silent exec a:command
+    redir END
+    return output
+endfunction
+
+command! ZettelNeu :DateIsoShort
