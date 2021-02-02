@@ -170,7 +170,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'vimwiki/vimwiki'
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdcommenter'
-  Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-surround'
   Plug 'Chiel92/vim-autoformat'
   Plug 'Valloric/YouCompleteMe'
@@ -235,10 +234,6 @@ nmap ,cs :let @*=expand("%")<CR>
 nmap ,cl :let @*=expand("%:p")<CR>
 
 
-if !empty(glob("~/.vim/plugged/nerdtree"))
-  nmap :E :NERDTreeToggle<CR>
-endif
-
 let g:ftplugin_sql_omni_key = '<Leader>sql'
 
 
@@ -301,6 +296,34 @@ function! s:markdown_backlinks()
     \ fzf#vim#with_preview('right:50%:hidden', '?'), 0)
 endfunction
 command! Backlinks call s:markdown_backlinks()
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" copy fzf window selection as window of selection
+function! s:copy_results(lines)
+  let joined_lines = join(a:lines, "\n")
+  if len(a:lines) > 1
+    let joined_lines .= "\n"
+  endif
+  let @+ = joined_lines
+endfunction
+
+" TODO: how to paste result without echoing
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-o': ':r !echo',
+  \ 'ctrl-n': function('s:copy_results'),
+  \ }
 
 " copy to f buffer
 " paste with "fp or <c-r>f
