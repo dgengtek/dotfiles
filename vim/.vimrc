@@ -221,6 +221,8 @@ let g:vimtex_quickfix_mode=0
 " rustfmt
 let g:autofmt_autosave = 1
 
+" syntastic
+let g:syntastic_asciidoc_asciidoc_exec = "asciidoctor"
 
 " mappings
 noremap <F3> :Autoformat<CR><CR>
@@ -289,13 +291,15 @@ let g:wiki_link_extension = '.adoc'
 let g:wiki_filetypes = ['adoc']
 let g:wiki_mappings_use_defaults = 'local'
 
+
 " get backlinks
 function! s:markdown_backlinks()
   call fzf#vim#grep(
-    \ "rg --column --line-number --no-heading --color=always --smart-case " . @% , 1,
+    \ "rg --column --line-number --no-heading --color=always --smart-case " 
+    \ . expand('%:t') , 1,
     \ fzf#vim#with_preview('right:50%:hidden', '?'), 0)
 endfunction
-command! Backlinks call s:markdown_backlinks()
+
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
@@ -305,7 +309,6 @@ function! RipgrepFzf(query, fullscreen)
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " copy fzf window selection as window of selection
 function! s:copy_results(lines)
@@ -315,6 +318,16 @@ function! s:copy_results(lines)
   endif
   let @+ = joined_lines
 endfunction
+
+
+" capture output of a vim command
+function! Exec(command)
+    redir =>output
+    silent exec a:command
+    redir END
+    return output
+endfunction
+
 
 " TODO: how to paste result without echoing
 let g:fzf_action = {
@@ -329,16 +342,12 @@ let g:fzf_action = {
 " paste with "fp or <c-r>f
 autocmd BufLeave * let @f=expand('#')
 
+
+command! Backlinks call s:markdown_backlinks()
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang Tags call RipgrepFzf(':tags:.*' . <q-args>, <bang>0)
 command! DateIsoShort :r!date '+\%Y\%m\%dT\%H\%M\%S'
 command! DateIso :r!date --iso-8601=seconds
 command! ClearSearch let @/=''
-
-" capture output of a vim command
-function! Exec(command)
-    redir =>output
-    silent exec a:command
-    redir END
-    return output
-endfunction
-
+command! -range Canonize :<line1>,<line2>!canonize.sh
 command! ZettelNeu :DateIsoShort
