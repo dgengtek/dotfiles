@@ -5,9 +5,11 @@ snippet mbb "Latex math symbol"
 \mathbb{${1}}$0
 endsnippet
 
+
 snippet stems "asciimath stem single line"
 stem:[${1}] $0
 endsnippet
+
 
 snippet definition "asciimath definition"
 ${1}::
@@ -18,6 +20,7 @@ ${2}
 ${0}
 endsnippet
 
+
 snippet definitionla "asciimath definition loweralpha"
 ${1}::
 +
@@ -26,4 +29,30 @@ ${1}::
 . ${2}
 --
 ${0}
+endsnippet
+
+
+snippet zettelneu "Neuen Zetteln anlegen"
+= ${1}
+:toc:
+:version: 1.0
+:stem: latexmath
+:tags: tag1, tag2, othertag
+
+Short description: Content entered directly below the header but before the first section heading is called the preamble.
+
+[quote, firstname lastname, movie title]
+____
+____
+
+== Inhalt${0}
+=== Beschreibung
+=== Prämisse / Voraussetzung
+=== Schlussfolgerung
+To learn all about design patterns, refer to the book by the "`Gang of Four`" <<gof>>.
+
+[bibliography]
+== Verweise
+* [[[gof,gang]]] Erich Gamma, Richard Helm, Ralph Johnson & John Vlissides.
+Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. 1994.
 endsnippet
