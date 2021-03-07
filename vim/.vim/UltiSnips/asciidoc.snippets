@@ -12,7 +12,7 @@ endsnippet
 
 
 snippet definition "asciimath definition"
-${1}::
+${1:Definition}::
 +
 --
 ${2}
@@ -22,7 +22,7 @@ endsnippet
 
 
 snippet definitionla "asciimath definition loweralpha"
-${1}::
+${1:Definition}::
 +
 --
 [loweralpha]
@@ -32,27 +32,102 @@ ${0}
 endsnippet
 
 
-snippet zettelneu "Neuen Zetteln anlegen"
-= ${1}
+snippet zettelneu "Neuen Zetteln anlegen" b
+= ${1:Subject}
 :toc:
 :version: 1.0
 :stem: latexmath
-:tags: tag1, tag2, othertag
+:tags: ${2:tag1, tag2, othertag}
 
-Short description: Content entered directly below the header but before the first section heading is called the preamble.
+${3:Short description: Content entered directly below the header but before the first section heading is called the preamble.}
 
-[quote, firstname lastname, movie title]
-____
-____
+// [quote, firstname lastname, movie title]
+// ____
+// I am a block quote or a prose excerpt.
+// I am subject to normal substitutions.
+// ____
 
 == Inhalt${0}
 === Beschreibung
+_The Pragmatic Programmer_ <<l2>> should be required reading for all developers.
+
 === Prämisse / Voraussetzung
 === Schlussfolgerung
-To learn all about design patterns, refer to the book by the "`Gang of Four`" <<gof>>.
+
+To learn all about design patterns, refer to the book by the "`Gang of Four`" <<l1>>.
+
+More at <<l3>>
 
 [bibliography]
 == Verweise
-* [[[gof,gang]]] Erich Gamma, Richard Helm, Ralph Johnson & John Vlissides.
-Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. 1994.
+
+[frame=none,grid=none,cols="2*"]
+|===
+|[[l1]] Gamma, E. et al.: 
+|"Design Patterns: Elements of Reusable Object-Oriented Software". +
+Addison-Wesley, 1994.
+
+|[[l2]] Hunt, A.; +
+Thomas, D.:
+|"The Pragmatic Programmer: From Journeyman to Master". +
+Addison-Wesley, 1999.
+
+|[[l3]] <Herausgeber lt. Impressum Jahr, S.x>: 
+| https://www.google.de
+
+|===
+endsnippet
+
+
+snippet feynman "Explain what your understanding of the topic" b
+= ${1:Idea or process you want to understand}
+:toc:
+:version: 1.0
+:stem: latexmath
+:tags: ${2:tag1, tag2, othertag}
+
+== Inhalt${0}
+[qanda]
+Why is it called this way?::
+Answer
+
+Why is it useful? What is the purpose?::
+Answer
+
+What does it do?::
+Answer
+
+How does it work?::
+Answer
+
+Why?::
+Answer
+
+Explain the ideas as if you were teaching it to someone else more here.
+
+To learn all about design patterns, refer to the book by the "`Gang of Four`" <<l1>>.
+
+More at <<l3>>
+
+Add media
+
+image::sunset.jpg[Sunset]
+image::https://asciidoctor.org/images/octocat.jpg[GitHub mascot]
+video::video_file.mp4[]
+
+Add a link https://google.de[Google reference]
+
+[bibliography]
+== Verweise
+
+[frame=none,grid=none,cols="2*"]
+|===
+|[[l1]] Gamma, E. et al.: 
+|"Design Patterns: Elements of Reusable Object-Oriented Software". +
+Addison-Wesley, 1994.
+
+|[[l3]] <Herausgeber lt. Impressum Jahr, S.x>: 
+| https://www.google.de
+
+|===
 endsnippet
