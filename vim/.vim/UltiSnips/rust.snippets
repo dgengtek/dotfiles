@@ -12,69 +12,69 @@ endsnippet
 
 snippet if "if ... (if)"
 if (${1:condition}) {
-	${VISUAL}${2:${VISUAL/(.*)//}}
+  ${VISUAL}${2:${VISUAL/(.*)//}}
 } ${0}
 endsnippet
 
 snippet elif "else if ... (elif)"
 else if (${1:condition}) {
-	${VISUAL}${2:${VISUAL/(.*)//}}
+  ${VISUAL}${2:${VISUAL/(.*)//}}
 } ${0}
 endsnippet
 
 snippet else "else ... (else)"
 else {
-	${VISUAL}${1:${VISUAL/(.*)//}}
+  ${VISUAL}${1:${VISUAL/(.*)//}}
 } ${0}
 endsnippet
 
 snippet fn "fn ... () { ... } (fn)"
 fn ${1:name}(${2:parameters})${VISUAL} {
-	${0}
+  ${0}
 }
 endsnippet
 
 snippet fn-> "fn ... () -> ... { ... } (fn)"
 fn ${1:name}(${2:parameters}) -> ${VISUAL}${3:${VISUAL/(.*)/i32/}} {
-	${0}
+  ${0}
 }
 endsnippet
 
 snippet struct "struct ... (struct)"
 struct ${1:name} {
-	${0}
+  ${0}
 }
 endsnippet
 
 snippet enum "enum ... (enum)"
 enum ${1:name} {
-	${0}
+  ${0}
 }
 endsnippet
 
 snippet match "match ... (match)"
 match ${1:expression} {
-	${2:pattern} => ${3:expression},
-	${4:pattern} => ${5:expression},
-	${VISUAL}${6:${VISUAL/(.*)/_/}} => ${0:expression},
+  ${2:pattern} => ${3:expression},
+  ${4:pattern} => ${5:expression},
+  ${VISUAL}${6:${VISUAL/(.*)/_/}} => ${0:expression},
 }
 endsnippet
 
 snippet for "for ... (for)"
 for ${1:iterater} in ${2:expression} {
-	${0}
+  ${0}
 }
 endsnippet
 
 snippet forr "for x in range(0, 10) ... (forr)"
 for ${VISUAL}${1:${VISUAL/(.*)/x/}} in range(${VISUAL}${2:${VISUAL/(.*)/0/}}, ${VISUAL}${3:${VISUAL/(.*)/10/}}) {
-	${0}
+  ${0}
 }
 endsnippet
 
 snippet while "while ... (while)"
 while ${1:condition} {
-	${0}
+  ${0}
 }
 endsnippet
 
@@ -88,7 +88,6 @@ endsnippet
 
 snippet mod "mod ... (mod)"
 mod ${1:name} {
-	${0}
+  ${0}
 }
 endsnippet
-
