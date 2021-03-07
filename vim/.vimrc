@@ -11,10 +11,6 @@ if has("syntax")
   syntax on                      
 endif
 
-let g:ycm_server_python_interpreter = '/usr/bin/python3'
-
-" sudo overwrite file
-cmap w!! w !sudo tee > /dev/null %
 
 set backupskip+=test,tmp,temp
 
@@ -91,27 +87,16 @@ set wildignore+=*.egg-info/**
 set viminfo='100,<50,s2048,h
 set history=10000
 
+set statusline=%f "tail of the filename
+set statusline+=%#warningmsg#
+set statusline+=%*
+
 " highlight search
 set hlsearch
 "highlight code longer than 88
 highlight OverLength term=bold ctermbg=blue ctermfg=white guibg=blue
 highlight StatusLineNC cterm=bold ctermfg=white ctermbg=darkgray
 match OverLength /\%89v.\+/
-
-
-" Damian Conway's Die Blinkënmatchen: highlight matches
-nnoremap <silent> n n:call HLNext(0.1)<cr>
-nnoremap <silent> N N:call HLNext(0.1)<cr>
-
-function! HLNext (blinktime)
-  let target_pat = '\c\%#'.@/
-  let ring = matchadd('ErrorMsg', target_pat, 101)
-  redraw
-  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-  call matchdelete(ring)
-  redraw
-endfunction
-
 
 set pastetoggle=<F10>
 
@@ -148,10 +133,6 @@ au BufRead,BufNewFile *.csv,*.dat setfiletype csv
 au BufRead,BufNewFile *.anki_vim setfiletype anki_vim
 au BufRead,BufNewFile justfile setfiletype make
 
-
-set statusline=%f "tail of the filename
-set statusline+=%#warningmsg#
-set statusline+=%*
 
 " https://github.com/junegunn/vim-plug
 " Specify a directory for plugins
@@ -224,41 +205,13 @@ let g:autofmt_autosave = 1
 " syntastic
 let g:syntastic_asciidoc_asciidoc_exec = "asciidoctor"
 
-" mappings
-noremap <F3> :Autoformat<CR><CR>
-nnoremap <F5> :!%:p<CR>
-" select from buffers
-nnoremap <F9> :buffers<CR>:buffer<Space>
-" stop cr
-vnoremap // y/<C-R>"<CR>
-
-nmap ,cs :let @*=expand("%")<CR>
-nmap ,cl :let @*=expand("%:p")<CR>
+" ycm
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
+let g:ycm_auto_hover = ''
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 
 let g:ftplugin_sql_omni_key = '<Leader>sql'
-
-
-set modeline
-" Append modeline after last line in buffer.
-" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
-" files.
-function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-  call append(line("$"), l:modeline)
-endfunction
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-
-
-" No need for relative numbers in background windows
-augroup BgHighlight
-  autocmd!
-  autocmd WinEnter * set relativenumber
-  autocmd WinLeave * set norelativenumber
-augroup END
-
 
 " vimwiki
 let g:vimwiki_global_ext = 0 
@@ -285,11 +238,42 @@ let wiki_2.auto_toc = 1
 
 let g:vimwiki_list = [wiki_1, wiki_2]
 
+" wiki
 let g:wiki_root = '~/wiki'
 let g:wiki_link_target_type = 'adoc'
 let g:wiki_link_extension = '.adoc'
 let g:wiki_filetypes = ['adoc']
 let g:wiki_mappings_use_defaults = 'local'
+
+
+function! HLNext (blinktime)
+  let target_pat = '\c\%#'.@/
+  let ring = matchadd('ErrorMsg', target_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction
+
+set modeline
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+
+" No need for relative numbers in background windows
+augroup BgHighlight
+  autocmd!
+  autocmd WinEnter * set relativenumber
+  autocmd WinLeave * set norelativenumber
+augroup END
 
 
 " get backlinks
@@ -351,3 +335,23 @@ command! DateIso :r!date --iso-8601=seconds
 command! ClearSearch let @/=''
 command! -range Canonize :<line1>,<line2>!canonize.sh
 command! ZettelNeu :DateIsoShort
+
+
+" mappings
+noremap <F3> :Autoformat<CR><CR>
+nnoremap <F8> :!%:p<CR>
+" select from buffers
+nnoremap <F9> :buffers<CR>:buffer<Space>
+" stop cr
+vnoremap // y/<C-R>"<CR>
+
+" Damian Conway's Die Blinkënmatchen: highlight matches
+nnoremap <silent> n n:call HLNext(0.1)<cr>
+nnoremap <silent> N N:call HLNext(0.1)<cr>
+
+" sudo overwrite file
+cmap w!! w !sudo tee > /dev/null %
+
+" TODO: check git history why I added this?
+" nmap ,cs :let @*=expand("%")<CR>
+" nmap ,cl :let @*=expand("%:p")<CR>
