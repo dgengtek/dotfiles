@@ -154,14 +154,14 @@ f_change_directory_depth_hidden() {
 alias f_cddh=f_change_directory_hidden
 
 
-f_cddh1() {
+f_cdh1() {
   local topath=$1
   shift
   f_change_directory_depth_hidden "$topath" 0 1 "$@"
 }
 
 
-f_cddh2() {
+f_cdh2() {
   local topath=$1
   shift
   f_change_directory_depth_hidden "$topath" 0 2 "$@"
