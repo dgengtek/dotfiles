@@ -192,7 +192,7 @@ set $screen1 DVI-D-0
 set $ws01 "1:shells"
 set $ws02 "2:surf"
 set $ws03 "3:priv"
-set $ws04 "4:dev"
+set $ws04 "4:work"
 set $ws05 "5:media"
 set $ws06 "6:etc"
 set $ws07 "7:i3spawn"
