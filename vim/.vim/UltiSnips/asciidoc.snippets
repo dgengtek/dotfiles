@@ -1,8 +1,21 @@
+extends latex
 
-priority -50
+priority -49
 
-snippet mbb "Latex math symbol"
-\mathbb{${1}}$0
+snippet header "asciidoc header" b
+= ${1:AsciiDoc Article Title}
+Firstname Lastname <author@asciidoctor.org>
+3.0, July 29, 2022, AsciiDoc article template
+:toc:
+:sectnums:
+:stem: latexmath
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+Content entered directly below the header but before the first section heading is called the preamble.
+$0
+
+== First level heading
 endsnippet
 
 
@@ -11,7 +24,101 @@ stem:[${1}] $0
 endsnippet
 
 
-snippet definition "asciimath definition"
+snippet ref "asciidoc anchor reference"
+<<${1:${VISUAL}}#${2:Header Anchor},${3:Name of reference}>> $0
+endsnippet
+
+
+snippet link "asciidoc link macro"
+link:${1:${VISUAL}}[${2:Google reference}] $0
+endsnippet
+
+
+snippet linkimage "asciidoc link image"
+image::${1:sunset.jpg}[${2:Sunset}] $0
+endsnippet
+
+
+snippet linkvideo "asciidoc link video"
+video::${1:video_file.mp4}[${2:Description}] $0
+endsnippet
+
+
+snippet blockopen "asciidoc open block" b
+--
+$0
+An open block can be an anonymous container,
+or it can masquerade as any other block.
+--
+endsnippet
+
+
+snippet blocksource "asciidoc open block" b
+[source]
+--
+$0
+puts "I'm a source block!"
+--
+endsnippet
+
+
+snippet blockpass "asciidoc passthrough block" b
+++++
+$0
+<p>
+Content in a passthrough block is passed to the output unprocessed.
+That means you can include raw HTML, like this embedded Gist:
+</p>
+
+<script src="https://gist.github.com/mojavelinux/5333524.js">
+</script>
+++++
+endsnippet
+
+
+snippet blockpassthroughstem "asciidoc passthrough stem block" b
+[stem]
+++++
+${1:a * a * \dots * a = a^n}
+$0
+++++
+endsnippet
+
+
+snippet pagebreak "asciidoc pagebreak" b
+<<<
+endsnippet
+
+
+snippet horizontalrule "asciidoc horizontel ruler" b
+'''
+endsnippet
+
+
+snippet table "asciidoc table" b
+.${1:Table title}
+|===
+$0
+|Column heading 1 |Column heading 2
+
+|Column 1, row 1
+|Column 2, row 1
+
+|Column 1, row 2
+|Column 2, row 2
+|===
+endsnippet
+
+
+snippet definition "asciimath definition" b
+${1:Definition}::
+${2:Answer}
+
+${0}
+endsnippet
+
+
+snippet definitionblock "asciimath definition" b
 ${1:Definition}::
 +
 --
@@ -21,7 +128,7 @@ ${0}
 endsnippet
 
 
-snippet definitionla "asciimath definition loweralpha"
+snippet definitionla "asciimath definition loweralpha" b
 ${1:Definition}::
 +
 --
@@ -29,6 +136,47 @@ ${1:Definition}::
 . ${2}
 --
 ${0}
+endsnippet
+
+
+snippet quote "asciidoc quote" b
+[quote, ${1:firstname lastname, movie title}]
+____
+${2:I am a block quote or a prose excerpt.I am subject to normal substitutions.}
+____
+${0}
+
+endsnippet
+
+
+snippet qanda "asciidoc question and answer" b
+[qanda]
+${1:What is it?}::
+${2:Answer}
+
+${0}
+endsnippet
+
+
+snippet bib "asciidoc bibliography" b
+[bibliography]
+== Verweise
+
+[frame=none,grid=none,cols="2*"]
+|===
+|[[l1]] Gamma, E. et al.: 
+|"Design Patterns: Elements of Reusable Object-Oriented Software". +
+Addison-Wesley, 1994.
+
+$0
+|===
+endsnippet
+
+
+snippet bibentry "asciidoc bibliography" b
+|${1:[[l1]] Gamma, E. et al.}:
+|${2:"Design Patterns: Elements of Reusable Object-Oriented Software".} +
+${3:Addison-Wesley, 1994.}
 endsnippet
 
 
@@ -88,6 +236,9 @@ snippet feynman "Explain what your understanding of the topic" b
 
 == Inhalt${0}
 [qanda]
+What is it?::
+Answer
+
 Why is it called this way?::
 Answer
 
