@@ -229,7 +229,7 @@ check_dependencies() {
 install_plugins() {
   (($flag_install_vim_plugins)) && install_vim_plugins
   (($flag_install_ycm)) && install_ycm
-  install_python_packages
+  # install_python_packages
   install_tmux_plugins
 }
 
