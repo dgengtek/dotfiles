@@ -244,6 +244,7 @@ let g:wiki_link_target_type = 'adoc'
 let g:wiki_link_extension = '.adoc'
 let g:wiki_filetypes = ['adoc']
 let g:wiki_mappings_use_defaults = 'local'
+let g:wiki_write_on_nav = 1
 
 
 function! HLNext (blinktime)
@@ -332,6 +333,7 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 command! -nargs=* -bang Tags call RipgrepFzf(':tags:.*' . <q-args>, <bang>0)
 command! DateIsoShort :r!date '+\%Y\%m\%dT\%H\%M\%S'
 command! DateIso :r!date --iso-8601=seconds
+command! -range FormatKomma :<line1>,<line2>s/,[ ]*/, /g
 command! ClearSearch let @/=''
 command! -range Canonize :<line1>,<line2>!canonize.sh
 command! ZettelNeu :DateIsoShort
