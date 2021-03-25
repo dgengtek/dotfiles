@@ -1,0 +1,17 @@
+[Added Associations]
+application/octet-stream=gvim.desktop;
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;
+text/plain=gvim.desktop;
+application/x-mobipocket-ebook=com.github.johnfactotum.Foliate.desktop;
+image/jpeg=imv.desktop;
+video/H264=vlc.desktop;
+[Default Applications]
+image/jpeg=imv.desktop;
+image/png=imv.desktop;
+video/H264=vlc.desktop;
+text/plain=gvim.desktop;
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+application/djvu=com.github.johnfactotum.Foliate.desktop;
+application/mobi=com.github.johnfactotum.Foliate.desktop;
+application/epub=com.github.johnfactotum.Foliate.desktop;
