@@ -152,11 +152,11 @@ report.mailr.sort=urgency-,due+
 # default report
 report.next.columns=id,project,context,state,description.count,outcome,urgency
 report.next.labels=ID,Project,Context,State,Description,Outcome,U
-report.next.filter=status:pending and ( ( state:nextaction and project:"" ) or state:proj or state:await ) limit:page -BLOCKED
+report.next.filter=status:pending ((state:'nextaction' and project:'') or state:'proj' or state:'await') limit:page -BLOCKED
 
 report.decide.columns=id,priority,value,effort,project,context,state,description,outcome
 report.decide.labels=ID,Priority,Value,Effort,Project,Context,State,Description,Outcome
-report.decide.filter=status:pending and state.not:proj and state.not:maybe limit:page
+report.decide.filter=status:pending and state.not:'proj' and state.not:'maybe' limit:page
 report.decide.sort=urgency-
 
 report.maybe.columns=id,priority,project,context,description.count,outcome
