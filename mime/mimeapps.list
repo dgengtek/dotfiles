@@ -1,17 +1,23 @@
 [Added Associations]
+application/epub+zip=com.github.johnfactotum.Foliate.desktop;
+application/octet-stream=com.github.johnfactotum.Foliate.desktop;
 application/octet-stream=gvim.desktop;
 application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;
-text/plain=gvim.desktop;
 application/x-mobipocket-ebook=com.github.johnfactotum.Foliate.desktop;
 image/jpeg=imv.desktop;
+image/png=imv.desktop;
+image/vnd.djvu=org.pwmt.zathura-djvu.desktop;
+text/plain=gvim.desktop;
 video/H264=vlc.desktop;
+
 [Default Applications]
+application/epub+zip=com.github.johnfactotum.Foliate.desktop;
+application/octet-stream=com.github.johnfactotum.Foliate.desktop;
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+application/x-mobipocket-ebook=com.github.johnfactotum.Foliate.desktop;
 image/jpeg=imv.desktop;
 image/png=imv.desktop;
-video/H264=vlc.desktop;
+image/vnd.djvu=org.pwmt.zathura-djvu.desktop;
 text/plain=gvim.desktop;
-application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
-application/djvu=com.github.johnfactotum.Foliate.desktop;
-application/mobi=com.github.johnfactotum.Foliate.desktop;
-application/epub=com.github.johnfactotum.Foliate.desktop;
+video/H264=vlc.desktop;
