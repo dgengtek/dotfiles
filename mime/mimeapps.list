@@ -9,8 +9,10 @@ image/jpeg=imv.desktop;
 image/png=imv.desktop;
 image/vnd.djvu=org.pwmt.zathura-djvu.desktop;
 text/plain=gvim.desktop;
+text/plain=vim.desktop;
 video/H264=vlc.desktop;
 
+# /usr/share/applications, /usr/share/mime/packages/
 [Default Applications]
 application/epub+zip=com.github.johnfactotum.Foliate.desktop;
 application/octet-stream=com.github.johnfactotum.Foliate.desktop;
@@ -19,5 +21,5 @@ application/x-mobipocket-ebook=com.github.johnfactotum.Foliate.desktop;
 image/jpeg=imv.desktop;
 image/png=imv.desktop;
 image/vnd.djvu=org.pwmt.zathura-djvu.desktop;
-text/plain=gvim.desktop;
+text/plain=vim.desktop;
 video/H264=vlc.desktop;
