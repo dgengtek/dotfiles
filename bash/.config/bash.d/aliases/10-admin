@@ -110,6 +110,7 @@ alias toptemp="hash /usr/bin/sensors && watch -n 1 /usr/bin/sensors"
 # ------------------------------------------------------------------------------
 alias vi="vim"
 alias vimr="vim -R"
+alias view=vimr
 alias edit="vim"
 alias vimnoconfig="vim -u NONE"
 alias info="info --vi-keys"
