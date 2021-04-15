@@ -49,6 +49,9 @@ curl -sL "ipinfo.io/<ip>" | jq
 # Geolocation data for own IP
 curl -sL "ipinfo.io/<self_global_ip>" | jq
 
+# download to /dev/null
+wget -O /dev/null <url>
+
 # Launch a container with network utils
 docker run -it --entrypoint /bin/sh nicolaka/netshoot
 
