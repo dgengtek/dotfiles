@@ -2,3 +2,26 @@
 
 # regen keys
 ssh-keygen -t rsa -C "<email>"
+
+# Start ssh agent
+eval "$(ssh-agent -s)"; ssh-add
+
+# Enable password authentication
+sed -Ei "s/PasswordAuthentication.*/PasswordAuthentication true/g" "<sshd_config>"
+
+# Disable password authentication
+sed -Ei "s/PasswordAuthentication.*/PasswordAuthentication false/g" "<sshd_config>"
+
+# login to a server with a key
+ssh -i <sshkey> <user>@<server>
+
+# login to a server with a port
+ssh -p <port> <user>@<server>
+
+# login to a server with a key and port
+ssh -i <sshkey> -p <port> <user>@<server>
+
+$ user : echo -e "$(whoami)\nroot"
+$ sshkey : find ~/.ssh | grep -v known_hosts | grep -v config
+$ server : cat /etc/hosts | cut -f2 -d' '
+$ ssh_config: echo "${PREFIX}/etc/ssh/sshd_config"

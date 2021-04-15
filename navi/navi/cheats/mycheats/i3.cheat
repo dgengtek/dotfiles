@@ -1,0 +1,4 @@
+% i3, windowmanager
+
+# Get a json output of all windows in the current i3-wm session
+i3-msg -t get_tree | jq
