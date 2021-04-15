@@ -1,0 +1,7 @@
+% navi
+
+# use cheatsheets from tldr
+navi --tldr <query>
+
+# use cheatsheets from cheat.sh
+navi --cheatsh <query>
