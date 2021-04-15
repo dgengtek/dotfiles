@@ -1,0 +1,4 @@
+% text, encode, hex, base64
+
+# decode hex into base64
+echo "<hex>" | xxd -r -p | base64

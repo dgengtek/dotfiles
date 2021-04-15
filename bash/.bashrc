@@ -70,3 +70,10 @@ if hash starship; then
 else
  echo "Install starship to use custom prompt." >&2
 fi
+
+if hash navi; then
+ # ctrl+g
+ eval "$(navi widget bash)"
+else
+ echo "Install navi to use cheats." >&2
+fi

@@ -1,0 +1,4 @@
+% ssh
+
+# regen keys
+ssh-keygen -t rsa -C "<email>"

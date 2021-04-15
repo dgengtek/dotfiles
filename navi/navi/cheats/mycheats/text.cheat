@@ -1,0 +1,4 @@
+% awk, text
+
+# match second row
+cat <input_text> | awk '{if ($2=="<search_text>") {print $1,$2,$3} }' 

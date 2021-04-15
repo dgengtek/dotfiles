@@ -1,0 +1,22 @@
+% file, find, search, zip
+
+# find only in the current directory
+find . -maxdepth 1 -name "<name>"
+
+# find from current directory
+find . -name "<name>"
+
+# find file in the directory
+find <dir> -type f -follow -print
+
+# find files in the directory and zip all
+find <dir> -type f -follow -print | zip <ZipFileName> -@
+
+# find files in the directory and zip all files without directories
+find <dir> -type f -follow -print | zip -j <ZipFileName> -@
+
+# find files with specific name in the directory and zip all
+find <dir> -type f -name "<name>"  -follow -print | zip -@ <ZipFileName>  
+
+# find files with specific name in the directory and zip all files without directories
+find <dir> -type f -name "<name>"  -follow -print | zip -j -@ <ZipFileName>  

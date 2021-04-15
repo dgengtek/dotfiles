@@ -1,0 +1,16 @@
+% docker
+
+# docker show processes
+docker ps -a
+
+# docker list images
+docker image ls
+
+# docker remove container
+docker container rm <CONTAINER_ID>
+
+# docker remove image
+docker image rm <IMAGE_ID>
+
+# docker exec interactive bash shell in container
+docker -it exec <CONTAINER_ID> bash
