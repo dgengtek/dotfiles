@@ -1,4 +1,4 @@
 % admin
 
-# zero all available space with dd
-dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M && rm -fv <directory_to_zero>/ZEROED
+# zero all available space with dd and remove after
+dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
