@@ -7,7 +7,7 @@ dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero
 : "data will be lost"; blkdiscard <device>
 
 # create a squashfs from a device
-mksquashfs empty-dir <squashoutput>.img -comp <comp> -p '<device_name>_backup.img f 444 root root dd if=<device> bs=1M'
+mkdir empty-dir; mksquashfs empty-dir <squashoutput>.img -comp <comp> -p '<device_name>_backup.img f 444 root root dd if=<device> bs=1M'; rmdir empty-dir
 
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
