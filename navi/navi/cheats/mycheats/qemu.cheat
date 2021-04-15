@@ -6,6 +6,9 @@ qemu-img convert -O <image_format> <input_image> <output_image_name>.<image_form
 # run x86_64 qemu disk device
 qemu-system-x86_64 <arg_snapshot> -enable-kvm -cpu host <arg_vga> -m <standard_memory> -drive file=<disk>,format=<image_format>,index=0,media=disk
 
+# run x86_64 qemu disk device with bootable iso
+qemu-system-x86_64 <arg_snapshot> -enable-kvm -cpu host <arg_vga> -m <standard_memory> -drive file=<disk>,format=<image_format>,index=0,media=disk -cdrom <iso_image> -boot once=d
+
 # run nographic serial output and override kernel and initrd
 qemu-system-x86_64 -enable-kvm -cpu host -nographic -serial stdio -kernel <kernelfile> -initrd <initrdfile> -append 'serial=ttyS0 noquiet' -m <memory> -hda <disk_device>
 
@@ -17,3 +20,4 @@ $ arg_vga: echo -e '-vga qxl,-nographic,-vga std' | tr ',' '\n'
 $ arg_snapshot: echo -e '-snapshot\n'
 $ disk_device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
 $ disk: { find /dev -mindepth 1 -maxdepth 1 -name 'sd*'; find . -maxdepth 1 -type f; }
+$ iso_image: find . -maxdepth 1 -type f
