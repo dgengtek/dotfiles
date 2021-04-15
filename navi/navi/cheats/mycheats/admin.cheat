@@ -1,10 +1,10 @@
-% admin
+% admin, squashfs, backup, image
 
 # zero all available space with dd and remove after
 dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
 
-
-% squashfs
+# trim an entire SSD device, all data on device will be lost!
+: "data will be lost"; blkdiscard <device>
 
 # create a squashfs from a device
 mksquashfs empty-dir <squashoutput>.img -comp <comp> -p '<squashoutput>_backup.img f 444 root root dd if=<device> bs=4M'
