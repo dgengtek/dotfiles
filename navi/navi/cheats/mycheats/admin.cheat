@@ -1,0 +1,4 @@
+% admin
+
+# zero all available space with dd
+dd if=/dev/zero of=<zeroed_destination> bs=1M
