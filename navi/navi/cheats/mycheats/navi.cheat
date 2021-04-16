@@ -5,3 +5,9 @@ navi --tldr <query>
 
 # use cheatsheets from cheat.sh
 navi --cheatsh <query>
+
+# filter by cheats path only
+navi -p <prefix_cheats>/<cheats>
+
+$ prefix_cheats: echo "$HOME/.local/share/navi/cheats"
+$ cheats: fd --type f --follow --base-directory <prefix_cheats> . 

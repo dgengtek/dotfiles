@@ -12,3 +12,9 @@ mkdir empty-dir; mksquashfs empty-dir <squashoutput>.squashfs -comp <comp> -p '<
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
 $ device_name: basename "<device>"
+
+
+% machine, host
+
+# print system information
+uname -a

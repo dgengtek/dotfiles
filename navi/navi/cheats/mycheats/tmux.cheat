@@ -1,0 +1,4 @@
+% tmux
+
+# load tmuxp defined session
+tmuxp_load_session.sh
