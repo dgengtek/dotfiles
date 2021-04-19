@@ -337,6 +337,8 @@ command! -range FormatKomma :<line1>,<line2>s/,[ ]*/, /g
 command! ClearSearch let @/=''
 command! -range Canonize :<line1>,<line2>!canonize.sh
 command! ZettelNeu :DateIsoShort
+command! IDDate :DateIsoShort
+command! UUID :r!uuidgen
 
 
 " mappings
