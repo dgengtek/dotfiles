@@ -1,0 +1,8 @@
+% lxc
+
+
+# run bash shell in container
+lxc exec <lxd_container> bash
+
+
+$ lxd_container: lxc ls --format json | jq -r '.[].name'

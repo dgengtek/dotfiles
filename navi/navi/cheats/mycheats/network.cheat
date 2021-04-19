@@ -40,9 +40,6 @@ ifconfig \
   | grep -v '127.0.0.1' \
   | tail -n1
 
-# Get certificates for a service
-openssl s_client -showcerts -connect <url>
-
 # Geolocation data given an IP
 curl -sL "ipinfo.io/<ip>" | jq
 

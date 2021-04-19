@@ -65,15 +65,14 @@ openssl rsa -noout -modulus -in <INPUT_KEY> | openssl md5
 openssl req -noout -modulus -in <INPUT_CSR> | openssl md5
 
 # Display the server certificate chain
-openssl s_client -connect <URL>:<PORT>
+openssl s_client -showcerts -connect <URL>:<PORT>
 
 # Download service certificate
 echo | \
   openssl s_client -servername <DOMAIN> -connect <URL>:<PORT> 2>/dev/null | \
-  openssl x509 -text | \
-  less
+  openssl x509 -text | less
 
-
+$ URL: if [[ '<DOMAIN>' != '' ]]; then echo -e '<DOMAIN>\n'; fi
 # Sensible/common default alternatives
 $ VALIDITY: printf "DAYS\tCOMMENT\n1\ta day\n30\ta month\n365\ta year\n730\ttwo years" --- --column 1 --headers 1
 $ RSA_LENGTH: printf "KEY LENGTH\tCOMMENT\n2048\t\tDefault\n4096\t\tBetter\n8192\t\tSlow?" --- --column 1 --headers 1
