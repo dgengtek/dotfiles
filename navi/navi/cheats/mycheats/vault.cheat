@@ -1,0 +1,34 @@
+% vault, pki
+# submit CA information for the backend via a PEM file containing the CA private key and its certificate concatenated
+jq -Rs '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>)) | curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request POST \
+  --data - \
+  ${VAULT_ADDR}/v1/pki/config/ca
+
+
+# list current pki certificates by serial number
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request POST \
+  --data - \
+  ${VAULT_ADDR}/v1/pki/certs
+
+
+# read a certificate
+curl \
+  ${VAULT_ADDR}/v1/pki/cert/<serial>
+
+# unauthenticated, get CA certificate in raw PEM format
+curl \
+  ${VAULT_ADDR}/v1/pki/ca/pem
+
+# unauthenticated, get CA certificate chain, including CA in PEM format
+curl \
+  ${VAULT_ADDR}/v1/pki/ca_chain
+
+# unauthenticated, get CRL in pem
+curl \
+  ${VAULT_ADDR}/v1/pki/crl/pem
+
+$ serial: echo -e 'serialnumber,ca,crl,ca_chain' | tr ',' '\n'

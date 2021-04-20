@@ -18,3 +18,9 @@ $ device_name: basename "<device>"
 
 # print system information
 uname -a
+
+
+% udiskctl
+@ admin, squashfs, backup, image
+# poweroff and eject device
+sudo udisksctl power-off -b <device>

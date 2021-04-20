@@ -1,4 +1,4 @@
-% gpg
+% gpg, gpg-agent
 
 # gpg version
 gpg --version
@@ -35,3 +35,9 @@ gpg --clearsign <filename>
 
 # detach signature
 gpg --output <filename_sig> --detach-sig <filename>
+
+# gpg agent reload
+gpg-connect-agent reloadagent /bye
+
+# gpg agent update tty
+gpg-connect-agent updatestartuptty /bye
