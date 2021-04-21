@@ -30,6 +30,9 @@ curl \
 curl \
   ${VAULT_ADDR}/v1/<pki_secrets_handler>/crl/pem
 
+# tidy up vault certificate store
+vault write pki_int/tidy tidy_cert_store=true tidy_revoked_certs=true
+
 
 $ serial: echo -e 'serialnumber,ca,crl,ca_chain' | tr ',' '\n'
 $ pki_secrets_handler: echo -e 'pki\n'
