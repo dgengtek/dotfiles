@@ -34,4 +34,4 @@ systemd-ask-password | tr -d '\n' | gpg --armor --batch --encrypt -r <benutzer> 
 % certificate
 
 # split a certificate chain into individual files
-awk 'split_after == 1 {n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".pem"}' < <file_certificate_chain>
+awk 'split_after == 1 {n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".crt"}' < <file_certificate_chain>
