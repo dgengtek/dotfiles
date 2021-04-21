@@ -30,5 +30,38 @@ curl \
 curl \
   ${VAULT_ADDR}/v1/<pki_secrets_handler>/crl/pem
 
+
 $ serial: echo -e 'serialnumber,ca,crl,ca_chain' | tr ',' '\n'
 $ pki_secrets_handler: echo -e 'pki\n'
+
+
+% vault, auth
+
+# get approle id
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/role-id
+
+# get approle secret id
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request POST \
+  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/secret-id
+
+# lookup approle secret id properties
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request POST \
+  --data '{"secret_id": "<vault_approle_secret_id>"}'
+  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/secret-id/lookup
+
+# destroy approle secret id
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request POST \
+  --data '{"secret_id": "<vault_approle_secret_id>"}'
+  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/secret-id/destroy
+
+% vault, login
+# get a vault token via ldap
+vault login -method=ldap username=$USER
