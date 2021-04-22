@@ -1,1 +1,36 @@
 % saltstack
+
+# sync fileserver
+sudo salt-run fileserver.update
+
+# sync all on salt-master
+sudo salt -G "tags:salt-master" saltutil.sync_all
+
+# sync all minions
+sudo salt --async "*" saltutil.sync_all
+
+
+# get a list of all hosts
+jq 'keys' <tags_of_hosts>
+
+# get a list of all tags
+jq 'keys' <hosts_to_tags>
+
+
+# sync specific tag
+sudo salt -G "tags:<all_tags>" saltutil.sync_all
+
+# highstate test specific tag
+sudo salt -G "tags:<all_tags>" state.highstate test=True
+
+# sync specific minion
+sudo salt "<all_hosts>" saltutil.sync_all
+
+
+$ file_tags_of_hosts: echo "$HOME/tmp_tags_of_hosts.json"
+$ tags_of_hosts: test -f <file_tags_of_hosts> || sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>
+$ all_hosts: jq -r 'keys | .[]' <tags_of_hosts>
+
+$ file_hosts_to_tags: echo "$HOME/tmp_hosts_to_tags.json"
+$ hosts_to_tags: test -f <file_hosts_to_tags> || sudo salt-run --out=json netbox.map_hosts_to_tags > <file_hosts_to_tags>
+$ all_tags: jq -r 'keys | .[]' <hosts_to_tags>
