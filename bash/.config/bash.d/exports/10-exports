@@ -20,12 +20,6 @@ SUDO_EDITOR="$EDITOR"
 
 LIBVIRT_DEFAULT_URI="qemu:///system"
 
-# mpd config
-# ------------------------------------------------------------------------------
-MPD_HOST="mpd"
-MPD_PORT="6600"
-
-
 # WINE
 # ------------------------------------------------------------------------------
 WINEPREFIX="$HOME/.config/wine/"

@@ -1,5 +1,5 @@
 # See bash(1) for more options
-
+set -o pipefail
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && exit 3
 
