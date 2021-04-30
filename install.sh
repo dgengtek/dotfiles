@@ -67,6 +67,8 @@ run() {
     "$installer" "${installer_options[@]}" "$setup_config" || exit 1
 
     install_plugins
+    curl -o "$HOME/.local/share/bash-completion/completions/fzf" 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash'
+    curl -o "$HOME/.local/share/bash-completion/completions/fzf-key-bindings.bash" 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash'
 
     print_dependencies
   fi
@@ -241,6 +243,7 @@ prepare() {
   local parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
   cd "$parent_path"
   pushd "$HOME"
+  mkdir -p .local/share/bash-completion/completions
   mkdir -p .config/bash.d/{utils,aliases,exports}
   mkdir -p .config/{ranger,awesome,git}
   mkdir -p .config/{i3,i3status}

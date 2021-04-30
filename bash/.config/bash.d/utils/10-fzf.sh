@@ -4,6 +4,13 @@ if ! hash fzf 2>&1 | logger -t bashrc -p user.info; then
   return 1
 fi
 
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
 
 f() {
   local dir

@@ -31,9 +31,8 @@ source_dir "$PATH_BASH_CONFIG/aliases"
 
 # source third party completions
 source_file /usr/share/bash-completion/completions/git
-if hash fzf 2>&1 | logger -t bashrc -p user.info; then
-  source_file /usr/share/bash-completion/completions/fzf
-fi
+source_file "$HOME/.local/share/bash-completion/completions/fzf"
+source_file "$HOME/.local/share/bash-completion/completions/fzf-key-bindings.bash"
 
 # override with custom completions
 source_dir "$PATH_BASH_CONFIG/completion"
