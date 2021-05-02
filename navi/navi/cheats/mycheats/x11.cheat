@@ -1,0 +1,12 @@
+% x11
+
+# reload x11 resources
+xrdb $HOME/.Xresources
+
+# reload x11 keymaps
+xmodmap $HOME/.Xmodmap
+
+% i3, window manager
+
+# quit i3 window manager
+i3-msg quit

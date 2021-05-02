@@ -1,0 +1,7 @@
+% private
+
+# stop private mounted image
+sudo systemctl stop private_image_$USER.service
+
+# mount user private image in home directory
+mount_dmcrypt_image.sh /mnt/nfs/homes/$USER/private.img ${HOME}/mnt/private

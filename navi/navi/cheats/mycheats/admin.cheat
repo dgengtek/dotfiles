@@ -3,12 +3,19 @@
 # zero all available space with dd and remove after
 dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
 
+# clone device
+dd bs=64k conv=noerror,sync status=progress if=<device>
+
+# overwrite device
+dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
+
 # trim an entire SSD device, all data on device will be lost!
 : "data will be lost"; blkdiscard <device>
 
 # create a squashfs from a device
 mkdir empty-dir; mksquashfs empty-dir <squashoutput>.squashfs -comp <comp> -p '<device_name>_backup.img f 444 root root dd if=<device> bs=1M'; rmdir empty-dir
 
+$ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
 $ device_name: basename "<device>"
@@ -35,3 +42,42 @@ systemd-ask-password | tr -d '\n' | gpg --armor --batch --encrypt -r <benutzer> 
 
 # split a certificate chain into individual files
 awk 'split_after == 1 {n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".crt"}' < <file_certificate_chain>
+
+
+% sudo, passwd
+# reset timestamp of sudo to require password prompt
+sudo --reset-timestamp
+
+# remove sudo timestamp
+sudo --remove-timestamp
+
+# login as user with his shell from passwd
+sudo --login --user=<username>
+
+$ username: getent passwd | awk -F ':' '{print $1}'
+
+% benchmark, load, cpu
+# load cpu
+yes > /dev/null &
+
+% udev
+
+# get udevadm info for all
+udevadm info --query=all
+
+# reload udev and retrigger 
+sudo udevadm control --reload-rules && sudo udevadm trigger
+
+# monitor udev events
+udevadm monitor --environment
+
+% device
+
+# search a device for bad blocks and check
+badblocks -wsv
+
+
+% monitor
+
+# watch temperature sensors
+hash /usr/bin/sensors && watch -n 1 /usr/bin/sensors

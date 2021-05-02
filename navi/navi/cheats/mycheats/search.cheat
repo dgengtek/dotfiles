@@ -20,3 +20,9 @@ find <dir> -type f -name "<name>"  -follow -print | zip -@ <ZipFileName>
 
 # find files with specific name in the directory and zip all files without directories
 find <dir> -type f -name "<name>"  -follow -print | zip -j -@ <ZipFileName>  
+
+# search, find a file
+fd --hidden --follow --exclude ".git" . "<path>"
+
+# search, find a directory
+fd --type d --hidden --follow --exclude ".git" . "<path>"

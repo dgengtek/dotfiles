@@ -1,32 +1,10 @@
 #!/usr/bin/env bash
-################################################################################
-# apps
-# ------------------------------------------------------------------------------
-alias browser="firefox"
-alias sage_gui="sage -c 'notebook(automatic_login=True)'"
-alias alarm="run.sh -n -q -- mplayer $BEEP"
-alias pdfviewer="zathura"
-alias pdfannotator="xournalpp"
-alias mindmap="freeplane"
-alias mind="freeplane"
-alias webcamrecorder="guvcview"
-alias webcammirror="vlc v4l2:// :input-slave=alsa:// :v4l-vdev='/dev/video0'"
-
-################################################################################
-# web
-# ------------------------------------------------------------------------------
-alias wget_offline_view="wget --recursive --timestamping --no-clobber --page-requisites --adjust-extension --convert-links --no-parent"
-
-
-################################################################################
-# office
-# ------------------------------------------------------------------------------
-alias vimwiki="vim -c VimwikiIndex"
-alias vimwiki_select="vim -c VimwikiUISelect"
+declarealias vimwiki
+declarealias vimwiki_select
 #alias journal_note="vim -c VimwikiMakeDiaryNote"
 #alias journal_select="vim -c VimwikiUISelect -c VimwikiDiaryIndex -c VimwikiDiaryGenerateLinks"
 #alias journal="vim -c VimwikiDiaryIndex -c VimwikiDiaryGenerateLinks"
-alias journal="jrnl"
+declarealias journal
 
 ################################################################################
 # io 
@@ -39,17 +17,12 @@ alias echoerr=">&2 echo"
 alias transde="trans en:de"
 alias transen="trans de:en"
 alias transru="trans de:ru"
-alias youtube-dl_best="youtube-dl -f ('bestvideo[width>=1920]'/bestvideo)+bestaudio/best"
 alias p=$PAGER
 
 ################################################################################
 # script alias
 # ------------------------------------------------------------------------------
-alias tmuxn=tmux_new_session.sh
+declarealias tmuxn
 tmuxncd() { local path=$1;shift; tmux_new_session.sh -p "$path" "$@"; }
-alias r=run.sh
-alias rq="run.sh -q -n --"
-alias rdone="run.sh -- echo 'task done'"
-alias rterm="run.sh -q -n -- alacritty"
-alias rshell=rterm
-alias runshell=runterm
+declarealias r
+declarealias rq

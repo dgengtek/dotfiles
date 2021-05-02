@@ -83,3 +83,12 @@ $ INPUT_CSR:    ls -a | grep -e "\(.csr\)"             || ls -a
 $ INPUT_KEY:    ls -a | grep -e "\(.key\|.pem\)"       || ls -a
 $ INPUT_CRT:    ls -a | grep -e "\(.crt\|.cer\|.der\)" || ls -a
 $ INPUT_PEM:    ls -a | grep -e "\(.pem\)"             || ls -a
+
+
+% openssl, encryption
+
+# Encrypt file
+openssl enc -aes-256-cbc -e -in <sample-filename-txt> -out <sample-encrypted-txt>
+
+# Decrypt file
+openssl enc -aes-256-cbc -d -in <sample-encrypted> -out <sample-filename>

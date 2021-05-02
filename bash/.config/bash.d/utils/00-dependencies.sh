@@ -13,3 +13,25 @@ make-completion-wrapper() {
     }"
   eval "$function"
 }
+
+# use to define aliases
+navialias() {
+    navi --query ":: $*" --best-match
+}
+# alias el="navialias el"
+# alias ef="navialias ef"
+
+declarealias() {
+  alias $1="navialias '$1'"
+}
+
+# use to match directly to strings
+navibestmatch() {
+    navi --query "$1" --best-match
+}
+# alias el="navibestmatch 'This is one command'"
+# alias ef="navibestmatch 'This is another command'"
+
+declarealiasf() {
+  alias $1="navibestmatch '$1'"
+}

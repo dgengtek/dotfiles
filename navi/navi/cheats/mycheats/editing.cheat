@@ -1,0 +1,36 @@
+% edit, string
+# edit and pipe output to some command
+vipe <&- |
+
+# view all files readonly
+fd --size +1b --type f --exec-batch vim -R {} \;
+
+# run vim without any config
+vim -u NONE
+
+# remove all spaces from string
+sed '/^$/d;G'
+
+# convert unix endline to dos endline
+sed 's/$/echo \\\r/'
+
+# convert dos endline to unix endline
+sed 's/$//'
+
+# remove leading whitespace, tabs
+sed 's/^[ \t]*//'
+
+# remove trailing whitespace, tabs
+sed 's/[ \t]*$//'
+
+# remove newlines
+tr '\n'
+
+# remove tabs
+tr '\t'
+
+# translate to lowercase
+tr 'A-Z' 'a-z'
+
+# translate to uppercase
+tr 'a-z' 'A-Z'

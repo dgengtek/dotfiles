@@ -1,0 +1,12 @@
+% video
+
+# download youtube video in best quality
+youtube-dl -f ('bestvideo[width>=1920]'/bestvideo)+bestaudio/best
+
+% download
+
+# download to /dev/null
+wget -O /dev/null <url>
+
+# download website for offline viewing
+wget --recursive --timestamping --no-clobber --page-requisites --adjust-extension --convert-links --no-parent

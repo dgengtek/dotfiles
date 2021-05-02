@@ -1,20 +1,11 @@
 #!/usr/bin/env bash
-alias gpull="git_auto_pull.sh"
 alias gpush="git_auto_push.sh"
 alias gff="git_auto_ff.sh"
 alias gdone="gff && gpush"
 alias gdonedone="gff && git push --all"
-alias g="git"
 alias gs="git status" 
 alias gd="git diff"
 alias gdc="git diff --cached"
-alias gcwd="git rev-parse --show-toplevel"
-
-alias glschanged="git diff-tree --no-commit-id --name-only -r"
-# show how many commits ahead, behind
-alias gcmpbranches="git rev-list --left-right --count"
-alias glsi="git check-ignore *"
-alias gsi="git status --ignored"
 
 alias gn="git notes"
 alias gna="git log --show-notes='*'"
@@ -24,14 +15,12 @@ alias gch="git cherry"
 alias gl="git pull"
 alias gup="git pull --rebase"
 alias gp="git push"
+alias gpe="git push && exit"
 alias gpfl="git push --force-with-lease"
 alias gd="git diff"
 alias gdss="git diff --shortstat"
 alias gda="git_diff_all.sh"
 
-# git current head name
-alias gh="git rev-parse --abbrev-ref HEAD"
-alias git_root_directory="git rev-parse --show-toplevel"
 cdgittop() { builtin cd $(git rev-parse --show-toplevel); }
 
 alias gc="git commit -v"
@@ -69,11 +58,8 @@ alias gbvv="git branch -vv"
 alias gba="git branch -a"
 alias gbmm="git branch --merged master"
 
-alias gcount="git shortlog -sn"
 alias gcl="git config --list"
 alias gcp="git cherry-pick"
-
-alias gweb="git instaweb"
 
 alias glg="git log --stat --max-count=10"
 alias glgg="git log --graph --max-count=10"
@@ -82,8 +68,6 @@ alias glo="git log --oneline --decorate --color"
 alias glog="git log --oneline --decorate --color --graph"
 alias gloga="git log --oneline --decorate --color --graph --all"
 alias glogs="git log --oneline --decorate --color --graph --all --max-count=10"
-alias glsdeleted="git log --all --pretty=format: --name-only --diff-filter=D | sort -u"
-alias glsig="git log --show-signature"
 alias glp="git log --first-parent"
 alias glf="git log --follow -p --"
 
@@ -94,18 +78,12 @@ alias gap="git add -p"
 alias gm="git merge"
 alias gmffo="git merge --ff-only"
 
-alias grst="git reset"
-alias grsth="git reset --hard"
-alias gclean="git reset --hard && git clean -dfx"
 
 alias gwc="git whatchanged -p --abbrev-commit --pretty=medium"
-alias gwc2="git log --no-merges --raw --since='2 weeks ago'"
 
 alias guntracked="git diff-index --quiet HEAD --"
 alias gtracked="git ls-files --error-unmatch"
 
-alias gpoat="git push origin --all && git push origin --tags"
-alias gpushu="git push -u"
 alias gmt="git mergetool --no-prompt"
 
 alias gsts="git stash show --text"

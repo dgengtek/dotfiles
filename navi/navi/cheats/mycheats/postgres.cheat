@@ -1,0 +1,4 @@
+% database, postgres
+
+# dump clean postgres database
+pg_dump -c -b -Fc -f <filename>

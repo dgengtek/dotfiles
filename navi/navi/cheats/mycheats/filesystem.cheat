@@ -5,3 +5,18 @@ find -L . -name . -o -type d -prune -o -type l -exec rm {} +
 
 # Folder size
 du -sh
+
+# shred safely
+shred -uzn 3
+
+# set default permissions for file
+chmod 0644
+
+# set default permissions for directory
+chmod 0755
+
+# set default permissions for files
+find . -type f -exec chmod 0644 {} +
+
+# set default permissions for directories
+find . -type d -exec chmod 0755 {} +

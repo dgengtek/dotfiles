@@ -1,4 +1,5 @@
 % rsync
+@ template, reuse
 
 # files from server (accepts * and regular expressions)
 rsync -avzPs '<user>@<server>:<folder>/*' .
@@ -11,6 +12,13 @@ rsync -e 'ssh -p <port> -i <sshkey>' -avzPs '<user>@<server>:<folder>/*' .
 
 # files from server with special key (accepts * and regular expressions)
 rsync -e 'ssh -i <sshkey>' -avzPs '<user>@<server>:<folder>/*' .
+
+
+# do an archive backup
+rsync -aAHXv
+
+# do an archive backup with all linux filesystem excludes
+rsync -aAHXv <excludes>
 
 $ user : echo -e "$(whoami)\nroot"
 $ sshkey : ls ~/.ssh | grep -v known_hosts | grep -v config

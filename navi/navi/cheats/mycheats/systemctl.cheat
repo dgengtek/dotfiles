@@ -9,6 +9,9 @@ systemctl stop <service_active>
 # Enable service
 systemctl enable <service_disabled>
 
+# enable service and start now
+systemctl enable --now <service_disabled>
+
 # Disable service
 systemctl disable <service_enabled>
 
@@ -20,6 +23,15 @@ systemctl reload <service_active>
 
 # Service status
 systemctl status <service>
+
+# reload systemctl daemon and units
+systemctl daemon-reload
+
+# get default target which you boot into
+systemctl get-default
+
+# list systemctl target units
+systemctl --type target
 
 # List running services
 systemctl list-units --type=service --state=running

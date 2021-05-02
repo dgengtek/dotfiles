@@ -4,7 +4,7 @@
 gpg --version
 
 # gpg generate key
-gpg --gen-key
+gpg --generate-key
 
 # list keys
 gpg --list-keys
@@ -13,31 +13,68 @@ gpg --list-keys
 gpg --keyserver <key_server> --send-keys <public_key>
 
 # export public key
-gpg --output <filename_gpg> --export <key_name>
+gpg --export <public_key>
 
 # import public key
-gpg --import <filename_gpg>
-
-# encrypt document
-gpg --output <output_filename_gpg> --encrypt --recipient <public_key> <input_filename>
-
-# decrypt document
-gpg --output <filename> --decrypt <filename_gpg>
-
-# make a signature
-gpg --output <filename_sig> --sign <filename>
-
-# verify signature
-gpg --output <filename> <filename> --decrypt <filename_sig>
+gpg --import <filename>
 
 # clearsign documents
 gpg --clearsign <filename>
 
 # detach signature
-gpg --output <filename_sig> --detach-sig <filename>
+gpg --detach-sig <filename>
 
 # gpg agent reload
 gpg-connect-agent reloadagent /bye
 
 # gpg agent update tty
 gpg-connect-agent updatestartuptty /bye
+
+# restart gpg user agent
+declare -ar sockets=(
+gpg-agent.socket
+gpg-agent-browser.socket
+gpg-agent-ssh.socket
+gpg-agent-extra.socket
+)
+systemctl --user stop "${sockets[@]}"
+systemctl --user stop gpg-agent
+systemctl --user start "${sockets[@]}"
+systemctl --user start gpg-agent
+
+
+# gpg encrypt and output as ascii
+gpg --armor --batch --encrypt -r <recipient>
+
+# decrypt with specified public key
+gpg --decrypt -r <public_key>
+
+# verify signature
+gpg --verify -r <public_key>
+
+# create a signature with key
+gpg --sign -r <public_key>
+
+# list gpg private and public keys
+gpg -K; gpg -k
+
+# list gpg private and public keys in long keyformat
+gpg --keyid-format 0xlong -K; gpg --keyid-format 0xlong -k
+
+# list all gpg private and public keys including unusuable subkeys
+gpg --keyid-format 0xlong -K --with-fingerprint --list-options show-unusable-subkeys; gpg --keyid-format 0xlong -k --with-subkey-fingerprint --list-options show-unusable-subkeys
+
+# export secret keys as ascii
+gpg --export-secret-keys --armor
+
+# export key as ssh key
+gpg --export-ssh-key
+
+# delete public and secret key for id
+gpg --delete-secret-and-public-key <keyid>
+
+# delete public key
+gpg --delete-keys
+
+# delete secret key
+gpg --delete-secret-keys

@@ -2,3 +2,6 @@
 
 # cheat.sh for command
 curl "cheat.sh/<command>"
+
+# clear bash history duplicates
+tac $HISTFILE | awk '!x[\$0]++' | tac | sponge $HISTFILE

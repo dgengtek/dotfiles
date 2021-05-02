@@ -1,0 +1,29 @@
+% template, reuse
+
+# run a binary from PATH
+<binaries>
+
+# find an alias 
+<alias>
+
+# find a function
+<functions>
+
+# output the search of a file, path from the directory
+<compgen_path>
+
+# output the search of a directory from the given path 
+<compgen_directory>
+
+$ compgen_path: fd --hidden --follow --exclude ".git" . "<path>"
+$ compgen_path2: fd --hidden --follow --exclude ".git" . "<path>"
+$ compgen_directory: fd --type d --hidden --follow --exclude ".git" . "<path>"
+$ compgen_directory2: fd --type d --hidden --follow --exclude ".git" . "<path>"
+
+$ binaries: compgen -c | uniq
+$ alias: compgen -a
+$ functions: compgen -A function
+
+$ dateisonow: date '+%Y%m%dT%H%M%S'
+
+$ excludes: __build_exclude_string() { local -ar __filesystem_excludes=("/dev/*" "/proc/*" "/sys/*" "/tmp/*" "/run/*" "/mnt/*" "/media/*" "/lost+found" "/swapfile" "/data/*" "/srv/*" ); local -r flag_prefix='--exclude'; local -a excludes=; local -r array_size="${#__filesystem_excludes[@]}"; for exclude in "${__filesystem_excludes[@]}"; do  excludes+=("$flag_prefix=$exclude"); done; echo -n "${excludes[@]}"; }; __build_exclude_string

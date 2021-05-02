@@ -1,0 +1,4 @@
+% productivity
+
+# track time with pomodoro and create journal entries
+timew start <timew_tags> && count pomodoro --disable-long-break && timew stop && timew start break && i3-msg 'workspace 7:0; exec /usr/bin/alacritty -e jrnl' && r -- echo "take a 25m break now" && count down -m 25 && timew stop && r -m -- echo "pomodoro session done"

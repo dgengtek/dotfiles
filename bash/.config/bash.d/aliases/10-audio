@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-alias pulse_list_input="pacmd list-sources | grep -e device.string -e 'name:'"
-alias pulse_list_output="pacmd list-sinks | grep -e 'name:' -e 'index'"
-rec() { arecord -f dat $HOME/me/recordings/audio/rec$(date +%Y%m%d%M%S).wav}; }
-
 ################################################################################
 # media
 # ------------------------------------------------------------------------------

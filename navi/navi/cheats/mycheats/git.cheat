@@ -1,63 +1,22 @@
 % git
 
-# 覆盖提交
-git commit --amend
+# interactively add changed files from git toplevel and autocommit
+pushd $(git rev-parse --show-toplevel)
+git add -i .
+git commit -m "autocommit - $(date +%y%m%d%H%M%S)"
+popd
 
-# 查找丢失的提交记录
-git reflog
-
-# 统计某个用户的提交次数和行数
-git log --author=<name> --pretty=tformat: --numstat | awk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "added lines: %s removed lines : %s total lines: %s\n",add,subs,loc }'
-
-# 统计所有人的提交次数
+# commit count by authors
 git shortlog -s -n
 
-# 删除远程tag
-git push origin :refs/tags/<tag>
+# output patch by commit
+git format-patch --stdout -1 <commit>
 
-# 删除远程分支
-git push origin :<remote_branch>
-
-$ remote_branch: git ls-remote --- --column 1
-
-
-# 生成两个提交之间的patch(包含两个commit)
-git format-patch <commit1>..<commit2>
-
-# 生成某个提交的patch
-git format-patch -1 <commit>
-
-$ commit: git log -20 --oneline --- --column 0
-
-# 检查patch文件
-git apply --stat <patch>
-
-
-# 检查patch文件是否可以使用
-git apply --check <patch>
-
-
-# 使用patch文件
-git am -s < <patch>
-
-$ patch: find . -name '*.patch'
-
-
-# 查看当前分支结构
+# show current commit tree of all branches
 git log --graph --decorate --oneline --simplify-by-decoration --all
 
-
-# 查看当前分支结构(gitk)
-gitk --simplify-by-decoration --all
-
-
-# 查看总提交次数
+# get amount of commits
 git rev-list HEAD --count
-
-
-# 查看某个用户提交汇总
-git log --author="<name>" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }'
-
 
 # Set global git user name
 git config --global user.name <name>
@@ -114,17 +73,17 @@ cd <toplevel_directory>; \
 cd <toplevel_directory>; \
     git add <changed_files>;
 
+# stage files interactively
+git add --interactive
+
 # Stage all files in project
-git add -A
+git add --all
 
 # Create commit for staged files
 git commit -m "<commit_description>"
 
 # Create backdated commit for staged files
 git commit --date="<number_of_days_ago> days ago" -m "<commit_description>"
-
-# Pushes committed changes to remote repository
-git push -u <remote_name> <branch_name>
 
 # Pushes changes to a remote repository overwriting another branch
 git push <remote_name> <branch>:<branch_to_overwrite>
@@ -147,14 +106,14 @@ git log
 # Displays formatted log of commits for a repo
 git log --all --decorate --oneline --graph
 
+# list all deleted files from repository
+git log --all --pretty=format: --name-only --diff-filter=D | sort -u
+
 # Clear everything
 git clean -dxf
 
 # Sign all commits in a branch based on master
 git rebase master -S -f
-
-# See all open pull requests of a user on Github
-navi fn url::open 'https://github.com/pulls?&q=author:<user>+is:open+is:pr'
 
 # Checkout a branch from a fork
 git fetch origin pull/<pr_number>/head:pr/<pr_number> \
@@ -187,52 +146,87 @@ git reset --hard HEAD~<number_of_commits>
 # Remove commits from local repository (keep changes)
 git reset --soft HEAD~<number_of_commits>
 
+# current git head name
+git rev-parse --abbrev-ref HEAD
+
+# stash, checkout and pull from remote master to master
+git_auto_pull.sh -r <remote> -- --ff
+
+# cat deleted file from git history
+git show $(git rev-list --max-count=1 --all -- <file>)^:<file>
+
+# show untracked files
+git ls-files --others --exclude-standard |
+  while read -r file; do
+    git diff --color -- /dev/null "$file"
+  done
+
+# force objects in repo to be dereferenced and garbage collected
+git for-each-ref --format='delete %(refname)' refs/original \
+  | git update-ref --stdin \
+git reflog expire --expire=now --all
+git gc --prune=now
+
+# set remote origin from current environment to the repository basename
+git_init_remote_origin.sh -b
+
+# output current git repository state in json
+git_state.py
+
+# remove file completely from repository and history
+git_rm.sh <file>
+
+# remove directory completely from repository and history
+git_rm.sh -r <folder>
+
+# get tracking remote of branch
+git config --get branch.<branch>.remote
+
+# get ref of remote tracking branch
+git config --get branch.<branch>.merge
+
+# show what changed between branch and remote branch
+git diff-tree -r <branch> <remote_branch>
+
+# push all tags
+git push <remote> --all && git push <remote> --tags
+
+# push and set upstream tracking name for branch
+git push --set-upstream <upstream_name> <branch>
+
+# set upstream tracking branch of branch
+git branch --set-upstream-to=<remote_branch> <branch>
+
+# what changed in the repository since 2 weeks ago
+git log --no-merges --raw --since='2 weeks ago'
+
+# reset and cleanup repository
+git reset --hard && git clean -dfx
+
+# Resets the index and working tree. Any changes to tracked files in the working tree since <commit> are discarded
+git reset --hard <commit>
+
+# show signatures from log
+git log --show-signature
+
+# display logs with stats 
+git log --stat --max-count=<log_max_count>
+
+# use git web
+git instaweb
+
+# list ignored git files
+git check-ignore *
+
+$ folder: fd --type d
+$ file: fd --type f
+$ commit: git log -40 --oneline --- --column 0
+$ active_branch: git rev-parse --abbrev-ref HEAD
 $ branch: git branch | awk '{print $NF}'
+$ tag: git tag --list
+$ remote: git remote
+$ remote_branch: git branch --remotes
 $ toplevel_directory: git rev-parse --show-toplevel
-$ unstaged_files: git status --untracked-files=no -s --porcelain | awk '{print $NF}' --- --multi true
-$ changed_files: git status --untracked-files=all -s --porcelain | awk '{print $NF}' --- --multi true
-
-
-
-% git common
-
-$ local_branch: dot git ls local_branch --- --column 1
-$ config: dot git ls config --- --column 1
-$ stash: dot git ls stash --- --column 1
-$ commit: dot git ls commit --- --column 1
-$ toplevel_dir: dot git ls toplevel_dir
-$ file: dot git ls file --- --column 1 --preview-window 'right:50%' --preview 'bat -p --color=always {}'
-$ files: dot git ls file --- --multi --column 1 --preview-window 'right:50%' --preview 'bat -p --color=always {}'
-$ modified_file: dot git ls file -m --- --column 1 --preview-window 'right:50%' --preview 'bat -p --color=always {}'
-$ modified_files: dot git ls file -m --- --multi --column 1 --preview-window 'right:50%' --preview 'bat -p --color=always {}'
-$ tag: dot git ls tag --- --column 1
-
-% git branch
-@ git common
-
-# checkout branch
-git checkout "<local_branch>"
-
-# checkout tag
-git checkout "<tag>"
-
-% git config
-@ git common
-
-# print config value
-git config "<config>"
-
-% git view
-@ git common
-
-# view
-bat --color=always "<file>"
-
-% git add
-@ git common
-
-# add files
-cd "<toplevel_dir>"
-files=($(echo "<modified_files>"))
-git add "${files[@]}"
-git status
+$ untracked_files: git ls-files --other --exclude-standard --directory
+$ unstaged_files: git ls-files --modified --deleted
+$ patch: fd --type f '.*\.patch'

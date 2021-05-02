@@ -1,0 +1,4 @@
+% alarm
+
+# play an alarm sound :: alarm
+run.sh -n -q -- mplayer $BEEP

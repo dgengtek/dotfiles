@@ -1,17 +1,9 @@
-% htop, process
+% process
 
 # show process with current users
-htop -u <user>
-ps -u <user> ux
+htop -u $USER
 
-# kill process
-kill <pid>
-
-$ user: echo "$USER"
-$ pid: ps -u $USER --no-headers ux | awk '{print $2}'
-
-
-% process
+ps -u $USER ux
 
 # Kill with signal 9
 sudo kill -9 <pid>
@@ -25,10 +17,22 @@ cpulimit --include-children --limit <n> --pid <pid>
 # Stop limiting CPU
 pkill -f cpulimit.*<pid>
 
-# Lower priority by <n>
+# Lower priority to <n>
 renice -n <n> -p <pid>
 
 # Unfreeze process
 kill -CONT <pid>
+
+# show detailed processes
+ps -eo pid,ppid,nice,s,cmd:80,euser,egroup,time,etime,rtprio,f,fuser --sort=cmd
+
+# show tree of processes
+ps -e --forest -o pid,ppid,euser,egroup,cmd
+
+# show processes sorted by cpu
+ps --sort=%cpu -eo pid,f,s,%cpu,nice,cmd:80,policy,wchan
+
+# show processes sorted by memory
+ps --sort=%mem -eo pid,f,s,%mem,cmd:80,sz,rss
 
 $ pid: (ps -o pid,%cpu,%mem,ni,cmd ax 2>/dev/null || ps -o pid,%cpu,%mem,ni,command) | sort -b -k3 -r | awk '{print $1, $2, $3, $4, $5}' | column -t --- --header-lines 1 --column 1

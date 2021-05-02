@@ -1,0 +1,22 @@
+% scripts
+
+# run a new tmux session with the basename of the current path:: tmuxn
+tmux_new_session.sh
+
+# run a directory for commands, notifications, mail :: r
+run.sh
+
+# run a command quietly without any output :: rq
+run.sh -q -n --
+
+# run a display of done notification
+run.sh -- echo 'task done'
+
+# spawn a new terminal emulator
+run.sh -q -n -- alacritty
+
+# trim and strip input string with python
+strip.py
+
+# file system bookmark manager
+fsbookmark.sh

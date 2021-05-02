@@ -1,42 +1,5 @@
 #!/usr/bin/env bash
 
-alias dd_clone="dd bs=64k conv=noerror,sync status=progress"
-alias gunzipout="gunzip -cd"
-
-__filesystem_excludes=(
-"/dev/*"
-"/proc/*"
-"/sys/*"
-"/tmp/*"
-"/run/*"
-"/mnt/*"
-"/media/*"
-"/lost+found"
-"/swapfile"
-"/data/*"
-"/srv/*"
-)
-__build_exclude_string() {
-  local -r flag_prefix='--exclude'
-  local -a excludes=
-  local -r array_size="${#__filesystem_excludes[@]}"
-  for exclude in "${__filesystem_excludes[@]}"; do 
-    excludes+=("$flag_prefix=$exclude")
-  done
-  echo -n "${excludes[@]}"
-}
-
-rsync_backup_system() {
-  rsync -aAHXv "$(__build_exclude_string)" "$@"
-}
-
-tar_exclude() {
-  tar "$(__build_exclude_string)" "$@"
-}
-
-alias rsync_clone="rsync -aHAXS"
-
-
 # enable color support of ls and also add handy aliases
 if [[ -x /usr/bin/dircolors ]]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -49,15 +12,9 @@ if [[ -x /usr/bin/dircolors ]]; then
   alias egrep='egrep --color=auto'
 fi
 alias ls=exa
-alias ll="ls -l"
-alias lla="ls -la"
-alias la="ls -A"
-alias l="ls -F"
-alias lsd="ls -d */"
-alias lsth="ls -thrlF"
-alias lshe="ls --hide='*.gz' --hide='*.xz'"
-alias lsh="ls --hide='*[.-][0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].gz' --hide='*[.-][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9].xz'"
-alias lsha="lsh --hide='*[.-][0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' --hide='*[.-][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'"
+alias ll="exa -l"
+alias lla="exa -la"
+alias la="exa -a"
 
 alias rm="rm -i --preserve-root"
 alias rmi="rm -I --preserve-root"
@@ -69,6 +26,8 @@ alias chown="chown --preserve-root"
 alias chmod="chmod --preserve-root"
 alias chgrp="chgrp --preserve-root"
 
+alias fdd="fd --type d"
+alias fdf="fd --type f"
 alias findd="find . -type d"
 alias findf="find . -type f"
 alias finddeadlink="find . -xtype l"
@@ -80,17 +39,3 @@ alias pua="pushd_all"
 
 alias ..="builtin cd .."
 alias ...="builtin cd ../.."
-
-alias bm="fsbookmark.sh"
-alias bma="bm add"
-alias bmd="bm del"
-alias bmc="bm cat"
-alias bml="bm ls"
-
-alias cd1="f_cd1"
-alias cd2="f_cd2"
-alias cdh="f_change_directory_hidden"
-alias cdh1="f_cdh1"
-alias cdh2="f_cdh2"
-alias sdir="f_search_directory"
-alias sdirh="f_search_directory_hidden"
