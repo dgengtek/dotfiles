@@ -75,7 +75,6 @@ if hash navi; then
  eval "$(navi widget bash)"
   _navi_widget_append() {
     READLINE_LINE="${READLINE_LINE}$(_navi_call --print)"
-    READLINE_POINT=${#READLINE_LINE}
   }
   _navi_widget_loop() {
     output=()
@@ -90,6 +89,22 @@ if hash navi; then
     
     READLINE_LINE="${READLINE_LINE}$result"
     READLINE_POINT=${#READLINE_LINE}
+  }
+  _navi_widget() {
+      local -r input="${READLINE_LINE}"
+      local -r last_command="$(echo "${input}" | navi fn widget::last_command)"
+
+      if [ -z "${last_command}" ]; then 
+          local -r append="$(_navi_call --print --fzf-overrides '--no-select-1')"
+          local -r output="${input}${append}"
+      else
+          local -r find="$last_command"
+          local -r replacement="$(_navi_call --print --query "${last_command}")"
+          local -r output="${input//$find/$replacement}"
+      fi
+
+      READLINE_LINE="$output"
+      READLINE_POINT=${#READLINE_LINE}
   }
   # alt+s
   bind -x '"\es": _navi_widget_append'
