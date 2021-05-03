@@ -33,5 +33,43 @@ curl -X <method> <url> --data-binary "@<file>"
 # send a http request wih a custom header
 curl -X <method> <url> -H "<headername>: <headervalue>"
 
+# list FTP POP3
+curl --list-only
+
+# test a download with curl
+curl --output /dev/null --max-time <max_time> --location --verbose --include <url>
+
+# display verbose stats for curl
+curl --output /dev/null --max-time 30 --location --verbose --include --write-out '
+  \ncontent_type: %{content_type}\
+  \nfilename_effective: %{filename_effective}\
+  \nhttp_code: %{http_code}\
+  \nhttp_connect: %{http_connect}\
+  \nhttp_version: %{http_version}\
+  \nlocal_ip:local_port: %{local_ip}:%{local_port}\
+  \nnum_connects: %{num_connects}\
+  \nnum_redirects: %{num_redirects}\
+  \nproxy_ssl_verify_result(0 = success): %{proxy_ssl_verify_result}\
+  \nredurect_url: %{redirect_url}\
+  \nremote_ip:remote_port: %{remote_ip}:%{remote_port}\
+  \nscheme: %{scheme}\
+  \nsize_download: %{size_download} B\
+  \nsize_header: %{size_header} B\
+  \nsize_request: %{size_request} B\
+  \nsize_upload: %{size_upload} B\
+  \nspeed_download: %{speed_download} B/s\
+  \nspeed_upload: %{speed_upload} B/s\
+  \nssl_verify_result(0 = success): %{ssl_verify_result}\
+  \ntime_appconnect: %{time_appconnect} s\
+  \ntime_connect: %{time_connect} s\
+  \ntime_namelookup: %{time_namelookup} s\
+  \ntime_pretransfer: %{time_pretransfer} s\
+  \ntime_redirect: %{time_redirect} s\
+  \ntime_starttransfer: %{time_starttransfer} s\
+  \ntime_total: %{time_total} s\
+  \nurl_effective: %{url_effective}
+'
+
 $ file: ls
 $ method: echo -e 'GET\nPOST\nPUT\nDELETE\nPATCH'
+$ max_time: echo -e '30\n'

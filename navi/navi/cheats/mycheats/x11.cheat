@@ -1,4 +1,4 @@
-% x11
+% xorg, x11
 
 # reload x11 resources
 xrdb $HOME/.Xresources
@@ -6,7 +6,12 @@ xrdb $HOME/.Xresources
 # reload x11 keymaps
 xmodmap $HOME/.Xmodmap
 
+# grab x11 key presses
+xev | awk -F'\''[ )]+'\'' '\''/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'\''
+
 % i3, window manager
 
 # quit i3 window manager
 i3-msg quit
+
+

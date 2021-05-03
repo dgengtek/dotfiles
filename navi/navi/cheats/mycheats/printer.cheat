@@ -1,0 +1,7 @@
+% printer
+
+# print only even pages
+lp -o page-set=even
+
+# print only odd pages
+lp -o page-set=odd

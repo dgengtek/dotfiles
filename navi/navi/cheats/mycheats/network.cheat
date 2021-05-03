@@ -1,13 +1,7 @@
-% ip, udp, tcp, http
-
-# 扫描服务器端口是否开放
-nc -vv <IP> <PORT>
-
-# tcpdump 抓包输出pcap文件
-tcpdump -i eth0 -A -s 0 'dst or src (<host1> or <host2>) and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)' -w httpdump-2018062711.pcap
-
-
 % network
+
+# get current default ip gateway route
+command ip -d -json route | jq '.[] | select(.dst == "default")'
 
 # Kill a process running on a given port
 lsof -i :<port> \
@@ -46,9 +40,6 @@ curl -sL "ipinfo.io/<ip>" | jq
 # Geolocation data for own IP
 curl -sL "ipinfo.io/<self_global_ip>" | jq
 
-# Launch a container with network utils
-docker run -it --entrypoint /bin/sh nicolaka/netshoot
-
 # Map ports
 sudo nmap -sS -sV -0 "<target>"
 
@@ -58,5 +49,40 @@ lsof -n -i4TCP:<port> | grep LISTEN
 # List open ports
 lsof -Pn -i4
 
+# verbosely scan for listening daemons without sending any data to them with netcat
+nc -vz
+
+# brief output of ip tool
+ip -brief
+
+# json output for ip tool
+ip -json
+
+# print human readable network stats(RX,TX,packets,dropped,errors,missed,mcast,collisions,carrier) for each interface
+ip -iec -s addr
+
+# show detailed interface information
+ip -json -d link show <interface> | jq .
+
+# bring up interface
+ip link set <interface> up
+
+# bring down interface
+ip link set <interface> down
+
+# display timestamp and report ICMP ECHO reply
+ping -D -O <destination>
+
+# ping cloudflare dns
+ping -D -O 1.1.1.1
+
+# ping google dns
+ping -D -O 8.8.8.8
+
+# do fast pings
+ping -c 100 -i 0.2 <destination>
+
+
+$ interface: ip -json link | jq -r '.[].ifname'
 $ self_global_ip: dig +short myip.opendns.com @resolver1.opendns.com
 $ process: lsof -iTCP -sTCP:LISTEN -n -P | sed -E "s/:([0-9][0-9][0-9]+) /:$(tput setaf 3)\1$(tput sgr0) /g" --- --header-lines 1

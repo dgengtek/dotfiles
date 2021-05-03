@@ -1,4 +1,110 @@
 % tmux
+@ template, reuse
+
+# create a new tmux session if none exists and spawn a new terminal shell session if in a TMUX session
+tmux_new_session.sh
 
 # load tmuxp defined session
-tmuxp_load_session.sh
+if ! { [[ "$TERM" =~ "screen" ]] && [[ -n "$TMUX" ]]; }; then
+  tmuxp load <tmuxp_session>
+else
+  run.sh -q -n -- alacritty -e bash --init-file <(cat ~/.bashrc;echo "tmuxp load <tmuxp_session>";echo "exit 0")
+fi
+
+# copy, select in tmux
+tmux copy-mode
+
+# run commands new windows of the tmux run session
+tmux_run_session.sh <commandstring>
+
+# run command in a new window in the current session while remaining on exit
+tmux_run_window_wait.sh <commandstring>
+
+# attach to an existing session
+tmux attach-session -t <session>
+
+# rename session
+tmux rename-session -t <session> <new_session_name>
+
+# lock client
+tmux lock-client -t <client>
+
+# lock session
+tmux lock-session -t <session>
+
+# display the environment 
+tmux show-environment -t <session>
+
+# display the global environment 
+tmux show-environment -g -t <session>
+
+# Put a pane into buffer mode, where a buffer may be chosen interactively from a list.
+tmux choose-buffer
+
+# delete buffer
+tmux delete-buffer -b <buffer>
+
+# Save the contents of the specified paste buffer to path
+tmux save-buffer -b <buffer> <path>
+
+# Display the contents of the specified buffer
+tmux show-buffer -b <buffer>
+
+# Lock each client individually
+tmux lock-server
+
+# display a large clock
+tmux clock-mode
+
+# prevents the client from exiting until woken using wait-for -S with the same channel
+tmux wait-for <channel>
+
+# wake up channel
+tmux wait-for -S <channel>
+
+# lock channel
+tmux wait-for -L <channel>
+
+# unlock channel
+tmux wait-for -U <channel>
+
+# create a detached session
+tmux new-session -d -s <new_session_name>
+
+# create a new tmux session from directory
+tmux new-session -c <directory> -s <new_session_name>
+
+# Destroy the given session, closing any windows linked to it and no other sessions, and detaching all clients attached to it
+tmux kill-session -t <session>
+
+# create simple tmux work window layout
+tmux new-window -n sh \; new-window -n src \; new-window -n tests
+
+# set a layout for tmux windows
+tmux select-layout <layout>
+
+# capture the contents, output of a pane to stdout
+tmux capture-pane -p
+
+# put a pane into client mode, interactively select a client from a list
+tmux choose-client
+
+# Put a pane into tree mode, where a session, window or pane may be chosen interactively from a list
+tmux choose-tree
+
+# destroy the given pane
+tmux kill-pane -t <pane>
+
+# destroy the window
+tmux kill-window -t <window>
+
+# select window
+tmux select-window -t <window>
+
+$ client: tmux list-clients
+$ session: tmux list-sessions
+$ window: tmux list-windows
+$ pane: tmux list-panes
+$ layout: echo -e 'even-horizontal,even-vertical,main-horizontal,main-vertical,tiled' | tr ',' '\n'
+$ buffer: tmux list-buffers
+$ tmuxp_session: fd --follow --type f . "$TMUXP_PATH"

@@ -82,3 +82,24 @@ docker-compose down
 
 # Prevent all containers from autostarting on boot
 docker update --restart=no $(docker ps -a -q)
+
+
+# docker
+alias dock="docker"
+alias dockp="docker ps"
+alias dockpa="docker ps -a"
+alias dockt="docker tag"
+alias docktop="docker top"
+alias dockrm="docker tm"
+alias dockruntmp="docker run --rm -it"
+alias docki="docker inspect"
+dockbash() { docker exec -it "${1:?arg \$1 container missing}" bash; }
+alias dockim="docker images"
+alias dockc="docker-compose"
+alias dockcu="docker-compose up"
+alias dockcuf="docker-compose up --build --force-recreate"
+alias dockcd="docker-compose down"
+alias dockce="docker-compose exec"
+alias dockcrm="docker-compose rm"
+alias dockcb="docker-compose build"
+alias dockcst="docker-compose status"

@@ -1,0 +1,16 @@
+% time
+
+# Convert seconds since the epoch (1970-01-01 UTC) to a date
+date --date='@<epoch>'
+
+# display timestamp of now
+date +%T
+
+# display date of today
+date +%F
+
+# display date and time of today
+date +%Y%m%d%H%M%S
+
+# display iso date
+date --iso-8601=ns

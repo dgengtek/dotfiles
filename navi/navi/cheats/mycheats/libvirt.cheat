@@ -1,0 +1,29 @@
+% libvirt, virsh
+
+# start libvirt services
+sudo systemctl start libvirtd virtlogd virtlockd
+
+# create a default snapshot
+virsh snapshot-create-as "<domain>" --name "snapshot-$(id -un)-$(date +%Y%m%d%H%M%S)" --description "<description>"
+
+# revert to snapshot
+virsh snapshot-revert "<domain>" --<snapshot_type>
+
+# revert to selected snapshot
+virsh snapshot-revert "<domain>" --snapshotname "<snapshot>"
+
+# delete selected snapshot
+virsh snapshot-delete "<domain>" "<snapshot>"
+
+# delete a host
+virsh undefine "<domain>" --remove-all-storage
+
+# force delete a host
+virsh destroy "<domain>" && virsh undefine "<domain>" --remove-all-storage
+
+# start host
+virsh start <domain>
+
+$ snapshot_type: echo -e 'current\nrunning'
+$ domain: virsh list --all --name
+$ snapshot: virsh snapshot-list "<domain>" --name

@@ -154,83 +154,11 @@ tcpdump_ssh_write() {
   ssh "$host" -- sudo tcpdump -i any -s 0 -U -w - "$@" > "$host.pcap"
 }
 
-
-################################################################################
-# firewall
-# ------------------------------------------------------------------------------
-alias ipt=iptables
-alias iptn="iptables -t nat"
-alias iptnls="iptables -t nat -L -v"
-alias iptnlsa="iptables -t nat -L -v --line-numbers"
-alias iptls="iptables -L -v"
-alias iptlsa="iptables -L -v --line-numbers"
-alias iptd="iptables -D"
-alias ipta="iptables -A"
-alias ipti="iptables -I"
-
-
 ################################################################################
 # network
 # ------------------------------------------------------------------------------
-alias ipgateway="command ip route | awk '/default via/ {FS=\" \";print \$3}' | sort | uniq"
-alias pingt="ping -D -O"  # timestamp + report ICMP ECHO reply
-alias pingtcloudflaredns="pingt 1.1.1.1"
-alias pingtgoogledns="pingt 8.8.8.8"
-alias pingfast="ping -c 100 -i 0.2"
+# always reload before sshing
+alias ssh="gpg-connect-agent reloadagent /bye && ssh"
 
-alias ssh_keygen_default="ssh-keygen -t ed25519 -a 100"
-alias ssh_keygen_check_file="ssh-keygen -l -f"
-alias sshkeyrm="ssh-keygen -R"
-
-alias ssh_ignore="ssh -o 'UserKnownHostsFile /dev/null'"
-alias ssh_auth_pass="ssh \
-  -o PreferredAuthentications=keyboard-interactive,password \
-  -o PubkeyAuthentication=no"
-alias ssh_gpg="gpg-connect-agent reloadagent /bye && ssh"
-alias ssh_safe="ssh -4aCxkt \
-  -F /dev/null \
-  -o 'ServerAliveInterval 60' \
-  -o 'ServerAliveCountMax 10' \
-  -o 'CheckHostIP yes' \
-  -o 'KexAlgorithms curve25519-sha256@libssh.org,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256,diffie-hellman-group1-sha1' \
-  -o 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr' \
-  -o 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,hmac-sha1' \
-  -o 'GatewayPorts no'"
-
-alias curl_ls="curl --list-only"
-alias curl_test="curl --output /dev/null --max-time 30 --location --verbose --include"
-alias curl_test_stats="curl --output /dev/null --max-time 30 --location --verbose --include --write-out '\
-  \ncontent_type: %{content_type}\
-  \nfilename_effective: %{filename_effective}\
-  \nhttp_code: %{http_code}\
-  \nhttp_connect: %{http_connect}\
-  \nhttp_version: %{http_version}\
-  \nlocal_ip:local_port: %{local_ip}:%{local_port}\
-  \nnum_connects: %{num_connects}\
-  \nnum_redirects: %{num_redirects}\
-  \nproxy_ssl_verify_result(0 = success): %{proxy_ssl_verify_result}\
-  \nredurect_url: %{redirect_url}\
-  \nremote_ip:remote_port: %{remote_ip}:%{remote_port}\
-  \nscheme: %{scheme}\
-  \nsize_download: %{size_download} B\
-  \nsize_header: %{size_header} B\
-  \nsize_request: %{size_request} B\
-  \nsize_upload: %{size_upload} B\
-  \nspeed_download: %{speed_download} B/s\
-  \nspeed_upload: %{speed_upload} B/s\
-  \nssl_verify_result(0 = success): %{ssl_verify_result}\
-  \ntime_appconnect: %{time_appconnect} s\
-  \ntime_connect: %{time_connect} s\
-  \ntime_namelookup: %{time_namelookup} s\
-  \ntime_pretransfer: %{time_pretransfer} s\
-  \ntime_redirect: %{time_redirect} s\
-  \ntime_starttransfer: %{time_starttransfer} s\
-  \ntime_total: %{time_total} s\
-  \nurl_effective: %{url_effective}
-'"
-
-alias ncz="nc -vz"
+# use color
 alias ip="ip -c"
-alias ip0="ip -0"
-alias ipbr="ip -br"
-alias ips="ip -iec -s"

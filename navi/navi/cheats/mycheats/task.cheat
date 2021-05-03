@@ -1,0 +1,51 @@
+% task
+
+# show current context
+task context show
+
+# set the currently active context
+task context <context>
+
+# clear active context
+task context none
+
+# add a new task interactively
+intentm add
+
+# search a task interactively
+intentm search
+
+# review a task interactively
+intentm review
+
+# review all tasks which require a review interactively
+intentm review --all
+
+# get minimal report of all tasks
+task l
+
+# get report of active projects and next actions
+task
+
+# get detailed report of every task in the database
+task lsa
+
+# get a report of all tasks with state maybe
+task maybe
+
+# display the current tasks for a project
+task project:"<project>" decide
+
+# edit all tasks which have no tags
+task tags.none: edit
+
+# edit all tasks which have no projects set
+task projects.none: edit
+
+# view all next projects
+task limit:none | less
+
+$ context: task context list
+$ id: task top
+$ project: task _project
+$ tag: task _tags

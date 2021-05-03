@@ -9,8 +9,11 @@ sudo pacman -Rs <pkg_name_installed>
 # Search for package(s), equal to `apt search <keyword>`
 sudo pacman -Ss <keyword>
 
-# Upgrade Packages, equal to `apt update` and then `apt upgrade <pkg_name>`
+# Upgrade, install Packages, equal to `apt update` and then `apt upgrade <pkg_name>`
 sudo pacman -Syu <pkg_name>
+
+# force a refresh of mirrors
+sudo pacman -Syy
 
 # Clean up all local caches, equal to `apt autoclean` or `apt clean`
 sudo pacman -Sc
@@ -39,24 +42,6 @@ sudo less /var/log/pacman.log
 # Get a dump of the whole system information, equal to `apt-cache stats`
 sudo less /var/lib/pacman/local
 
-# Show all or most information about a package, equal to `apt show <pkg_name>` or `apt-cache policy <pkg_name>`
-sudo pacman -Si <pkg_name>
-
-# Show all or most information about a package, equal to `apt show <pkg_name>` or `apt-cache policy <pkg_name>`
-sudo pacman -Qi <pkg_name>
-
-# Display local package information, equal to `dpkg -s <pkg_name>` or `aptitude show <pkg_name>`
-sudo pacman -Qi <pkg_name>
-
-# Display remote package information, equal to `apt-cache show <pkg_name>` or `aptitude show <pkg_name>`
-sudo pacman -Si <pkg_name>
-
-# Display files provided by local package, equal to `dpkg -L <pkg_name>`
-sudo pacman -Ql <pkg_name>
-
-# Display files provided by a remote package, equal to `apt-file list <pkg_name>`
-sudo pacman -Fl <pkg_name>
-
 # Query the package which provides file, equal to `dpkg -S <file_name>` or `dlocate <file_name>`
 sudo pacman -Qo <file_name>
 
@@ -65,9 +50,6 @@ sudo pacman -Ql <pkg_name>
 
 # List the files that the package holds, equal to `dpkg-query -L <pkg_name>`
 sudo pacman -Fl <pkg_name>
-
-# Displays packages which provide the given exp. aka reverse provides, equal to `apt-file search <pkg_name>`
-sudo pacman -F <pkg_name>
 
 # Search all packages to find the one which holds the specified file, equal to `apt-file search <file_name>`
 sudo pacman -F <file_name>
@@ -80,9 +62,6 @@ sudo pacman -Qu
 
 # Display a list of all packages in all installation sources that are handled by the packages management, equal to `apt-cache dumpavail` or `apt-cache dump`(Cache only) or `apt-cache pkgnames`
 sudo pacman -Sl
-
-# Generates a list of installed packages, equal to `dpkg --list | grep ^i`
-sudo pacman -Q
 
 # List packages that are installed but are not available in any installation source (anymore), equal to `deborphan`
 sudo pacman -Qm
@@ -111,10 +90,7 @@ sudo pacman -Qi <pkg_name>
 # List all packages which are required for the given package, equal to `apt-cache depends <pkg_name>` or `apt-cache show <pkg_name>`
 sudo pacman -Si <pkg_name>
 
-# Installation sources management, equal to `$EDITOR /etc/apt/sources.list`
-sudo $EDITOR /etc/pacman.conf
-
-# Add an installation source to the system, equal to `apt-cdrom add`
+# Add an installation source to the system
 sudo $EDITOR /etc/pacman.conf
 
 # Refresh the information about installation sources, equal to `apt-get update`
@@ -129,25 +105,13 @@ paclist <repo>
 # Add a package lock rule to keep its current state from being changed, modifying IgnorePkg array in the file, equal to `apt-mark hold <pkg_name>`
 sudo $EDITOR /etc/pacman.conf
 
-# Delete a package lock rule, modifying IgnorePkg array in the file, equal to `apt-mark unhold <pkg_name>`
-sudo $EDITOR /etc/pacman.conf
-
 # Show a listing of all lock rules, equal to `less /etc/apt/preferences`
 less /etc/pacman.conf
-
-# Set the priority of the given package to avoid upgrade, force downgrade or to overwrite any default behavior, modifying HoldPkg and/or IgnorePkg arrays, equal to `$EDITOR /etc/apt/preferences` or `apt-cache policy`
-sudo $EDITOR /etc/pacman.conf
 
 # Verify package(s), equal to `debsums`
 sudo pacman -Qk
 
-# Reinstall given package, equal to `apt install --reinstall <pkg_name_installed>`
-sudo pacman -S <pkg_name_installed>
-
 # Verify dependencies of the complete system, equal to `apt-get check`
-sudo pacman -Dk
-
-# Use some magic to fix broken dependencies in a system for pacman dependency level, equal to `apt-get --fix-broken && aptitude install`
 sudo pacman -Dk
 
 # Use some magic to fix broken dependencies in a system for shared library level, equal to `apt-get --fix-broken && aptitude install`
@@ -163,9 +127,6 @@ sudo pacman -Qp <pkg_name>
 sudo pacman -Qpl <pkg_name>
 
 # Install local package file, equal to `apt install <pkg_file>`
-sudo pacman -U <pkg_file>
-
-# Updates package(s) with local packages and uses the installation sources to resolve dependencies, equal to `debi <pkg_file>`
 sudo pacman -U <pkg_file>
 
 # Add a local package to the local package cache mostly for debugging purposes, equal to `apt-cache add <pkg_file>`
@@ -185,5 +146,17 @@ makepkg -s
 
 # Check for possible packaging issues, equal to `lintian`
 namcap
+
+# remove orphaned packages
+pacman -Rns $(pacman -Qtdq)
+
+# check package hashes
+paccheck --md5sum --quiet
+
+# reinstall everything
+pacman -Qnq | sudo pacman -S -
+
+# optimize mirrors to the nearest location
+pacman-optimize
 
 $ pkg_name_installed: sudo pacman -Qe

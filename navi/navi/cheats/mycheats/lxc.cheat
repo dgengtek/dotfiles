@@ -1,8 +1,33 @@
 % lxc
 
-
 # run bash shell in container
 lxc exec <lxd_container> bash
 
+# run shell commands in the lxd container
+lxc exec <lxd_container> -- <commandstring>
+
+# start a stopped lxd container
+lxc launch <lxd_container>
+
+# stop a running lxd container
+lxc stop <lxd_container>
+
+# forcefully delete a lxd container
+lxc delete -f <lxd_container>
+
+# list locally available lxd containers
+lxd image list local:
+
+# list remotely available lxd containers
+lxd remote list images:
+
+# detailed output of lxd container
+lxc list -c n,volatile.base_image:"BASE IMAGE":0,s46,volatile.eth0.hwaddr:MAC
+
+lxce() {
+  local container=$1
+  shift
+  lxc exec "$container" -- "$@"
+}
 
 $ lxd_container: lxc ls --format json | jq -r '.[].name'

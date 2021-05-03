@@ -1,7 +1,13 @@
 % ssh
 
-# regen keys
-ssh-keygen -t rsa -C "<email>"
+# create ssh keys with defaults
+ssh-keygen -t <keytype> -a <rounds> -C "<email>"
+
+# show fingerprint and check if the key file is valid
+ssh-keygen -l -f <key>
+
+# Removes all keys belonging to the specified hostname
+ssh-keygen -R <hostname>
 
 # Start ssh agent
 eval "$(ssh-agent -s)"; ssh-add
@@ -21,7 +27,29 @@ ssh -p <port> <user>@<server>
 # login to a server with a key and port
 ssh -i <sshkey> -p <port> <user>@<server>
 
+# ignore userknownhostsfile
+ssh -o 'UserKnownHostsFile /dev/null'
+
+# use only password authentication
+ssh \
+  -o PreferredAuthentications=keyboard-interactive,password \
+  -o PubkeyAuthentication=no
+
+# use the safest options to connect to a host via ssh
+ssh -4aCxkt \
+  -F /dev/null \
+  -o 'ServerAliveInterval 60' \
+  -o 'ServerAliveCountMax 10' \
+  -o 'CheckHostIP yes' \
+  -o 'KexAlgorithms curve25519-sha256@libssh.org,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256,diffie-hellman-group1-sha1' \
+  -o 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr' \
+  -o 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,hmac-sha1' \
+  -o 'GatewayPorts no'
+
 $ user : echo -e "$(whoami)\nroot"
 $ sshkey : find ~/.ssh | grep -v known_hosts | grep -v config
+$ key: { fd --type f --exclude='known_hosts*' --exclude='config' . ~/.ssh; fd --type f --max-depth 1; }
 $ server : cat /etc/hosts | cut -f2 -d' '
 $ ssh_config: echo "${PREFIX}/etc/ssh/sshd_config"
+$ rounds: echo -e '100\n'
+$ keytype: echo -e 'ed25519,rsa,ed25519-sk' | tr ',' '\n'

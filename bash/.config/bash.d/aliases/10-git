@@ -2,7 +2,7 @@
 alias gpush="git_auto_push.sh"
 alias gff="git_auto_ff.sh"
 alias gdone="gff && gpush"
-alias gdonedone="gff && git push --all"
+alias gdonedone="git add -i . && gff && git push --all"
 alias gs="git status" 
 alias gd="git diff"
 alias gdc="git diff --cached"
@@ -78,6 +78,8 @@ alias gap="git add -p"
 alias gm="git merge"
 alias gmffo="git merge --ff-only"
 
+alias grst="git reset"
+alias grsth="git reset --hard"
 
 alias gwc="git whatchanged -p --abbrev-commit --pretty=medium"
 

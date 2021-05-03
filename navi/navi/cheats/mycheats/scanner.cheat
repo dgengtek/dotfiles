@@ -1,0 +1,11 @@
+% scanner
+
+# scan with selected resolution
+scanimage --format=<format> --mode=<mode> --progress --resolution <resolution>
+
+# scan with selected resolution for din A4
+scanimage --format=<format> --mode=<mode> --progress --resolution <resolution> -x 210 -y 297
+
+$ resolution: echo '150,300,600,1200' | tr ',' '\n'
+$ format: echo 'tiff,png,jpeg' | tr ',' '\n'
+$ mode: echo 'gray,color,lineart' | tr ',' '\n'

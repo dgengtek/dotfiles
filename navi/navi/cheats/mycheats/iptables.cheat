@@ -1,0 +1,31 @@
+% iptables
+
+# use nat table
+sudo iptables --table nat
+
+# show nat interface, rule options, TOS masks, packet and byte counters
+sudo iptables --table nat --list --verbose
+
+# show nat interface, rule options, TOS masks, packet and byte counters with line numbers
+sudo iptables -t nat -L -v --line-numbers
+
+# show interface, rule options, TOS masks, packet and byte counters
+sudo iptables --list --verbose
+
+# show interface, rule options, TOS masks, packet and byte counters with line numbers
+sudo iptables --list --verbose --line-numbers
+
+# delete rule from the selected chain
+sudo iptables --delete <chain> <rule>
+
+# append rule to the chain
+sudo iptables --append <chain> <new_rule>
+
+# insert rule to the chain
+sudo iptables --insert <chain> <new_rule>
+
+# check if a rule from the selected chain exists
+sudo iptables --check <chain> <rule>
+
+$ chain: sudo iptables --list | awk '/Chain/ {print $2}'
+$ rule: sudo iptables --list-rules <chain>

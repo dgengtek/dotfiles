@@ -2,38 +2,3 @@
 # interfaces, task management, productivity 
 
 alias tmuxa="tmux attach"
-alias tmuxat="tmux attach -t"
-alias tmuxmv="tmux rename-session"
-alias tmuxmvw="tmux rename-window"
-alias tmuxls="tmux list-sessions"
-alias tmuxlsc="tmux list-commands"
-alias tmuxcd="tmux new-session -c"
-alias tmuxkt="tmux kill-session"
-alias tmuxkt="tmux kill-session -t"
-alias tmuxnw="tmux new-window"
-alias tmuxnwt="tmux new-window -t"
-alias tmuxd="tmux new -d"
-
-alias taskc="task context"
-alias taskcd="task context define"
-alias taskcl="task context list"
-alias taskcs="task context show"
-alias taskcn="task context none"
-alias taska="intentm add"
-alias taskd="intentm dep"
-alias tasks="intentm search"
-alias taskn="intentm note"
-alias taskna="intentm note add"
-alias tasknc="intentm note cleanup"
-alias taskre="intentm review"
-alias taskra="intentm review --all"
-alias taskls="task l"
-alias tasklsa="task la"
-alias taskl="task limit:20"
-alias task_edit_unsettags="task tags.none: edit"
-alias task_edit_unsetprojects="task projects.none: edit"
-alias taskless="task limit:none | less"
-alias tmuxwork="tmux new-window -n sh \; new-window -n src \; new-window -n tests"
-
-# xorg
-alias xevgrabkey='xev | awk -F'\''[ )]+'\'' '\''/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'\'''

@@ -27,7 +27,7 @@ gpg --detach-sig <filename>
 # gpg agent reload
 gpg-connect-agent reloadagent /bye
 
-# gpg agent update tty
+# gpg agent update, reload tty for current shell
 gpg-connect-agent updatestartuptty /bye
 
 # restart gpg user agent

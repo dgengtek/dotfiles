@@ -19,6 +19,8 @@ $ compgen_path: fd --hidden --follow --exclude ".git" . "<path>"
 $ compgen_path2: fd --hidden --follow --exclude ".git" . "<path>"
 $ compgen_directory: fd --type d --hidden --follow --exclude ".git" . "<path>"
 $ compgen_directory2: fd --type d --hidden --follow --exclude ".git" . "<path>"
+$ fsbookmark: cat "$PATH_FSBOOKMARK"
+$ directory: { cat "$PATH_FSBOOKMARK"; fd --type d --hidden --follow --exclude ".git" . "<path>"; }
 
 $ binaries: compgen -c | uniq
 $ alias: compgen -a
