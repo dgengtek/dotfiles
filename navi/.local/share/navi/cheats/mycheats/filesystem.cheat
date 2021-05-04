@@ -20,3 +20,9 @@ find . -type f -exec chmod 0644 {} +
 
 # set default permissions for directories
 find . -type d -exec chmod 0755 {} +
+
+# :: cwd
+basename "$PWD"
+
+# :: cwdd
+dirname "$PWD"

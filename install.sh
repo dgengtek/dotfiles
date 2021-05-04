@@ -244,6 +244,7 @@ prepare() {
   cd "$parent_path"
   pushd "$HOME"
   mkdir -p .local/share/bash-completion/completions
+  mkdir -p .local/share/navi/cheats
   mkdir -p .config/bash.d/{utils,aliases,exports}
   mkdir -p .config/{ranger,awesome,git}
   mkdir -p .config/{i3,i3status}

@@ -1,0 +1,38 @@
+% compression
+@ template, reuse
+
+# Create a tar containing files
+tar cf <name>.tar <files>
+
+# Extract the files from a tar
+tar xf <tar_file>
+
+# Create a tar with Gzip compression
+tar czf <name>.tar.gz <files> 
+
+# Extract a tar using Gzip
+tar xzf <targz_file>
+
+# Compress file and appends .gz to its name
+gzip <compgen_file>
+
+# Decompress compressed file
+gzip -d <gz_file>
+
+# extract compressed gzip archive to stdout
+gunzip -cd
+
+# tar with excludes
+tar <excludes>
+
+# extract archives into directory with its same name
+while read -d $'\0' file; do 
+  local efile=$(basename "${file%.*}")
+  efile=$(filename_canonize.py -n -l "$file")
+  7z x -o"$efile" -y "$file"
+done < <(fd --type f --max-depth 1 --print0 . <path_source_archives>)
+
+$ path: fd
+$ tar_file: fd '.*\.tar'
+$ targz_file: fd '.*\.tar\.gz'
+$ gz_file: fd '.*\.gz'

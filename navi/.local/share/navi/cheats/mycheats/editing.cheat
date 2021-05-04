@@ -34,3 +34,6 @@ tr 'A-Z' 'a-z'
 
 # translate to uppercase
 tr 'a-z' 'A-Z'
+
+# open all search results with vim
+fd --type f <pattern> -X vim

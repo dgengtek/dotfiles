@@ -1,5 +1,11 @@
 % navi
 
+# :: n
+navi
+
+# navi loop chain commands :: nl
+_navi_widget_loop
+
 # use cheatsheets from tldr
 navi --tldr <query>
 

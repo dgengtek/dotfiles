@@ -26,6 +26,9 @@ tmux attach-session -t <session>
 # rename session
 tmux rename-session -t <session> <new_session_name>
 
+# rename active window to current working path
+tmux rename-window $(basename "$PWD")
+
 # lock client
 tmux lock-client -t <client>
 

@@ -3,6 +3,12 @@
 # send a get http request
 curl <url>
 
+# fetch HEAD only headers of a url
+curl -sLI <url>
+
+# unshorten url and find out location it points to
+curl -sLI <url> | rg location:
+
 # send a http request
 curl -X <method> <url>
 

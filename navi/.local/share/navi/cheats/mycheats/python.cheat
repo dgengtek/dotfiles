@@ -1,0 +1,14 @@
+% python, web
+
+# python3 http server
+python3 -m http.server <http_port>
+
+# source a python virtual environment
+source <virtual_environment>
+
+# prepare and source a python virtual environment from the current working directory
+pyvenv
+
+
+$ virtual_environment : fd --type f --no-ignore-vcs 'activate'
+$ http_port: echo "8080"

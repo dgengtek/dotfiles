@@ -6,6 +6,9 @@ dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero
 # clone device
 dd bs=64k conv=noerror,sync status=progress if=<device>
 
+# wipe mbr
+dd if=/dev/zero of=<device> bs=512 count=1 oflag=direct
+
 # overwrite device
 dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
 
