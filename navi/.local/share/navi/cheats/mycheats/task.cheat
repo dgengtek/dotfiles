@@ -9,7 +9,7 @@ task context <context>
 # clear active context
 task context none
 
-# add a new task interactively
+# add a new task interactively :: taska
 intentm add
 
 # search a task interactively

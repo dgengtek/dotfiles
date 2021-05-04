@@ -202,11 +202,6 @@ paste() {
 }
 
 
-xargs_vim() {
-  xargs bash -c '</dev/tty vim "$@"' ignoreme
-}
-
-
 open() {
   xdg-open "${@:-}" </dev/null >/dev/null 2>&1 \
     & disown

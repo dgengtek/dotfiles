@@ -1,13 +1,13 @@
 % template, reuse
 
 # run a binary from PATH
-<binaries>
+<binary>
 
 # find an alias 
 <alias>
 
 # find a function
-<functions>
+<function>
 
 # output the search of a file, path from the directory
 <compgen_path>
@@ -15,6 +15,7 @@
 # output the search of a directory from the given path 
 <compgen_directory>
 
+$ path: echo -e './\n'
 $ compgen_file: fd --type f --follow --exclude ".git" . "<path>"
 $ compgen_file2: fd --type f --follow --exclude ".git" . "<path>"
 $ compgen_path: fd --hidden --follow --exclude ".git" . "<path>"
@@ -23,10 +24,12 @@ $ compgen_directory: fd --type d --hidden --follow --exclude ".git" . "<path>"
 $ compgen_directory2: fd --type d --hidden --follow --exclude ".git" . "<path>"
 $ fsbookmark: cat "$PATH_FSBOOKMARK"
 $ directory: { cat "$PATH_FSBOOKMARK"; fd --type d --hidden --follow --exclude ".git" . "<path>"; }
+$ select_search: rg --ignore-case --files-with-matches --follow <pattern> --- --multi --select-1 --exit-0
+$ select_search_preview: rg --ignore-case --files-with-matches --follow <pattern> --- --preview="<command> {}" --multi --select-1 --exit-0
 
-$ binaries: compgen -c | uniq
+$ binary: compgen -c | uniq
 $ alias: compgen -a
-$ functions: compgen -A function
+$ function: compgen -A function
 
 $ dateisonow: date '+%Y%m%dT%H%M%S'
 

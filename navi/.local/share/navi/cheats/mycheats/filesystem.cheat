@@ -1,7 +1,8 @@
 % fs, filesystem
+@ template, reuse
 
-# Delete all broken symlinks in the current directory
-find -L . -name . -o -type d -prune -o -type l -exec rm {} +
+# Delete all broken symlinks in the directory
+find <directory> -xtype l -exec rm -vI {} +; 
 
 # Folder size
 du -sh
@@ -26,3 +27,39 @@ basename "$PWD"
 
 # :: cwdd
 dirname "$PWD"
+
+# enter a subshell for each directory with a conditional command
+dir_shell.sh <filename> <command>
+
+# run a command for each directory from the input
+dir_exec.sh <command>
+
+# find, search a file from the relative directory
+f <directory>
+
+# find, search a file from the relative directory and edit it with vim
+f <directory> | xargs_vim.sh
+
+# search select
+rg --ignore-case --files-with-matches --follow <pattern> | fzf --multi --select-1 --exit-0
+
+# select preview
+fzf --preview="<command> {}" --multi --select-1 --exit-0
+
+# run a command for each selected file from a pattern search
+rg --ignore-case --files-with-matches --follow <pattern> | fzf --multi --select-1 --exit-0 | xargs <command>
+
+# run a preview command for files from a pattern search
+rg --ignore-case --files-with-matches --follow <pattern> | fzf --preview="<command> {}" --multi --select-1 --exit-0
+
+# select change directory :: fcd
+cd $(fd --type d --hidden --follow --exclude ".git" . "<path>" | fzf --no-multi)
+
+# select change directory depth :: fcdd
+cd $(fd --type d --min-depth <min_depth> --max-depth <max_depth> --hidden --follow --exclude ".git" . "<path>" | fzf --no-multi)
+
+# select change directory parent :: fcdp
+f_change_directory_parent
+
+$ min_depth: echo -e '1\n'
+$ max_depth: echo -e '1\n'

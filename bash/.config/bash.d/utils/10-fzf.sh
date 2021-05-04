@@ -24,62 +24,12 @@ f() {
     echo "Could not push to directory '$dir'" >&2 
     return 1
   fi
-  local -r files=$(fzf "$@")
-  for file in "${files[@]}"; do
+  while read -r -d $'\n' file ; do
     [[ -z "$file" ]] && continue
     realpath -e "$file"
-  done
+  done < <(fzf --multi "$@")
   popd 2>&1 >/dev/null
 }
-
-
-f_search_command() {
-  if [[ -z $1 ]] || [[ -z $2 ]]; then
-    cat >&2 << EOF
-Usage: $FUNCNAME <command> <pattern>
-
-Specify a <command> to run your results against.
-Specify a <pattern> to search for.
-EOF
-    return 1
-  fi
-  local -r cmd=$1
-  local -r pattern=$2
-  local files=($(__find_pattern "$pattern" | fzf --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && $cmd "${files[@]}"
-}
-alias f_sc=f_search_command
-
-
-f_search_preview() {
-  if [[ -z $1 ]]; then
-    echo "Specify a pattern to search for." >&2
-    return 1
-  fi
-  if [[ -z $2 ]]; then
-    echo "Specify a command to preview your results." >&2
-    return 1
-  fi
-  local -r pattern=$1
-  shift 1
-
-  local files
-  files=($(__find_pattern "$pattern" | fzf --preview="$@ {}" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && echo "${files[@]}"
-}
-alias f_sp=f_search_preview
-
-
-f_preview() {
-  if [[ -z $1 ]]; then
-    echo "Specify a command to preview your results." >&2
-    return 1
-  fi
-  local files
-  files=($(fzf --preview="$@ {}" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && echo "${files[@]}"
-}
-alias f_p=f_preview
 
 
 unalias z 2> /dev/null
@@ -105,93 +55,6 @@ zz() {
 }
 
 
-f_edit() {
-  # edit selected files
-  local files=
-  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
-alias f_e=f_edit
-
-
-f_change_directory() {
-# fd - cd to selected directory
-  local dir
-  dir=$(find_dir_prune_hidden "$@" | fzf --no-multi) && builtin cd "$dir"
-}
-alias f_cd=f_change_directory
-
-
-f_change_directory_depth() {
-# fd - cd to selected directory
-  local dir
-  dir=$(find_dir_depth_prune_hidden "$@" | fzf --no-multi) && builtin cd "$dir"
-}
-alias f_cdd=f_change_directory_depth
-
-
-f_cd1() {
-  local topath=$1
-  shift
-  f_change_directory_depth "$topath" 0 1 "$@"
-}
-alias f_cdcwd=f_cd1
-
-
-f_cd2() {
-  local topath=$1
-  shift
-  f_change_directory_depth "$topath" 0 2 "$@"
-}
-
-
-f_change_directory_hidden() {
-# fda - including hidden directories
-  local dir
-  dir=$(find_dir "$@" | fzf --no-multi) && builtin cd "$dir"
-}
-alias f_cdh=f_change_directory_hidden
-
-
-f_change_directory_depth_hidden() {
-# fda - including hidden directories
-  local dir
-  dir=$(find_dir_depth "$@" | fzf --no-multi) && builtin cd "$dir"
-}
-alias f_cddh=f_change_directory_hidden
-
-
-f_cdh1() {
-  local topath=$1
-  shift
-  f_change_directory_depth_hidden "$topath" 0 1 "$@"
-}
-
-
-f_cdh2() {
-  local topath=$1
-  shift
-  f_change_directory_depth_hidden "$topath" 0 2 "$@"
-}
-
-
-f_search_directory() {
-  local dir
-  dir=$(find ${1:-.} -not -path '*/\.*' -type d | fzf +m)
-  echo "$dir"
-}
-alias f_sd=f_search_directory
-
-
-f_search_directory_hidden() {
-  local dir
-  dir=$(find ${1:-.} -type d | fzf +m)
-  echo "$dir"
-}
-alias f_sdh=f_search_directory_hidden
-
-
-
 f_change_directory_parent() {
   # cd to selected parent
   local declare dirs=()
@@ -206,7 +69,6 @@ f_change_directory_parent() {
   local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
   builtin cd "$DIR"
 }
-alias f_cdp=f_change_directory_parent
 
 
 # fkill - kill process

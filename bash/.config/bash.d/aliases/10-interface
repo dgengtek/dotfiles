@@ -2,3 +2,7 @@
 # interfaces, task management, productivity 
 
 alias tmuxa="tmux attach"
+declarealias n
+declarealias nl
+
+declarealias taska

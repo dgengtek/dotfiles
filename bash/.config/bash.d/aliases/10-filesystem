@@ -39,3 +39,9 @@ alias pua="pushd_all"
 
 alias ..="builtin cd .."
 alias ...="builtin cd ../.."
+
+declarealias cwd
+declarealias cwdd
+declarealias fcd
+declarealias fcdd
+declarealias fcdp
