@@ -18,6 +18,9 @@ lxc delete -f <container>
 # list images from remote
 lxc image list <remote>:
 
+# list image aliases from remote
+lxc image alias list <remote>:
+
 # detailed output of lxd container
 lxc list -c n,volatile.base_image:"BASE IMAGE":0,s46,volatile.eth0.hwaddr:MAC
 
