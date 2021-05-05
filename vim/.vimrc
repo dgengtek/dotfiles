@@ -358,6 +358,25 @@ nnoremap <silent> N N:call HLNext(0.1)<cr>
 " sudo overwrite file
 cmap w!! w !sudo tee > /dev/null %
 
+" fzf mappings
+" https://github.com/zenbro/dotfiles/blob/master/.nvimrc#L151-L187
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'RG ' . input('RG/')<CR>
+nnoremap <silent> <leader>. :RG 
+
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap <silent> <leader>ft :Filetypes<CR>
+
+imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
 " TODO: check git history why I added this?
 " nmap ,cs :let @*=expand("%")<CR>
 " nmap ,cl :let @*=expand("%:p")<CR>
