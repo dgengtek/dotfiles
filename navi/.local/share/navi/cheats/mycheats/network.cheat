@@ -4,13 +4,13 @@
 command ip -d -json route | jq '.[] | select(.dst == "default")'
 
 # Kill a process running on a given port
-lsof -i :<port> \
+sudo lsof -i :<port> \
    | awk '{l=$2} END {print l}' \
    | xargs kill
 
 # Kill a process for port
 port="$(echo "<process>" | grep -Eo ':([0-9][0-9][0-9]+) ' | tr -d ':')"
-lsof -i :$port \
+sudo lsof -i :$port \
    | awk '{l=$2} END {print l}' \
    | xargs kill
 
@@ -44,10 +44,10 @@ curl -sL "ipinfo.io/<self_global_ip>" | jq
 sudo nmap -sS -sV -0 "<target>"
 
 # Port owner
-lsof -n -i4TCP:<port> | grep LISTEN
+sudo lsof -n -i4TCP:<port> | grep LISTEN
 
 # List open ports
-lsof -Pn -i4
+sudo lsof -Pn -i4
 
 # verbosely scan for listening daemons without sending any data to them with netcat
 nc -vz
@@ -65,10 +65,10 @@ ip -iec -s addr
 ip -json -d link show <interface> | jq .
 
 # bring up interface
-ip link set <interface> up
+sudo ip link set <interface> up
 
 # bring down interface
-ip link set <interface> down
+sudo ip link set <interface> down
 
 # display timestamp and report ICMP ECHO reply
 ping -D -O <destination>
