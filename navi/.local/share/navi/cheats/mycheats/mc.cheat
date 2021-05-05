@@ -1,4 +1,4 @@
-% mc, object storage
+% mc, object storage, minio
 
 # remove mc file
 mc rm <file>
