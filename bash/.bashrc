@@ -111,3 +111,7 @@ if hash navi; then
 else
  echo "Install navi to use cheats." >&2
 fi
+
+if hash mc; then
+  complete -C /usr/bin/mc mc
+fi
