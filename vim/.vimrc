@@ -339,6 +339,8 @@ command! -range Canonize :<line1>,<line2>!canonize.sh
 command! ZettelNeu :DateIsoShort
 command! IDDate :DateIsoShort
 command! UUID :r!uuidgen
+command! Backup execute 'silent !cp % %.bak' | redraw!
+command! Restore execute 'silent !mv %.bak %' | redraw!
 
 
 " mappings
