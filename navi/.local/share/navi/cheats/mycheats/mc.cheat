@@ -1,0 +1,15 @@
+% mc, object storage
+
+# remove mc file
+mc rm <file>
+
+# list incomplete uploads
+mc ls --recursive --incomplete <host>
+
+# list files in folder
+mc ls --recursive <folder>
+
+$ host: mc config host list --json | jq -r .alias
+$ bucket: mc ls --json <host> | jq -r 'select(.type == "folder") | "<host>/" + .key'
+$ file: mc ls --recursive --json <bucket> | jq -r 'select(.type == "file") | "<bucket>" + .key'
+$ folder: mc ls --json <bucket> | jq -r 'select(.type == "folder") | "<bucket>" + .key'

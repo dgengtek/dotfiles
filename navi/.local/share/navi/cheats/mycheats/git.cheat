@@ -135,8 +135,11 @@ git reset --hard HEAD~<number_of_commits>
 # Remove commits from local repository (keep changes)
 git reset --soft HEAD~<number_of_commits>
 
-# current git head name
+# get current git head name
 git rev-parse --abbrev-ref HEAD
+
+# get current git commit hash
+git rev-parse HEAD
 
 # stash, checkout and pull from remote master to master
 git_auto_pull.sh -r <remote> -- --ff
