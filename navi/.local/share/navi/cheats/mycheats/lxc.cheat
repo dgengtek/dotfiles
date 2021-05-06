@@ -7,7 +7,7 @@ lxc exec <container> bash
 lxc exec <container> -- <commandstring>
 
 # start a stopped lxd container
-lxc launch <container>
+lxc start <container>
 
 # stop a running lxd container
 lxc stop <container>
@@ -24,7 +24,14 @@ lxc image alias list <remote>:
 # detailed output of lxd container
 lxc list -c n,volatile.base_image:"BASE IMAGE":0,s46,volatile.eth0.hwaddr:MAC
 
+# create and start instances from images
+lxc launch <remote>:<alias>
+
+# get fingerprint of image
+echo "<fingerprint>"
+
 
 $ remote: lxc remote list --format json | jq -r 'keys[]'
-$ image: lxc image list <remote>:
+$ fingerprint: lxc image list --format json <remote>: | jq -r '.[] | .fingerprint + " " + .properties.description + " " + .architecture + " " + .created_at' --- --column 1 --delimiter ' '
+$ alias: lxc image alias list --format json <remote>: | jq -r '.[].name'
 $ container: lxc ls --format json | jq -r '.[].name'
