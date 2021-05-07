@@ -74,12 +74,12 @@ if hash navi; then
  # ctrl+g
  eval "$(navi widget bash)"
   _navi_widget_append() {
-    READLINE_LINE="${READLINE_LINE}$(_navi_call --print)"
+    READLINE_LINE="${READLINE_LINE}$(navi --print)"
   }
   _navi_widget_loop() {
     output=()
     while :; do
-      selection=$(_navi_call --print)
+      selection=$(navi --print)
       if [[ -z "$selection" ]]; then
         break
       fi
@@ -95,11 +95,11 @@ if hash navi; then
       local -r last_command="$(echo "${input}" | navi fn widget::last_command)"
 
       if [ -z "${last_command}" ]; then 
-          local -r append="$(_navi_call --print --fzf-overrides '--no-select-1')"
+          local -r append="$(navi --print --fzf-overrides '--no-select-1')"
           local -r output="${input}${append}"
       else
           local -r find="$last_command"
-          local -r replacement="$(_navi_call --print --query "${last_command}")"
+          local -r replacement="$(navi --print --query "${last_command}")"
           local -r output="${input//$find/$replacement}"
       fi
 
