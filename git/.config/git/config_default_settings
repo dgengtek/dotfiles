@@ -9,6 +9,8 @@
   tool = vimdiff
   conflictstyle = diff3
   stat = true
+[pager]
+  diff = false
 [push]
   default = simple
 [pull]
