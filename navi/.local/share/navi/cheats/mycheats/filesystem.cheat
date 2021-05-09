@@ -61,8 +61,8 @@ cd $(fd --type d --hidden --follow --exclude ".git" . "<path>" | fzf --no-multi)
 # select change directory depth :: fcdd
 cd $(fd --type d --min-depth <min_depth> --max-depth <max_depth> --hidden --follow --exclude ".git" . "<path>" | fzf --no-multi)
 
-# select change directory parent :: fcdp
-f_change_directory_parent
+# change directory to any parent directory :: walkp
+walk_parent.sh
 
 $ min_depth: echo -e '1\n'
 $ max_depth: echo -e '1\n'

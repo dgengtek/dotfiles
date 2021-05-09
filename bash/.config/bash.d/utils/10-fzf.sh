@@ -11,7 +11,6 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-
 f() {
   local dir
   if [[ -z $1 ]]; then
@@ -52,22 +51,6 @@ zz() {
   if [[ -n "$dir" ]]; then
     builtin cd "$dir"
   fi
-}
-
-
-f_change_directory_parent() {
-  # cd to selected parent
-  local declare dirs=()
-  get_parent_dirs() {
-    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
-    if [[ "${1}" == '/' ]]; then
-      for _dir in "${dirs[@]}"; do echo $_dir; done
-    else
-      get_parent_dirs $(dirname "$1")
-    fi
-  }
-  local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
-  builtin cd "$DIR"
 }
 
 
