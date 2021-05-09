@@ -15,6 +15,7 @@ alias ls=exa
 alias ll="exa -l"
 alias lla="exa -la"
 alias la="exa -a"
+alias t="tree -C | $PAGER"
 
 alias rm="rm -i --preserve-root"
 alias rmi="rm -I --preserve-root"
