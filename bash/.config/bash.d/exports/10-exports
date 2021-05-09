@@ -45,6 +45,13 @@ if hash fzf 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
   fi
   FZF_DEFAULT_OPTS='--bind alt-p:accept'
   FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#cccccc,bg:#000000,hl:#de382b --color=fg+:#ffffff,bg+:#000000,hl+:#ff0000 --color=info:#9a9a9a,prompt:#007acc,pointer:#ff0000 --color=marker:#39b54a,spinner:#9a9a9a,header:#9a9a9a'
+  FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+  FZF_ALT_C_COMMAND="fd --type d --min-depth 1 --hidden --follow --no-ignore-vcs --exclude '.git'"
+  FZF_TMUX_HEIGHT="100%"
+
+  export FZF_TMUX_HEIGHT
+  export FZF_ALT_C_OPTS
+  export FZF_ALT_C_COMMAND
   export FZF_DEFAULT_COMMAND
   export FZF_DEFAULT_OPTS
 fi
