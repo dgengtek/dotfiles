@@ -1,5 +1,5 @@
 % scripts
-@ templat, reuse
+@ template, reuse
 
 # run a new tmux session with the basename of the current path:: tmuxn
 tmux_new_session.sh
