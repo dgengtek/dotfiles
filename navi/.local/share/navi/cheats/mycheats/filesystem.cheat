@@ -34,11 +34,8 @@ dir_shell.sh <filename> <command>
 # run a command for each directory from the input
 dir_exec.sh <command>
 
-# find, search a file from the relative directory
-f <directory>
-
-# run a command against a file found in directory
-<command> $(f "<directory>")
+# run a command against a file found relative from the current directory
+<command> $(f)
 
 # find, search a file from the relative directory and edit it with vim
 f <directory> | xargs_vim.sh
@@ -63,6 +60,9 @@ cd $(fd --type d --min-depth <min_depth> --max-depth <max_depth> --hidden --foll
 
 # change directory to any parent directory :: walkp
 walk_parent.sh
+
+# fuzzy search and preview files with bat
+fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 
 $ min_depth: echo -e '1\n'
 $ max_depth: echo -e '1\n'
