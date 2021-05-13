@@ -14,10 +14,10 @@ run.sh -q -n --
 run.sh -- echo 'task done'
 
 # spawn a new terminal emulator in the current directory
-run.sh -q -n -- alacritty
+run.sh -q -n -- alacritty --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
 
 # spawn a new terminal emulator in a directory
-run.sh -q -n -- alacritty --working-directory <directory>
+run.sh -q -n -- alacritty --working-directory <directory> --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
 
 # trim and strip input string with python
 strip.py

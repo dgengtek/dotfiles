@@ -4,7 +4,7 @@
 # create a new tmux session if none exists and spawn a new terminal shell session if in a TMUX session
 tmux_new_session.sh
 
-# load tmuxp defined session
+# load tmuxp defined session :: tmuxpl
 if ! { [[ "$TERM" =~ "screen" ]] && [[ -n "$TMUX" ]]; }; then
   tmuxp load <tmuxp_session>
 else
@@ -74,6 +74,9 @@ tmux wait-for -U <channel>
 # create a detached session
 tmux new-session -d -s <new_session_name>
 
+# create a new tmux window from the relative directory
+tmux new-window -c <compgen_directory>
+
 # create a new tmux session from directory
 tmux new-session -c <directory> -s <new_session_name>
 
@@ -106,7 +109,7 @@ tmux select-window -t <window>
 
 $ client: tmux list-clients
 $ session: tmux list-sessions
-$ window: tmux list-windows
+$ window: tmux list-windows --- --column 1 --delimiter ':'
 $ pane: tmux list-panes
 $ layout: echo -e 'even-horizontal,even-vertical,main-horizontal,main-vertical,tiled' | tr ',' '\n'
 $ buffer: tmux list-buffers

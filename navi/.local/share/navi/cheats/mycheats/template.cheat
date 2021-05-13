@@ -15,6 +15,9 @@
 # output the search of a directory from the given path 
 <compgen_directory>
 
+# test11
+echo envvars_tmux>
+
 $ path: echo -e './\n'
 $ compgen_file: fd --type f --follow --exclude ".git" . "<path>"
 $ compgen_file2: fd --type f --follow --exclude ".git" . "<path>"
@@ -34,3 +37,5 @@ $ function: compgen -A function
 $ dateisonow: date '+%Y%m%dT%H%M%S'
 
 $ excludes: __build_exclude_string() { local -ar __filesystem_excludes=("/dev/*" "/proc/*" "/sys/*" "/tmp/*" "/run/*" "/mnt/*" "/media/*" "/lost+found" "/swapfile" "/data/*" "/srv/*" ); local -r flag_prefix='--exclude'; local -a excludes=; local -r array_size="${#__filesystem_excludes[@]}"; for exclude in "${__filesystem_excludes[@]}"; do  excludes+=("$flag_prefix=$exclude"); done; echo -n "${excludes[@]}"; }; __build_exclude_string
+
+$ envvars_tmux: echo "TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH"
