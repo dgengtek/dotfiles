@@ -35,4 +35,7 @@ ps --sort=%cpu -eo pid,f,s,%cpu,nice,cmd:80,policy,wchan
 # show processes sorted by memory
 ps --sort=%mem -eo pid,f,s,%mem,cmd:80,sz,rss
 
-$ pid: (ps -o pid,%cpu,%mem,ni,cmd ax 2>/dev/null || ps -o pid,%cpu,%mem,ni,command) | sort -b -k3 -r | awk '{print $1, $2, $3, $4, $5}' | column -t --- --header-lines 1 --column 1
+# wait for process
+wait_pid.sh <pid>
+
+$ pid: ps -eo pid,%cpu,%mem,ni,cmd --sort=cmd | awk '{print $1, $2, $3, $4, $5}' | column -t --- --header-lines 1 --column 1 --multi

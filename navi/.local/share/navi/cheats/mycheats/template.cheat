@@ -19,10 +19,13 @@
 echo envvars_tmux>
 
 $ path: echo -e './\n'
+$ compgen_file_cwd: fd --absolute-path --type f --follow --exclude ".git"
 $ compgen_file: fd --type f --follow --exclude ".git" . "<path>"
 $ compgen_file2: fd --type f --follow --exclude ".git" . "<path>"
+$ compgen_path_cwd: fd --absolute-path --hidden --follow --exclude ".git"
 $ compgen_path: fd --hidden --follow --exclude ".git" . "<path>"
 $ compgen_path2: fd --hidden --follow --exclude ".git" . "<path>"
+$ compgen_directory_cwd: fd --absolute-path --type d --hidden --follow --exclude ".git"
 $ compgen_directory: fd --type d --hidden --follow --exclude ".git" . "<path>"
 $ compgen_directory2: fd --type d --hidden --follow --exclude ".git" . "<path>"
 $ fsbookmark: cat "$PATH_FSBOOKMARK"
