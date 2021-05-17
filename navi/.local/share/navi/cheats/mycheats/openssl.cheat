@@ -43,6 +43,12 @@ openssl pkcs12 -export -out <OUTPUT_PKCS12> -inkey <INPUT_KEY> -in <INPUT_CRT> -
 # Validate a certificate signing request
 openssl req -text -noout -verify -in <OUTPUT_CSR>
 
+# decrypt private key from input to stdout
+openssl rsa
+
+# encrypt private key
+openssl rsa -aes256
+
 # Validate a private key
 openssl rsa -in <INPUT_KEY> -check
 

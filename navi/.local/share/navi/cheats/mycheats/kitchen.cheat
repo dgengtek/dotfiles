@@ -1,0 +1,15 @@
+% kitchen
+# Use a provisioner to configure one or more instances
+kitchen converge <instance>
+
+# Delete all information for one or more instances
+kitchen destroy <instance>
+
+# Execute command on one or more instance
+kitchen exec <instance>
+
+# Log in to one instance
+kitchen login <instance>
+
+
+$ instance: kitchen list | jq '.[].instance'

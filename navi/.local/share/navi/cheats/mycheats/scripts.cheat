@@ -13,9 +13,6 @@ run.sh -q -n --
 # run a display of done notification
 run.sh -- echo 'task done'
 
-# spawn a new terminal emulator in the current directory
-run.sh -q -n -- alacritty --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
-
 # spawn a new terminal emulator in a directory
 run.sh -q -n -- alacritty --working-directory <directory> --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
 

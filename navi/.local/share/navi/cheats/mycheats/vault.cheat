@@ -7,6 +7,10 @@ jq -Rs '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>) | cur
   ${VAULT_ADDR}/v1/<pki_secrets_handler>/config/ca
 
 
+# set vault token in current shell environment
+export VAULT_TOKEN=$(systemd-ask-password)
+
+
 # list current pki certificates by serial number
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
