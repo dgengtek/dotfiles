@@ -12,4 +12,4 @@ kitchen exec <instance>
 kitchen login <instance>
 
 
-$ instance: kitchen list | jq '.[].instance'
+$ instance: kitchen list --json | jq -r '.[].instance'
