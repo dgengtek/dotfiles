@@ -1,0 +1,22 @@
+% lvm
+
+# get device map info
+sudo dmsetup info -c
+
+# remove logical volume
+sudo lvremove <volume_group>/<logical_volume>
+
+# metadata check and repair of thinpool
+sudo lvconvert --repair <volume_group>/<logical_volume>
+
+# remove all lxd thin pool volumes
+sudo lvs --reportformat json | jq -r '.report[].lv[] | select(.pool_lv == "tpool_lxd") | .vg_name + "/" + .lv_name' | xargs sudo lvremove {}
+
+# set logical volume as active, available
+sudo lvchange --activate y <volume_group>/<logical_volume>
+
+# set logical volume as inactive, unavailable
+sudo lvchange --activate n <volume_group>/<logical_volume>
+
+$ logical_volume: sudo lvs --reportformat json <volume_group> | jq -r '[.report[].lv[]| with_entries( .key |= ascii_downcase )] | (.[0] |keys_unsorted | @tsv), (.[]|.|map(.) |@tsv)' | column -t --- --header-lines 1 --column 1
+$ volume_group: sudo vgs --reportformat json | jq -r '[.report[].vg[]| with_entries( .key |= ascii_downcase )] | (.[0] |keys_unsorted | @tsv), (.[]|.|map(.) |@tsv)' | column -t --- --header-lines 1 --column 1

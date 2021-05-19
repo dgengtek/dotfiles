@@ -30,8 +30,19 @@ lxc launch <remote>:<alias>
 # get fingerprint of image
 echo "<fingerprint>"
 
+# remove a storage volume used by a container
+lxc storage volume delete <pool> <pool_volume>
+
+# remove all storage volumes in a pool
+pool=<pool>; lxc storage volume list "$pool" --format json | jq -r '.[].name' | xargs -I {} lxc storage volume delete "$pool" {}
+
+# cleanup leftover storage volumes
+lxd sql global "DELETE FROM storage_volumes WHERE name='<name_pattern>'"
+
 
 $ remote: lxc remote list --format json | jq -r 'keys[]'
 $ fingerprint: lxc image list --format json <remote>: | jq -r '.[] | .fingerprint + " " + .properties.description + " " + .architecture + " " + .created_at' --- --column 1 --delimiter ' '
 $ alias: lxc image alias list --format json <remote>: | jq -r '.[].name'
 $ container: lxc ls --format json | jq -r '.[].name'
+$ pool_volume: lxc storage volume list <pool> --format json | jq -r '.[].name' --- --preview 'lxc storage volume show {}'
+$ pool: lxc storage list --format json | jq -r '.[].name' --- --preview 'lxc storage show {}'

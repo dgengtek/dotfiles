@@ -29,7 +29,7 @@ $ compgen_directory_cwd: fd --absolute-path --type d --hidden --follow --exclude
 $ compgen_directory: fd --type d --hidden --follow --exclude ".git" . "<path>"
 $ compgen_directory2: fd --type d --hidden --follow --exclude ".git" . "<path>"
 $ fsbookmark: cat "$PATH_FSBOOKMARK"
-$ directory: { cat "$PATH_FSBOOKMARK"; fd --type d --hidden --follow --exclude ".git" . "<path>"; }
+$ directory: { cat "$PATH_FSBOOKMARK"; fd --type d --hidden --follow --exclude ".git"; }
 $ select_search: rg --ignore-case --files-with-matches --follow <pattern> --- --multi --select-1 --exit-0
 $ select_search_preview: rg --ignore-case --files-with-matches --follow <pattern> --- --preview="<command> {}" --multi --select-1 --exit-0
 
