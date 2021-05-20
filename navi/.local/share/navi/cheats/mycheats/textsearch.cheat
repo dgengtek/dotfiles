@@ -1,7 +1,7 @@
 % text, string
 
 # ignore comments and empty lines with rg
-rg -v -e '^#' -e '^;' -e '^$' -e '^[ ]*$'
+rg -v -e '^#' -e '^;' -e '^[ ]*$'
 
-# run rg line buffered
+# rg flush to stdout immediately
 rg --line-buffered

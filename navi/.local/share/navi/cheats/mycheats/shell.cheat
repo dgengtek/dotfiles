@@ -20,3 +20,6 @@ LC_COLLATE=C sort
 
 # Ansi tput syntax for reset
 RESET=$'\033[0m'
+
+# clean shell environment
+env -i bash --noprofile --norc
