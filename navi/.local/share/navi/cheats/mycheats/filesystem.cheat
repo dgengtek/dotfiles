@@ -37,8 +37,8 @@ dir_exec.sh <command>
 # run a command against a file found relative from the current directory
 <command> $(f)
 
-# find, search a file from the relative directory and edit it with vim
-f <directory> | xargs_vim.sh
+# select files from a directory and edit it with vim
+f.sh <directory> | xargs_vim.sh
 
 # search select
 rg --ignore-case --files-with-matches --follow <pattern> | fzf --multi --select-1 --exit-0

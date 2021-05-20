@@ -90,7 +90,7 @@ sudo pacman -Qi <pkg_name>
 # List all packages which are required for the given package, equal to `apt-cache depends <pkg_name>` or `apt-cache show <pkg_name>`
 sudo pacman -Si <pkg_name>
 
-# Add an installation source to the system
+# edit pacman config
 sudo $EDITOR /etc/pacman.conf
 
 # Refresh the information about installation sources, equal to `apt-get update`
@@ -101,9 +101,6 @@ less /etc/pacman.d/mirrorlist
 
 # List all packages from a certain repo
 paclist <repo>
-
-# Add a package lock rule to keep its current state from being changed, modifying IgnorePkg array in the file, equal to `apt-mark hold <pkg_name>`
-sudo $EDITOR /etc/pacman.conf
 
 # Show a listing of all lock rules, equal to `less /etc/apt/preferences`
 less /etc/pacman.conf
