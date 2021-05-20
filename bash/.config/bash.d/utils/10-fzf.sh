@@ -11,26 +11,6 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-f() {
-  local dir
-  if [[ -z $1 ]]; then
-    dir="."
-  else
-    dir=$1
-    shift
-  fi
-  if ! pushd "$dir" 2>&1 >/dev/null; then
-    echo "Could not push to directory '$dir'" >&2 
-    return 1
-  fi
-  while read -r -d $'\n' file ; do
-    [[ -z "$file" ]] && continue
-    realpath -e "$file"
-  done < <(fzf --multi "$@")
-  popd 2>&1 >/dev/null
-}
-
-
 unalias z 2> /dev/null
 z() {
   local PATH_BOOKMARKS=${PATH_BOOKMARKS:-"${HOME}/.local/share/"}

@@ -11,6 +11,11 @@ if [[ -x /usr/bin/dircolors ]]; then
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 fi
+
+if hash bat; then
+  alias cat=bat
+fi
+alias c=cat
 alias ls=exa
 alias ll="exa -l"
 alias lla="exa -la"
@@ -46,3 +51,6 @@ declarealias cwdd
 declarealias fcd
 declarealias fcdd
 declarealias fcdp
+# TODO: navi exact matches do not exist
+# declarealias p
+alias p="navibestmatch 'fuzzy search and preview files with bat'"

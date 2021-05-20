@@ -17,7 +17,6 @@ alias echoerr=">&2 echo"
 alias transde="trans en:de"
 alias transen="trans de:en"
 alias transru="trans de:ru"
-alias p=$PAGER
 
 ################################################################################
 # script alias
