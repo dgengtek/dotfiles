@@ -53,10 +53,10 @@ rg --ignore-case --files-with-matches --follow <pattern> | fzf --multi --select-
 rg --ignore-case --files-with-matches --follow <pattern> | fzf --preview="<command> {}" --multi --select-1 --exit-0
 
 # select change directory :: fcd
-cd $(fd --type d --hidden --follow --exclude ".git" . "<path>" | fzf --no-multi)
+cd $(fd --type d --hidden --follow --exclude ".git" . "<directory>" | fzf --no-multi --preview 'tree -C {} | head -200')
 
 # select change directory depth :: fcdd
-cd $(fd --type d --min-depth <min_depth> --max-depth <max_depth> --hidden --follow --exclude ".git" . "<path>" | fzf --no-multi)
+cd $(fd --type d --min-depth <min_depth> --max-depth <max_depth> --hidden --follow --exclude ".git" . "<directory>" | fzf --no-multi --preview 'tree -C {} | head -200')
 
 # change directory to any parent directory :: walkp
 walk_parent.sh

@@ -19,17 +19,17 @@
 echo envvars_tmux>
 
 $ path: echo -e './\n'
-$ compgen_file_cwd: fd --absolute-path --type f --follow --exclude ".git"
-$ compgen_file: fd --type f --follow --exclude ".git" . "<path>"
-$ compgen_file2: fd --type f --follow --exclude ".git" . "<path>"
+$ compgen_file_cwd: fd --absolute-path --type f --follow --exclude ".git" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
+$ compgen_file: fd --type f --follow --exclude ".git" . "<path>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
+$ compgen_file2: fd --type f --follow --exclude ".git" . "<path>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 $ compgen_path_cwd: fd --absolute-path --hidden --follow --exclude ".git"
 $ compgen_path: fd --hidden --follow --exclude ".git" . "<path>"
 $ compgen_path2: fd --hidden --follow --exclude ".git" . "<path>"
-$ compgen_directory_cwd: fd --absolute-path --type d --hidden --follow --exclude ".git"
-$ compgen_directory: fd --type d --hidden --follow --exclude ".git" . "<path>"
-$ compgen_directory2: fd --type d --hidden --follow --exclude ".git" . "<path>"
-$ fsbookmark: cat "$PATH_FSBOOKMARK"
-$ directory: { cat "$PATH_FSBOOKMARK"; fd --type d --hidden --follow --exclude ".git"; }
+$ compgen_directory_cwd: fd --absolute-path --type d --hidden --follow --exclude ".git" --- --preview 'tree -C {} | head -200'
+$ compgen_directory: fd --type d --hidden --follow --exclude ".git" . "<path>" --- --preview 'tree -C {} | head -200'
+$ compgen_directory2: fd --type d --hidden --follow --exclude ".git" . "<path>" --- --preview 'tree -C {} | head -200'
+$ fsbookmark: cat "$PATH_FSBOOKMARK" --- --preview 'tree -C {} | head -200'
+$ directory: { cat "$PATH_FSBOOKMARK"; fd --type d --hidden --follow --exclude ".git"; } --- --preview 'tree -C {} | head -200'
 $ select_search: rg --ignore-case --files-with-matches --follow <pattern> --- --multi --select-1 --exit-0
 $ select_search_preview: rg --ignore-case --files-with-matches --follow <pattern> --- --preview="<command> {}" --multi --select-1 --exit-0
 
