@@ -8,7 +8,7 @@ jq -Rs '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>) | cur
 
 
 # generate a new certificate
-jq -ns '{ "common_name": "<common_name> }' \
+jq -ns '{ "common_name": "<common_name>" }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
