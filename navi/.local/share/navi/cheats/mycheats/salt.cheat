@@ -16,6 +16,12 @@ jq 'keys' <tags_of_hosts>
 # get a list of all tags
 jq 'keys' <hosts_to_tags>
 
+# get the tags specific to a host
+jq '.<host>' <tags_of_hosts>
+
+# get the hosts specific to a tag
+jq '.<tag>' <hosts_to_tags>
+
 
 # sync specific tag
 sudo salt -G "tags:<tag>" saltutil.sync_all

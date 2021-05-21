@@ -12,6 +12,9 @@ lxc start <container>
 # stop a running lxd container
 lxc stop <container>
 
+# restart a running lxd container
+lxc restart <container>
+
 # forcefully delete a lxd container
 lxc delete -f <container>
 
