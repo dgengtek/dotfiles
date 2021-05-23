@@ -16,6 +16,19 @@ jq -ns '{ "common_name": "<common_name>" }' \
     ${VAULT_ADDR}/v1/<pki_secrets_handler>/issue/<role>
 
 
+# query role definition
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  ${VAULT_ADDR}/v1/<pki_secrets_handler>/roles/<role>
+
+
+# list available role definitions
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request LIST \
+  ${VAULT_ADDR}/v1/<pki_secrets_handler>/roles
+
+
 # set vault token in current shell environment
 export VAULT_TOKEN=$(systemd-ask-password)
 
@@ -53,30 +66,69 @@ $ pki_secrets_handler: echo -e 'pki\n'
 
 % vault, auth
 
-# get approle id
+# get approle id of an existing approle
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
-  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/role-id
+  ${VAULT_ADDR}/v1/auth/approle/role/<approle>/role-id
 
-# get approle secret id
+
+# list existing approles
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
-  --request POST \
-  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/secret-id
+  --request LIST \
+  ${VAULT_ADDR}/v1/auth/approle/role
+
+
+# get, read definition, properties of an approle
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  ${VAULT_ADDR}/v1/auth/approle/role/<approle>
+
+
+# get, read policies of approle
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  ${VAULT_ADDR}/v1//auth/approle/role/<approle>/policies
+
+
+# updates the roleid of an existing approle to a custom value
+jq -ns '{ "role_id": "<custom_role_id>" }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/auth/approle/role/<approle>/role-id
+
+
+# generates and issues a new secretid on an existing approle, secret_id_accessor for info, deleting
+jq -ns '{ "metadata": "<custom_metadata>" }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id
+
+
+# lists the accessors of all the secretids issued against the approle
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request LIST \
+  ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id
+
 
 # lookup approle secret id properties
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
   --request POST \
   --data '{"secret_id": "<vault_approle_secret_id>"}'
-  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/secret-id/lookup
+  ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id/lookup
+
 
 # destroy approle secret id
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
   --request POST \
   --data '{"secret_id": "<vault_approle_secret_id>"}'
-  ${VAULT_ADDR}/v1/auth/approle/role/<vault_auth_role>/secret-id/destroy
+  ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id/destroy
 
 % vault, login
 # get a vault token via ldap

@@ -1,0 +1,4 @@
+% ldap
+
+# replace a configuration in ldap root config
+ldapmodify -W -D "cn=root,cn=config" -f <file_ldif>
