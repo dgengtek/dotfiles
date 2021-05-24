@@ -58,7 +58,7 @@ sudo salt-run state.orch orch.provision pillar=
 sudo salt-run state.orch orch.reboot_host pillar=
 
 # download and import a lxc image
-alias='<alias>';url='<url>'; filename=$(basename "$url"); sudo salt --async "<host>" cmd.run "wget '$url' && lxc image import --alias '$alias' '$filename'" cwd=/tmp
+alias='<alias>';url='<url>'; filename=$(basename "$url"); sudo salt --async "<host>" cmd.run "wget -c '$url' && lxc image import --alias '$alias' '$filename'" cwd=/tmp
 
 # upgrade minions
 sudo salt-run state.orch orch.upgrade pillar=
