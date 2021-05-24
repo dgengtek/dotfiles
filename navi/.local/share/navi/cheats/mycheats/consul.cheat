@@ -1,0 +1,4 @@
+% consul
+
+# display the current raft peer configuration state
+consul operator raft list-peers
