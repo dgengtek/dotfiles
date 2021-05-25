@@ -20,17 +20,17 @@ jq 'keys' <hosts_to_tags>
 jq '."<host>"' <tags_of_hosts>
 
 # get the hosts specific to a tag
-jq '."<tag>"' <hosts_to_tags>
+jq '."<tags>"' <hosts_to_tags>
 
 
 # sync specific tag
-sudo salt -G "tags:<tag>" saltutil.sync_all
+sudo salt -G "tags:<tags>" saltutil.sync_all
 
 # highstate test specific tag
-sudo salt -G "tags:<tag>" state.highstate test=True
+sudo salt -G "tags:<tags>" state.highstate test=True
 
 # run a function on a tag
-sudo salt -G "tags:<tag>" <function>
+sudo salt -G "tags:<tags>" <function>
 
 # sync specific minion
 sudo salt "<host>" saltutil.sync_all
@@ -70,30 +70,30 @@ sudo salt-run state.orch orch.restart_service_salt_minion pillar=
 <orch_pillar_host>
 
 # generic pillar for targeting hosts by tag
-<orch_pillar_tag>
+<orch_pillar_tags>
 
 # generic pillar for upgrading hosts by name
 <orch_pillar_upgrade_host>
 
 # generic pillar for upgrading hosts by tag
-<orch_pillar_upgrade_tag>
+<orch_pillar_upgrade_tags>
 
 
 $ file_tags_of_hosts: echo "$HOME/tmp_tags_of_hosts.json"
-$ tags_of_hosts: test -f <file_tags_of_hosts> || sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>; echo <file_tags_of_hosts>
+$ tags_of_hosts: test -f <file_tags_of_hosts> && [[ "$(find <file_tags_of_hosts> -mtime -1)"|| sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>; echo <file_tags_of_hosts>
 $ host: jq -r 'keys | .[]' <tags_of_hosts>
 
 $ file_hosts_to_tags: echo "$HOME/tmp_hosts_to_tags.json"
-$ hosts_to_tags: test -f <file_hosts_to_tags> || sudo salt-run --out=json netbox.map_hosts_to_tags > <file_hosts_to_tags>; echo <file_hosts_to_tags>
-$ tag: jq -r 'keys | .[]' <hosts_to_tags>
+$ hosts_to_tags: test -f <file_hosts_to_tags> && [[ "$(find <file_hosts_to_tags> -mtime -1)" ]] || sudo salt-run --out=json netbox.map_hosts_to_tags > <file_hosts_to_tags>; echo <file_hosts_to_tags>
+$ tags: jq -r 'keys | "tags:" + .[]' <hosts_to_tags>
 
 $ target_type: echo 'glob,list,grain,pillar,compound' | tr ',' '\n'
 $ orch_pillar_part_common: jq -c -n '{cli_target: "", cli_target_type: "<target_type>"}'
 $ orch_pillar_part_reboot: jq -c -n '{cli_target_reboot_minion: false}'
 $ orch_pillar_part_upgrade: jq -c -n '{maintenance: {update: {kernel: true}}}'
 $ orch_pillar_part_host: jq -c -n --arg hosts "<host>" '{cli_target: $hosts | split("\n") }'
-$ orch_pillar_part_tag: jq -c -n --arg tags "<tag>" '{cli_target: $tags | split("\n") }'
+$ orch_pillar_part_tags: jq -c -n --arg tags "<tags>" '{cli_target: $tags | split("\n") }'
 $ orch_pillar_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_tag: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tag>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_tags: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
 $ orch_pillar_upgrade_host: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_upgrade_tag: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tag>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_upgrade_tags: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
