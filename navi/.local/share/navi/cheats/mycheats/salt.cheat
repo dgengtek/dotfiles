@@ -88,7 +88,7 @@ $ hosts_to_tags: test -f <file_hosts_to_tags> || sudo salt-run --out=json netbox
 $ tag: jq -r 'keys | .[]' <hosts_to_tags>
 
 $ target_type: echo 'glob,list,grain,pillar,compound' | tr ',' '\n'
-$ orch_pillar_part_common: jq -c -n '{cli_target: "", clit_target_type: "<target_type>"}'
+$ orch_pillar_part_common: jq -c -n '{cli_target: "", cli_target_type: "<target_type>"}'
 $ orch_pillar_part_reboot: jq -c -n '{cli_target_reboot_minion: false}'
 $ orch_pillar_part_upgrade: jq -c -n '{maintenance: {update: {kernel: true}}}'
 $ orch_pillar_part_host: jq -c -n --arg hosts "<host>" '{cli_target: $hosts | split("\n") }'
