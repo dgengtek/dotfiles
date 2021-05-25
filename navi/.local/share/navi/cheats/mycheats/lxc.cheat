@@ -6,6 +6,9 @@ lxc exec <container> bash
 # run shell commands in the lxd container
 lxc exec <container> -- <commandstring>
 
+# change default remote
+lxc remote set-default <remote>
+
 # start a stopped lxd container
 lxc start <container>
 

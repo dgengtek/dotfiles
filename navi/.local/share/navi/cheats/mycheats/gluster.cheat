@@ -1,0 +1,13 @@
+% gluster
+
+# status of gluster bricks
+gluster volume info all
+
+# get limits of volume paths
+gluster volume quota <volume> list
+
+# set a hard limit
+gluster volume quota <volume> limit-usage <path> <hard_limit_size>
+
+# show info about brick heal state
+gluster ovlume heal <volume> statistics

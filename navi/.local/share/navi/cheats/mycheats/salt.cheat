@@ -17,10 +17,10 @@ jq 'keys' <tags_of_hosts>
 jq 'keys' <hosts_to_tags>
 
 # get the tags specific to a host
-jq '.<host>' <tags_of_hosts>
+jq '."<host>"' <tags_of_hosts>
 
 # get the hosts specific to a tag
-jq '.<tag>' <hosts_to_tags>
+jq '."<tag>"' <hosts_to_tags>
 
 
 # sync specific tag
@@ -42,7 +42,7 @@ sudo salt "<host>" <function>
 sudo salt-run state.event | while read -r tag data; do echo $tag; echo $data | jq --color-output .; done
 
 # Reboot a minion and and wait until it is back online
-sudo salt "<host>" system.reboot \
+sudo salt --async "<host>" system.reboot \
   && salt-run state.event 'salt/minion/<host>/start' count=1 quiet=True
 
 # provision salt minion
