@@ -112,6 +112,11 @@ else
  echo "Install navi to use cheats." >&2
 fi
 
+_widget_history_append() {
+  READLINE_LINE="${READLINE_LINE}$(__fzf_history__)"
+}
+bind -x '"\eh": _widget_history_append'
+
 if hash mc; then
   complete -C /usr/bin/mc mc
 fi
