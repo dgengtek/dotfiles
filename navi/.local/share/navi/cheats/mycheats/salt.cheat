@@ -9,9 +9,6 @@ sudo salt -G "tags:salt-master" saltutil.sync_all
 # sync all minions
 sudo salt --async "*" saltutil.sync_all
 
-# sync pillar modules from the _pillar directory on the salt fileserver
-sudo salt --async "*" saltutil.sync_pillar
-
 # refresh the in-memory pillar data on the minions
 sudo salt --async "*" saltutil.refresh_pillar
 
