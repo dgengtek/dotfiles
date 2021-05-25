@@ -66,6 +66,19 @@ sudo salt-run state.orch orch.upgrade pillar=
 # restart salt minion service and wait for it to come back online
 sudo salt-run state.orch orch.restart_service_salt_minion pillar=
 
+# generic pillar for targeting hosts by name
+<orch_pillar_host>
+
+# generic pillar for targeting hosts by tag
+<orch_pillar_tag>
+
+# generic pillar for upgrading hosts by name
+<orch_pillar_upgrade_host>
+
+# generic pillar for upgrading hosts by tag
+<orch_pillar_upgrade_tag>
+
+
 $ file_tags_of_hosts: echo "$HOME/tmp_tags_of_hosts.json"
 $ tags_of_hosts: test -f <file_tags_of_hosts> || sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>; echo <file_tags_of_hosts>
 $ host: jq -r 'keys | .[]' <tags_of_hosts>
@@ -80,5 +93,7 @@ $ orch_pillar_part_reboot: jq -c -n '{cli_target_reboot_minion: false}'
 $ orch_pillar_part_upgrade: jq -c -n '{maintenance: {update: {kernel: true}}}'
 $ orch_pillar_part_host: jq -c -n --arg hosts "<host>" '{cli_target: $hosts | split("\n") }'
 $ orch_pillar_part_tag: jq -c -n --arg tags "<tag>" '{cli_target: $tags | split("\n") }'
-$ orch_pillar_reboot_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_reboot_tag: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tag>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_tag: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tag>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_upgrade_host: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_upgrade_tag: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tag>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
