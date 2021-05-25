@@ -24,13 +24,13 @@ jq '."<tags>"' <hosts_to_tags>
 
 
 # sync specific tag
-sudo salt -G "tags:<tags>" saltutil.sync_all
+sudo salt -G "<tags>" saltutil.sync_all
 
 # highstate test specific tag
-sudo salt -G "tags:<tags>" state.highstate test=True
+sudo salt -G "<tags>" state.highstate test=True
 
 # run a function on a tag
-sudo salt -G "tags:<tags>" <function>
+sudo salt -G "<tags>" <function>
 
 # sync specific minion
 sudo salt "<host>" saltutil.sync_all
