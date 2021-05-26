@@ -22,5 +22,8 @@ strip.py
 # file system bookmark manager
 fsbookmark.sh
 
+# cleanup invalid directories from bookmark
+fsbookmark.sh check | xargs -I {} fsbookmark.sh del '{}'
+
 # edit a script found in PATH
 edit_cmd.sh <binary>
