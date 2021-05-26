@@ -61,6 +61,8 @@ openssl x509 -in <INPUT_CRT> -text -noout
 openssl pkcs12 -info -in <INPUT_PKCS12>
 
 
+# get the notbefore, notafter -dates of the certificate
+openssl x509 -noout -startdate -enddate
 
 ## Debugging using OpenSSL
 # Compare the MD5 hash of a certificate
