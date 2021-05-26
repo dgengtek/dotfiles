@@ -116,7 +116,7 @@ curl \
 
 
 # lookup approle secret id properties
-jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": "$secret_id" }' \
+jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": $secret_id }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -125,7 +125,7 @@ jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": "$secret_id" }'
 
 
 # destroy approle secret id
-jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": "$secret_id" }' \
+jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": $secret_id }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -139,7 +139,7 @@ jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": "$secret_id" }'
 vault login -method=ldap username=$USER
 
 # get a token via approle auth method
-jq -ns --arg secret_id "$(systemd-ask-password)" '{ "role_id": "<role_id>", "secret_id": "$secret_id" }' \
+jq -ns --arg secret_id "$(systemd-ask-password)" '{ "role_id": "<role_id>", "secret_id": $secret_id }' \
   | curl \
     --request POST \
     --data @- \
