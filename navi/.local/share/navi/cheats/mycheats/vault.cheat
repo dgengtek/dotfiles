@@ -116,20 +116,31 @@ curl \
 
 
 # lookup approle secret id properties
-curl \
-  --header "X-Vault-Token: ${VAULT_TOKEN}" \
-  --request POST \
-  --data '{"secret_id": "<vault_approle_secret_id>"}'
-  ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id/lookup
+jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": "$secret_id" }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id/lookup
 
 
 # destroy approle secret id
-curl \
-  --header "X-Vault-Token: ${VAULT_TOKEN}" \
-  --request POST \
-  --data '{"secret_id": "<vault_approle_secret_id>"}'
-  ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id/destroy
+jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": "$secret_id" }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id/destroy
+
 
 % vault, login
+
 # get a vault token via ldap
 vault login -method=ldap username=$USER
+
+# get a token via approle auth method
+jq -ns --arg secret_id "$(systemd-ask-password)" '{ "role_id": "<role_id>", "secret_id": "$secret_id" }' \
+  | curl \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/auth/approle/login
