@@ -15,7 +15,7 @@ fi
 if hash bat; then
   alias cat=bat
 fi
-alias c=cat
+alias c="bat -p"
 alias ls=exa
 alias ll="exa -l"
 alias lla="exa -la"
