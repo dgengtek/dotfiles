@@ -85,7 +85,7 @@ sudo salt-run state.orch orch.restart_service_salt_minion pillar=
 
 
 $ file_tags_of_hosts: echo "$HOME/tmp_tags_of_hosts.json"
-$ tags_of_hosts: test -f <file_tags_of_hosts> && [[ "$(find <file_tags_of_hosts> -mtime -1)"|| sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>; echo <file_tags_of_hosts>
+$ tags_of_hosts: test -f <file_tags_of_hosts> && [[ "$(find <file_tags_of_hosts> -mtime -1)" ]] || sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>; echo <file_tags_of_hosts>
 $ host: jq -r 'keys | .[]' <tags_of_hosts>
 
 $ file_hosts_to_tags: echo "$HOME/tmp_hosts_to_tags.json"
