@@ -59,6 +59,9 @@ sudo salt-run state.orch orch.setup_host pillar='<orch_pillar_upgrade_host>'
 # provision salt minion
 sudo salt-run state.orch orch.provision_salt_minion pillar=
 
+# run highstate on minions
+sudo salt-run state.orch orch.highstate pillar=
+
 # provision network configuration of salt minion
 sudo salt-run state.orch orch.provision_network pillar=
 
