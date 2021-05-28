@@ -50,6 +50,9 @@ sudo salt-run state.event | while read -r tag data; do echo $tag; echo $data | j
 sudo salt --async "<host>" system.reboot \
   && salt-run state.event 'salt/minion/<host>/start' count=1 quiet=True
 
+# setup host for first time
+sudo salt-run state.orch orch.setup_host pillar='<orch_pillar_upgrade_host>'
+
 # provision salt minion
 sudo salt-run state.orch orch.provision_salt_minion pillar=
 
@@ -72,10 +75,10 @@ sudo salt-run state.orch orch.upgrade pillar=
 sudo salt-run state.orch orch.restart_service_salt_minion pillar=
 
 # generic pillar for targeting hosts by name
-<orch_pillar_host>
+<orch_pillar_common_host>
 
 # generic pillar for targeting hosts by tag
-<orch_pillar_tags>
+<orch_pillar_common_tags>
 
 # generic pillar for upgrading hosts by name
 <orch_pillar_upgrade_host>
@@ -98,7 +101,7 @@ $ orch_pillar_part_reboot: jq -c -n '{cli_target_reboot_minion: false}'
 $ orch_pillar_part_upgrade: jq -c -n '{maintenance: {update: {kernel: true}}}'
 $ orch_pillar_part_host: jq -c -n --arg hosts "<host>" '{cli_target: $hosts | split("\n") }'
 $ orch_pillar_part_tags: jq -c -n --arg tags "<tags>" '{cli_target: $tags | split("\n") }'
-$ orch_pillar_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_tags: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_common_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_common_tags: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
 $ orch_pillar_upgrade_host: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
 $ orch_pillar_upgrade_tags: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
