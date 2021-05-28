@@ -3,6 +3,9 @@
 # sync fileserver
 sudo salt-run fileserver.update
 
+# sync execution modules to salt-master
+sudo salt-run saltutil.sync_modules
+
 # sync all on salt-master
 sudo salt -G "tags:salt-master" saltutil.sync_all
 
