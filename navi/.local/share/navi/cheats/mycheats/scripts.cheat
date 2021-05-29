@@ -7,12 +7,6 @@ tmux_new_session.sh
 # run a directory for commands, notifications, mail :: r
 run.sh
 
-# run a command quietly without any output :: rq
-run.sh -q -n --
-
-# run a display of done notification
-run.sh -- echo 'task done'
-
 # spawn a new terminal emulator in a directory
 run.sh -q -n -- alacritty --working-directory <directory> --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
 
@@ -27,3 +21,14 @@ fsbookmark.sh check | xargs -I {} fsbookmark.sh del '{}'
 
 # edit a script found in PATH
 edit_cmd.sh <binary>
+
+
+% notification, alert
+# create a notification timer
+run.sh -- count down -m <minutes>
+
+# run a command quietly without any output :: rq
+run.sh -q -n --
+
+# run a display of done notification
+run.sh -- echo 'task done'

@@ -2,3 +2,12 @@
 
 # display the current raft peer configuration state
 consul operator raft list-peers
+
+# Lists all registered services in a datacenter
+consul catalog services
+
+# Lists all nodes in the given datacenter
+consul catalog nodes
+
+# Lists all known datacenters
+consul catalog datacenters

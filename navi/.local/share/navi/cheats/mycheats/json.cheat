@@ -1,6 +1,16 @@
 % json
 
-# convert JSON to YAML
+# convert JSON to YAML with ruby
 cat <json_file> | ruby -ryaml -rjson -e 'puts YAML.dump(JSON.load(ARGF))'
+
+# convert yaml to json with python
+yamltojson.py
+
+# convert json to yaml with python
+jsontoyaml.py
+
+# merge multiple files into one object
+jq -n 'reduce inputs as $i ({}; . * $i)'
+
 
 $ json_file: find . -name '*.json'
