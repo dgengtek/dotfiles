@@ -45,6 +45,9 @@ pool=<pool>; lxc storage volume list "$pool" --format json | jq -r '.[].name' | 
 # cleanup leftover storage volumes
 lxd sql global "DELETE FROM storage_volumes WHERE name='<name_pattern>'"
 
+# get all images without an alias
+lxc image list -f json | jq -r '.[] | select(.aliases == []) | .fingerprint'
+
 
 $ remote: lxc remote list --format json | jq -r 'keys[]'
 $ fingerprint: lxc image list --format json <remote>: | jq -r '.[] | .fingerprint + " " + .properties.description + " " + .architecture + " " + .created_at' --- --column 1 --delimiter ' '
