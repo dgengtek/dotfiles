@@ -19,10 +19,10 @@ sudo salt --async "*" saltutil.refresh_pillar
 sudo salt --async "*" saltutil.sync_grains
 
 # get a list of all hosts
-jq 'keys' <tags_of_hosts>
+jq -r 'keys | .[]' <tags_of_hosts>
 
 # get a list of all tags
-jq 'keys' <hosts_to_tags>
+jq -r 'keys | .[]' <hosts_to_tags>
 
 # get the tags specific to a host
 jq '."<host>"' <tags_of_hosts>
