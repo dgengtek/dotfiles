@@ -53,6 +53,11 @@ alias freeh="free -h"
 ################################################################################
 # editing
 # ------------------------------------------------------------------------------
+alias e=exa
+alias f=fzf
+alias c=bat
+alias l=less
+alias v=vim
 alias vi="vim"
 alias vimr="vim -R"
 alias view=vimr
