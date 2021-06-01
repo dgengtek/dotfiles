@@ -1,0 +1,4 @@
+% netbox
+
+# get netbox devices
+curl --header "Authorization: Token $NETBOX_TOKEN" --header "Accept: application/json" 'http://netbox.p.intranet.dgeng.eu/api/dcim/devices/'
