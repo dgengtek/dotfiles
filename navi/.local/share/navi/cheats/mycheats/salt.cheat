@@ -12,7 +12,7 @@ sudo salt -G "tags:salt-master" saltutil.sync_all
 # sync all minions
 sudo salt --async "*" saltutil.sync_all
 
-# refresh the in-memory pillar data on the minions
+# refresh the in-memory pillar and external pillar data on the minions
 sudo salt --async "*" saltutil.refresh_pillar
 
 # sync grains on all minions
@@ -28,7 +28,7 @@ jq -r 'keys | .[]' <hosts_to_tags>
 jq '."<host>"' <tags_of_hosts>
 
 # get the hosts specific to a tag
-jq '."<tags>"' <hosts_to_tags>
+jq '."<tag>"' <hosts_to_tags>
 
 
 # sync specific tag
@@ -100,6 +100,7 @@ $ host: jq -r 'keys | .[]' <tags_of_hosts>
 $ file_hosts_to_tags: echo "$HOME/tmp_hosts_to_tags.json"
 $ hosts_to_tags: test -f <file_hosts_to_tags> && [[ "$(find <file_hosts_to_tags> -mtime -1)" ]] || sudo salt-run --out=json netbox.map_hosts_to_tags > <file_hosts_to_tags>; echo <file_hosts_to_tags>
 $ tags: jq -r 'keys | "tags:" + .[]' <hosts_to_tags>
+$ tag: jq -r 'keys | .[]' <hosts_to_tags>
 
 $ target_type: echo 'glob,list,grain,pillar,compound' | tr ',' '\n'
 $ orch_pillar_part_common: jq -c -n '{cli_target: "", cli_target_type: "<target_type>"}'
