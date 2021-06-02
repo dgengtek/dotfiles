@@ -12,5 +12,7 @@ jsontoyaml.py
 # merge multiple files into one object
 jq -n 'reduce inputs as $i ({}; . * $i)'
 
+# output a custom json structure edited in yaml
+: | vipe | yamltojson.py
 
 $ json_file: find . -name '*.json'
