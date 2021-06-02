@@ -3,8 +3,6 @@
 # option from set -o
 #shopt -so vi
 
-# interactive cd on name only
-shopt -s autocd
 # check for running jobs before exiting interactive shell
 shopt -s checkjobs
 # check the window size after each command and, if necessary,
