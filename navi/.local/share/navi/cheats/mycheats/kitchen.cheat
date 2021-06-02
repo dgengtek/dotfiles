@@ -1,4 +1,6 @@
 % kitchen
+@ template , reuse
+
 # Use a provisioner to configure one or more instances
 kitchen converge <instance>
 
@@ -11,5 +13,8 @@ kitchen exec <instance>
 # Log in to one instance
 kitchen login <instance>
 
+# set a different kitchen file to use
+export KITCHEN_YAML="<compgen_file_cwd>"
 
 $ instance: kitchen list --json | jq -r '.[].instance'
+
