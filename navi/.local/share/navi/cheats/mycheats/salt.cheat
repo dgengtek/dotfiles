@@ -7,7 +7,7 @@ sudo salt-run fileserver.update
 sudo salt-run saltutil.sync_modules
 
 # sync all on salt-master
-sudo salt -G "tags:salt-master" saltutil.sync_all
+sudo salt -I "tags:salt-master" saltutil.sync_all
 
 # sync all minions
 sudo salt --async "*" saltutil.sync_all
@@ -32,13 +32,13 @@ jq '."<tag>"' <hosts_to_tags>
 
 
 # sync specific tag
-sudo salt -G "<tags>" saltutil.sync_all
+sudo salt -I "<tags>" saltutil.sync_all
 
 # highstate test specific tag
-sudo salt -G "<tags>" state.highstate test=True
+sudo salt -I "<tags>" state.highstate test=True
 
 # run a function on a tag
-sudo salt -G "<tags>" <function>
+sudo salt -I "<tags>" <function>
 
 # sync specific minion
 sudo salt "<host>" saltutil.sync_all
