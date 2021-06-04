@@ -1,0 +1,5 @@
+% dev
+@ template, reuse
+
+# watch a file for changes and run a command on repeat
+watchexec --force-poll 1000 -r -w <compgen_file_cwd> -- <command>
