@@ -110,10 +110,22 @@ tmux kill-window -t <window>
 # select window
 tmux select-window -t <window>
 
+# join to pane
+tmux join-pane -s '<pane>'
+
+# copy whole pane from the beginning of its history
+tmux capture-pane -S - '<pane>'
+
+# pipe current output of pane to file
+tmux pipe-pane -t '<pane>' -o 'cat >>~/tmux_output.#I-#P'
+
+# break src-pane off from its containing window to make it the only pane in dst-window
+tmux break-pane -s '<pane>' -t '<window>'
+
 $ client: tmux list-clients
 $ session: tmux list-sessions
 $ window: tmux list-windows --- --column 1 --delimiter ':'
-$ pane: tmux list-panes
+$ pane: tmux list-panes --- --column 1 --delimiter ':' --preview 'tmux capture-pane -t {1} -p'
 $ layout: echo -e 'even-horizontal,even-vertical,main-horizontal,main-vertical,tiled' | tr ',' '\n'
 $ buffer: tmux list-buffers
 $ tmuxp_session: fd --follow --type f . "$TMUXP_PATH"
