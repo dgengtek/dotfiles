@@ -9,5 +9,8 @@ ANSIBLE_LOAD_CALLBACK_PLUGINS=true ANSIBLE_STDOUT_CALLBACK=json
 # get output of ansible ad-hoc command result
 jq '.plays[].tasks[].hosts | to_entries[].value.stdout_lines'
 
-# copy a remote file to localhost
-ansible -i '<inventory>' --become --ask-become-pass -m copy -a 'src=<src_path> dest=<dest_path> remote_src=yes'
+# copy remote
+ansible -i '<inventory>' --become --ask-become-pass -m copy -a 'src=<src_path> dest=<dest_path>'
+
+# fetch from remote to localhost
+ansible -i '<inventory>' --become --ask-become-pass -m fetch -a 'src=<src_path> dest=<dest_path> flat=yes'
