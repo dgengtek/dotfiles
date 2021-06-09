@@ -158,7 +158,7 @@ tcpdump_ssh_write() {
 # network
 # ------------------------------------------------------------------------------
 # always reload before sshing
-alias ssh="gpg-connect-agent reloadagent /bye && ssh"
+alias sshgpga="gpg-connect-agent reloadagent /bye && ssh"
 
 # use color
 alias ip="ip -c"
