@@ -36,7 +36,7 @@ include /usr/share/doc/task/rc/dark-violets-256.theme
 uda.state.label=State
 uda.state.type=string
 # pending: still needs to be fleshed(temporary IN tray) out and defined properly as nextaction, project, maybe
-uda.state.values=maybe,await,pending,nextaction,proj  # it does not like project, wait
+uda.state.values=maybe,await,pending,nextaction,proj,hobby  # it does not like project, wait
 uda.state.default=pending
 uda.state.description="Category list the task is in. In-tray is the physical compartment. Only processed items are entered to this program. Can only be in one. await someone or something, pending is process, maybe is for projects you do not intend to work on this week and can be reviewed on the weekly review to refocus, nextaction is the very next physical action required to move the situation forward, project is used to track the project description and its dependencies"
 
@@ -149,20 +149,28 @@ report.mailr.filter=status:pending
 report.mailr.sort=urgency-,due+
 
 
-# default report
+# default report, choose a project or hobby from here to then choose a nextaction from 'decide' report
 report.next.columns=id,project,context,state,description.count,outcome,urgency
 report.next.labels=ID,Project,Context,State,Description,Outcome,U
-report.next.filter=status:pending ((state:'nextaction' and project:'') or state:'proj' or state:'await') limit:page -BLOCKED
+report.next.filter=status:pending ((state:'nextaction' and project:'') or state:'proj' or state:'hobby' or state:'await') limit:page -BLOCKED
 
+# for deciding on working on a nextaction
 report.decide.columns=id,priority,value,effort,project,context,state,description,outcome
 report.decide.labels=ID,Priority,Value,Effort,Project,Context,State,Description,Outcome
 report.decide.filter=status:pending and state.not:'proj' and state.not:'maybe' limit:page
 report.decide.sort=urgency-
 
+# get maybe nextactions
 report.maybe.columns=id,priority,project,context,description.count,outcome
 report.maybe.labels=ID,P,Project,Context,Description,Outcome
 report.maybe.filter=state:maybe
 report.maybe.sort=urgency-
+
+# get inbox which needs to be processed
+report.inbox.columns=id,priority,project,context,description.count,outcome
+report.inbox.labels=ID,P,Project,Context,Description,Outcome
+report.inbox.filter=state:pending and status:pending
+report.inbox.sort=entry-
 
 # get top ids
 report.top.labels=ID
@@ -170,18 +178,12 @@ report.top.columns=id
 report.top.filter=status:pending
 report.top.sort=urgency-
 
-# get mininal listing
+# get minimal listing
 report.l.columns=id,start.active,depends.indicator,project,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,description.count,note
 report.l.description=Show short details about tasks
-report.l.filter=status:pending limit:page -BLOCKED
+report.l.filter=(status:pending or status:waiting) and limit:page -BLOCKED
 report.l.labels=ID,A,D,Project,State,R,Wait,S,Due,Until,Description,Note
 report.l.sort=urgency-,due+
-
-report.lsa.columns=id,start.active,depends,project,state,tags,recur,wait.remaining,scheduled.remaining,due.remaining,due,until.remaining,description,note,modified.age,entry,urgency
-report.lsa.description=List all details of tasks
-report.lsa.filter=limit:page -ACTIVE
-report.lsa.labels=ID,A,D,Project,State,Tags,R,Wait,S,Due-,Due,Until,Description,Note,Mod,Created,Urg
-report.lsa.sort=urgency-,due+
 
 ################################################################################
 # tags
@@ -218,9 +220,7 @@ context.life=+life or +private or +sport
 context.learn=+learn or +read or +train or +exercise or +learn
 context.read=+read or +research or +book
 context.math=+math
-context.uni=+uni or +studium
-context.studium=+uni or +studium
-context.projects=state:proj
+context.projects=state:'proj'
 
 # how to use system
 # 1. capture - set outcome for a task, replace the description with the next action to achieve the outcome and update the state of the task
