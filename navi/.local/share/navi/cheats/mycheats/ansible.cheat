@@ -1,0 +1,4 @@
+% ansible
+
+# run ad-hoc command on all
+ansible -i '<inventory>' --become --ask-become-pass -a '<command>' all
