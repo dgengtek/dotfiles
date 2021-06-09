@@ -23,3 +23,6 @@ RESET=$'\033[0m'
 
 # clean shell environment
 env -i bash --noprofile --norc
+
+# do not write to history file on shell exit
+unset HISTFILE

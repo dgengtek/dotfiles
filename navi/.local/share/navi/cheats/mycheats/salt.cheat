@@ -30,6 +30,8 @@ jq '."<host>"' <tags_of_hosts>
 # get the hosts specific to a tag
 jq '."<tag>"' <hosts_to_tags>
 
+# get values from json output
+sudo salt --out=json "<host>" cmd.run <cmd_with_json_output> | jq 'to_entries[].value | fromjson'
 
 # sync specific tag
 sudo salt -I "<tags>" saltutil.sync_all

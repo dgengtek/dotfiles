@@ -28,10 +28,19 @@ task l
 task
 
 # get detailed report of every task in the database
-task lsa
+task all
 
 # get a report of all tasks with state maybe
 task maybe
+
+# get a report of all blocking tasks
+task blocking
+
+# get a report of overdue tasks
+task overdue
+
+# get a report of waiting tasks
+task waiting
 
 # display the current tasks for a project
 task project:"<project>" decide
