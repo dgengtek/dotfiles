@@ -154,7 +154,7 @@ git rev-parse HEAD
 git_auto_pull.sh -r <remote> -- --ff
 
 # cat deleted file from git history
-git show $(git rev-list --max-count=1 --all -- <file>)^:<file>
+git show $(git rev-list --max-count=1 --all -- <deleted_file>)^:<deleted_file>
 
 # show untracked files
 git ls-files --others --exclude-standard |
@@ -221,6 +221,7 @@ git check-ignore *
 
 $ folder: fd --type d
 $ file: fd --type f
+$ deleted_file: git log --all --pretty=format: --name-only --diff-filter=D
 $ commit: git log -40 --oneline --- --column 0
 $ active_branch: git rev-parse --abbrev-ref HEAD
 $ branch: git branch | awk '{print $NF}'
