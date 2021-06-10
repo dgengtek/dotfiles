@@ -53,6 +53,9 @@ git remote --verbose
 # get git logs from a specific date range
 git log --pretty=format:"%ad - %H %an: %s" --after="<after>" --until="<until>"
 
+# follow and display changes across renames for a file
+git log --patch --follow <file>
+
 # remove old reflog references from the history
 git reflog expire --expire=90.days.ago --expire-unreachable=now --all
 
