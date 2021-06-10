@@ -12,6 +12,9 @@ dd if=/dev/zero of=<device> bs=512 count=1 oflag=direct
 # overwrite device
 dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
 
+# generate random base64 data
+dd if=/dev/urandom count=1 bs=32 2>/dev/null | base64 -w 0
+
 # trim an entire SSD device, all data on device will be lost!
 : "data will be lost"; blkdiscard <device>
 
