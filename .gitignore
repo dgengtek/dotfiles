@@ -5,8 +5,7 @@ bookmarks
 *.log
 __pycache__
 
-mpd/*
-!mpd.conf
+mpd/.mpd/mpdstate
 ranger/.config/ranger/copy_buffer
 ciparams.yml
 **/systemd/user/default.target.wants/

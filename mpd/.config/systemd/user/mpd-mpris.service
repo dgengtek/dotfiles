@@ -1,0 +1,11 @@
+[Unit]
+Description=mpd-mpris: An implementation of the MPRIS protocol for MPD
+Requires=basic.target mpd.service mpris-proxy.service
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=/usr/bin/mpd-mpris -no-instance
+
+[Install]
+WantedBy=default.target
