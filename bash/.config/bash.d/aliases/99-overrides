@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+if hash rg 2>&1 | logger -t bash -p user.info; then
+alias grep=rg
+fi

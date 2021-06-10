@@ -1,0 +1,88 @@
+################################################################################
+# Linux
+################################################################################
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+# LibreOffice locks
+.~lock.*#
+
+################################################################################
+# Vim
+################################################################################
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+################################################################################
+# MicrosoftOffice
+################################################################################
+*.tmp
+
+# Word temporary
+~$*.doc*
+
+# Excel temporary
+~$*.xls*
+
+# Excel Backup File
+*.xlk
+
+# PowerPoint temporary
+~$*.ppt*
+
+# Visio autosave temporary files
+*.~vsd*
+################################################################################
+# General
+.vagrant/
+.svn/
+
+################################################################################
+# Python
+################################################################################
+# Environments
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg
+*.egg-info/
+eggs/
+.eggs/
+MANIFEST
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+################################################################################
+# Rust
+################################################################################
+Cargo.lock
+*.rs.bk

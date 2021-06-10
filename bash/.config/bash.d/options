@@ -1,0 +1,54 @@
+# BASH SPECIFIC
+# enable vi mode in shell
+# option from set -o
+#shopt -so vi
+
+# interactive cd on name only
+shopt -s autocd
+# check for running jobs before exiting interactive shell
+shopt -s checkjobs
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+# save all lines of multiple line command in history entry
+shopt -s cmdhist
+# include filenames beginning with a .
+shopt -u dotglob
+
+# enable extended glob patterns
+shopt -s extglob
+# suffixes specified in FIGNORE var are ignored on word completion
+shopt -s force_fignore
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+# complete hostnames when a word contains @
+shopt -u hostcomplete
+
+# append to the history file(HISTFILE), don't overwrite it
+shopt -s histappend
+
+# send sighup to all jobs when interactive login shell exits
+shopt -s huponexit
+
+# ignore command beginning with #
+shopt -s interactive_comments
+
+# match case insensitive pathname expansions
+shopt -s nocaseglob
+
+################################################################################
+# SHELL VARIABLES #
+# don't put duplicate lines or lines starting with space in the history.
+# remember to not export SHELL VARIABLES used by bash
+# ------------------------------------------------------------------------------
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# ignore suffixes on expansion
+HISTCONTROL=ignoreboth:erasedups
+FIGNORE=".swp"
+HISTSIZE=
+HISTFILESIZE=$HISTSIZE
+HISTIGNORE="$HISTIGNORE:jrnl *"
+#HISTTIMEFORMAT="%y/%m/%d %T "

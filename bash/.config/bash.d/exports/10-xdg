@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -a 
+
+################################################################################
+# User directories
+# ------------------------------------------------------------------------------
+# user specific configuration
+XDG_CONFIG_HOME=${HOME}/.config
+
+# user specific non essential cache
+XDG_CACHE_HOME=${HOME}/.cache
+
+# user specific data files
+XDG_DATA_HOME=${HOME}/.local/share
+
+# used for user specific data files such as sockets, named pipes
+XDG_RUNTIME_DIR=/run/user/$(id -u)
+
+################################################################################
+# System directories
+# ------------------------------------------------------------------------------
+# XDG_DATA_DIRS=/usr/local/share:/usr/share
+# XDG_CONFIG_DIRS=/etc/xdg
+set +a

@@ -1,0 +1,21 @@
+[options]
+font = Droid Sans Mono 12
+font = Hack 14
+font = xos4 Terminus 14
+browser = firefox
+
+cursor_blink = on
+cursor_shape = block
+
+scrollback_lines = 100000
+scroll_on_output = true
+scroll_on_keystroke = true
+
+#mouse_autohide = true
+clickable_url = true
+
+[colors]
+foreground = #ffffff
+background = rgba(00,00,00, 0.8)
+
+# vim: ft=dosini cms=#%s

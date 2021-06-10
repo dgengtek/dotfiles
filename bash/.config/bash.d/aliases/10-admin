@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+################################################################################
+# system
+# ------------------------------------------------------------------------------
+alias history_clear_dups="tac $HISTFILE | awk '!x[\$0]++' | tac | sponge $HISTFILE"
+alias sudo="sudo "
+alias sudok="sudo --reset-timestamp"
+alias sudokill="sudo --remove-timestamp"
+alias sudologin="sudo --login --user"
+alias sudoe="sudo --preserve-env"
+alias napnow="{ hash timew 2>&1 | logger -t bashrc -p user.info && timew stop; hash i3lock 2>&1 | logger -t bashrc -p user.info && i3lock -c 000000; systemctl suspend; }"
+alias benchmark_load="yes > /dev/null &"
+
+alias shutdown="systemctl poweroff"
+alias restart="systemctl reboot"
+
+alias sctl="systemctl"
+alias sctlen="systemctl enable --now"
+alias sctld="systemctl disable"
+alias sctlls="sctl list-unit-files"
+alias sctlr="sctl daemon-reload"
+alias sctls="sctl status"
+alias sctlst="sctl start"
+alias sctlsp="sctl stop"
+alias sctlt="sctl --type target"
+alias sctldef="sctl get-default"
+
+alias sctlu="sctl --user"
+alias sctluls="sctlu list-unit-files"
+
+alias jctl=journalctl
+alias jctlf="journalctl -f"
+alias jctle="journalctl -e"
+
+alias sshsession="ssh-agent sshsession.py"
+alias sshsessionfork="run.sh alacritty -e sshsession"
+
+alias editbash="pushd $PATH_BASH_CONFIG"
+alias root="sudo -i"
+
+alias xup="xrdb ~/.Xresources"
+alias xmap="xmodmap $HOME/.Xmodmap"
+alias source_bash="source $HOME/.bashrc"
+alias reshell=source_bash
+alias awesome_wm_quit="echo 'awesome.quit()' | awesome-client"
+alias i3_quit="i3-msg quit"
+alias xquit=i3_quit
+
+alias resource_env="reload_shell"
+alias source_shell_env="reload_shell"
+
+alias chmoddeff="chmod 0644"
+alias chmoddefd="chmod 0755"
+alias findchmoddeff="find . -type f -exec chmod 0644 {} +"
+alias findchmoddefd="find . -type d -exec chmod 0755 {} +"
+
+# processes
+alias ps_p="ps -eo pid,ppid,nice,s,cmd:80,euser,egroup,time,etime,rtprio,f,fuser --sort=cmd"
+alias ps_forest="ps -e --forest -o pid,ppid,euser,egroup,cmd"
+alias ps_cpu="ps --sort=%cpu -eo pid,f,s,%cpu,nice,cmd:80,policy,wchan"
+alias ps_mem="ps --sort=%mem -eo pid,f,s,%mem,cmd:80,sz,rss"
+alias ps_cpu_usage="ps_cpu | awk '{total+=\$4} END {print total}'"
+alias ps_mem_usage="ps_mem | awk '{total+=\$4} END {print total}'"
+
+# clipboard
+alias systemclipboard="xclip -selection c"
+alias sclip=systemclipboard
+alias clip=sclip
+alias clipf="printf '' | xclip -i"
+
+
+alias h="history"
+alias htail="history 10"
+alias j="jobs -l"
+
+# getent
+alias getu="getent passwd"
+alias getg="getent group"
+alias geta="getent aliases"
+alias geth="getent ahosts"
+alias geth4="getent ahostsv4"
+alias geth6="getent ahostsv6"
+alias getp="getent protocols"
+alias gets="getent services"
+
+
+alias freeh="free -h"
+
+
+################################################################################
+# disk
+# ------------------------------------------------------------------------------
+alias udevinfo="udevadm info --query=all"
+alias devinfo=udevinfo
+alias udevreload="sudo udevadm control --reload-rules && sudo udevadm trigger"
+alias udevmonenv="udevadm monitor --environment"
+alias devmon=udevmonenv
+
+alias badblocks_check="badblocks -wsv"
+alias shred_safe="shred -uzn 3"
+
+################################################################################
+# monitoring
+# ------------------------------------------------------------------------------
+alias toptemp="hash /usr/bin/sensors && watch -n 1 /usr/bin/sensors"
+
+
+################################################################################
+# editing
+# ------------------------------------------------------------------------------
+alias vi="vim"
+alias vimr="vim -R"
+alias edit="vim"
+alias info="info --vi-keys"
+alias pager="$PAGER"
+alias grep_nocomment="grep -v -e '^#' -e '^;' -e '^$'"
+alias grepnc=grep_nocomment
+alias grepalias="alias | grep"
+alias grepenv="env | grep"
+alias grepbuffer="grep --line-buffered"
+alias bashfunctions="declare -f | grep '()' | $PAGER"
+alias rgh="rg --hidden"
+alias rgs="rg --case-sensitive"
+alias rgl="rg --files-with-matches"
+alias rgL="rg --follow"
+alias rgv="rg --invert-match"
+alias rgjson="rg --json"
+alias rgbuffer="rg --line-buffered" # default already
+alias rgnobuffer="rg --no-line-buffered"
+alias rgn="rg --line-number"
+alias rgU="rg --multiline --multiline-dotall" # enable multiline and dot . match to newline
+alias rgignore="rg --no-ignore --no-ignore-global" # ignore .gitignore, excludes etc
+alias rgo="rg --only-matching"
+alias rgw="rg --word-regexp"
+alias rgF="rg --fixed-strings"
+alias rgtest="rg --files" # no search show only files which will be searched
+alias sortlexical="LC_COLLATE=C sort"
+alias viewall="fd --size +1b --type f --exec-batch vim -R {} \;"

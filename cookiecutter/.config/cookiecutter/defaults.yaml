@@ -1,0 +1,4 @@
+default_context:
+  author_name: "dgengtek"
+  kitchen_driver: "lxd"
+  concourse_team: "main"

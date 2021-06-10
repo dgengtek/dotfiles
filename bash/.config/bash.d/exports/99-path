@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -a
+PATH_USER_BASE="$HOME/.local/"
+PATH_USER_BIN="${PATH_USER_BASE}bin/"
+PATH_USER_LIB="${PATH_USER_BASE}lib/"
+
+PATH="$PATH_USER_BIN:$PATH"
+PATH="$PATH:$CARGO_HOME/bin/"
+PATH="$PATH:$JAVA_HOME/bin/"
+PATH="$PATH:$RUBYPATH"
+GNUPGHOME="$HOME/.gnupg"
+
+TMUXP_PATH="$HOME/.tmuxp/"
+TMP="/tmp/"
+TMPDIR="$TMP"
+CWD=$(basename "$PWD")
+set +a

@@ -1,0 +1,235 @@
+# [Created by task 2.5.1 9/14/2016 18:16:26]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.task
+
+# Color theme (uncomment one to use)
+#include /usr/share/doc/task/rc/light-16.theme
+#include /usr/share/doc/task/rc/light-256.theme
+#include /usr/share/doc/task/rc/dark-16.theme
+#include /usr/share/doc/task/rc/dark-256.theme
+#include /usr/share/doc/task/rc/dark-red-256.theme
+#include /usr/share/doc/task/rc/dark-green-256.theme
+#include /usr/share/doc/task/rc/dark-blue-256.theme
+include /usr/share/doc/task/rc/dark-violets-256.theme
+#include /usr/share/doc/task/rc/dark-yellow-green.theme
+#include /usr/share/doc/task/rc/dark-gray-256.theme
+#include /usr/share/doc/task/rc/dark-gray-blue-256.theme
+#include /usr/share/doc/task/rc/solarized-dark-256.theme
+#include /usr/share/doc/task/rc/solarized-light-256.theme
+#include /usr/share/doc/task/rc/no-color.theme
+
+# include /home/dgeng/.task/credentials
+
+##
+# state
+uda.state.label=State
+uda.state.type=string
+# pending: still needs to be fleshed(temporary IN tray) out and defined properly as nextaction, project, maybe
+uda.state.values=maybe,await,pending,nextaction,proj  # it does not like project, wait
+uda.state.default=pending
+uda.state.description="Category list the task is in. In-tray is the physical compartment. Only processed items are entered to this program. Can only be in one. await someone or something, pending is process, maybe is for projects you do not intend to work on this week and can be reviewed on the weekly review to refocus, nextaction is the very next physical action required to move the situation forward, project is used to track the project description and its dependencies"
+
+uda.outcome.label=Outcome
+uda.outcome.type=string
+uda.outcome.description='Describe in a single written sentence your intended successful outcome for this problem or situation. What would need to happen for you to check this off as "done"'
+
+
+uda.why.label=Why
+uda.why.type=string
+uda.why.description='Why does this project exist?'
+
+
+##
+# context
+uda.context.label=Context
+uda.context.type=string
+uda.context.values=home,computer,outdoor,call,lab,internet,anywhere,ereader,errand,agenda,mail,papier,phone,none
+uda.context.default=none
+uda.context.description="Context in which the action can be completed."
+
+##
+# priorities
+uda.priority.label=Priority
+uda.priority.type=string
+uda.priority.values=?,l,m,h,c
+uda.priority.default=?
+uda.priority.description="Is there any deadline? Set a personal preference."
+
+urgency.uda.priority.?.coefficient=0
+urgency.uda.priority.l.coefficient=1
+urgency.uda.priority.m.coefficient=5
+urgency.uda.priority.h.coefficient=8
+urgency.uda.priority.c.coefficient=13
+
+color.uda.priority.h=color255
+color.uda.priority.l=color245
+color.uda.priority.m=color250
+
+##
+# value
+uda.value.label=Value
+uda.value.type=string
+uda.value.values=?,0,1,2,3,5,8
+uda.value.default=?
+uda.value.description="Impact of the task. How much is the task worth(any positive gains)? 0=nothing;1=nice to have;2=too good to pass;3=longterm value,reduces costs,time;5=immediate impact;8=must have in regards life,skills,productivity,etc.."
+
+urgency.uda.value.?.coefficient=0
+urgency.uda.value.0.coefficient=0
+urgency.uda.value.1.coefficient=1
+urgency.uda.value.2.coefficient=3
+urgency.uda.value.3.coefficient=5
+urgency.uda.value.5.coefficient=8
+urgency.uda.value.8.coefficient=13
+
+##
+# note - estimation of effort required, complexity
+uda.note.label=Note
+uda.note.type=string
+uda.note.values=n,y
+uda.note.default=n
+uda.note.description="Has a note attached."
+
+urgency.uda.note.n.coefficient=0
+urgency.uda.note.y.coefficient=0
+
+##
+# effort - estimation of effort required, complexity
+uda.effort.label=Effort
+uda.effort.type=string
+uda.effort.values=13,8,5,?,3,2,1,0
+uda.effort.default=?
+uda.effort.description="0=easy;1=known problem;2=known,difficult,time;3=unknown problem,requires research;5=known,requires resources(money,people);8=unknown,resources;13=undefined,complex,research,resources"
+
+urgency.uda.effort.?.coefficient=0
+urgency.uda.effort.0.coefficient=5
+urgency.uda.effort.1.coefficient=3
+urgency.uda.effort.2.coefficient=2
+urgency.uda.effort.3.coefficient=1
+urgency.uda.effort.5.coefficient=0
+urgency.uda.effort.8.coefficient=-3
+urgency.uda.effort.13.coefficient=-5
+
+##
+# time
+uda.time.label=Time
+uda.time.type=string
+uda.time.values=13,8,5,?,3,2,1,0
+uda.time.default=?
+uda.time.description="Time required to complete. 0=minutes to hours; 1=within a day; 2=1-3 days; 3=3-7 days; 5=1-4 weeks; 8=months; 13=years"
+
+urgency.uda.time.13.coefficient=-3
+urgency.uda.time.8.coefficient=-2
+urgency.uda.time.5.coefficient=-1
+urgency.uda.time.?.coefficient=0
+urgency.uda.time.3.coefficient=1
+urgency.uda.time.2.coefficient=2
+urgency.uda.time.1.coefficient=3
+urgency.uda.time.0.coefficient=5
+
+##
+# when review is due
+uda.review.label=Review due
+uda.review.type=string
+
+# mail report
+report.mailr.labels=Project,Description,Dependency,Tags,Due,Sched,Start,Until,End,Entry
+report.mailr.columns=project,description,depends,tags,due.remaining,scheduled.countdown,start.age,until.remaining,end.remaining,entry.age
+report.mailr.filter=status:pending
+report.mailr.sort=urgency-,due+
+
+
+# default report
+report.next.columns=id,project,context,state,description.count,outcome,urgency
+report.next.labels=ID,Project,Context,State,Description,Outcome,U
+report.next.filter=status:pending and ( ( state:nextaction and project:"" ) or state:proj or state:await ) limit:page -BLOCKED
+
+report.decide.columns=id,priority,value,effort,project,context,state,description,outcome
+report.decide.labels=ID,Priority,Value,Effort,Project,Context,State,Description,Outcome
+report.decide.filter=status:pending and state.not:proj and state.not:maybe limit:page
+report.decide.sort=urgency-
+
+report.maybe.columns=id,priority,project,context,description.count,outcome
+report.maybe.labels=ID,P,Project,Context,Description,Outcome
+report.maybe.filter=state:maybe
+report.maybe.sort=urgency-
+
+# get top ids
+report.top.labels=ID
+report.top.columns=id
+report.top.filter=status:pending
+report.top.sort=urgency-
+
+# get mininal listing
+report.l.columns=id,start.active,depends.indicator,project,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,description.count,note
+report.l.description=Show short details about tasks
+report.l.filter=status:pending limit:page -BLOCKED
+report.l.labels=ID,A,D,Project,State,R,Wait,S,Due,Until,Description,Note
+report.l.sort=urgency-,due+
+
+report.lsa.columns=id,start.active,depends,project,state,tags,recur,wait.remaining,scheduled.remaining,due.remaining,due,until.remaining,description,note,modified.age,entry,urgency
+report.lsa.description=List all details of tasks
+report.lsa.filter=limit:page -ACTIVE
+report.lsa.labels=ID,A,D,Project,State,Tags,R,Wait,S,Due-,Due,Until,Description,Note,Mod,Created,Urg
+report.lsa.sort=urgency-,due+
+
+################################################################################
+# tags
+urgency.user.tag.important.coefficient=13
+urgency.user.tag.wichtig.coefficient=13
+urgency.user.tag.lifegoal.coefficient=13
+urgency.user.tag.lebensziel.coefficient=13
+urgency.user.tag.critical.coefficient=21
+urgency.user.tag.crit.coefficient=21
+urgency.user.tag.kritisch.coefficient=21
+urgency.user.tag.krit.coefficient=21
+urgency.user.tag.urgent.coefficient=13
+urgency.user.tag.fast.coefficient=13
+urgency.user.tag.quick.coefficient=13
+urgency.user.tag.schnell.coefficient=13
+urgency.user.tag.1m.coefficient=89
+urgency.user.tag.2m.coefficient=55
+urgency.user.tag.5m.coefficient=34
+urgency.user.tag.10m.coefficient=21
+urgency.user.tag.life.coefficient=13
+urgency.user.tag.leben.coefficient=13
+################################################################################
+
+context.pending=state:pending
+context.easy=state:nextaction and ( +easy or +quick or +fast or +1m or +2m or +5m )
+context.nobrain=state:nextaction and +nobrain
+context.wait=state:await or +WAITING
+context.blocked=+BLOCKED
+context.brain=state:nextaction and +brain
+context.intray=state:intray
+context.maybe=+maybe or +someday or state:maybe
+context.admin=+admin
+context.life=+life or +private or +sport
+context.learn=+learn or +read or +train or +exercise or +learn
+context.read=+read or +research or +book
+context.math=+math
+context.uni=+uni or +studium
+context.studium=+uni or +studium
+context.projects=state:proj
+
+# how to use system
+# 1. capture - set outcome for a task, replace the description with the next action to achieve the outcome and update the state of the task
+# 2. organize - set priorities, tags, context and give it a proper project name if there are more than one actions
+# 3. do them
+# 4. review
+
+# how to decide
+# 1. context
+# 2. time available
+# 3. energy available
+# 4. priority

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -a 
+################################################################################
+# etc
+# ------------------------------------------------------------------------------
+LESS="-RSW"
+LESSCHARSET=utf-8
+PAGER="less"
+#if hash "vimpager"; then
+#  PAGER="vimpager"
+#  SYSTEMD_PAGER="$PAGER"
+#else
+#  SYSTEMD_PAGER="$PAGER"
+#fi
+SYSTEMD_PAGER="$PAGER"
+EDITOR="vim"
+SYSTEMD_EDITOR="$EDITOR"
+VISUAL="$EDITOR"
+SUDO_EDITOR="$EDITOR"
+
+LIBVIRT_DEFAULT_URI="qemu:///system"
+
+# mpd config
+# ------------------------------------------------------------------------------
+MPD_HOST="mpd"
+MPD_PORT="6600"
+
+
+# WINE
+# ------------------------------------------------------------------------------
+WINEPREFIX="$HOME/.config/wine/"
+WINEARCH="win64"
+
+# apps
+# ------------------------------------------------------------------------------
+RANGER_LOAD_DEFAULT_RC=TRUE
+SOURCE_LANG="en"
+TARGET_LANG="de"
+HOME_LANG="de"
+NQDIR=$TMP
+
+################################################################################
+# fzf
+# ------------------------------------------------------------------------------
+set +a
+if hash fzf 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
+  if hash fd 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
+    FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude ".git"'
+  elif hash rg 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
+    FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+  fi
+  FZF_DEFAULT_OPTS='--bind alt-p:accept'
+fi
+export FZF_DEFAULT_COMMAND
+export FZF_DEFAULT_OPTS

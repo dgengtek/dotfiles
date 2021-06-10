@@ -1,0 +1,9 @@
+session_name: "monitor"
+start_directory: "${HOME}"
+windows:
+- window_name: monitor
+  focus: True
+  #layout: main-horizontal
+  panes:
+    - shell_command:
+      - ytop

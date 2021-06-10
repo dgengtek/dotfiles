@@ -1,0 +1,12 @@
+*.swp
+docker/.docker/.build*
+history
+bookmarks
+*.log
+__pycache__
+
+mpd/*
+!mpd.conf
+ranger/.config/ranger/copy_buffer
+ciparams.yml
+**/systemd/user/default.target.wants/

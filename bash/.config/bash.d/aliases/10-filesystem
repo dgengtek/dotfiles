@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+alias dd_clone="dd bs=64k conv=noerror,sync status=progress"
+alias gunzipout="gunzip -cd"
+
+__filesystem_excludes=(
+"/dev/*"
+"/proc/*"
+"/sys/*"
+"/tmp/*"
+"/run/*"
+"/mnt/*"
+"/media/*"
+"/lost+found"
+"/swapfile"
+"/data/*"
+"/srv/*"
+)
+__build_exclude_string() {
+  local -r flag_prefix='--exclude'
+  local -a excludes=
+  local -r array_size="${#__filesystem_excludes[@]}"
+  for exclude in "${__filesystem_excludes[@]}"; do 
+    excludes+=("$flag_prefix=$exclude")
+  done
+  echo -n "${excludes[@]}"
+}
+
+rsync_backup_system() {
+  rsync -aAHXv "$(__build_exclude_string)" "$@"
+}
+
+tar_exclude() {
+  tar "$(__build_exclude_string)" "$@"
+}
+
+alias rsync_clone="rsync -aHAXS"
+
+
+# enable color support of ls and also add handy aliases
+if [[ -x /usr/bin/dircolors ]]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+alias ls=exa
+alias ll="ls -l"
+alias lla="ls -la"
+alias la="ls -A"
+alias l="ls -F"
+alias lsd="ls -d */"
+alias lsth="ls -thrlF"
+alias lshe="ls --hide='*.gz' --hide='*.xz'"
+alias lsh="ls --hide='*[.-][0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].gz' --hide='*[.-][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9].xz'"
+alias lsha="lsh --hide='*[.-][0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' --hide='*[.-][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'"
+
+alias rm="rm -i --preserve-root"
+alias rmi="rm -I --preserve-root"
+alias mv="mv -i"
+alias cp="cp -i"
+alias ln="ln -i"
+
+alias chown="chown --preserve-root"
+alias chmod="chmod --preserve-root"
+alias chgrp="chgrp --preserve-root"
+
+alias findd="find . -type d"
+alias findf="find . -type f"
+alias finddeadlink="find . -xtype l"
+
+# navigation
+alias pu="pushd"
+alias po="popd"
+alias dirs="dirs -v"
+alias d="dirs -v"
+alias pua="pushd_all"
+
+alias ..="builtin cd .."
+alias ...="builtin cd ../.."
+
+alias bm="fsbookmark.sh"
+alias bma="bm add"
+alias bmd="bm del"
+alias bmc="bm cat"
+alias bml="bm ls"

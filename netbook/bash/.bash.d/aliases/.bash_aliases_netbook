@@ -1,0 +1,4 @@
+alias battery="upower -i $(upower -e | grep 'BAT') \
+  | grep -E 'state|time|fullpercentage'"
+alias wlan_start_home="netctl start homewifi"
+alias wlan_start_fhfb02="netctl start wlanfb02"

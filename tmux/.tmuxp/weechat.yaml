@@ -1,0 +1,14 @@
+session_name: irc
+start_directory: ~/.weechat
+windows:
+  - window_name: weechat
+    layout: even-horizontal
+    focus: true
+    panes:
+      - shell_command:
+        - weechat
+  - window_name: logs
+    layout: even-horizontal
+    start_directory: ~/.weechat/logs
+    panes:
+      - null

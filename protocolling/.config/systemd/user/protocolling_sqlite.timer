@@ -1,0 +1,9 @@
+[Unit]
+Description=Run protocolling hourly
+
+[Timer]
+OnCalendar=*-*-* *:00,30:00
+Persistent=True
+
+[Install]
+WantedBy=default.target

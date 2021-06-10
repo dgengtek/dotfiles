@@ -1,0 +1,39 @@
+[commit]
+  template = ~/.config/git/gitmessage
+[core]
+  editor = vim
+  whitespace = trailing-space,space-before-tab
+  askpass = 
+  excludesFile = ~/.config/git/ignore
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+  stat = true
+[push]
+  default = simple
+[pull]
+  rebase = True
+[merge "ours"]
+  driver = true
+[mergetool "meld3t"]
+  cmd = meld --diff $BASE $LOCAL --diff $BASE $REMOTE --diff $LOCAL $MERGED $REMOTE
+[diff]
+  tool = vimdiff
+[color]
+  ui = auto
+[alias]
+  s = status
+  d = diff
+  dc = diff --cached
+  l = pull
+  p = push
+  co = checkout
+  r = remote
+  cm = checkout master
+  b = branch
+  a = add
+  m = merge
+  st = stash
+
+[branch]
+  autosetupmerge = true

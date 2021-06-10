@@ -1,0 +1,15 @@
+= Dotfiles - shell and editor configuration
+
+== Requirements
+* stow
+* bash
+* install.py (available from link:https://github.com/dgengtek/scripts[scripts repo])
+
+== Tested versions
+* stow, v2.2.2
+* bash, v4.4.19(1)
+
+== Installation
+Setup bash defined in setup.ini.
+
+$ bash install.sh

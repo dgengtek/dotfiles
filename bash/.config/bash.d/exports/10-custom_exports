@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -a 
+################################################################################
+# custom vars
+# ------------------------------------------------------------------------------
+BROWSER="firefox"
+BEEP="/mnt/hdd/bigX/programming/resources/sounds/beep/beep_std.wav"
+set +a

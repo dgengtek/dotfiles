@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+################################################################################
+# apps
+# ------------------------------------------------------------------------------
+alias browser="firefox"
+alias sage_gui="sage -c 'notebook(automatic_login=True)'"
+alias alarm="run.sh -n -q -- mplayer $BEEP"
+alias pdfviewer="zathura"
+alias pdfannotator="xournal"
+
+################################################################################
+# web
+# ------------------------------------------------------------------------------
+alias wget_offline_view="wget --recursive --timestamping --no-clobber --page-requisites --adjust-extension --convert-links --no-parent"
+
+
+################################################################################
+# office
+# ------------------------------------------------------------------------------
+alias vimwiki="vim -c VimwikiIndex"
+alias vimwiki_select="vim -c VimwikiUISelect"
+#alias journal_note="vim -c VimwikiMakeDiaryNote"
+#alias journal_select="vim -c VimwikiUISelect -c VimwikiDiaryIndex -c VimwikiDiaryGenerateLinks"
+#alias journal="vim -c VimwikiDiaryIndex -c VimwikiDiaryGenerateLinks"
+alias journal="jrnl"
+
+################################################################################
+# io 
+# ------------------------------------------------------------------------------
+alias echoerr=">&2 echo"
+
+################################################################################
+# etc
+# ------------------------------------------------------------------------------
+alias transde="trans en:de"
+alias transen="trans de:en"
+alias transru="trans de:ru"
+alias mindmap="freeplane"
+alias mind="freeplane"
+alias youtube-dl_best="youtube-dl -f ('bestvideo[width>=1920]'/bestvideo)+bestaudio/best"
+alias p=$PAGER
+
+################################################################################
+# script alias
+# ------------------------------------------------------------------------------
+alias tmuxn=tmux_new_session.sh
+tmuxncd() { local path=$1;shift; tmux_new_session.sh -p "$path" "$@"; }
+alias r=run.sh
+alias rq="run.sh -q -n --"
+alias rterm="run.sh -q -n -- alacritty"
+alias rshell=rterm
+alias runterm=rterm
+alias runshell=runterm

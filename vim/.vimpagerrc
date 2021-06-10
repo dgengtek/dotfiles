@@ -1,0 +1,66 @@
+" use vi improved
+set nocompatible              
+filetype off                  
+filetype plugin indent on
+" coloring
+if (&term == "screen" || &term == "screen-bce" || &term == "xterm" || &term == "xterm-256color")
+  set t_Co=256
+endif
+
+if has("syntax")
+  syntax on                      
+endif
+
+set encoding=utf-8
+
+" use :set list to enable
+" use :set nolist to disable
+" list chars tab,eol,trail etc
+" default eol
+" set listchars+=eol:$
+" tab char
+set listchars+=tab:>-
+" trailing space char
+set listchars+=trail:-
+set listchars+=precedes:<,extends:>
+
+set splitbelow
+set splitright
+
+set showmatch  " Show matching brackets.
+set matchtime=2  " Bracket blinking.
+"set novisualbell  " No blinking
+"set noerrorbells  " No noise.
+"set laststatus=2  " Always show status line.
+set ruler  " Show ruler
+
+" enable mouse
+set mouse=a   
+" hide mouse when typing
+"set mousehide  
+
+" ignore case when all chars are lower
+set ignorecase
+set smartcase
+
+" menu completion with tab in cmd mode
+set wildmenu                  
+" matches all
+set wildmode=full             
+" Ignore these files when completing
+set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=eggs/**
+set wildignore+=*.egg-info/**
+
+" highlight search
+set hlsearch
+
+set number
+set relativenumber
+if has("unnamedplus")
+  " yank into + register, * all 
+  set clipboard=unnamedplus
+else
+  " all op into * register
+  set clipboard=unnamed
+endif

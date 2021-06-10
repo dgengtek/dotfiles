@@ -1,0 +1,1 @@
+* Remove gitconfig emails when pushing to github backup repo

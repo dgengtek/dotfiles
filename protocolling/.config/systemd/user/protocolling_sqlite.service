@@ -1,0 +1,7 @@
+[Unit]
+Description=Run protocolling with sqlite backend
+After=graphical.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/protocolling_sqlite.sh

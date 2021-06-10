@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -a 
+################################################################################
+# Python
+# ------------------------------------------------------------------------------
+PYTHONSTARTUP="${PATH_USER_LIB}startup.py"
+################################################################################
+# JAVA
+# openjdk
+# ------------------------------------------------------------------------------
+#JAVA_HOME="/usr/local/java/jdk1.8.0_40"
+# oracle
+JAVA_HOME="/usr/lib/jvm/java-8-jdk"
+JUNIT_HOME="/usr/local/java/JUnit/"
+CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit4.10.jar"
+CLASSPATH="$CLASSPATH:$JAVA_HOME/lib/"
+ANDROID_HOME="/usr/local/android/android-sdk-linux/tools/"
+ANDROID_HOME="$ANDROID_HOME:/opt/android-sdk"
+COOKIECUTTER_CONFIG="$HOME/.cookiecutterrc"
+
+
+################################################################################
+# Rust
+# ------------------------------------------------------------------------------
+CARGO_HOME="/data/tmp/$USER/cargo"
+RUSTUP_HOME="/data/tmp/$USER/rustup"
+set +a
+
+
+################################################################################
+# Ruby
+# ------------------------------------------------------------------------------
+if hash ruby 2>&1 | logger -t bashrc -p user.info; then
+export RUBYPATH="$(ruby -e 'puts Gem.user_dir')/bin"  # is this even required?
+fi

@@ -1,0 +1,236 @@
+#!/usr/bin/env bash
+# ipv4 special purpose address registry: https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
+# reserved addresses, https://en.wikipedia.org/wiki/Reserved_IP_addresses
+# internet hosts: https://tools.ietf.org/html/rfc1122
+# multicast: https://tools.ietf.org/html/rfc3171.html 
+# special use ipv4 addresses: https://tools.ietf.org/html/rfc5735.html
+# dynamic configuration of ipv4 link-local addresses: https://tools.ietf.org/html/rfc3927.html
+__ipv4_CIDR_software='0.0.0.0/8'
+__ipv4_CIDR_private_A='10.0.0.0/8'
+__ipv4_CIDR_private_B='172.16.0.0/12'
+__ipv4_CIDR_private_C='192.168.0.0/16'
+__ipv4_CIDR_service_provider='100.64.0.0/10'
+__ipv4_CIDR_lo='127.0.0.0/8'
+__ipv4_CIDR_link_local='169.254.0.0/16'
+__ipv4_CIDR_protocol_assignments="192.0.0.0/24"
+__ipv4_CIDR_service_continuity_prefix="192.0.0.0/29"
+__ipv4_CIDR_dummy_address="192.0.0.8/32"
+__ipv4_CIDR_control_protocol_anycast="192.0.0.9/32"
+__ipv4_CIDR_traversal_relays_nat_anycast="192.0.0.10/32"
+__ipv4_CIDR_nat64_dns64_discovery1="192.0.0.170/32"
+__ipv4_CIDR_nat64_dns64_discovery1="192.0.0.171/32"
+__ipv4_CIDR_reserved_test_net_1='192.0.2.0/24'
+__ipv4_CIDR_reserved_test_net_2='198.51.100.0/24'
+__ipv4_CIDR_reserved_test_net_3='203.0.113.0/24'
+__ipv4_CIDR_as112_v4="192.31.196.0/24"
+__ipv4_CIDR_amt="192.62.193.0/24"
+__ipv4_CIDR_6to4_anycast='192.88.99.0/24' # deprecated
+__ipv4_CIDR_direct_delegation_as112_service="192.175.48.0/24"
+__ipv4_CIDR_benchmarking="198.18.0.0/15"
+__ipv4_CIDR_reserved="240.0.0.0/4"
+__ipv4_CIDR_limited_broadcast="255.255.255.255/32"
+__ipv4_CIDR_multicast='224.0.0.0/4'
+
+
+__tcpdump_NET_default_multicast="(net $__ipv4_CIDR_multicast)"
+__tcpdump_NET_default_private="(net ($__ipv4_CIDR_private_A\
+  || $__ipv4_CIDR_private_B\
+  || $__ipv4_CIDR_private_C))"
+__tcpdump_NET_default_reserved="(net ($__ipv4_CIDR_service_provider\
+  || $__ipv4_CIDR_protocol_assignments\
+  || $__ipv4_CIDR_reserved_test_net_1\
+  || $__ipv4_CIDR_reserved_test_net_2\
+  || $__ipv4_CIDR_reserved_test_net_3\
+  || $__ipv4_CIDR_as112_v4\
+  || $__ipv4_CIDR_amt\
+  || $__ipv4_CIDR_6to4_anycast\
+  || $__ipv4_CIDR_direct_delegation_as112_service\
+  || $__ipv4_CIDR_benchmarking\
+  || $__ipv4_CIDR_reserved))"
+__tcpdump_NET_default_reserved_all="($__tcpdump_NET_default_private\
+  || $__tcpdump_NET_default_reserved\
+  || $__tcpdump_NET_default_multicast\
+  || net $__ipv4_CIDR_lo\
+  || net $__ipv4_CIDR_link_local\
+  || net $__ipv4_CIDR_software)"
+
+__tcpdump_default_service_wol='(udp and port 9)'
+__tcpdump_default_service_ssh='(port 22)'
+__tcpdump_default_service_ftp='(port (20 || 21))'
+__tcpdump_default_service_telnet='(port 23)'
+__tcpdump_default_service_ntp='(port 123)'
+__tcpdump_default_service_irc='(port 194)'
+# authentication system || change/set pass || kerberos login || kerberos remote shell || kerberos protocol
+__tcpdump_default_service_kerberos='(port (88 || 464 || 543 || 544 || 749))'
+__tcpdump_default_service_http='(port (443 || 80 || 8080 || 3128))'
+__tcpdump_default_service_dns='(port (53 || 853))'
+__tcpdump_default_service_llmnr='(port (5355))'
+# ( auth || accounting || secure radius ) or radius change of authorization
+__tcpdump_default_service_radius='(port (1812 || 1813 || 2083 || 3799))'
+__tcpdump_default_service_nfs='(port 2049)'
+# ike, nat-t
+__tcpdump_default_service_ipsec='(port (500 || 4500))'
+__tcpdump_default_service_openvpn='(port 1194)'
+__tcpdump_default_service_stun='(port 3478)'
+__tcpdump_default_service_syslog='(port 514)'
+__tcpdump_default_service_netbios='(port (137 || 138 || 139))'
+__tcpdump_default_service_cifs='(port (445 || 3020))'
+__tcpdump_default_service_mail='(port (25 || 465 || 143 || 993 || 585))'
+__tcpdump_default_service_salt='(port (4505 || 4506))'
+__tcpdump_default_service_dhcp_tftp='(port ( 67 || 68 || 69))'
+__tcpdump_default_service_postgres='(port 5432)'
+__tcpdump_default_service_mysql='(port 3306)'
+
+
+
+__tcpdump_noisy_protocols='icmp || arp'
+__tcpdump_protocols="igmp"
+
+
+__tcpdump_port_list="($__tcpdump_default_service_ssh \
+  || $__tcpdump_default_service_wol \
+  || $__tcpdump_default_service_ftp \
+  || $__tcpdump_default_service_telnet \
+  || $__tcpdump_default_service_irc \
+  || $__tcpdump_default_service_kerberos \
+  || $__tcpdump_default_service_http \
+  || $__tcpdump_default_service_llmnr \
+  || $__tcpdump_default_service_nfs \
+  || $__tcpdump_default_service_openvpn \
+  || $__tcpdump_default_service_cifs \
+  || $__tcpdump_default_service_salt \
+  || $__tcpdump_default_service_dns \
+  || $__tcpdump_default_service_mail
+  || $__tcpdump_default_service_ntp \
+  || $__tcpdump_default_service_netbios \
+  || $__tcpdump_default_service_radius \
+  || $__tcpdump_default_service_ipsec \
+  || $__tcpdump_default_service_dhcp_tftp \
+  || $__tcpdump_default_service_mysql \
+  || $__tcpdump_default_service_postgres)"
+
+################################################################################
+
+alias tcpdumpf="tcpdump '\
+  not ( $__tcpdump_default_service_dhcp_tftp \
+    || $__tcpdump_default_service_ipsec \
+    || $__tcpdump_NET_default_multicast \
+    || net ( $__ipv4_CIDR_limited_broadcast ) \
+    || $__tcpdump_noisy_protocols \
+    ) \
+  and not ( $__tcpdump_default_service_ssh \
+    || $__tcpdump_default_service_http \
+    || $__tcpdump_default_service_mail \
+    || $__tcpdump_default_service_dns )"
+
+alias tcpdumpfa="tcpdump '\
+  not $__tcpdump_port_list \
+  and not ($__tcpdump_NET_default_reserved \
+    || $__tcpdump_noisy_protocols \
+    || $__tcpdump_protocols \
+    )"
+
+alias tcpdump_fhome="tcpdumpf and not $__tcpdump_default_service_salt'"
+alias tcpdump_http="tcpdump '$__tcpdump_default_service_http'"
+alias tcpdump_mail="tcpdump '$__tcpdump_default_service_mail'"
+alias tcpdump_vpn="tcpdump '$__tcpdump_default_service_ipsec and $__tcpdump_default_service_openvpn'"
+alias tcpdump_ttl="tcpdump 'ip[8] < 10'"
+alias tcpdump_invalid_tcp="tcpdump 'tcp[13] = 6'"
+alias tcpdump_http_get="tcpdump 'tcp[32:4] = 0x47455420'"
+alias tcpdump_ssh_all="tcpdump 'tcp[(tcp[12]>>2):4] = 0x5353482D'"
+
+tcpdump_write_stdout() {
+  local -r interface=${1:?"Interface required as argument."}
+  shift
+  tcpdump -i "$interface" -s 0 -U -w - "$@"
+}
+tcpdump_write_display() {
+  local -r tmpfile="dump$RANDOM.pcap"
+  tcpdump_write_stdout "$@" | tee "$tmpfile" | tcpdump -r -
+}
+tcpdump_ssh_write() {
+  local -r host=${1:?"No host specified."}
+  shift
+  ssh "$host" -- sudo tcpdump -i any -s 0 -U -w - "$@" > "$host.pcap"
+}
+
+
+################################################################################
+# firewall
+# ------------------------------------------------------------------------------
+alias ipt=iptables
+alias iptn="iptables -t nat"
+alias iptnls="iptables -t nat -L -v"
+alias iptnlsa="iptables -t nat -L -v --line-numbers"
+alias iptls="iptables -L -v"
+alias iptlsa="iptables -L -v --line-numbers"
+alias iptd="iptables -D"
+alias ipta="iptables -A"
+alias ipti="iptables -I"
+
+
+################################################################################
+# network
+# ------------------------------------------------------------------------------
+alias ipgateway="command ip route | awk '/default via/ {FS=\" \";print \$3}' | sort | uniq"
+alias pingt="ping -D -O"  # timestamp + report ICMP ECHO reply
+alias pingtcloudflaredns="pingt 1.1.1.1"
+alias pingtgoogledns="pingt 8.8.8.8"
+alias pingfast="ping -c 100 -i 0.2"
+
+alias ssh_keygen_default="ssh-keygen -t ed25519 -a 100"
+alias ssh_keygen_check_file="ssh-keygen -l -f"
+alias sshkeyrm="ssh-keygen -R"
+
+alias ssh_ignore="ssh -o 'UserKnownHostsFile /dev/null'"
+alias ssh_auth_pass="ssh \
+  -o PreferredAuthentications=keyboard-interactive,password \
+  -o PubkeyAuthentication=no"
+alias ssh_gpg="gpg-connect-agent reloadagent /bye && ssh"
+alias ssh_safe="ssh -4aCxkt \
+  -F /dev/null \
+  -o 'ServerAliveInterval 60' \
+  -o 'ServerAliveCountMax 10' \
+  -o 'CheckHostIP yes' \
+  -o 'KexAlgorithms curve25519-sha256@libssh.org,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256,diffie-hellman-group1-sha1' \
+  -o 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr' \
+  -o 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,hmac-sha1' \
+  -o 'GatewayPorts no'"
+
+alias curl_ls="curl --list-only"
+alias curl_test="curl --output /dev/null --max-time 30 --location --verbose --include"
+alias curl_test_stats="curl --output /dev/null --max-time 30 --location --verbose --include --write-out '\
+  \ncontent_type: %{content_type}\
+  \nfilename_effective: %{filename_effective}\
+  \nhttp_code: %{http_code}\
+  \nhttp_connect: %{http_connect}\
+  \nhttp_version: %{http_version}\
+  \nlocal_ip:local_port: %{local_ip}:%{local_port}\
+  \nnum_connects: %{num_connects}\
+  \nnum_redirects: %{num_redirects}\
+  \nproxy_ssl_verify_result(0 = success): %{proxy_ssl_verify_result}\
+  \nredurect_url: %{redirect_url}\
+  \nremote_ip:remote_port: %{remote_ip}:%{remote_port}\
+  \nscheme: %{scheme}\
+  \nsize_download: %{size_download} B\
+  \nsize_header: %{size_header} B\
+  \nsize_request: %{size_request} B\
+  \nsize_upload: %{size_upload} B\
+  \nspeed_download: %{speed_download} B/s\
+  \nspeed_upload: %{speed_upload} B/s\
+  \nssl_verify_result(0 = success): %{ssl_verify_result}\
+  \ntime_appconnect: %{time_appconnect} s\
+  \ntime_connect: %{time_connect} s\
+  \ntime_namelookup: %{time_namelookup} s\
+  \ntime_pretransfer: %{time_pretransfer} s\
+  \ntime_redirect: %{time_redirect} s\
+  \ntime_starttransfer: %{time_starttransfer} s\
+  \ntime_total: %{time_total} s\
+  \nurl_effective: %{url_effective}
+'"
+
+alias ncz="nc -vz"
+alias ip="ip -c"
+alias ip0="ip -0"
+alias ipbr="ip -br"
+alias ips="ip -iec -s"

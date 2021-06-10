@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+alias epoch="date --date @"
+alias now="date +%T"
+alias today="date +%F"
+alias nowa="date +%Y%m%d%H%M%S"
+alias dateiso="date --iso-8601=ns"
+alias dateT=dateiso

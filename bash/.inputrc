@@ -1,0 +1,21 @@
+set bell-style none
+$if mode=vi
+
+  set keymap vi-command
+  "gg": beginning-of-history
+  "G": end-of-history
+
+  set keymap vi-insert
+  "jj": vi-movement-mode
+  Control-a: beginning-of-line
+  Control-b: backward-char
+  Control-d: delete-char
+  Control-e: end-of-line
+  Control-f: forward-char
+  Control-k: kill-line
+  Control-n: next-history
+  Control-p: previous-history
+  Control-L: clear-screen
+
+$endif
+set completion-ignore-case On

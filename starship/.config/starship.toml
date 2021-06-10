@@ -1,0 +1,201 @@
+add_newline = true
+
+format = """\
+    $time\
+    $username\
+    $hostname\
+    $kubernetes\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $hg_branch\
+    $docker_context\
+    $package\
+    $dotnet\
+    $elixir\
+    $elm\
+    $erlang\
+    $golang\
+    $java\
+    $julia\
+    $nim\
+    $nodejs\
+    $ocaml\
+    $php\
+    $purescript\
+    $python\
+    $ruby\
+    $rust\
+    $terraform\
+    $zig\
+    $nix_shell\
+    $conda\
+    $memory_usage\
+    $aws\
+    $env_var\
+    $crystal\
+    $cmd_duration\
+    $custom\
+    $line_break\
+    $jobs\
+    $battery\
+    $status\
+    $character\
+"""
+
+[battery]
+full_symbol = "•"
+charging_symbol = "⌁"
+discharging_symbol = "⏚"
+
+[[battery.display]]  # "bold red" style when capacity is between 0% and 10%
+threshold = 10
+style = "red"
+
+[[battery.display]]  # "bold yellow" style when capacity is between 10% and 30%
+threshold = 30
+style = "yellow"
+
+[character]
+success_symbol = '[\$](green)'
+error_symbol = '[\$](red)'
+
+[cmd_duration]
+style = "bold yellow"
+
+[directory]
+truncation_length = 8
+truncate_to_repo = true
+# prefix = "::"
+format = "[$path]($style)[$read_only]($read_only_style) "
+fish_style_pwd_dir_length = 1
+# style = "bold cyan"
+# style = "fg:#ffffff"
+style = "bold white"
+
+[git_branch]
+symbol = " "
+truncation_symbol = "…"
+style = "bold purple"
+disabled = false
+
+[git_commit]
+# shows the current commit hash of the repo in your current directory
+style = "bold green"
+only_detached = true
+
+[git_state]
+style = "bold_yellow"
+rebase = "REBASING"
+merge = "MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+progress_divider = "/"
+disabled = false
+
+[git_status]
+# shows symbols representing the state of the repo in your current directory
+conflicted = "="
+conflicted_count.enabled = true
+# conflicted_count.style = ""
+ahead = "↑"
+behind = "↓"
+diverged = "↕"
+untracked = "?"
+untracked_count.enabled = true
+# untracked_count.style = "red"
+stashed = "!"
+stashed_count.enabled = true
+# stashed_count.style = "red"
+modified = "*"
+modified_count.enabled = true
+# modified_count.style = "red"
+staged = "+"
+staged_count.enabled = true
+# staged_count.style = "red"
+renamed = "»"
+renamed_count.enabled = true
+# renamed_count.style = "red"
+deleted = "✘"
+deleted_count.enabled = true
+# deleted_count.style = "red"
+show_sync_count = true
+format = '([\[$all_status$ahead_behind\]]($style) ) '
+style = "bold red"
+disabled = false
+
+[hostname]
+ssh_only = true
+# trim_at = "."
+format = "[$hostname]($style) in "
+trim_at = ""
+style = "bold dimmed green"
+disabled = false
+
+[jobs]
+symbol = "&"
+treshold = 4
+style = "bold yellow"
+disabled = false
+
+
+[memory_usage]
+disabled = false
+show_percentage = true
+show_swap = true
+threshold = 65
+# symbol = "🐏 "
+symbol = " "
+# separator = " | "
+separator = "/"
+style = "bold dimmed white"
+
+[package]
+disabled = false
+
+[python]
+disabled = false
+symbol = "🐍 "
+pyenv_version_name = true
+pyenv_prefix = "pyenv "
+scan_for_pyfiles = true
+# style = "bold yellow"
+style = "yellow"
+
+[ruby]
+# style = "bold red"
+style = "red"
+disabled = true
+
+[rust]
+disabled = false
+# symbol = 
+# style = "bold red"
+style = "red"
+
+[terraform]
+disabled = false
+
+[time]
+disabled = false
+use_12hr = false
+time_format = "%T dow%ww%U"
+format = "[$time]($style) "
+# style = "bold yellow"
+style = "white"
+
+[status]
+style = "red"
+symbol = ""
+format = '[$status]($style) '
+disabled = false
+
+[username]
+disabled = false
+show_always = false
+style_root = "bold red"
+style_user = "bold yellow"

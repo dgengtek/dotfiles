@@ -1,0 +1,8 @@
+splash: False
+fade: False
+lock: False
+mode: blank
+timeout: 00:30:00
+lockTimeout: 00:00:00
+dpmsEnabled: True
+dpmsQuickOff: True
