@@ -249,6 +249,7 @@ prepare() {
   mkdir -p .config/{ranger,awesome,git,i3,i3status}
   mkdir -p .config/systemd/user
   mkdir -p .tmuxp
+  mkdir -p .mpd
   mkdir -p .vim
   # create tmp directory for user on big disk
   mkdir -p /data/tmp/$USER
