@@ -54,6 +54,19 @@ task projects.none: edit
 # view all next projects
 task limit:none | less
 
+# lookup task information
+task <task> information
+
+# delay a task to think on it
+task <task> <command_modify> wait:<deadline>
+
+# lookup multiple single line tasks
+intent print info '<tasks_joined>'
+
+$ command_modify: echo -e 'add\nmodify\n'
+$ task: intent print lines --- --delimiter '\s+' --preview 'task {1} information' --column 1
+$ tasks: intent print lines --- --delimiter '\s+' --preview 'task {1} information' --column 1 --multi
+$ tasks_joined: echo -n '<tasks>' | tr '\n' ','
 $ context: task context list
 $ id: task top
 $ project: task _project
