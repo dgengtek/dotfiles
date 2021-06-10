@@ -9,3 +9,9 @@ pacmd list-sinks | grep -e 'name:' -e 'index'
 
 # record audio
 arecord -f dat $HOME/mnt/private/recordings/audio/rec<dateisonow>.wav
+
+# restart bluetooth mpris bluetooth user services
+systemctl --user restart mpd-mpris mpris-proxy
+
+# update mpd database
+mpd update --wait
