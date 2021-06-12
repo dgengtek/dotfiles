@@ -42,7 +42,7 @@ fd --type f <pattern> -X vim
 rg --ignore-case --files-with-matches --follow <pattern> | xargs_vim.sh
 
 # search for filename and edit
-f.sh --multi | xargs_vim.sh
+f.sh | xargs_vim.sh
 
 # search for pattern and replace
 search="<pattern>";rg --ignore-case --files-with-matches --follow "$pattern" | xargs sed -i "s<delimiter>$search<delimiter><replacement><delimiter>"
