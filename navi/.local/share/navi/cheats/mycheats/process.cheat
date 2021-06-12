@@ -38,4 +38,7 @@ ps --sort=%mem -eo pid,f,s,%mem,cmd:80,sz,rss
 # wait for process
 wait_pid.sh <pid>
 
+# search for process and reload
+ps -ef | fzf --bind 'ctrl-r:reload(ps -ef)' --header 'Press CTRL-R to reload' --header-lines=1 --layout=reverse
+
 $ pid: ps -eo pid,%cpu,%mem,ni,cmd --sort=cmd | awk '{print $1, $2, $3, $4, $5}' | column -t --- --header-lines 1 --column 1 --multi

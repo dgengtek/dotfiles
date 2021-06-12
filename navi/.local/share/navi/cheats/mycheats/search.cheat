@@ -3,26 +3,38 @@
 # find only in the current directory
 find . -maxdepth 1 -name "<name>"
 
+
 # find from current directory
 find . -name "<name>"
+
 
 # find file in the directory
 find <dir> -type f -follow -print
 
+
 # find files in the directory and zip all
 find <dir> -type f -follow -print | zip <ZipFileName> -@
+
 
 # find files in the directory and zip all files without directories
 find <dir> -type f -follow -print | zip -j <ZipFileName> -@
 
+
 # find files with specific name in the directory and zip all
 find <dir> -type f -name "<name>"  -follow -print | zip -@ <ZipFileName>  
+
 
 # find files with specific name in the directory and zip all files without directories
 find <dir> -type f -name "<name>"  -follow -print | zip -j -@ <ZipFileName>  
 
+
 # search, find a file
 fd --hidden --follow --exclude ".git" . "<path>"
 
+
 # search, find a directory
 fd --type d --hidden --follow --exclude ".git" . "<path>"
+
+
+# interactive search and reload with ripgrep
+fzf --bind "change:reload:rg --column --line-number --no-heading --color=always --smart-case {q} || true" --ansi --phony --query "" | cut -d ':' -f 1
