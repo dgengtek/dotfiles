@@ -133,6 +133,24 @@ jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": $secret_id }' \
     ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id/destroy
 
 
+# lookup approle secret id accessor properties
+jq -ns --arg secret_id_accessor "$(systemd-ask-password)" '{ "secret_id_accessor": $secret_id_accessor }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id-accessor/lookup
+
+
+# destroy an approle secret id by its accessor
+jq -ns --arg secret_id_accessor "$(systemd-ask-password)" '{ "secret_id_accessor": $secret_id_accessor }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id-accessor/destroy
+
+
 % vault, login
 
 # get a vault token via ldap
