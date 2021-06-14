@@ -2,7 +2,6 @@
 ################################################################################
 # system
 # ------------------------------------------------------------------------------
-alias sudo="sudo "
 alias sudok="sudo --reset-timestamp"
 alias sudokill="sudo --remove-timestamp"
 alias napnow="{ hash timew 2>&1 | logger -t bashrc -p user.info && timew stop; hash i3lock 2>&1 | logger -t bashrc -p user.info && i3lock -c 000000; systemctl suspend; }"
