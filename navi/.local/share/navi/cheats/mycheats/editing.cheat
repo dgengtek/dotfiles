@@ -1,4 +1,6 @@
 % edit, string
+@ template, reuse
+
 # edit and pipe output to some command
 vipe <&- |
 
@@ -46,5 +48,8 @@ f.sh | xargs_vim.sh
 
 # search for pattern and replace
 search="<pattern>";rg --ignore-case --files-with-matches --follow "$pattern" | xargs sed -i "s<delimiter>$search<delimiter><replacement><delimiter>"
+
+# print random line from file
+lines=$(wc -l <compgen_file_cwd> | awk '{print $1}'); randint=$(python -c "from random import randint;print(randint(1,${lines}), end='')"); sed -n "${randint}p" <compgen_file_cwd>
 
 $ delimiter: echo -e ",\n"

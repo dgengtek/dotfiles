@@ -1,4 +1,4 @@
-% admin, squashfs, backup, image
+% squashfs, backup, image
 
 # zero all available space with dd and remove after
 dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
@@ -95,3 +95,14 @@ hash /usr/bin/sensors && watch -n 1 /usr/bin/sensors
 keyfiles_suffix=("gpg" "gpg.par2.tar" "gpg.sha256"); version="<keystorage_version>"; for file in "${keyfiles_suffix[@]}"; do mc cp "data/archive/keystorage_${version}.tar.gz.${file}" .; done
 
 $ keystorage_version: mc ls --json data/archive | jq -r .key | sd '^keystorage_(\d+\.\d+\.\d+).*' '$1' | sort | uniq
+
+
+% random
+
+# get random bytes from stream
+od -A n -t d -N <bytes> /dev/urandom | awk '{print $1}'
+
+# random number inclusive range (a, b)
+python -c "from random import randint;print(randint(<a>,<b>), end='')"
+
+$ randint: python -c "from random import randint;print(randint(<a>,<b>), end='')"

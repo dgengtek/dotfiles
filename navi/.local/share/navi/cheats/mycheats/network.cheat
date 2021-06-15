@@ -86,6 +86,11 @@ ping -c 100 -i 0.2 <destination>
 # output to stdout for wireshark
 sudo tcpdump -i any -s 0 -U -w -
 
+
+# create a random mac
+mac_generate.sh
+
+
 $ interface: ip -json link | jq -r '.[].ifname'
 $ self_global_ip: dig +short myip.opendns.com @resolver1.opendns.com
 $ process: lsof -iTCP -sTCP:LISTEN -n -P | sed -E "s/:([0-9][0-9][0-9]+) /:$(tput setaf 3)\1$(tput sgr0) /g" --- --header-lines 1

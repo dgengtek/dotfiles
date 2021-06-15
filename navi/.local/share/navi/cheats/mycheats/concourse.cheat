@@ -141,6 +141,10 @@ fly -t <target> prune-worker -w <worker>
 fly -t <target> pipelines --json | jq -r '.[].name' | xargs -I {} fly -t <target> destroy-pipeline --pipeline {}
 
 
+# run all jobs which have not succeeded
+fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "failed" or .finished_build.status == "errored") | .name' | sort | xargs -I {} fly -t <target> tj -j <pipeline>/{}
+
+
 $ target:   fly targets --- --column 1
 $ team:     fly -t "$target" teams --json | jq -r '.[].name'
 $ job:      fly -t "$target" jobs --pipeline "$pipeline" --json | jq -r '.[].name'
