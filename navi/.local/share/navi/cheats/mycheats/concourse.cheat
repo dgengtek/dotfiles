@@ -52,22 +52,22 @@ fly --target <target> unpause-pipeline --pipeline <pipeline>
 fly --target <target> rename-pipeline --old-name <pipeline> --new-name <new_pipeline>
 
 # Create pipeline without variables
-fly --target <target> set-pipeline --pipeline <new_pipeline> --config <pipeline_yaml>
+fly --target <target> set-pipeline --pipeline <new_pipeline> --config <config_yaml>
 
 # Create pipeline with variables
-fly --target <target> set-pipeline --pipeline <new_pipeline> --config <pipeline_yaml> --load-vars-from <pipeline_vars>
+fly --target <target> set-pipeline --pipeline <new_pipeline> --config <config_yaml> --load-vars-from <config_yaml>
 
 # Update pipeline without variables
-fly --target <target> set-pipeline --pipeline <pipeline> --config <pipeline_yaml>
+fly --target <target> set-pipeline --pipeline <pipeline> --config <config_yaml>
 
 # Update pipeline with variables
-fly --target <target> set-pipeline --pipeline <new_pipeline> --config <pipeline_yaml> --load-vars-from <pipeline_vars>
+fly --target <target> set-pipeline --pipeline <new_pipeline> --config <config_yaml> --load-vars-from <config_yaml>
 
 # Validate pipeline without variables
-fly validate-pipeline --config <pipeline_yaml>
+fly validate-pipeline --config <config_yaml>
 
 # Validate pipeline with variables
-fly validate-pipeline --config <pipeline_yaml> --load-vars-from <pipeline_vars>
+fly validate-pipeline --config <config_yaml> --load-vars-from <config_yaml>
 
 # Delete a pipeline
 fly --target <target> destroy-pipeline --pipeline <pipeline>
@@ -141,8 +141,11 @@ fly -t <target> prune-worker -w <worker>
 fly -t <target> pipelines --json | jq -r '.[].name' | xargs -I {} fly -t <target> destroy-pipeline --pipeline {}
 
 
-# run all jobs which have not succeeded
-fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "failed" or .finished_build.status == "errored") | .name' | sort | xargs -I {} fly -t <target> tj -j <pipeline>/{}
+# run all jobs which have not run once
+fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or or .finished_build.status == "errored") | .name' | sort | xargs -I {} fly -t <target> tj -j <pipeline>/{}
+
+# run a one off task
+fly -t <target> execute -c <config_yaml>
 
 
 $ target:   fly targets --- --column 1
@@ -153,5 +156,4 @@ $ resource: fly -t "$target" resources --pipeline "$pipeline" --json | jq -r '.[
 $ version:  fly -t "$target" resource-versions --resource="${pipeline}/${resource}" --json | jq -r '.[].id'
 $ pipeline: fly -t "$target" pipelines --json | jq -r '.[].name'
 $ worker: fly -t "$target" workers --json | jq -r '.[].name'
-$ pipeline_yaml: ls *.yml || ls
-$ pipeline_vars: ls *.yml || ls
+$ config_yaml: fd --type f '.*\.(yaml|yml)$'
