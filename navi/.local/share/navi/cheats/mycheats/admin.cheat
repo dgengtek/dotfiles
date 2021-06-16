@@ -39,9 +39,13 @@ uname -a
 sudo udisksctl power-off -b <device>
 
 
-% gpg, encrypt, password, clipboard
+% password
 # encrypt a prompted password and copy to system clipboard
 systemd-ask-password | tr -d '\n' | gpg --armor --batch --encrypt -r <benutzer> | xclip -selection c
+
+
+# export a prompted password
+export <NAME>=$(systemd-ask-password)
 
 
 % certificate
