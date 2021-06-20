@@ -216,8 +216,18 @@ git log --stat --max-count=<log_max_count>
 # use git web
 git instaweb
 
+# unstaged items exist
+git diff --exit-code --quiet
+
+# staged items exist
+git diff --cached --exit-code --quiet
+
+# untracked items exist
+git ls-files --other --exclude-standard --directory | egrep -v '/$'
+
 # list ignored git files
 git check-ignore *
+
 
 $ folder: fd --type d
 $ file: fd --type f

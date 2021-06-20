@@ -21,6 +21,12 @@ intentm review
 # review all tasks which require a review interactively
 intentm review --all
 
+# select a task which will be child of all successive selected tasks
+intentm dep <task>
+
+# select a task which will be parent of all successive selected tasks
+intentm dep -r <task>
+
 # get minimal report of all tasks
 task l
 
@@ -48,8 +54,11 @@ task project:"<project>" decide
 # edit all tasks which have no tags
 task tags.none: edit
 
-# edit all tasks which have no projects set
-task projects.none: edit
+# list all task for filtering
+task long
+
+# show all tasks which have no project set 
+task projects.none: long
 
 # view all next projects
 task limit:none | less

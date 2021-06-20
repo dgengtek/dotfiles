@@ -70,17 +70,6 @@ $ username: getent passwd | awk -F ':' '{print $1}'
 # load cpu
 yes > /dev/null &
 
-% udev
-
-# get udevadm info for all
-udevadm info --query=all
-
-# reload udev and retrigger 
-sudo udevadm control --reload-rules && sudo udevadm trigger
-
-# monitor udev events
-udevadm monitor --environment
-
 % device
 
 # search a device for bad blocks and check

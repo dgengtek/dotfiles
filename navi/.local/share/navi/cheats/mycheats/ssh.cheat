@@ -6,6 +6,9 @@ ssh-keygen -t <keytype> -a <rounds> -C "<email>"
 # show fingerprint and check if the key file is valid
 ssh-keygen -l -f <key>
 
+# export public key
+ssh-keygen -e -f <key> -m <keytype>
+
 # Removes all keys belonging to the specified hostname
 ssh-keygen -R <hostname>
 
