@@ -7,7 +7,7 @@ ssh-keygen -t <keytype> -a <rounds> -C "<email>"
 ssh-keygen -l -f <key>
 
 # export public key
-ssh-keygen -e -f <key> -m <keytype>
+ssh-keygen -e -f <key> -m <keyformat>
 
 # Removes all keys belonging to the specified hostname
 ssh-keygen -R <hostname>
@@ -56,3 +56,4 @@ $ server : cat /etc/hosts | cut -f2 -d' '
 $ ssh_config: echo "${PREFIX}/etc/ssh/sshd_config"
 $ rounds: echo -e '100\n'
 $ keytype: echo -e 'ed25519,rsa,ed25519-sk' | tr ',' '\n'
+$ keyformat: echo -e 'RFC4716,PKCS8,PEM' | tr ',' '\n'
