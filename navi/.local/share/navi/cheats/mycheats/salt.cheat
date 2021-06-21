@@ -48,6 +48,21 @@ sudo salt "<host>" saltutil.sync_all
 # run a function on a host
 sudo salt "<host>" <function>
 
+# return top data the the minion will use for highstate
+sudo salt "<host>" state.show_top
+
+# return the list of state that will be applied on highstate
+sudo salt "<host>" state.show_states
+
+# show running state functions
+sudo salt "<host>" state.running
+
+# execeute states in one or more sls files
+sudo salt "<host>" state.sls <sls_files>
+
+# kill running state 
+sudo salt "<host>" saltutil.kill_job <jid>
+
 # watch salt state events
 sudo salt-run state.event | while read -r tag data; do echo $tag; echo $data | jq --color-output .; done
 
