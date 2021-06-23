@@ -24,8 +24,7 @@ alias transru="trans de:ru"
 ################################################################################
 # script alias
 # ------------------------------------------------------------------------------
-declarealias tmuxn "run a new tmux session with the basename of the current path ::\ tmuxn"
-tmuxncd() { local path=$1;shift; tmux_new_session.sh -p "$path" "$@"; }
+alias tmuxn="tmux_new_session.sh"
 alias r="run.sh"
 alias rq="run.sh -q -n"
 alias re="run.sh -e"
