@@ -267,6 +267,7 @@ handle_image() {
 
 handle_mime() {
     local mimetype="${1}"
+    echo "$mimetype"
     case "${mimetype}" in
         ## RTF and DOC
         text/rtf|*msword)
