@@ -66,8 +66,8 @@ task limit:none | less
 # lookup task information
 task <task> information
 
-# delay a task to think on it
-task <task> <command_modify> wait:<deadline>
+# tickle, delay a task to think on it
+task <task> <command_modify> wait:+1d
 
 # lookup multiple single line tasks
 intent print info '<tasks_joined>'

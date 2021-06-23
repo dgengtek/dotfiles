@@ -26,3 +26,6 @@ env -i bash --noprofile --norc
 
 # do not write to history file on shell exit
 unset HISTFILE
+
+# list single letter aliases
+alias | rg 'alias .='

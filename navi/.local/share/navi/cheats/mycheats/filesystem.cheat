@@ -28,7 +28,7 @@ basename "$PWD"
 # :: cwdd
 dirname "$PWD"
 
-# enter a subshell for each directory with a conditional command
+# enter a subshell for each directory listed in filename with a conditional command
 dir_shell.sh <filename> <command>
 
 # run a command for each directory from the input
@@ -39,6 +39,9 @@ dir_exec.sh <command>
 
 # select files from a directory and edit it with vim
 f.sh <directory> | xargs_vim.sh
+
+# preview bat theme on a file
+bat --list-themes | fzf --preview="bat --theme={} --color=always <compgen_file_cwd>"
 
 # search select
 rg --ignore-case --files-with-matches --follow <pattern> | fzf --multi --select-1 --exit-0
