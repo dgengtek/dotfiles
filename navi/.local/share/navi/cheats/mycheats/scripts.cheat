@@ -1,11 +1,8 @@
 % scripts
 @ template, reuse
 
-# run a new tmux session with the basename of the current path:: tmuxn
+# run a new tmux session with the basename of the current path :: tmuxn
 tmux_new_session.sh
-
-# run a directory for commands, notifications, mail :: r
-run.sh
 
 # spawn a new terminal emulator in a directory
 run.sh -q -n -- alacritty --working-directory <directory> --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
@@ -24,10 +21,13 @@ edit_cmd.sh <binary>
 
 
 % notification, alert
+# run a command for notifications, mail
+run.sh
+
 # create a notification timer
 run.sh -- count down -m <minutes>
 
-# run a command quietly without any output :: rq
+# run a command quietly without any output
 run.sh -q -n --
 
 # run a display of done notification
