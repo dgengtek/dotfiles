@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
-declarealias vimwiki
-declarealias vimwiki_select
+declarealias vimwiki "::\ vimwiki"
+declarealias vimwiki_select "::\ vimwiki_select"
 #alias journal_note="vim -c VimwikiMakeDiaryNote"
 #alias journal_select="vim -c VimwikiUISelect -c VimwikiDiaryIndex -c VimwikiDiaryGenerateLinks"
 #alias journal="vim -c VimwikiDiaryIndex -c VimwikiDiaryGenerateLinks"
-declarealias journal
+declarealias journal "default ::\ journal"
+declarealias mindmap "default ::\ mindmap"
+declarealias browser "default ::\ browser"
+declarealias webcamrecorder "default gui\ ::\ webcamrecorder"
 
 ################################################################################
 # io 
@@ -21,7 +24,8 @@ alias transru="trans de:ru"
 ################################################################################
 # script alias
 # ------------------------------------------------------------------------------
-declarealias tmuxn
+declarealias tmuxn "run a new tmux session with the basename of the current path ::\ tmuxn"
 tmuxncd() { local path=$1;shift; tmux_new_session.sh -p "$path" "$@"; }
-declarealias r
-declarealias rq
+alias r="run.sh"
+alias rq="run.sh -q -n"
+alias re="run.sh -e"

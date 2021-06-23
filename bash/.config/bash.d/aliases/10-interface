@@ -2,7 +2,5 @@
 # interfaces, task management, productivity 
 
 alias tmuxa="tmux attach"
-declarealias n
-declarealias nl
-
-declarealias taska
+declarealias n 'run navi\ ::\ n'
+declarealias nl 'navi loop chain commands\ ::\ nl'

@@ -46,11 +46,4 @@ alias pua="pushd_all"
 alias ..="builtin cd .."
 alias ...="builtin cd ../.."
 
-declarealias cwd
-declarealias cwdd
-declarealias fcd
-declarealias fcdd
-declarealias fcdp
-# TODO: navi exact matches do not exist
-# declarealias p
-alias p="navibestmatch 'fuzzy search and preview files with bat'"
+declarealias p "fuzzy search and preview files with bat"
