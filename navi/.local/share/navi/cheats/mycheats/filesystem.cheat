@@ -22,10 +22,10 @@ find . -type f -exec chmod 0644 {} +
 # set default permissions for directories
 find . -type d -exec chmod 0755 {} +
 
-# :: cwd
+# get current working directory
 basename "$PWD"
 
-# :: cwdd
+# get directory of current working directory
 dirname "$PWD"
 
 # enter a subshell for each directory listed in filename with a conditional command
@@ -55,10 +55,10 @@ rg --ignore-case --files-with-matches --follow <pattern> | fzf --multi --select-
 # run a preview command for files from a pattern search
 rg --ignore-case --files-with-matches --follow <pattern> | fzf --preview="<command> {}" --multi --select-1 --exit-0
 
-# select change directory :: fcd
-cd $(fd --type d --hidden --follow --exclude ".git" . "<directory>" | fzf --no-multi --preview 'tree -C {} | head -200')
+# select change directory relative from bookmark
+cd $(fd --type d --hidden --follow --exclude ".git" . "<fsbookmark>" | fzf --no-multi --preview 'tree -C {} | head -200')
 
-# select change directory depth :: fcdd
+# select change directory depth from directory
 cd $(fd --type d --min-depth <min_depth> --max-depth <max_depth> --hidden --follow --exclude ".git" . "<directory>" | fzf --no-multi --preview 'tree -C {} | head -200')
 
 # change directory to any parent directory :: walkp
