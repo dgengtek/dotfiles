@@ -122,10 +122,13 @@ tmux pipe-pane -t '<pane>' -o 'cat >>~/tmux_output.#I-#P'
 # break src-pane off from its containing window to make it the only pane in dst-window
 tmux break-pane -s '<pane>' -t '<window>'
 
-$ client: tmux list-clients
-$ session: tmux list-sessions
-$ window: tmux list-windows --- --column 1 --delimiter ':'
+# switch to session
+tmux switch-client -t <session>
+
+$ client: tmux list-clients --- --column 1 --delimiter ':' 
+$ session: tmux list-sessions --- --column 1 --delimiter ':' --preview 'tmux capture-pane -t {1} -p'
+$ window: tmux list-windows --- --column 1 --delimiter ':' --preview 'tmux capture-pane -t {1} -p'
 $ pane: tmux list-panes --- --column 1 --delimiter ':' --preview 'tmux capture-pane -t {1} -p'
 $ layout: echo -e 'even-horizontal,even-vertical,main-horizontal,main-vertical,tiled' | tr ',' '\n'
 $ buffer: tmux list-buffers
-$ tmuxp_session: fd --follow --type f . "$TMUXP_PATH"
+$ tmuxp_session: fd --follow --type f . "$TMUXP_PATH" --- --preview 'bat {}'

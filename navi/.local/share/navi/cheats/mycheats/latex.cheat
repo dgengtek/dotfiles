@@ -1,0 +1,7 @@
+% latex
+
+# convert latex to pdf
+pdflatex <tex>
+
+
+$ tex: fd --type f '.*\.tex'
