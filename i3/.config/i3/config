@@ -120,7 +120,7 @@ mode "resize" {
   bindsym j resize shrink width 10 px or 10 ppt
   bindsym k resize grow height 10 px or 10 ppt
   bindsym l resize shrink height 10 px or 10 ppt
-  bindsym odiaeresis resize grow width 10 px or 10 ppt
+  bindsym h resize grow width 10 px or 10 ppt
 
   # same bindings, but for the arrow keys
   bindsym Left resize shrink width 10 px or 10 ppt
@@ -146,9 +146,29 @@ bindsym $mod+r exec rofi -show run
 bar {
   mode hide
   hidden_state hide
-  status_command i3status
-#  output DisplayPort-2
+  status_command i3status --config ~/.config/i3status-rust/config.toml
+  output primary
   tray_output primary
+  nonprimary
+  position bottom
+}
+
+bar {
+  mode hide
+  hidden_state hide
+  status_command i3status --config ~/.config/i3status-rust/config.toml
+  output nonprimary
+  tray_output none
+  position bottom
+}
+
+bar {
+  mode hide
+  hidden_state hide
+  status_command i3status --config ~/.config/i3status-rust/configinfo.toml
+  output nonprimary
+  tray_output none
+  position top
 }
 ################################################################################
 # custom
