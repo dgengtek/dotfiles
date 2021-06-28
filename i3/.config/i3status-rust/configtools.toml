@@ -1,0 +1,35 @@
+theme = "solarized-dark"
+icons = "awesome"
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 60
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{mem_free;M}/{mem_total;M}({mem_total_used_percents})"
+format_swap = "{swap_free;M}/{swap_total;M}({swap_used_percents})"
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m} {5m} {15m}"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 60
+format = "dow %u, week %U, %Y-%m-%d(%a) %R"

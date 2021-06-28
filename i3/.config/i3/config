@@ -127,6 +127,7 @@ mode "resize" {
   bindsym Down resize grow height 10 px or 10 ppt
   bindsym Up resize shrink height 10 px or 10 ppt
   bindsym Right resize grow width 10 px or 10 ppt
+  bindsym $mod+c move position center
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
@@ -134,8 +135,9 @@ mode "resize" {
   bindsym Control+c mode "default"
 }
 
-# bindsym $mod+r mode "resize"
-bindsym $mod+r exec alacritty -e bash -i -c 'setsid --fork $(navi --print)'
+bindsym $mod+z mode "resize"
+bindsym $mod+r exec rofi -show run
+# bindsym $mod+r exec alacritty -e bash -i -c 'setsid --fork $(navi --print)'
 #bindsym $mod+r exec urxvtc -geometry 80x42+0+0 -e ~/.config/i3/i3menu.sh 
 #for_window [title="^i3menu.sh$"] floating enable
 

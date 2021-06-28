@@ -12,28 +12,23 @@ general {
 }
 
 order += "disk /"
-order += "run_watch DHCP"
 order += "run_watch VPN"
-order += "ethernet _first_"
+order += "ethernet brlan"
 order += "battery 1"
 order += "cpu_usage"
 order += "memory"
 order += "load"
 order += "tztime local"
 
-ethernet _first_ {
+ethernet brlan {
   # if you use %speed, i3status requires root privileges
-  format_up = "E: %ip (%speed)"
+  format_up = "E: %ip"
   format_down = "E: down"
 }
 
 battery 1 {
   format = "%status %percentage %remaining"
   path = "/sys/class/power_supply/BAT%d/uevent"
-}
-
-run_watch DHCP {
-  pidfile = "/var/run/dhclient*.pid"
 }
 
 run_watch VPN {
@@ -56,7 +51,7 @@ cpu_usage {
         format = "cpu %usage"
 }
 memory {
-        format = "mem %free %available (%used) / %total"
+        format = "mem f%free a%available u(%used)"
         threshold_degraded = "10%"
         format_degraded = "MEMORY LOW: %free"
 }
