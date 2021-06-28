@@ -1,11 +1,13 @@
-theme = "solarized-dark"
-icons = "awesome"
+theme = "native"
+icons = "none"
 
 
 [[block]]
 block = "battery"
 interval = 10
 format = "{percentage} {time}"
+allow_missing = true
+hide_missing = true
 
 [[block]]
 block = "disk_space"
@@ -20,12 +22,13 @@ alert = 10.0
 [[block]]
 block = "cpu"
 interval = 1
+format = "{utilization} {frequency}"
 
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{mem_free;M}/{mem_total;M}({mem_total_used_percents})"
-format_swap = "{swap_free;M}/{swap_total;M}({swap_used_percents})"
+format_mem = "{mem_free;M}/{mem_avail;M}({mem_total_used_percents})"
+format_swap = "{swap_free;M}/{swap_avail;M}({swap_used_percents})"
 
 [[block]]
 block = "load"
@@ -38,4 +41,4 @@ block = "sound"
 [[block]]
 block = "time"
 interval = 60
-format = "dow %u, week %U, %Y-%m-%d(%a) %R"
+format = "dow %u, week %U, %Y-%m-%d(%a) %H:%M:%S"

@@ -146,17 +146,16 @@ bindsym $mod+r exec rofi -show run
 bar {
   mode hide
   hidden_state hide
-  status_command i3status --config ~/.config/i3status-rust/config.toml
+  status_command i3status-rs ~/.config/i3status-rust/config.toml
   output primary
   tray_output primary
-  nonprimary
   position bottom
 }
 
 bar {
   mode hide
   hidden_state hide
-  status_command i3status --config ~/.config/i3status-rust/config.toml
+  status_command i3status-rs ~/.config/i3status-rust/configinfo.toml
   output nonprimary
   tray_output none
   position bottom
@@ -165,10 +164,11 @@ bar {
 bar {
   mode hide
   hidden_state hide
-  status_command i3status --config ~/.config/i3status-rust/configinfo.toml
+  status_command i3status-rs ~/.config/i3status-rust/configtools.toml
   output nonprimary
   tray_output none
   position top
+  workspace_buttons no
 }
 ################################################################################
 # custom
