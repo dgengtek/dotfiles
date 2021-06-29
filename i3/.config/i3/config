@@ -208,7 +208,7 @@ set $ws04 "4:work"
 set $ws05 "5:media"
 set $ws06 "6:etc"
 set $ws07 "7:0"
-set $ws07 "8:0"
+set $ws08 "8:0"
 
 set $ws11 "1:read"
 set $ws12 "2:ssh"
