@@ -94,36 +94,27 @@ revert = "REVERTING"
 cherry_pick = "CHERRY-PICKING"
 am = "AM"
 am_or_rebase = "AM/REBASE"
-progress_divider = "/"
 disabled = false
 
 [git_status]
 # shows symbols representing the state of the repo in your current directory
-conflicted = "="
-conflicted_count.enabled = true
+conflicted = "=$count"
 # conflicted_count.style = ""
 ahead = "↑"
 behind = "↓"
 diverged = "↕"
-untracked = "?"
-untracked_count.enabled = true
+untracked = "?$count"
 # untracked_count.style = "red"
-stashed = "!"
-stashed_count.enabled = true
+stashed = "!$count"
 # stashed_count.style = "red"
-modified = "*"
-modified_count.enabled = true
+modified = "*$count"
 # modified_count.style = "red"
-staged = "+"
-staged_count.enabled = true
+staged = "+$count"
 # staged_count.style = "red"
-renamed = "»"
-renamed_count.enabled = true
+renamed = "»$count"
 # renamed_count.style = "red"
-deleted = "✘"
-deleted_count.enabled = true
+deleted = "✘$count"
 # deleted_count.style = "red"
-show_sync_count = true
 format = '([\[$all_status$ahead_behind\]]($style) ) '
 style = "bold red"
 disabled = false
@@ -138,20 +129,16 @@ disabled = false
 
 [jobs]
 symbol = "&"
-treshold = 4
+threshold = 4
 style = "bold yellow"
 disabled = false
 
 
 [memory_usage]
 disabled = false
-show_percentage = true
-show_swap = true
 threshold = 65
-# symbol = "🐏 "
+format = 'via $symbol [${ram}( \| ${swap})]($style) '
 symbol = " "
-# separator = " | "
-separator = "/"
 style = "bold dimmed white"
 
 [package]
@@ -163,7 +150,6 @@ disabled = false
 symbol = "🐍 "
 pyenv_version_name = true
 pyenv_prefix = "pyenv "
-scan_for_pyfiles = true
 # style = "bold yellow"
 style = "yellow"
 
