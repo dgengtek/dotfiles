@@ -160,16 +160,6 @@ bar {
   tray_output none
   position bottom
 }
-
-bar {
-  mode hide
-  hidden_state hide
-  status_command i3status-rs ~/.config/i3status-rust/configtools.toml
-  output nonprimary
-  tray_output none
-  position top
-  workspace_buttons no
-}
 ################################################################################
 # custom
 bindsym $mod+o move container to output right
@@ -218,12 +208,13 @@ set $ws04 "4:work"
 set $ws05 "5:media"
 set $ws06 "6:etc"
 set $ws07 "7:0"
+set $ws07 "8:0"
 
 set $ws11 "1:read"
 set $ws12 "2:ssh"
 set $ws13 "3:reference"
 set $ws14 "4:services"
-set $ws15 "5:wiki"
+set $ws15 "5:discover"
 set $ws16 "6:1"
 set $ws17 "7:1"
 

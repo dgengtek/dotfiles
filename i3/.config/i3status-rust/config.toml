@@ -2,32 +2,9 @@ theme = "native"
 icons = "none"
 
 [[block]]
-block = "disk_space"
-path = "/"
-alias = "/"
-info_type = "available"
-unit = "GB"
-interval = 60
-warning = 20.0
-alert = 10.0
-
-[[block]]
-block = "cpu"
-interval = 1
-
-[[block]]
-block = "memory"
-display_type = "memory"
-format_mem = "{mem_free;M}/{mem_avail;M}({mem_total_used_percents})"
-format_swap = "{swap_free;M}/{swap_avail;M}({swap_used_percents})"
-
-[[block]]
-block = "load"
-interval = 1
-format = "{1m} {5m} {15m}"
-
-[[block]]
-block = "sound"
+block = "custom"
+command = ''' tmux list-window -t run -F '{"name": "#W", "activity": #{window_activity_flag}, "bell": #{window_bell_flag} }' | rg -v -e pomodoro -e run | jq -rs '"⛏ " + ([.[] | select(.activity == 1 and .bell == 0) | .activity] + [0] | add | tostring) + " ⚠ " + ([.[] | select(.activity == 1 and .bell == 1) | .activity] + [0] | add | tostring)' '''
+interval = 10
 
 [[block]]
 block = "time"
