@@ -225,6 +225,7 @@ workspace $ws04 output $screen0
 workspace $ws05 output $screen0
 workspace $ws06 output $screen0
 workspace $ws07 output $screen0
+workspace $ws08 output $screen0
 
 workspace $ws11 output $screen1
 workspace $ws12 output $screen1
