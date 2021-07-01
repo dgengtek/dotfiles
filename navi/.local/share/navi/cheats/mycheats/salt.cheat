@@ -3,6 +3,9 @@
 # sync fileserver
 sudo salt-run fileserver.update
 
+# export and compress salt repository for simple install
+git archive --format=tar HEAD salt setup.py setup.cfg requirements README.rst scripts doc/man | xz -9 --stdout
+
 # sync execution modules to salt-master
 sudo salt-run saltutil.sync_modules
 

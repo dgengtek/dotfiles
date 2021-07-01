@@ -6,6 +6,9 @@ git add -i .
 git commit -m "autocommit - $(date +%y%m%d%H%M%S)"
 popd
 
+# export and compress repository
+git archive --format=tar HEAD | xz -9 --stdout
+
 # commit count by authors
 git shortlog -s -n
 
