@@ -54,7 +54,7 @@ uda.why.description='Why does this project exist?'
 # context
 uda.context.label=Context
 uda.context.type=string
-uda.context.values=home,computer,outdoor,call,lab,internet,anywhere,ereader,errand,agenda,mail,papier,phone,none
+uda.context.values=home,computer,outdoor,lab,internet,anywhere,ereader,errand,agenda,mail,papier,phone,none
 uda.context.default=none
 uda.context.description="Context in which the action can be completed."
 
