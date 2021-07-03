@@ -7,10 +7,10 @@ sudo docker image rm <image_id>
 sudo docker rmi <image_id>
 
 # Remove all images from the local image store
-sudo docker rmi $(docker images -q) --force
+sudo docker rmi $(sudo docker images -q) --force
 
 # Remove all containers
-sudo docker rm $(docker ps -aq)
+sudo docker rm $(sudo docker ps -aq)
 
 # remove volumes
 sudo docker system prune --volumes --force
@@ -19,7 +19,7 @@ sudo docker system prune --volumes --force
 sudo docker system prune --all --force
 
 # Stop all containers
-sudo docker stop $(docker ps -aq)
+sudo docker stop $(sudo docker ps -aq)
 
 # List all images that are locally stored with the Docker engine
 sudo docker images
@@ -43,7 +43,7 @@ sudo docker network ls
 sudo docker ps
 
 # Delete all running and stopped containers
-sudo docker rm -f "$(docker ps -aq)"
+sudo docker rm -f "$(sudo docker ps -aq)"
 
 # Create a new bash process inside the container and connect it to the terminal
 sudo docker exec -it <container_id> bash
@@ -60,8 +60,8 @@ sudo docker container ls --all --format='{{json .}}'
 # Create new network
 sudo docker network create <network_name>
 
-$ image_id: docker images --- --headers 1 --column 3 --delimiter '\s\s+'
-$ container_id: docker ps --- --headers 1 --column 1 --delimiter '\s\s+'
+$ image_id: sudo docker images --- --headers 1 --column 3 --delimiter '\s\s+'
+$ container_id: sudo docker ps --- --headers 1 --column 1 --delimiter '\s\s+'
 
 % docker-compose
 
@@ -90,4 +90,4 @@ sudo docker-compose down
 % docker, boot
 
 # Prevent all containers from autostarting on boot
-sudo docker update --restart=no $(docker ps -a -q)
+sudo docker update --restart=no $(sudo docker ps -a -q)
