@@ -137,7 +137,7 @@ disabled = false
 [memory_usage]
 disabled = false
 threshold = 65
-format = 'via $symbol [${ram}( \| ${swap})]($style) '
+format = 'via $symbol [${ram}( | ${swap})]($style) '
 symbol = " "
 style = "bold dimmed white"
 
