@@ -25,6 +25,7 @@ alias transru="trans de:ru"
 # script alias
 # ------------------------------------------------------------------------------
 alias tmuxn="tmux_new_session.sh"
+alias tmuxnd="tmux_new_session.sh -d"
 alias r="run.sh"
 alias rq="run.sh -q -n"
 alias re="run.sh -e"
