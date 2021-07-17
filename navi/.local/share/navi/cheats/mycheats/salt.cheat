@@ -117,11 +117,11 @@ sudo salt-run state.orch orch.restart_service_salt_minion pillar=
 
 
 $ file_tags_of_hosts: echo "$HOME/tmp_tags_of_hosts.json"
-$ tags_of_hosts: test -f <file_tags_of_hosts> && [[ "$(find <file_tags_of_hosts> -mtime -1)" ]] || sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>; echo <file_tags_of_hosts>
+$ tags_of_hosts: test -f <file_tags_of_hosts> && [[ "$(find <file_tags_of_hosts> -mtime -1)" ]] || sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>_tmp; test -s <file_tags_of_hosts>_tmp && mv <file_tags_of_hosts>{tmp,}; echo <file_tags_of_hosts>
 $ host: jq -r 'keys | .[]' <tags_of_hosts>
 
 $ file_hosts_to_tags: echo "$HOME/tmp_hosts_to_tags.json"
-$ hosts_to_tags: test -f <file_hosts_to_tags> && [[ "$(find <file_hosts_to_tags> -mtime -1)" ]] || sudo salt-run --out=json netbox.map_hosts_to_tags > <file_hosts_to_tags>; echo <file_hosts_to_tags>
+$ hosts_to_tags: test -f <file_hosts_to_tags> && [[ "$(find <file_hosts_to_tags> -mtime -1)" ]] || sudo salt-run --out=json netbox.map_hosts_to_tags > <file_hosts_to_tags>_tmp; test -s <file_hosts_to_tags>_tmp && mv <file_hosts_to_tags>{tmp,};; echo <file_hosts_to_tags>
 $ tags: jq -r 'keys | "tags:" + .[]' <hosts_to_tags>
 $ tag: jq -r 'keys | .[]' <hosts_to_tags>
 
