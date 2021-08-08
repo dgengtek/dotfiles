@@ -27,6 +27,9 @@ sage -c 'notebook(automatic_login=True)'
 # default :: pdfviewer
 zathura
 
+# default 2 :: pdfviewer
+evince
+
 # default :: pdfannotate
 xournalpp
 
