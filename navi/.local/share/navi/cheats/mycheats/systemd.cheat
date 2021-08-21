@@ -1,4 +1,4 @@
-% systemctl, service
+% service
 
 # Start service
 systemctl start <service_inactive>
@@ -47,3 +47,10 @@ $ service_active: systemctl list-units --type=service --state=active | awk '{pri
 $ service_enabled: systemctl list-unit-files --type=service --state=enabled | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service_disabled: systemctl list-unit-files --type=service --state=disabled | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service: systemctl list-units --type=service --all | awk '{print $1}' | grep .service | sed 's/.service$//'
+
+
+% journal, log
+@ template, reuse
+
+# use journal from another location
+journalctl --directory <path>
