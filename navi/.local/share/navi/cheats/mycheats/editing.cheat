@@ -19,6 +19,9 @@ sed 's/$/echo \\\r/'
 # convert dos endline to unix endline
 sed 's/$//'
 
+# convert newline to escaped newline
+sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'
+
 # remove leading whitespace, tabs
 sed 's/^[ \t]*//'
 
