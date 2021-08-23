@@ -62,6 +62,7 @@ vault write pki_int/tidy tidy_cert_store=true tidy_revoked_certs=true
 
 $ serial: echo -e 'serialnumber,ca,crl,ca_chain' | tr ',' '\n'
 $ pki_secrets_handler: echo -e 'pki\n'
+$ ttl: echo -e '31536000\n'
 
 
 % vault, auth
@@ -149,6 +150,8 @@ jq -ns --arg secret_id_accessor "$(systemd-ask-password)" '{ "secret_id_accessor
     --request POST \
     --data @- \
     ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id-accessor/destroy
+
+
 
 
 % vault, login
