@@ -1,0 +1,4 @@
+% terraform
+
+# filter resources from plan to target in apply
+terraform plan | sed 's/\x1b\[[0-9;]*m//g' | grep -o '# [^( ]* ' | sed "s/^# /-target '/; s/ $/'/;" | grep '<resource>' | xargs -r terraform apply
