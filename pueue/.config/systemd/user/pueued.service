@@ -7,7 +7,7 @@ Description=Pueue Daemon - CLI process scheduler and manager
 
 [Service]
 Restart=no
-ExecStart=/usr/bin/pueued -vv
+ExecStart=/data/tmp/%u/cargo/bin/pueued -vv
 
 [Install]
 WantedBy=default.target
