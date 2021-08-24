@@ -6,17 +6,26 @@ sudo -E SYSTEMD_LOG_LEVEL=debug
 # Start service
 systemctl start <service_inactive>
 
+# start user service
+systemctl --user start <service_user_inactive>
+
 # Stop service
 systemctl stop <service_active>
 
 # Enable service
 systemctl enable <service_disabled>
 
+# enable user service
+systemctl --user enable <service_user_disabled>
+
 # enable service and start now
 systemctl enable --now <service_disabled>
 
 # Disable service
 systemctl disable <service_enabled>
+
+# disable service and stop now
+systemctl disable --now <service_enabled>
 
 # Restart service
 systemctl restart <service>
@@ -46,10 +55,15 @@ systemctl list-unit-files --type=service --state=enabled
 systemctl list-unit-files --type=service --state=disabled
 
 $ service_inactive: systemctl list-units --type=service --state=inactive | awk '{print $1}' | grep .service | sed 's/.service$//'
+$ service_user_inactive: systemctl --user list-units --type=service --state=inactive | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service_active: systemctl list-units --type=service --state=active | awk '{print $1}' | grep .service | sed 's/.service$//'
+$ service_user_active: systemctl --user list-units --type=service --state=active | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service_enabled: systemctl list-unit-files --type=service --state=enabled | awk '{print $1}' | grep .service | sed 's/.service$//'
+$ service_user_enabled: systemctl --user list-unit-files --type=service --state=enabled | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service_disabled: systemctl list-unit-files --type=service --state=disabled | awk '{print $1}' | grep .service | sed 's/.service$//'
+$ service_user_disabled: systemctl --user list-unit-files --type=service --state=disabled | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service: systemctl list-units --type=service --all | awk '{print $1}' | grep .service | sed 's/.service$//'
+$ service_user: systemctl --user list-units --type=service --all | awk '{print $1}' | grep .service | sed 's/.service$//'
 
 
 % journal, log
