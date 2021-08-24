@@ -36,6 +36,9 @@ systemctl reload <service_active>
 # Service status
 systemctl status <service>
 
+# user service status
+systemctl --user status <service_user>
+
 # reload systemctl daemon and units
 systemctl daemon-reload
 
