@@ -16,7 +16,7 @@ openssl x509 -x509toreq -out <OUTPUT_CSR> -in <INPUT_CRT> -signkey <INPUT_KEY>
 # Remove a passphrase from a private key
 openssl rsa -in <INPUT_KEY> -out <OUTPUT_PLAINTEXT_KEY>
 
-# display and filter the fingerprint of the certificate
+# display and filter the fingerprint, hash of the certificate
 openssl x509 -in <certificate> -sha256 -fingerprint -noout | awk -F'=' '{print $2}'
 
 
