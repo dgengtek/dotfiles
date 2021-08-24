@@ -246,7 +246,7 @@ prepare() {
   mkdir -p .local/share/bash-completion/completions
   mkdir -p .local/share/navi/cheats
   mkdir -p .config/bash.d/{utils,aliases,exports}
-  mkdir -p .config/{ranger,awesome,git,i3,i3status}
+  mkdir -p .config/{ranger,awesome,git,i3,i3status,pueue}
   mkdir -p .config/systemd/user
   mkdir -p .tmuxp
   mkdir -p .mpd
