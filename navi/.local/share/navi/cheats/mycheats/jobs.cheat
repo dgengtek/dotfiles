@@ -1,0 +1,42 @@
+% batch, schedule, delay, queue, parallel, task
+
+# enqueue, add new job, task, command
+pueue add -- <command>
+
+# enqueu, add new job, task, command and delay
+pueue add -d <delay> -- <command>
+
+# cleanup jobs, tasks
+pueue clean
+
+# kill and reset jobs, tasks and all logs
+pueue reset
+
+# follow jobs, tasks
+pueue clean
+
+# pause jobs, tasks
+pueue pause <tasks>
+
+# start jobs, tasks
+pueue start <tasks>
+
+# restart jobs, tasks
+pueue restart <tasks>
+
+# display status of all tasks
+pueue status
+
+# display log of job, task
+pueue log <tasks>
+
+# display job, tasks groups
+pueue group
+
+# add job, tasks groups
+pueue group -a <group>
+
+# remove job, tasks groups
+pueue group -r <group>
+
+$ tasks: pueue status -j | jq -r '.tasks | keys[]' --- --preview 'pueue log {}' --multi

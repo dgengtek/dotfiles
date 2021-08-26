@@ -12,6 +12,9 @@ systemctl --user start <service_user_inactive>
 # Stop service
 systemctl stop <service_active>
 
+# stop user service
+systemctl --user stop <service_user_active>
+
 # Enable service
 systemctl enable <service_disabled>
 
@@ -30,8 +33,14 @@ systemctl disable --now <service_enabled>
 # Restart service
 systemctl restart <service>
 
+# restart user service
+systemctl --user restart <service_user>
+
 # Reload service
 systemctl reload <service_active>
+
+# reload user service
+systemctl --user reload <service_user_active>
 
 # Service status
 systemctl status <service>
@@ -41,6 +50,9 @@ systemctl --user status <service_user>
 
 # reload systemctl daemon and units
 systemctl daemon-reload
+
+# reload user systemctl daemon and units
+systemctl --user daemon-reload
 
 # get default target which you boot into
 systemctl get-default
