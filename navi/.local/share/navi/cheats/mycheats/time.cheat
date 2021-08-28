@@ -14,3 +14,9 @@ date +%Y%m%d%H%M%S
 
 # display iso date
 date --iso-8601=ns
+
+# calculate date since epoch and days
+date --date '1970-01-01 +<days>days'
+
+# get date in full format
+date --date '+30days' +%F
