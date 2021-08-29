@@ -18,5 +18,8 @@ sudo lvchange --activate y <volume_group>/<logical_volume>
 # set logical volume as inactive, unavailable
 sudo lvchange --activate n <volume_group>/<logical_volume>
 
+# output all pv data
+sudo pvs -o pv_all --reportformat json
+
 $ logical_volume: sudo lvs --reportformat json <volume_group> | jq -r '[.report[].lv[]| with_entries( .key |= ascii_downcase )] | (.[0] |keys_unsorted | @tsv), (.[]|.|map(.) |@tsv)' | column -t --- --header-lines 1 --column 1
 $ volume_group: sudo vgs --reportformat json | jq -r '[.report[].vg[]| with_entries( .key |= ascii_downcase )] | (.[0] |keys_unsorted | @tsv), (.[]|.|map(.) |@tsv)' | column -t --- --header-lines 1 --column 1
