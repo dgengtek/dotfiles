@@ -3,6 +3,12 @@
 # sync fileserver
 sudo salt-run fileserver.update
 
+# get list of hosts from netbox
+sudo salt-run --out=json netbox.list_hosts | jq -r '.[]'
+
+# convert flat inventory to saltstack roster
+jq 'to_entries | .[] | {(.value|tostring): {"host": .value}}' inventory | jq -r -s '. | add | tojson' | jsontoyaml.py
+
 # export and compress salt repository for simple install
 git archive --format=tar HEAD salt setup.py setup.cfg requirements README.rst scripts doc/man | xz -9 --stdout
 

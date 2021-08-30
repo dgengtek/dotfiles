@@ -216,7 +216,10 @@ git reset --hard <commit>
 # show signatures from log
 git log --show-signature
 
-# display logs with stats 
+# display, output information such as creations, renames and mode changes
+git log --compact-summary
+
+# display logs with stats
 git log --stat --max-count=<log_max_count>
 
 # use git web
