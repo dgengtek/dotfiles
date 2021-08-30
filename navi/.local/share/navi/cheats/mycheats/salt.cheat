@@ -79,7 +79,7 @@ sudo salt-run pillar.show_top "<host>"
 sudo salt-run state.event | while read -r tag data; do echo $tag; echo $data | jq --color-output .; done
 
 # get job id results after receiving the job return from the event bus
-jid=<jid>; sudo salt-run state.event | while read -r tag data; do [[ "$tag" =~ "$jid/ret" ]] || continue; sudo salt-run jobs.lookup_jid "$jid"; break; done
+jid=<jid>; sudo salt-run state.event | while read -r tag data; do [[ "$tag" =~ "$jid/ret" ]] && break; done; sudo salt-run jobs.lookup_jid "$jid"
 
 # Reboot a minion and and wait until it is back online
 sudo salt --async "<host>" system.reboot \
