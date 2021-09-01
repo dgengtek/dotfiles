@@ -24,11 +24,17 @@ gpg --clearsign <filename>
 # detach signature
 gpg --detach-sig <filename>
 
-# gpg agent reload
+# gpg agent reload, remove cached key passphrases
 gpg-connect-agent reloadagent /bye
 
 # gpg agent update, reload tty for current shell
 gpg-connect-agent updatestartuptty /bye
+
+# list stored keygrips
+gpg-connect-agent 'keyinfo --list' /bye
+
+# list available commands
+gpg-connect-agent help /bye
 
 # restart gpg user agent
 declare -ar sockets=(
