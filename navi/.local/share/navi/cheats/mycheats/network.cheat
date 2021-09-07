@@ -84,7 +84,10 @@ ping -c 100 -i 0.2 <destination>
 
 
 # output to stdout for wireshark
-sudo tcpdump -i any -s 0 -U -w -
+sudo tcpdump -i any -s 0 -U -w - | wireshark -k -i -
+
+# dnsmasq dhcp server with boot
+dnsmasq --no-daemon --keep-in-foreground --log-queries --interface=enlan --bind-interfaces --dhcp-range=10.0.41.2,10.0.41.254,1h --dhcp-boot
 
 
 # create a random mac

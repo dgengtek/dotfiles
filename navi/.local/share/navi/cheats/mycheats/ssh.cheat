@@ -1,12 +1,18 @@
 % ssh
 
+# forward local to remote over secure connection
+ssh -nNT -L <local_address>:<remote_address> <destination>
+
 # create ssh keys with defaults
 ssh-keygen -t <keytype> -a <rounds> -C "<email>"
 
 # show fingerprint and check if the key file is valid
 ssh-keygen -l -f <key>
 
-# export public key
+# get openssh public key from private key
+ssh-keygen -y -f <key>
+
+# export public key in different formats
 ssh-keygen -e -f <key> -m <keyformat>
 
 # Removes all keys belonging to the specified hostname

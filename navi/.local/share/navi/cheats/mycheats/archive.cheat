@@ -1,0 +1,4 @@
+% archive
+
+# package to 7z with maximum compression
+7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on

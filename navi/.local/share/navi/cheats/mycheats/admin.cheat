@@ -21,6 +21,9 @@ dd if=/dev/urandom count=1 bs=32 2>/dev/null | base64 -w 0
 # create a squashfs from a device
 mkdir empty-dir; mksquashfs empty-dir <squashoutput>.squashfs -comp <comp> -p '<device_name>_backup.img f 444 root root dd if=<device> bs=1M'; rmdir empty-dir
 
+# create a loop device for a raw image
+sudo losetup --find --partscan <raw_image>
+
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
@@ -31,6 +34,13 @@ $ device_name: basename "<device>"
 
 # print system information
 uname -a
+
+
+# detect new virtual disk space from hypervisor
+echo "- - -" > /sys/class/scsi_host/host0/scan
+
+# rescan all devices
+for x in /sys/class/scsi_disk/*; do echo '1' > $x/device/rescan; done
 
 
 % udiskctl

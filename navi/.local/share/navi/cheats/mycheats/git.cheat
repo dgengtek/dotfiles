@@ -186,6 +186,9 @@ git_rm.sh <file>
 # remove directory completely from repository and history
 git_rm.sh -r <folder>
 
+# list all branches
+git branch --all
+
 # get tracking remote of branch
 git config --get branch.<branch>.remote
 
