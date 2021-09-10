@@ -1,16 +1,19 @@
 % squashfs, backup, image
 
 # zero all available space with dd and remove after
-dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
+sudo dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
 
 # clone device
-dd bs=64k conv=noerror,sync status=progress if=<device>
+sudo dd bs=64k conv=noerror,sync status=progress if=<device>
+
+# remove mbr boot loader
+sudo dd if=/dev/zero of=/dev/sda bs=440 count=1 oflag=direct
 
 # wipe mbr
-dd if=/dev/zero of=<device> bs=512 count=1 oflag=direct
+sudo dd if=/dev/zero of=<device> bs=512 count=1 oflag=direct
 
 # overwrite device
-dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
+sudo dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
 
 # generate random base64 data
 dd if=/dev/urandom count=1 bs=32 2>/dev/null | base64 -w 0
@@ -24,10 +27,24 @@ mkdir empty-dir; mksquashfs empty-dir <squashoutput>.squashfs -comp <comp> -p '<
 # create a loop device for a raw image
 sudo losetup --find --partscan <raw_image>
 
+# get device sector sizes
+echo <device>; cat /sys/class/block/<device>/queue/physical_block_size; cat /sys/class/block/<device>/queue/logical_block_size
+
+# force filesystem 4096 sector size for shingled magnetic recording drives
+sudo mkfs.ext4 -F -b 4096 /dev/device
+
+# get fsck interval of partition
+sudo tune2fs -l <filesystem> | egrep -i "mount count|Check interval|Last|Next"
+
+# dump filesystem information
+sudo dumpe2fs <filesystem>
+
+
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
 $ device_name: basename "<device>"
+$ filesystem: mount -l | egrep 'type ext(2|3|4)' | --column 1
 
 
 % machine, host

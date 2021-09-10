@@ -3,7 +3,7 @@
 # get device map info
 sudo dmsetup info -c
 
-# remove logical volume
+# remove logical volume, snapshot
 sudo lvremove <volume_group>/<logical_volume>
 
 # metadata check and repair of thinpool
@@ -20,6 +20,12 @@ sudo lvchange --activate n <volume_group>/<logical_volume>
 
 # output all pv data
 sudo pvs -o pv_all --reportformat json
+
+# snapshot a logical volume
+sudo lvcreate --size <size> --snapshot --name snap_<name> <logical_volume>
+
+# revert snapshot
+sudo lvconvert --merge <logical_volume>
 
 $ logical_volume: sudo lvs --reportformat json <volume_group> | jq -r '[.report[].lv[]| with_entries( .key |= ascii_downcase )] | (.[0] |keys_unsorted | @tsv), (.[]|.|map(.) |@tsv)' | column -t --- --header-lines 1 --column 1
 $ volume_group: sudo vgs --reportformat json | jq -r '[.report[].vg[]| with_entries( .key |= ascii_downcase )] | (.[0] |keys_unsorted | @tsv), (.[]|.|map(.) |@tsv)' | column -t --- --header-lines 1 --column 1

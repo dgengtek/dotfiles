@@ -240,13 +240,17 @@ git ls-files --other --exclude-standard --directory | egrep -v '/$'
 # list ignored git files
 git check-ignore *
 
+# how many commits behind is the branch compared to the selected branch2?
+git rev-list --count <branch>..<branch2>
+
 
 $ folder: fd --type d
 $ file: fd --type f
 $ deleted_file: git log --all --pretty=format: --name-only --diff-filter=D
 $ commit: git log -40 --oneline --- --column 0
 $ active_branch: git rev-parse --abbrev-ref HEAD
-$ branch: git branch | awk '{print $NF}'
+$ branch: git branch --format "%(refname)"
+$ branch2: git branch --format "%(refname)"
 $ tag: git tag --list
 $ remote: git remote
 $ remote_branch: git branch --remotes

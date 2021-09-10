@@ -18,4 +18,11 @@ jq 'to_entries[].value'
 # output a custom json structure edited in yaml
 : | vipe | yamltojson.py
 
+# convert file to json
+jq -R -s -c 'split("\n")' < <filename>
+
+# convert raw string to json
+jq -Rs < <filename>
+
+
 $ json_file: find . -name '*.json'
