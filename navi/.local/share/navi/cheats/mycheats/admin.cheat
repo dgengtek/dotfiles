@@ -39,7 +39,6 @@ sudo tune2fs -l <filesystem> | egrep -i "mount count|Check interval|Last|Next"
 # dump filesystem information
 sudo dumpe2fs <filesystem>
 
-
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
@@ -58,6 +57,9 @@ echo "- - -" > /sys/class/scsi_host/host0/scan
 
 # rescan all devices
 for x in /sys/class/scsi_disk/*; do echo '1' > $x/device/rescan; done
+
+# select a random hostname from stdin
+find . -type f -exec cat {} + | random_line.py | strip.py | tr -dc '[:alnum:]-'
 
 
 % udiskctl
