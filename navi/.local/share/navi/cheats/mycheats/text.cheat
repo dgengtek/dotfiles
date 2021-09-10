@@ -2,12 +2,3 @@
 
 # match second row
 cat <input_text> | awk '{if ($2=="<search_text>") {print $1,$2,$3} }' 
-
-# filter hostname
-tr -dc '[:alnum:]-'
-
-# filter string from stdin
-canonize.sh
-
-# filter filenames
-filename_canonize.py

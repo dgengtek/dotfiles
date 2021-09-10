@@ -40,6 +40,9 @@ tr 'A-Z' 'a-z'
 # translate to uppercase
 tr 'a-z' 'A-Z'
 
+# remove all white space characters, spaces, tabs, new lines
+tr -d '[:blank:][:space:]'
+
 # open all search results with vim
 fd --type f <pattern> -X vim
 
@@ -53,6 +56,17 @@ f.sh | xargs_vim.sh
 search="<pattern>";rg --ignore-case --files-with-matches --follow "$pattern" | xargs sed -i "s<delimiter>$search<delimiter><replacement><delimiter>"
 
 # print random line from file
-lines=$(wc -l <compgen_file_cwd> | awk '{print $1}'); randint=$(python -c "from random import randint;print(randint(1,${lines}), end='')"); sed -n "${randint}p" <compgen_file_cwd>
+random_line.py <compgen_file_cwd> 
+
+# filter hostname
+tr -dc '[:alnum:]-'
+
+# filter string from stdin
+canonize.sh
+
+# filter prefix and suffix
+
+# filter filenames
+filename_canonize.py
 
 $ delimiter: echo -e ",\n"
