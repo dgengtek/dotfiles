@@ -59,7 +59,7 @@ echo "- - -" > /sys/class/scsi_host/host0/scan
 for x in /sys/class/scsi_disk/*; do echo '1' > $x/device/rescan; done
 
 # select a random hostname from stdin
-find . -type f -exec cat {} + | random_line.py | strip.py | tr -dc '[:alnum:]-'
+find . -type f -exec cat {} + | random_line.py | strip.py | tr -dc '[:alnum:]-' | tr 'A-Z' 'a-z'
 
 
 % udiskctl
