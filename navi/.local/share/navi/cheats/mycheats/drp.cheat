@@ -1,0 +1,4 @@
+% drp
+
+# parse machines list into lines
+jq -r '.mimas | fromjson | .[] | [.Name, " ", .Arch, " ", .Address, " ", (.HardwareAddrs | join(" ")), " ", .Uuid] | join(" ")'
