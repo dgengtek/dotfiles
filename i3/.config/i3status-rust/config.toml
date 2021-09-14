@@ -8,5 +8,5 @@ interval = 10
 
 [[block]]
 block = "time"
-interval = 60
-format = "dow %u, week %U, %Y-%m-%d(%a) %R"
+interval = 5
+format = "dow %u, week %U, %Y-%m-%d(%a) %H:%M:%S"
