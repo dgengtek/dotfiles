@@ -6,7 +6,7 @@
   askpass = 
   excludesFile = ~/.config/git/ignore
 [merge]
-  tool = delta
+  tool = vimdiff
   conflictstyle = diff3
   stat = true
 [push]
