@@ -3,6 +3,9 @@
 # zero all available space with dd and remove after
 sudo dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
 
+# get hardware unique address
+sudo cat /sys/class/dmi/id/product_uuid
+
 # clone device
 sudo dd bs=64k conv=noerror,sync status=progress if=<device>
 
