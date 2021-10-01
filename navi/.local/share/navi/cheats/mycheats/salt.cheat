@@ -9,6 +9,9 @@ sudo salt-run --out=json netbox.list_hosts | jq -r '.[]'
 # convert flat inventory to saltstack roster
 jq 'to_entries | .[] | {(.value|tostring): {"host": .value}}' inventory | jq -r -s '. | add | tojson' | jsontoyaml.py
 
+# get all failed tasks from jid result
+q '.[].return.data[][] | select(.result == false)'
+
 # export and compress salt repository for simple install
 git archive --format=tar HEAD salt setup.py setup.cfg requirements README.rst scripts doc/man | xz -9 --stdout
 
@@ -80,6 +83,9 @@ sudo salt-run state.event | while read -r tag data; do echo $tag; echo $data | j
 
 # get job id results after receiving the job return from the event bus
 jid=<jid>; sudo salt-run state.event | while read -r tag data; do [[ "$tag" =~ "$jid/ret" ]] && break; done; sudo salt-run jobs.lookup_jid "$jid"
+
+# lookup jid results
+sudo salt-run jobs.lookup_jid <jid>
 
 # Reboot a minion and and wait until it is back online
 sudo salt --async "<host>" system.reboot \

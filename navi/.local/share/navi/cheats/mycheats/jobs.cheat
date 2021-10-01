@@ -3,6 +3,9 @@
 # enqueue, add new job, task, command
 pueue add -- <command>
 
+# enqueue, add new job, task, command in a group
+pueue add -g <group> -- <command>
+
 # enqueu, add new job, task, command and delay
 pueue add -d <delay> -- <command>
 
@@ -33,10 +36,14 @@ pueue log <tasks>
 # display job, tasks groups
 pueue group
 
-# add job, tasks groups
-pueue group -a <group>
+# add a new group
+pueue group -a <groupname>
 
-# remove job, tasks groups
-pueue group -r <group>
+# remove existing group
+pueue group -r <groupname>
+
+# restrict parallel tasks in a group
+pueue parallel -g <group> <count>
 
 $ tasks: pueue status -j | jq -r '.tasks | keys[]' --- --preview 'pueue log {}' --multi
+$ group: pueue status --json | jq -r '.groups | keys[]'
