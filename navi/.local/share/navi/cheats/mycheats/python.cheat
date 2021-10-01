@@ -9,6 +9,11 @@ source <virtual_environment>
 # prepare and source a python virtual environment from the current working directory
 pyvenv
 
+# ascii to bin
+python -c "print(bin(int.from_bytes('<string>'.encode(), 'big')))"
+
+# bin to ascii
+python -c "n = int('0b<binstring>', 2); print(n.to_bytes((n.bit_length() + 7) // 8, 'big').decode())"
 
 $ virtual_environment : fd --type f --no-ignore-vcs 'activate'
 $ http_port: echo "8080"
