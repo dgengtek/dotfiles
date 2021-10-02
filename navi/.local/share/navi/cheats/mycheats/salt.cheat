@@ -109,6 +109,9 @@ sudo salt-run state.orch orch.provision pillar=
 # reboot salt minion and wait for it to come back online
 sudo salt-run state.orch orch.reboot_host pillar='<orch_pillar_part_common>'
 
+# reboot a single host
+sudo salt-run state.orch orch.reboot_host pillar='{"orch": {"targets": ["<host>"], "target_type": "list"}}'
+
 # download and import a lxc image
 alias='<alias>';url='<url>'; filename=$(basename "$url"); sudo salt --async "<host>" cmd.run "wget -c '$url' && lxc image import --alias '$alias' '$filename'" cwd=/tmp
 
