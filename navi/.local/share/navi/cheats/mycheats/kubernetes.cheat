@@ -1,5 +1,11 @@
 % kubernetes, k8s
 
+# display addresses of the control plane and services with label kubernetes.io/cluster-service=true
+kubectl cluster-info
+
+# debug and diagnose cluster problems
+kubectl cluster-info dump
+
 # Print all contexts
 kubectl config get-contexts
 
