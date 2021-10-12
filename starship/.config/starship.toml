@@ -129,7 +129,7 @@ disabled = false
 
 [jobs]
 symbol = "&"
-threshold = 4
+number_threshold = 4
 style = "bold yellow"
 disabled = false
 
