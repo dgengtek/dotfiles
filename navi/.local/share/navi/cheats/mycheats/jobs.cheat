@@ -51,6 +51,9 @@ pueue parallel -g <group> <count>
 # list active tasks
 pueue status --json | jq -r '.tasks | .[] | select(.status? == \"Running\" or .status? == \"Queued\") | [(.id, .command, .group)] | join(" ")'
 
+# list pueue job groups
+pueue status --json | jq -r '.groups | keys[]'
+
 $ task: pueue status --json | jq -r '.tasks | .[] | [(.id, (.status | tostring), .command, .group)] | join(" ")' --- --column 1 --delimiter ' ' --preview 'pueue log {}'
 $ group: pueue status --json | jq -r '.groups | keys[]'
 $ task_active: pueue status --json | jq -r '.tasks | .[] | select(.status? == "Running" or .status? == "Queued") | [(.id, .command, .group)] | join(" ")' --- --column 1 --delimiter ' ' --preview 'pueue log {1}'

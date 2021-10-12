@@ -22,6 +22,8 @@ fsbookmark.sh check | xargs -I {} fsbookmark.sh del '{}'
 # edit a script found in PATH
 edit_cmd.sh <binary>
 
+# scan image to pdf
+datum="<datum>"; author="<author>"; subject="<betreff>"; name="$author $subject"; SCAN_DPI=150 ocr_archive.sh --enable-batch-scan --delete-original-scan --disable-tagging --date "$datum" --title "$name" --subject "$subject" --author "$author" "$name"
 
 % notification, alert
 # run a command for notifications, mail
@@ -35,3 +37,4 @@ run.sh -q -n --
 
 # run a display of done notification
 run.sh -- echo 'task done'
+
