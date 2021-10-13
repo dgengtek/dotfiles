@@ -1,4 +1,4 @@
-% squashfs, backup, image
+% device, backup, image
 
 # zero all available space with dd and remove after
 sudo dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
@@ -34,7 +34,7 @@ sudo losetup --find --partscan <raw_image>
 echo <device>; cat /sys/class/block/<device>/queue/physical_block_size; cat /sys/class/block/<device>/queue/logical_block_size
 
 # force filesystem 4096 sector size for shingled magnetic recording drives
-sudo mkfs.ext4 -F -b 4096 /dev/device
+sudo mkfs.ext4 -F -b 4096 <filesystem>
 
 # get fsck interval of partition
 sudo tune2fs -l <filesystem> | egrep -i "mount count|Check interval|Last|Next"
@@ -42,11 +42,18 @@ sudo tune2fs -l <filesystem> | egrep -i "mount count|Check interval|Last|Next"
 # dump filesystem information
 sudo dumpe2fs <filesystem>
 
+# unmount filesystem
+sudo umount <mountpoint>
+
+# mount blockdevice
+sudo mount <device>
+
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
+$ mountpoint: mount -l --- --column 3 --delimiter ' '
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
-$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*'
+$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*'
 $ device_name: basename "<device>"
-$ filesystem: mount -l | egrep 'type ext(2|3|4)' | --column 1
+$ filesystem: mount -l | egrep 'type ext(2|3|4)' --- --column 1 --delimiter ' '
 
 
 % machine, host
