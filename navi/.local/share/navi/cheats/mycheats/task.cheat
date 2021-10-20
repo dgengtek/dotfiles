@@ -72,6 +72,12 @@ task <task> <command_modify> wait:+1d
 # lookup multiple single line tasks
 intent print info '<tasks_joined>'
 
+# add new task to intray
+task add state:pending project:"<project>" <tags> -- <description>
+
+# show the projects tracking root task
+task state:'proj' project:"<project>"
+
 $ command_modify: echo -e 'add\nmodify\n'
 $ task: intent print lines --- --delimiter '\s+' --preview 'task {1} information' --column 1
 $ tasks: intent print lines --- --delimiter '\s+' --preview 'task {1} information' --column 1 --multi

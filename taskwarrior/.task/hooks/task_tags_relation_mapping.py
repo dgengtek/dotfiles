@@ -101,6 +101,7 @@ tag_relations = {
         "kubernetes": {
             "cluster",
             "docker",
+            "devops",
             "admin",
             "linux",
             "orchestration",
