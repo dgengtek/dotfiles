@@ -50,6 +50,6 @@ if hash fzf 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
   FZF_ALT_C_COMMAND="fd --type d --min-depth 1 --hidden --follow --no-ignore-vcs --exclude '.git'"
   FZF_COMPLETION_OPTS="--preview 'if test -f {}; then bat --color=always --style=numbers --line-range=:500 {}; else tree -C {} | head -200;fi'"
   FZF_CTRL_T_OPTS="--preview 'if test -f {}; then bat --color=always --style=numbers --line-range=:500 {}; else tree -C {} | head -200;fi'"
-  FZF_CTRL_T_COMMAND="fd --follow --min-depth 1"
+  FZF_CTRL_T_COMMAND="fd --min-depth 1 --hidden --follow --no-ignore-vcs --exclude '.git'"
   FZF_TMUX_HEIGHT="100%"
 fi
