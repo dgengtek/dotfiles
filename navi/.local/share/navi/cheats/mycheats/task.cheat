@@ -12,6 +12,9 @@ task context none
 # add a new task interactively :: taska
 intentm add
 
+# add a new task declared as a root project interactively :: taskap
+intentm add --project
+
 # search a task interactively
 intentm search
 
