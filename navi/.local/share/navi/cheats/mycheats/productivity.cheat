@@ -2,7 +2,7 @@
 @ template, reuse
 
 # track time with pomodoro and create journal entries
-pueue add -g pomodoro -- 'count pomodoro --disable-long-break --tags "<timew_tags>" && i3-msg "workspace 7:0; exec /usr/bin/alacritty -e jrnl" && timew start break && r -- echo "take a 25m break now" && count down -m 25 && timew stop && r -m -- echo "pomodoro session done"'
+pueue add -g pomodoro -- 'count pomodoro --disable-long-break --tags "<timew_tags>" && i3-msg "workspace 7:0; exec /usr/bin/alacritty -e jrnl" && timew start break && run.sh -- echo "take a 25m break now" && count down -m 25 && timew stop && run.sh -m -- echo "pomodoro session done"'
 
 # run a recipe :: jc
 just <recipe>
