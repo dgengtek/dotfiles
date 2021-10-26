@@ -5,9 +5,12 @@
     follow = keyboard
     sort = yes
     indicate_hidden = true
-    # geometry = "x5"
     idle_threshold = 30
-    geometry = "600x600+20+30"
+    width = 600
+    height = 600
+    origin = top-left
+    notification_limit = 0
+    offset = 20x30
     alignment = center
     show_age_threshold = 60
     sticky_history = yes
@@ -16,16 +19,9 @@
     padding = 10
     horizontal_padding = 10
     separator_color = frame
-    startup_notification = true
     dmenu = "/usr/bin/dmenu -p dunst: -nb #FFFFFF -nf #000000 -sb #94DBFF -sf #000000"
     frame_width = 3
     frame_color = "#000000"
-
-[shortcuts]
-    close = ctrl+space
-    close_all = ctrl+shift+space
-    history = ctrl+grave
-    context = ctrl+shift+period
 
 [urgency_low]
     background = "#ffffff"
