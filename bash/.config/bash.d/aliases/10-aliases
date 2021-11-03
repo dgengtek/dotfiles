@@ -15,6 +15,8 @@ declarealias webcamrecorder "default gui\ ::\ webcamrecorder"
 alias pq=pueue
 alias pqs="pueue status"
 alias pqa="pueue add"
+alias pql="pueue log"
+alias pqc="pueue clean"
 
 ################################################################################
 # io 

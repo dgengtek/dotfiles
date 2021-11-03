@@ -15,6 +15,9 @@ intentm add
 # add a new task declared as a root project interactively :: taskap
 intentm add --project
 
+# add a new task to the inbox, skipping all udas to decide for later
+intentm add --inbox
+
 # search a task interactively
 intentm search
 
