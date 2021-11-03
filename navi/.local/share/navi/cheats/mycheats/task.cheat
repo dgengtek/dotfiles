@@ -18,6 +18,15 @@ intentm add --project
 # add a new task to the inbox, skipping all udas to decide for later
 intentm add --inbox
 
+# add a task to the inbox of a project
+task add state:pending project:"$(task _project | fzf)"
+
+# select and save a project name
+task_project="<project>"
+
+# add a task to the inbox of a project with dependencies
+task add state:pending project:<project> deps:<tasks_joined> <tags> -- <description>
+
 # search a task interactively
 intentm search
 
