@@ -145,19 +145,20 @@ uda.review.type=string
 # mail report
 report.mailr.labels=Project,Description,Dependency,Tags,Due,Sched,Start,Until,End,Entry
 report.mailr.columns=project,description,depends,tags,due.remaining,scheduled.countdown,start.age,until.remaining,end.remaining,entry.age
-report.mailr.filter=status:pending
+report.mailr.filter=status:pending -WAITING
 report.mailr.sort=urgency-,due+
+report.mailr.context=0
 
 
 # default report, choose a project or hobby from here to then choose a nextaction from 'decide' report
 report.next.columns=id,project,context,state,description.count,outcome,urgency
 report.next.labels=ID,Project,Context,State,Description,Outcome,U
-report.next.filter=status:pending ((state:'nextaction' and project:'') or state:'proj' or state:'hobby' or state:'await') limit:page -BLOCKED
+report.next.filter=status:pending -WAITING ((state:'nextaction' and project:'') or state:'proj' or state:'hobby' or state:'await') limit:page -BLOCKED
 
 # for deciding on working on a nextaction
 report.decide.columns=id,priority,value,effort,project,context,state,description,outcome
 report.decide.labels=ID,Priority,Value,Effort,Project,Context,State,Description,Outcome
-report.decide.filter=status:pending and state.not:'proj' and state.not:'maybe' limit:page
+report.decide.filter=(status:pending -WAITING) and state.not:'proj' and state.not:'maybe' limit:page
 report.decide.sort=urgency-
 
 # get maybe nextactions
@@ -169,19 +170,20 @@ report.maybe.sort=urgency-
 # get inbox which needs to be processed
 report.inbox.columns=id,priority,project,context,description.count,outcome
 report.inbox.labels=ID,P,Project,Context,Description,Outcome
-report.inbox.filter=state:pending and status:pending
+report.inbox.filter=(state:pending and status:pending) -WAITING
 report.inbox.sort=entry-
+report.inbox.context=0
 
 # get top ids
 report.top.labels=ID
 report.top.columns=id
-report.top.filter=status:pending
+report.top.filter=status:pending -WAITING
 report.top.sort=urgency-
 
 # get minimal listing
-report.l.columns=id,start.active,depends.indicator,project,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,description.count,note
+report.l.columns=id,start.active,depends,project,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,description.count,note
 report.l.description=Show short details about tasks
-report.l.filter=(status:pending or status:waiting) and limit:page -BLOCKED
+report.l.filter=(status:pending or +WAITING) and limit:page
 report.l.labels=ID,A,D,Project,State,R,Wait,S,Due,Until,Description,Note
 report.l.sort=urgency-,due+
 
@@ -207,20 +209,6 @@ urgency.user.tag.life.coefficient=13
 urgency.user.tag.leben.coefficient=13
 ################################################################################
 
-context.pending=state:pending
-context.easy=state:nextaction and ( +easy or +quick or +fast or +1m or +2m or +5m )
-context.nobrain=state:nextaction and +nobrain
-context.wait=state:await or +WAITING
-context.blocked=+BLOCKED
-context.brain=state:nextaction and +brain
-context.intray=state:intray
-context.maybe=+maybe or +someday or state:maybe
-context.admin=+admin
-context.life=+life or +private or +sport
-context.learn=+learn or +read or +train or +exercise or +learn
-context.read=+read or +research or +book
-context.math=+math
-context.projects=state:'proj'
 
 # how to use system
 # 1. capture - set outcome for a task, replace the description with the next action to achieve the outcome and update the state of the task
@@ -233,3 +221,32 @@ context.projects=state:'proj'
 # 2. time available
 # 3. energy available
 # 4. priority
+context.admin.read=+admin
+context.admin.write=+admin
+context.blocked.read=+BLOCKED
+context.blocked.write=+BLOCKED
+context.brain.read=state:nextaction and +brain
+context.brain.write=state:nextaction +brain
+context.easy.read=state:nextaction and ( +easy or +quick or +fast or +1m or +2m or +5m )
+context.easy.write=state:nextaction +easy
+context.intray.read=state:pending
+context.intray.write=state:pending
+context.learn.read=+learn or +read or +train or +exercise
+context.learn.write=+learn
+context.life.read=+life or +private or +sport
+context.life.write=+life +private
+context.math.read=+math
+context.math.write=+math
+context.maybe.read=+maybe or +someday or state:maybe
+context.maybe.write=state:maybe
+context.nobrain.read=state:nextaction and +nobrain
+context.nobrain.write=state:nextaction +nobrain
+context.pending.read=state:pending
+context.pending.write=state:pending
+context.projects.read=state:proj
+context.projects.write=state:proj
+context.read.read=+read or +research or +book
+context.read.write=+read +research
+context.wait.read=state:await or +WAITING
+context.wait.write=state:await +WAITING
+news.version=2.6.0
