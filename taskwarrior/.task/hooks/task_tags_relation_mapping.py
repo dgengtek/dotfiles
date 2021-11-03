@@ -69,6 +69,7 @@ tag_alias_map = [
         {"phone", "call", "anrufen"},
         {"icinga", "icinga2"},
         {"sudo", "sudoers"},
+        {"kubernetes", "k8"},
         {"www", "web"},
         {"ids", "intrusion_detection_system"},
         {"flex", "flexibility", "stretch", "stretching"},
@@ -100,6 +101,7 @@ tag_relations = {
             },
         "kubernetes": {
             "cluster",
+            "k8",
             "docker",
             "devops",
             "admin",

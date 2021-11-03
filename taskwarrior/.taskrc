@@ -36,7 +36,7 @@ include /usr/share/doc/task/rc/dark-violets-256.theme
 uda.state.label=State
 uda.state.type=string
 # pending: still needs to be fleshed(temporary IN tray) out and defined properly as nextaction, project, maybe
-uda.state.values=maybe,await,pending,nextaction,proj,hobby  # it does not like project, wait
+uda.state.values=maybe,await,pending,nextaction,proj # it does not like project, wait
 uda.state.default=pending
 uda.state.description="Category list the task is in. In-tray is the physical compartment. Only processed items are entered to this program. Can only be in one. await someone or something, pending is process, maybe is for projects you do not intend to work on this week and can be reviewed on the weekly review to refocus, nextaction is the very next physical action required to move the situation forward, project is used to track the project description and its dependencies"
 
@@ -150,10 +150,10 @@ report.mailr.sort=urgency-,due+
 report.mailr.context=0
 
 
-# default report, choose a project or hobby from here to then choose a nextaction from 'decide' report
+# default report, choose a project from here to then choose a nextaction from 'decide' report
 report.next.columns=id,project,context,state,description.count,outcome,urgency
 report.next.labels=ID,Project,Context,State,Description,Outcome,U
-report.next.filter=status:pending -WAITING ((state:'nextaction' and project:'') or state:'proj' or state:'hobby' or state:'await') limit:page -BLOCKED
+report.next.filter=status:pending -WAITING ((state:'nextaction' and project:'') or state:'proj' or state:'await') limit:page -BLOCKED
 
 # for deciding on working on a nextaction
 report.decide.columns=id,priority,value,effort,project,context,state,description,outcome
@@ -186,6 +186,13 @@ report.l.description=Show short details about tasks
 report.l.filter=(status:pending or +WAITING) and limit:page
 report.l.labels=ID,A,D,Project,State,R,Wait,S,Due,Until,Description,Note
 report.l.sort=urgency-,due+
+
+# get minimal listing of projects main task grouping all subtasks
+report.project.columns=id,start.active,depends,description.count,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,note
+report.project.description=Show short details about projects main task
+report.project.filter=(state:proj or +project) and limit:none and project.not:""
+report.project.labels=ID,A,D,Project,State,R,Wait,S,Due,Until,Note
+report.project.sort=urgency-,due+
 
 ################################################################################
 # tags
