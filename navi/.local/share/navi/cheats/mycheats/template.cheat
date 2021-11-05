@@ -15,7 +15,7 @@
 # output the search of a directory from the given path 
 <compgen_directory>
 
-# output the filename relative from a selected directory
+# search, select file relative from a selected directory
 <filename>
 
 # test11

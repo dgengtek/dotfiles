@@ -1,7 +1,7 @@
 % fs, filesystem
 @ template, reuse
 
-# Delete all broken symlinks in the directory
+# Delete all broken symlinks in the selected directory
 find <directory> -xtype l -exec rm -vI {} +; 
 
 # Folder size
@@ -37,7 +37,7 @@ dir_exec.sh <command>
 # run a command against a file found relative from the current directory
 <command> $(f)
 
-# select files from a directory and edit it with vim
+# search, select files from a directory and edit it with vim
 f.sh <directory> | xargs_vim.sh
 
 # preview bat theme on a file
