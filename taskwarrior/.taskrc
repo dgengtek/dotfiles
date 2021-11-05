@@ -158,7 +158,7 @@ report.next.filter=status:pending -WAITING ((state:'nextaction' and project:'') 
 # for deciding on working on a nextaction
 report.decide.columns=id,priority,value,effort,project,context,state,description,outcome
 report.decide.labels=ID,Priority,Value,Effort,Project,Context,State,Description,Outcome
-report.decide.filter=(status:pending -WAITING) and state.not:'proj' and state.not:'maybe' limit:page
+report.decide.filter=(status:pending -WAITING) and state.not:'proj' and state.not:'maybe' -project limit:page
 report.decide.sort=urgency-
 
 # get maybe nextactions

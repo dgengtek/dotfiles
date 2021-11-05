@@ -27,6 +27,9 @@ task_project="<project>"
 # add a task to the inbox of a project with dependencies
 task add state:pending project:<project> deps:<tasks_joined> <tags> -- <description>
 
+# convert a task to a project task
+task <task> modify state:proj why:<why>
+
 # search a task interactively
 intentm search
 

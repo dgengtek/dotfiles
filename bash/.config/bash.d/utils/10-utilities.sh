@@ -130,18 +130,6 @@ watch_time() {
 alias repeat_time=watch_time
 
 
-retry() {
-  local -r n_times=${1:?arg1 for n times missing to retry a failing command}
-  local -r interval=${2:?arg2 sleep seconds between failing command missing}
-  shift 2
-  # run until command succeeds
-  trap "trap - SIGINT;return;" SIGINT
-  while ! $@; do
-    sleep $interval
-  done
-}
-
-
 watch_while() {
   local -r interval=1
   # run while command succeeds
