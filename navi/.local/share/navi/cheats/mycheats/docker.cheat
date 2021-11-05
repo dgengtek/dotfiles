@@ -63,6 +63,13 @@ sudo docker network create <network_name>
 # get volumes mounted in container
 sudo docker inspect -f '{{json  .Mounts }}' <container_id> | jq -r .[].Name
 
+# Display detailed information on one or more volumes
+sudo docker volume inspect <volume_id>
+
+# remove all untagged images
+sudo docker rmi $(sudo docker images --format '{{json .}}' | jq -jr '. | select(.Repository | contains("none")) | .ID + " "')
+
+
 $ image_id: sudo docker images --- --headers 1 --column 3 --delimiter '\s\s+'
 $ container_id: sudo docker ps --- --headers 1 --column 1 --delimiter '\s\s+'
 $ volume_id: sudo docker inspect -f '{{json  .Mounts }}' <container_id> | jq -r .[].Name
