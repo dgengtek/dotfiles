@@ -118,6 +118,7 @@ endif
   autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4
   autocmd FileType bash setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType just setlocal shiftwidth=2 softtabstop=2
   autocmd FileType java setlocal shiftwidth=4 softtabstop=4
   autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
   autocmd FileType anki_vim UltiSnipsAddFiletypes tex.texmath.latex
@@ -131,7 +132,7 @@ au BufRead,BufNewFile *.toml setfiletype toml
 au BufRead,BufNewFile *.rs setfiletype rust
 au BufRead,BufNewFile *.csv,*.dat setfiletype csv
 au BufRead,BufNewFile *.anki_vim setfiletype anki_vim
-au BufRead,BufNewFile justfile setfiletype make
+au BufRead,BufNewFile justfile setfiletype just
 
 
 " https://github.com/junegunn/vim-plug
@@ -171,6 +172,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'stephpy/vim-yaml'
   Plug 'lervag/wiki.vim'
+  Plug 'NoahTheDuke/vim-just'
 
 " Initialize plugin system
 call plug#end()
