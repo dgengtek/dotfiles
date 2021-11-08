@@ -82,6 +82,8 @@ sudo udisksctl power-off -b <device>
 # encrypt a prompted password and copy to system clipboard
 systemd-ask-password | tr -d '\n' | gpg --armor --batch --encrypt -r <benutzer> | xclip -selection c
 
+# get linux, passwd valid user line
+encrypt.py
 
 # export a prompted password
 export <NAME>=$(systemd-ask-password)
