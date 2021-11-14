@@ -14,3 +14,6 @@ ansible -i '<inventory>' --become --ask-become-pass -m copy -a 'src=<src_path> d
 
 # fetch from remote to localhost
 ansible -i '<inventory>' --become --ask-become-pass -m fetch -a 'src=<src_path> dest=<dest_path> flat=yes'
+
+# reboot with ansible
+ansible -m shell -a '{ sleep 3; systemctl reboot; } &'

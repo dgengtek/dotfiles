@@ -18,8 +18,8 @@ kubectl config use-context <context>
 # Print resource documentation
 kubectl explain <resource>
 
-# Get nodes (add option '-o wide' for details)
-kubectl get nodes
+# display node resource
+kubectl get nodes --show-labels -o wide
 
 # Get namespaces
 kubectl get namespaces
@@ -29,6 +29,21 @@ kubectl get pods -n <namespace>
 
 # Get pods from all namespace (add option '-o wide' for details)
 kubectl get pods --all-namespaces
+
+# allow scheduling on master
+kubectl taint node <node> node-role.kubernetes.io/master:NoSchedule-
+
+# get taints for each node
+kubectl get nodes -o json | jq '.items[] | (.metadata.name , .spec)'
+
+# restart a resource
+kubectl rollout restart <resource>/<name>
+
+# forcefully delete pod
+kubectl delete pod <podname> --grace-period=0 --force
+
+# wait for node
+kubectl wait node/<nodename> --for=condition=Ready
 
 # Get services from namespace
 kubectl get services -n <namespace>

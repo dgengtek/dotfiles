@@ -1,9 +1,6 @@
 % tmux
 @ template, reuse
 
-# create a new tmux session if none exists and spawn a new terminal shell session if in a TMUX session
-tmux_new_session.sh
-
 # load tmuxp defined session
 if ! { [[ "$TERM" =~ "screen" ]] && [[ -n "$TMUX" ]]; }; then
   tmuxp load <tmuxp_session>

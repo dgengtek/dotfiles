@@ -27,6 +27,15 @@ sed -Ei "s/PasswordAuthentication.*/PasswordAuthentication true/g" "<sshd_config
 # Disable password authentication
 sed -Ei "s/PasswordAuthentication.*/PasswordAuthentication false/g" "<sshd_config>"
 
+# use only the specified public key
+ssh \
+  -o PubkeyAuthentication=yes \
+  -o PasswordAuthentication=no \
+  -o UserKnownHostsFile=/dev/null \
+  -o IdentitiesOnly=yes \
+  -F /dev/null \
+  -i <sshkey>
+
 # login to a server with a key
 ssh -i <sshkey> <user>@<server>
 
