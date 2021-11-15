@@ -3,6 +3,9 @@
 # display addresses of the control plane and services with label kubernetes.io/cluster-service=true
 kubectl cluster-info
 
+# Print the supported API resources on the server
+kubectl api-resources
+
 # debug and diagnose cluster problems
 kubectl cluster-info dump
 

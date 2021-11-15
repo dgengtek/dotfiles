@@ -82,6 +82,8 @@ ping -D -O 8.8.8.8
 # do fast pings
 ping -c 100 -i 0.2 <destination>
 
+# icmp without fragmenting with a packetsize
+ping -M do -s <packetsize> <destination>
 
 # output to stdout for wireshark
 sudo tcpdump -i any -s 0 -U -w - | wireshark -k -i -
