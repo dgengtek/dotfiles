@@ -3,4 +3,4 @@
 # delete bookmark
 buku -d <index>
 
-$ index: buku --json -p | jq -r '.[] | [(.index, .title, .url, .tags)] | join(" ")' --- --delimiter ' ' --column 1 --preview 'buku -p {1}'
+$ index: buku --json -p | jq -r '.[] | [(.index, .title, .uri, .tags)] | join(" ")' --- --delimiter ' ' --column 1 --preview 'buku -p {1}'
