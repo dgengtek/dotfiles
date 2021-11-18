@@ -3,6 +3,12 @@
 # display addresses of the control plane and services with label kubernetes.io/cluster-service=true
 kubectl cluster-info
 
+# set a default storageclass
+kubectl patch storageclass <storageclass> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+# get all persistent volume claims which are not bound
+kubectl get pvc -o json | jq -r '.items[] | select(.status.phase != "Bound") | .metadata.name'
+
 # Print the supported API resources on the server
 kubectl api-resources
 

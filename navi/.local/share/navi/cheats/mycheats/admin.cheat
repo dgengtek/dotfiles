@@ -152,3 +152,9 @@ od -A n -t d -N <bytes> /dev/urandom | awk '{print $1}'
 python -c "from random import randint;print(randint(<a>,<b>), end='')"
 
 $ randint: python -c "from random import randint;print(randint(<a>,<b>), end='')"
+
+
+% service
+
+# remotely unseal vault
+pass=$(systemd-ask-password); sudo salt -I "tags:vault" cmd.run "vault operator unseal $pass" python_shell=True
