@@ -6,6 +6,12 @@ kubectl cluster-info
 # set a default storageclass
 kubectl patch storageclass <storageclass> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
+# get api server url
+kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
+
+# get authorization bearer token
+kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode
+
 # get all persistent volume claims which are not bound
 kubectl get pvc -o json | jq -r '.items[] | select(.status.phase != "Bound") | .metadata.name'
 

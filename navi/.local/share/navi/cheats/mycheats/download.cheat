@@ -11,5 +11,8 @@ youtube-dl -f '(bestvideo[width>=1920]/bestvideo)+bestaudio/best' -x --no-playli
 # download to /dev/null
 wget -O /dev/null <url>
 
-# download website for offline viewing
-wget --recursive --timestamping --no-clobber --page-requisites --adjust-extension --convert-links --no-parent
+# download website recursively for offline viewing
+wget --recursive --timestamping --no-clobber --page-requisites --adjust-extension --convert-links --no-parent --execute robots=off
+
+# download single webpage for offline viewing
+wget --timestamping --adjust-extension --execute robots=off --span-hosts --convert-links --backup-converted --page-requisites
