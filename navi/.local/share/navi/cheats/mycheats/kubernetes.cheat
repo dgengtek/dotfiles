@@ -15,6 +15,9 @@ kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0
 # get all persistent volume claims which are not bound
 kubectl get pvc -o json | jq -r '.items[] | select(.status.phase != "Bound") | .metadata.name'
 
+# change persistent volume policy
+kubectl patch pv <pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+
 # Print the supported API resources on the server
 kubectl api-resources
 

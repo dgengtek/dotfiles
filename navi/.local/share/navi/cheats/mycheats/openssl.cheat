@@ -80,6 +80,9 @@ openssl req -noout -modulus -in <INPUT_CSR> | openssl md5
 # Display the server certificate chain
 openssl s_client -showcerts -connect <URL>:<PORT>
 
+# get public key hash
+openssl x509 -in <certificate> -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256
+
 # Download service certificate
 echo | \
   openssl s_client -servername <DOMAIN> -connect <URL>:<PORT> 2>/dev/null | \
