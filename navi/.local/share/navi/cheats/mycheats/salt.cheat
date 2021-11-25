@@ -1,5 +1,7 @@
 % saltstack
 
+@ template, reuse
+
 # sync fileserver
 sudo salt-run fileserver.update
 
@@ -120,6 +122,9 @@ sudo salt-run state.orch orch.upgrade pillar=
 
 # restart salt minion service and wait for it to come back online
 sudo salt-run state.orch orch.restart_service_salt_minion pillar=
+
+# set pillar from input file
+pillar="$(cat ./<compgen_file_yaml> | yamltojson.py)"
 
 # generic pillar for targeting hosts by name
 <orch_pillar_common_host>
