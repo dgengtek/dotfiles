@@ -6,6 +6,9 @@ sudo -E SYSTEMD_LOG_LEVEL=debug
 # Start service
 systemctl start <service_inactive>
 
+# dump environment variables
+systemctl show-environment
+
 # start user service
 systemctl --user start <service_user_inactive>
 
