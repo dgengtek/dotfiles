@@ -24,6 +24,9 @@ task add state:pending project:"$(task _project | fzf)"
 # select and save a project name
 task_project="<project>"
 
+# select a project and prompt for new inbox tasks
+task_project=$(task _project | fzf); with "task add state:pending project:'$task_project' +kubernetes "
+
 # add a task to the inbox of a project with dependencies
 task add state:pending project:<project> deps:<tasks_joined> <tags> -- <description>
 

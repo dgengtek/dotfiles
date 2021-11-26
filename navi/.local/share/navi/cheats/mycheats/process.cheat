@@ -3,6 +3,7 @@
 # show process with current users
 htop -u $USER
 
+# show processes without a tty
 ps -u $USER ux
 
 # Kill with signal 9
@@ -12,16 +13,16 @@ sudo kill -9 <pid>
 sudo kill -<n> <pid>
 
 # Limit CPU usage to <n>%
-cpulimit --include-children --limit <n> --pid <pid>
+sudo cpulimit --include-children --limit <n> --pid <pid>
 
 # Stop limiting CPU
-pkill -f cpulimit.*<pid>
+sudo pkill -f cpulimit.*<pid>
 
 # Lower priority to <n>
-renice -n <n> -p <pid>
+sudo renice -n <n> -p <pid>
 
 # Unfreeze process
-kill -CONT <pid>
+sudo kill -CONT <pid>
 
 # show detailed processes
 ps -eo pid,ppid,nice,s,cmd:80,euser,egroup,time,etime,rtprio,f,fuser --sort=cmd
