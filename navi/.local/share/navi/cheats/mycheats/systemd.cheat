@@ -72,6 +72,10 @@ systemctl list-unit-files --type=service --state=enabled
 # List disabled services
 systemctl list-unit-files --type=service --state=disabled
 
+# package logs for debugging
+journalctl -b --no-pager -u <service> | gzip -9 > /tmp/"$(hostname)-$(date +%Y-%m-%dT%H-%M-%SZ)-<service>.log.gz"
+
+
 $ service_inactive: systemctl list-units --type=service --state=inactive | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service_user_inactive: systemctl --user list-units --type=service --state=inactive | awk '{print $1}' | grep .service | sed 's/.service$//'
 $ service_active: systemctl list-units --type=service --state=active | awk '{print $1}' | grep .service | sed 's/.service$//'
@@ -89,3 +93,4 @@ $ service_user: systemctl --user list-units --type=service --all | awk '{print $
 
 # use journal from another location
 journalctl --directory <path>
+
