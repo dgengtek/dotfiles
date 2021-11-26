@@ -8,6 +8,9 @@ sudo salt-run fileserver.update
 # get list of hosts from netbox
 sudo salt-run --out=json netbox.list_hosts | jq -r '.[]'
 
+# get list of hosts from netbox
+sudo salt-run --out=json netbox.list_hosts | jq -r '.[]'
+
 # convert flat inventory to saltstack roster
 jq 'to_entries | .[] | {(.value|tostring): {"host": .value}}' inventory | jq -r -s '. | add | tojson' | jsontoyaml.py
 
@@ -46,6 +49,9 @@ jq '."<tag>"' <hosts_to_tags>
 
 # get values from json output
 sudo salt --out=json "<host>" cmd.run <cmd_with_json_output> | jq 'to_entries[].value | fromjson'
+
+# parse json output from multiline json objects
+sudo salt --out=json "<host>" cmd.run <cmd_with_json_output> | jq -r 'to_entries[].value' | jq
 
 # sync specific tag
 sudo salt -I "<tags>" saltutil.sync_all
