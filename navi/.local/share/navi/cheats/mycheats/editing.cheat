@@ -29,10 +29,10 @@ sed 's/^[ \t]*//'
 sed 's/[ \t]*$//'
 
 # remove newlines
-tr '\n'
+tr -d '\n'
 
 # remove tabs
-tr '\t'
+tr -d '\t'
 
 # translate to lowercase
 tr 'A-Z' 'a-z'
