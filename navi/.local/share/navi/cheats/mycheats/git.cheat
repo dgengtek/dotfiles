@@ -4,6 +4,7 @@
 pushd $(git rev-parse --show-toplevel)
 git add -i .
 git commit -m "autocommit - $(date +%y%m%d%H%M%S)"
+git push
 popd
 
 # export and compress repository
