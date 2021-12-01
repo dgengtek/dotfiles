@@ -100,7 +100,7 @@ sudo salt --async "<host>" system.reboot \
   && salt-run state.event 'salt/minion/<host>/start' count=1 quiet=True
 
 # setup host for first time
-sudo salt-run state.orch orch.setup_host pillar='<orch_pillar_upgrade_host>'
+sudo salt-run state.orch orch.setup_host pillar='<orch_pillar_upgrade_host_json>'
 
 # provision salt minion
 sudo salt-run state.orch orch.provision_salt_minion pillar=
@@ -132,17 +132,20 @@ sudo salt-run state.orch orch.restart_service_salt_minion pillar=
 # set pillar from input file
 pillar="$(cat ./<compgen_file_yaml> | yamltojson.py)"
 
+# remove all denied saltstack rsa keys
+sudo salt-key --out json -L | jq -r '.minions_denied[]' | xargs -I {} sudo salt-key --yes -d {}
+
 # generic pillar for targeting hosts by name
-<orch_pillar_common_host>
+<orch_pillar_common_host_json>
 
 # generic pillar for targeting hosts by tag
-<orch_pillar_common_tags>
+<orch_pillar_common_tags_json>
 
 # generic pillar for upgrading hosts by name
-<orch_pillar_upgrade_host>
+<orch_pillar_upgrade_host_json>
 
 # generic pillar for upgrading hosts by tag
-<orch_pillar_upgrade_tags>
+<orch_pillar_upgrade_tags_json>
 
 
 $ file_tags_of_hosts: echo "$HOME/tmp_tags_of_hosts.json"
@@ -155,13 +158,15 @@ $ tags: jq -r 'keys | "tags:" + .[]' <hosts_to_tags>
 $ tag: jq -r 'keys | .[]' <hosts_to_tags>
 
 $ target_type: echo 'glob,list,grain,pillar,compound' | tr ',' '\n'
-$ orch_pillar_part_common: jq -c -n '{orch: {targets: "", target_type: "<target_type>", skyp_sync: false}}'
-$ orch_pillar_part_reboot: jq -c -n '{orch: {reboot_minion: false}}'
-$ orch_pillar_part_batch: jq -c -n '{orch: {batch: 5}}'
+$ orch_pillar_part_common: jq -c -n '{targets: "", target_type: "<target_type>", skyp_sync: false}'
+$ orch_pillar_part_reboot: jq -c -n '{reboot_minion: false}'
+$ orch_pillar_part_batch: jq -c -n '{batch: 5}'
 $ orch_pillar_part_upgrade: jq -c -n '{maintenance: {update: {kernel: true}}}'
-$ orch_pillar_part_host: jq -c -n --arg hosts "<host>" '{orch: {targets: $hosts | split("\n") }}' --- --multi
-$ orch_pillar_part_tags: jq -c -n --arg tags "<tags>" '{orch: {targets: $tags | split("\n") }}' --- --multi
-$ orch_pillar_common_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_common_tags: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_upgrade_host: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_upgrade_tags: echo '<orch_pillar_part_upgrade> <orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_part_host: jq -c -n --arg hosts "<host>" '{targets: $hosts | split("\n") }' --- --multi
+$ orch_pillar_part_tags: jq -c -n --arg tags "<tags>" '{targets: $tags | split("\n")}' --- --multi
+$ orch_pillar_common_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s 'add | {orch: .}'
+$ orch_pillar_common_tags: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s 'add | {orch: .}'
+$ orch_pillar_common_host_json: echo '<orch_pillar_common_host>' | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_common_tags_json: echo '<orch_pillar_common_tags>' | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_upgrade_host_json: echo '<orch_pillar_part_upgrade> <orch_pillar_common_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_upgrade_tags_json: echo '<orch_pillar_part_upgrade> <orch_pillar_common_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py

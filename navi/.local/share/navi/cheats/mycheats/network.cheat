@@ -64,6 +64,9 @@ ip -iec -s addr
 # show detailed interface information
 ip -json -d link show <interface> | jq .
 
+# show all routing tables
+ip route show table all
+
 # bring up interface
 sudo ip link set <interface> up
 

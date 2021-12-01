@@ -63,6 +63,9 @@ openssl x509 -in <INPUT_CRT> -text -noout
 # Validate a PKCS12 file (.pfx or .p12)
 openssl pkcs12 -info -in <INPUT_PKCS12>
 
+# print all relevant fields, extensions, names of the certificate
+openssl x509 -in <INPUT_CRT> -noout -ext 'basicConstraints,keyUsage,extendedKeyUsage,subjectAltName,nameConstraints,subjectKeyIdentifier,crlDistributionPoints' -subject -subject_hash -issuer -issuer_hash
+
 
 # get the notbefore, notafter -dates of the certificate
 openssl x509 -noout -startdate -enddate

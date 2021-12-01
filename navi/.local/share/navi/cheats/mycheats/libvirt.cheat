@@ -24,6 +24,9 @@ virsh destroy "<domain>" && virsh undefine "<domain>" --remove-all-storage
 # start host
 virsh start <domain>
 
+# set the URI for connecting to a libvirtd hypervisor
+export LIBVIRT_DEFAULT_URI="qemu+ssh://<host>/system"
+
 $ snapshot_type: echo -e 'current\nrunning'
 $ domain: virsh list --all --name
 $ snapshot: virsh snapshot-list "<domain>" --name
