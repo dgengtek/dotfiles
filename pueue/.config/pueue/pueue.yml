@@ -1,3 +1,4 @@
+---
 client:
   restart_in_place: false
   read_local_logs: true
@@ -14,4 +15,10 @@ daemon:
   callback: "notify-send \"Task {{ id }}\nCommand: {{ command }}\nPath: {{ path }}\nFinished with status '{{ result }}'\nTook: $(bc <<< \"{{end}} - {{start}}\") seconds\""
   callback_log_lines: 10
   groups:
-    default: 1
+    alarm: 1000
+    default: 1000
+    pomodoro: 1
+    q: 1
+shared:
+  host: 127.0.0.1
+  port: "6924"
