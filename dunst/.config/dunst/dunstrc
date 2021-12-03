@@ -8,8 +8,8 @@
     idle_threshold = 30
     width = 600
     height = 600
-    origin = top-left
-    notification_limit = 0
+    origin = top-right
+    notification_limit = 20
     offset = 20x30
     alignment = center
     show_age_threshold = 60
