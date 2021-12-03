@@ -6,6 +6,9 @@ sudo apt update
 # update on release change
 sudo apt-get --allow-releaseinfo-change update
 
+# show all versions of a package
+sudo apt-cache madison
+
 # List all available packages
 sudo apt list
 
