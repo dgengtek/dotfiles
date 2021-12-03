@@ -34,7 +34,7 @@ alias transru="trans de:ru"
 # script alias
 # ------------------------------------------------------------------------------
 alias tmuxn="tmux_new_session.sh"
-alias tmuxn="tmux_new_session.sh -n"
+alias tmuxnn="tmux_new_session.sh -n"
 alias tmuxnd="tmux_new_session.sh -d"
 alias wp="walk_parent.sh"
 alias r="run.sh"
