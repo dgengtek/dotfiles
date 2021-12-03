@@ -40,9 +40,10 @@ uda.state.values=maybe,await,pending,nextaction,proj # it does not like project,
 uda.state.default=pending
 uda.state.description="Category list the task is in. In-tray is the physical compartment. Only processed items are entered to this program. Can only be in one. await someone or something, pending is process, maybe is for projects you do not intend to work on this week and can be reviewed on the weekly review to refocus, nextaction is the very next physical action required to move the situation forward, project is used to track the project description and its dependencies"
 
+
 uda.outcome.label=Outcome
 uda.outcome.type=string
-uda.outcome.description='Describe in a single written sentence your intended successful outcome for this problem or situation. What would need to happen for you to check this off as "done"'
+uda.outcome.description='Describe in a single written sentence your intended successful outcome for this problem or situation, project. What would need to happen for you to check this off as "done"'
 
 
 uda.why.label=Why
@@ -57,6 +58,14 @@ uda.context.type=string
 uda.context.values=home,computer,outdoor,lab,internet,anywhere,ereader,errand,agenda,mail,papier,phone,none
 uda.context.default=none
 uda.context.description="Context in which the action can be completed."
+
+
+# energy
+uda.context.label=Energy
+uda.context.type=string
+uda.context.values=mental,creative,physical,little,mundane
+uda.context.default=mental
+uda.context.description="What kind of energy is required for this task? Little to none of either? Mundane, repetetive, no thought, attention required?"
 
 ##
 # priorities
@@ -126,7 +135,7 @@ uda.time.label=Time
 uda.time.type=string
 uda.time.values=13,8,5,?,3,2,1,0
 uda.time.default=?
-uda.time.description="Time required to complete. 0=minutes to hours; 1=within a day; 2=1-3 days; 3=3-7 days; 5=1-4 weeks; 8=months; 13=years"
+uda.time.description="Time required to complete. 0=more than 15 minutes to hours; 1=within a day; 2=1-3 days; 3=3-7 days; 5=1-4 weeks; 8=months; 13=years"
 
 urgency.uda.time.13.coefficient=-3
 urgency.uda.time.8.coefficient=-2
