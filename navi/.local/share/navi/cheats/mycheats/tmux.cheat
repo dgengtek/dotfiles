@@ -53,6 +53,9 @@ tmux show-buffer -b <buffer>
 # Lock each client individually
 tmux lock-server
 
+# recreate socket if session lost
+killall -10 tmux
+
 # display a large clock
 tmux clock-mode
 

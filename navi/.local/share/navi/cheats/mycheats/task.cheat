@@ -87,6 +87,9 @@ task limit:none | less
 # lookup task information
 task <task> information
 
+# complete a task
+task <task> done
+
 # tickle, delay a task to think on it
 task <task> <command_modify> wait:+1d
 
