@@ -57,6 +57,9 @@ sudo umount <mountpoint>
 # generate an updated initramfs image on debian
 sudo update-initramfs -u
 
+# disable proxy configuration
+unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
+
 # mount blockdevice
 sudo mount <device>
 
