@@ -1,0 +1,4 @@
+% web, browser
+
+# dump html text only
+lynx -dump -nolist <website>
