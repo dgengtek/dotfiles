@@ -102,7 +102,33 @@ kubectl run tmp-shell --restart=Never --rm -i --tty --image centos -- /bin/bash
 # Display resource (cpu/memory/storage) usage
 kubectl top <type>
 
+# debug a pod 
+kubectl debug -it <pod> --image=busybox --target=<pod>
+
+# run a paused pod for testing
+kubectl run <pod_name> --image=k8s.gcr.io/pause:3.1 --restart=Never
+
+# run a sleeping pod for testing
+kubectl run <pod_name> --image=busybox --restart=Never -- sleep 1d
+
+# create a crashing pod
+kubectl run --image=busybox <pod_name> -- false
+
+# copy a pod and add a new container
+kubectl debug <pod_name> -it --image=<image_name> --share-processes --copy-to=<pod_name>-debug
+
+# copy a pod and change its command
+kubectl debug <pod_name> -it --copy-to=<pod_name>-debug --container=<pod_name> -- bash
+
+# copy a pod and change all of its containers to the image
+kubectl debug <pod_name> --copy-to=<pod_name>-debug --set-image=*=<image_name>
+
+# create a debug shell on the node
+kubectl debug <node> -it --image=busybox
+
 
 $ resource: kubectl api-resources -o name
 $ resource_object: kubectl get <resource> -o name
 $ operation: echo -e 'get,explain,edit,delete' | tr ',' '\n'
+$ pod: kubectl get pods -o name
+$ node: kubectl get nodes -o name
