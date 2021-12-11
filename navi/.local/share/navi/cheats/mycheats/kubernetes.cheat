@@ -67,7 +67,7 @@ kubectl get nodes -o json | jq '.items[] | (.metadata.name , .spec)'
 kubectl rollout restart <resource>/<name>
 
 # forcefully delete pod
-kubectl delete pod <podname> --grace-period=0 --force
+kubectl delete pod <pod> --grace-period=0 --force
 
 # wait for node
 kubectl wait node/<nodename> --for=condition=Ready
@@ -115,20 +115,25 @@ kubectl run <pod_name> --image=busybox --restart=Never -- sleep 1d
 kubectl run --image=busybox <pod_name> -- false
 
 # copy a pod and add a new container
-kubectl debug <pod_name> -it --image=<image_name> --share-processes --copy-to=<pod_name>-debug
+kubectl debug <pod> -it --image=<image_name> --share-processes --copy-to=<pod>-debug
 
 # copy a pod and change its command
-kubectl debug <pod_name> -it --copy-to=<pod_name>-debug --container=<pod_name> -- bash
+kubectl debug <pod> -it --copy-to=<pod>-debug --container=<pod> --image=<image_name> -- sh
 
 # copy a pod and change all of its containers to the image
-kubectl debug <pod_name> --copy-to=<pod_name>-debug --set-image=*=<image_name>
+kubectl debug <pod> --copy-to=<pod>-debug --set-image=*=<image_name>
 
 # create a debug shell on the node
 kubectl debug <node> -it --image=busybox
 
+# cleanup all replicasets except the newest
+kubectl get rs -l <label> --sort-by={'.metadata.creationTimestamp'} -o name | sed '$ d' | xargs -n 1 kubectl delete rs
 
-$ resource: kubectl api-resources -o name
-$ resource_object: kubectl get <resource> -o name
-$ operation: echo -e 'get,explain,edit,delete' | tr ',' '\n'
-$ pod: kubectl get pods -o name
-$ node: kubectl get nodes -o name
+# get object with namespace
+kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
+
+$ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
+$ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
+$ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
+$ pod: kubectl get pods -A -o name --- --delimiter '/' --column 2 --preview 'kubectl describe pod {1}'
+$ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
