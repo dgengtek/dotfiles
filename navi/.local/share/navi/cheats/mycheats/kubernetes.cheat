@@ -67,7 +67,7 @@ kubectl get nodes -o json | jq '.items[] | (.metadata.name , .spec)'
 kubectl rollout restart <resource>/<name>
 
 # forcefully delete pod
-kubectl delete pod <pod> --grace-period=0 --force
+kubectl delete <pod> --grace-period=0 --force
 
 # wait for node
 kubectl wait node/<nodename> --for=condition=Ready
@@ -103,7 +103,7 @@ kubectl run tmp-shell --restart=Never --rm -i --tty --image centos -- /bin/bash
 kubectl top <type>
 
 # debug a pod 
-kubectl debug -it <pod> --image=busybox --target=<pod>
+pod=<pod>; podname=${pod##*/}; kubectl debug -it "$pod" --image=busybox --target="$podname"
 
 # run a paused pod for testing
 kubectl run <pod_name> --image=k8s.gcr.io/pause:3.1 --restart=Never
@@ -115,13 +115,13 @@ kubectl run <pod_name> --image=busybox --restart=Never -- sleep 1d
 kubectl run --image=busybox <pod_name> -- false
 
 # copy a pod and add a new container
-kubectl debug <pod> -it --image=<image_name> --share-processes --copy-to=<pod>-debug
+pod=<pod>; podname=${pod##*/}; kubectl debug "$pod" -it --image=<image_name> --share-processes --copy-to="$podname-debug"
 
 # copy a pod and change its command
-kubectl debug <pod> -it --copy-to=<pod>-debug --container=<pod> --image=<image_name> -- sh
+pod=<pod>; podname=${pod##*/}; kubectl debug "$pod" -it --copy-to="$podname-debug" --container="$podname" --image=<image_name> -- sh
 
 # copy a pod and change all of its containers to the image
-kubectl debug <pod> --copy-to=<pod>-debug --set-image=*=<image_name>
+pod="$pod"; podname=${pod##*/}; kubectl debug <pod> --copy-to="$podname-debug" --set-image=*=<image_name>
 
 # create a debug shell on the node
 kubectl debug <node> -it --image=busybox
@@ -132,8 +132,13 @@ kubectl get rs -l <label> --sort-by={'.metadata.creationTimestamp'} -o name | se
 # get object with namespace
 kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
 
+# save secret in variable
+CONSUL_HTTP_TOKEN=$(kubectl get <secrets_object> --template={{.data.token}} | base64 -d)
+
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
 $ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
-$ pod: kubectl get pods -A -o name --- --delimiter '/' --column 2 --preview 'kubectl describe pod {1}'
 $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
+
+$ pod: kubectl get pods -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
+$ secrets_object: kubectl get secrets -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
