@@ -13,10 +13,10 @@ kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode
 
 # delete a list of a resource with the given state
-kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase != "<state>") | .metadata.name' | xargs -n 1 kubectl delete <resource>
+kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase == "<state>") | .metadata.name' | xargs -n 1 kubectl delete <resource>
 
-# select resources from a list with the given state for deletion
-kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase != "<state>") | .metadata.name' | fzf --multi | xargs -n 1 kubectl delete <resource>
+# get resources which have not the given state
+kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase != "<state>") | .metadata.name'
 
 # delete a single resource
 kubectl delete <resource_object>
@@ -133,7 +133,7 @@ kubectl get rs -l <label> --sort-by={'.metadata.creationTimestamp'} -o name | se
 kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
 
 # save secret in variable
-CONSUL_HTTP_TOKEN=$(kubectl get <secrets_object> --template={{.data.token}} | base64 -d)
+<variable_name>=$(kubectl get <secrets_object> --template={{.data}})
 
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
