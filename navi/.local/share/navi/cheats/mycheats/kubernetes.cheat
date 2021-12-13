@@ -16,7 +16,7 @@ kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0
 kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase == "<state>") | .metadata.name' | xargs -n 1 kubectl delete <resource>
 
 # get resources which have not the given state
-kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase != "<state>") | .metadata.name'
+kubectl get <resource> -A -o json | jq -r '.items[] | select(.status.phase != "<state>") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
 
 # delete a single resource
 kubectl delete <resource_object>
