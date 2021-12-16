@@ -135,6 +135,30 @@ kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespa
 # save secret in variable
 <variable_name>=$(kubectl get <secrets_object> --template={{.data}})
 
+# get namespace and object name
+jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
+
+# get owner of object
+jq -r '.items[].metadata.ownerReferences'
+
+# get object state
+jq -r '.items[].status'
+
+# get object containers
+jq -r '.items[] | (.nodeName, .status.containerStatuses)'
+
+# get labels
+jq '.items[].metadata.labels'
+
+# sort by age
+--sort-by={.metadata.creationTimestamp}
+
+# debug events
+kubectl get events --sort-by='{.lastTimestamp}'
+
+# get errored helm deployments 
+kubectl get secrets -A -l owner=helm -o json | jq '.items[].metadata | select(.labels.status != "deployed" and .labels.status != "superseded") | (.name + " " + .namespace + " " + .labels.status)'
+
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
 $ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
