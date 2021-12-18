@@ -16,7 +16,7 @@ jq -n 'reduce inputs as $i ({}; . * $i)'
 jq 'to_entries[].value'
 
 # output a custom json structure edited in yaml
-: | vipe | yamltojson.py
+: | vipe --suffix yaml | yamltojson.py
 
 # convert file to json
 jq -R -s -c 'split("\n")' < <filename>

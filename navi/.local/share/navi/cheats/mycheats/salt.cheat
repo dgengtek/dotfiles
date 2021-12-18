@@ -166,7 +166,7 @@ $ orch_pillar_part_host: jq -c -n --arg hosts "<host>" '{targets: $hosts | split
 $ orch_pillar_part_tags: jq -c -n --arg tags "<tags>" '{targets: $tags | split("\n")}' --- --multi
 $ orch_pillar_common_host: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_host>' | jq -c -s 'add | {orch: .}'
 $ orch_pillar_common_tags: echo '<orch_pillar_part_common> <orch_pillar_part_reboot> <orch_pillar_part_tags>' | jq -c -s 'add | {orch: .}'
-$ orch_pillar_common_host_json: echo '<orch_pillar_common_host>' | jsontoyaml.py | vipe | yamltojson.py
-$ orch_pillar_common_tags_json: echo '<orch_pillar_common_tags>' | jsontoyaml.py | vipe | yamltojson.py
+$ orch_pillar_common_host_json: echo '<orch_pillar_common_host>' | jsontoyaml.py | vipe --suffix yaml | yamltojson.py
+$ orch_pillar_common_tags_json: echo '<orch_pillar_common_tags>' | jsontoyaml.py | vipe --suffix yaml | yamltojson.py
 $ orch_pillar_upgrade_host_json: echo '<orch_pillar_part_upgrade> <orch_pillar_common_host>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
 $ orch_pillar_upgrade_tags_json: echo '<orch_pillar_part_upgrade> <orch_pillar_common_tags>' | jq -c -s add | jsontoyaml.py | vipe | yamltojson.py
