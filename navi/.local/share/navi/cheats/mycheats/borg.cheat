@@ -4,4 +4,4 @@
 sudo salt -G "tags:backup-repository" cmd.run "env BORG_PASSPHRASE=$pass borg list /data/borg/data" shell=/bin/bash python_shell=True
 
 # sanitize borg passphrase for remote execution
-pass=$(systemd-ask-password | strip.py | quotify.py)
+pass=$(systemd-ask-password -n | strip.py | quotify.py)

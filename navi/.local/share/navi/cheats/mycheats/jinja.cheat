@@ -1,0 +1,10 @@
+% jinja
+
+# get undefined variables
+rg -o '\{\{[^ ]*?}}' <file_jinja>  | sort | uniq | sed 's,[{}],,g'
+
+# get all set variables
+rg -o '\{%[ ]?set[ ][^ ]*' <file_jinja> | sort | uniq | sed 's,{% set ,,'
+
+
+$ file_jinja: fd --absolute-path --type f --follow --exclude ".git" '.jinja$' --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'

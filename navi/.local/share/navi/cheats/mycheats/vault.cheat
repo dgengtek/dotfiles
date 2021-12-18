@@ -30,7 +30,7 @@ curl \
 
 
 # set vault token in current shell environment
-export VAULT_TOKEN=$(systemd-ask-password)
+export VAULT_TOKEN=$(systemd-ask-password -n)
 
 
 # list current pki certificates by serial number
@@ -117,7 +117,7 @@ curl \
 
 
 # lookup approle secret id properties
-jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": $secret_id }' \
+jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -126,7 +126,7 @@ jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": $secret_id }' \
 
 
 # destroy approle secret id
-jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": $secret_id }' \
+jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -135,7 +135,7 @@ jq -ns --arg secret_id "$(systemd-ask-password)" '{ "secret_id": $secret_id }' \
 
 
 # lookup approle secret id accessor properties
-jq -ns --arg secret_id_accessor "$(systemd-ask-password)" '{ "secret_id_accessor": $secret_id_accessor }' \
+jq -ns --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_accessor": $secret_id_accessor }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -144,7 +144,7 @@ jq -ns --arg secret_id_accessor "$(systemd-ask-password)" '{ "secret_id_accessor
 
 
 # destroy an approle secret id by its accessor
-jq -ns --arg secret_id_accessor "$(systemd-ask-password)" '{ "secret_id_accessor": $secret_id_accessor }' \
+jq -ns --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_accessor": $secret_id_accessor }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -160,7 +160,7 @@ jq -ns --arg secret_id_accessor "$(systemd-ask-password)" '{ "secret_id_accessor
 vault login -method=ldap username=$USER
 
 # get a token via approle auth method
-jq -ns --arg secret_id "$(systemd-ask-password)" '{ "role_id": "<role_id>", "secret_id": $secret_id }' \
+jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "role_id": "<role_id>", "secret_id": $secret_id }' \
   | curl \
     --request POST \
     --data @- \

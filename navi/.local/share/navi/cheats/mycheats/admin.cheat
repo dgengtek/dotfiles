@@ -95,13 +95,13 @@ sudo udisksctl power-off -b <device>
 
 % password
 # encrypt a prompted password and copy to system clipboard
-systemd-ask-password | tr -d '\n' | gpg --armor --batch --encrypt -r <benutzer> | xclip -selection c
+systemd-ask-password -n | gpg --armor --batch --encrypt -r <benutzer> | xclip -selection c
 
 # get linux, passwd valid user line
 encrypt.py
 
 # export a prompted password
-export <NAME>=$(systemd-ask-password)
+export <NAME>=$(systemd-ask-password -n)
 
 
 % certificate
@@ -160,4 +160,4 @@ $ randint: python -c "from random import randint;print(randint(<a>,<b>), end='')
 % service
 
 # remotely unseal vault
-pass=$(systemd-ask-password); sudo salt -I "tags:vault" cmd.run "vault operator unseal $pass" python_shell=True
+pass=$(systemd-ask-password -n); sudo salt -I "tags:vault" cmd.run "vault operator unseal $pass" python_shell=True

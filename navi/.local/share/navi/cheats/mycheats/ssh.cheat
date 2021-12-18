@@ -1,7 +1,10 @@
 % ssh
 
+# forward remote port to the destination port
+ssh -NnT -R <destination_port>:<remote_address>:<remote_port> <destination>
+
 # forward local to remote over secure connection
-ssh -nNT -L <local_address>:<remote_address> <destination>
+ssh -NnT -L <local_address>:<remote_address> <destination>
 
 # create ssh keys with defaults
 ssh-keygen -t <keytype> -a <rounds> -C "<email>"

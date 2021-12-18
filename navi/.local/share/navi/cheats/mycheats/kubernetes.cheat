@@ -145,7 +145,10 @@ jq -r '.items[].metadata.ownerReferences'
 jq -r '.items[].status'
 
 # get object containers
-jq -r '.items[] | (.nodeName, .status.containerStatuses)'
+jq -r '.items[] | (spec.nodeName + " " + .status.containerStatuses)'
+
+# get container id
+jq -r '(.spec.nodeName + " " + .status.containerStatuses[].containerID)'
 
 # get labels
 jq '.items[].metadata.labels'
