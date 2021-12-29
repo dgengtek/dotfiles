@@ -21,6 +21,13 @@ sudo dd if=/dev/zero of=<device> bs=512 count=1 oflag=direct
 # overwrite device
 sudo dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
 
+# resize gpt partition 
+sgdisk --move-second-header \
+  && sgdisk --delete=<device_partition_nr> <device> \
+  && sgdisk --new=<device_partition_nr>:0:0 --typecode=0:8e00 --change-name=0:pv <device> \
+  && partprobe <device> \
+  && pvresize <device><device_partition_nr>
+
 # add kernel parameter for systemd logging
 sed -i -n 'p; s,^\(GRUB_CMDLINE_LINUX_DEFAULT.*\),#\1,p' /etc/default/grub; sed -i 's,^\(GRUB_CMDLINE_LINUX_DEFAULT\)=['\''"]*\([^'\''"]*\)['\''" ]*,\1="\2 systemd.log_level=debug systemd.log_target=kmsg log_buf_len=1M printk.devkmsg=on enforcing=0",' /etc/default/grub
 
@@ -66,8 +73,10 @@ sudo mount <device>
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ mountpoint: mount -l --- --column 3 --delimiter ' '
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
-$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*'
+$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[0-9]$/ d'
+$ device_partition: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[^0-9]$/ d'
 $ device_name: basename "<device>"
+$ device_partition_nr: find /dev/ -mindepth 1 -maxdepth 1 -name '<device_name>?*' | sed 's,^/dev/<device_name>,,'
 $ filesystem: mount -l | egrep 'type ext(2|3|4)' --- --column 1 --delimiter ' '
 
 
