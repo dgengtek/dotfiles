@@ -1,7 +1,10 @@
 % database, postgres
 
-# dump clean postgres database
-pg_dump -c -b -Fc -f <filename>
+# dump globals
+pg_dumpall --clean --globals-only | gzip -9 > postgres_db_globals.gz
+
+# backup postgres database
+pg_dump --create --clean --format=custom --blobs <database>
 
 # drop connections to database
 SELECT pg_terminate_backend(pg_stat_activity.pid)

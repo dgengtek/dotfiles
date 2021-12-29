@@ -77,10 +77,10 @@ $ filesystem: mount -l | egrep 'type ext(2|3|4)' --- --column 1 --delimiter ' '
 uname -a
 
 
-# detect new virtual disk space from hypervisor
+# detect new virtual disk attached from hypervisor
 echo "- - -" > /sys/class/scsi_host/host0/scan
 
-# rescan all devices
+# rescan all devices for new disk
 for x in /sys/class/scsi_disk/*; do echo '1' > $x/device/rescan; done
 
 # select a random hostname from stdin

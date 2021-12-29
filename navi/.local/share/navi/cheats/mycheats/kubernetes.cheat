@@ -6,6 +6,9 @@ kubectl cluster-info
 # set a default storageclass
 kubectl patch storageclass <storageclass> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
+# set a default ingressclass
+kubectl patch ingressclasses <ingressclass> -p '{"metadata": {"annotations":{"ingressclass.kubernetes.io/is-default-class":"true"}}}'
+
 # get api server url
 kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 
@@ -159,11 +162,14 @@ jq '.items[].metadata.labels'
 # debug events
 kubectl get events --sort-by='{.lastTimestamp}'
 
+# create docker registry secret
+kubectl create secret docker-registry regcred --docker-server='https://docker-registry.ops.svc:5000' --docker-username="cluster" --docker-password="$(systemd-ask-password)"
+
 # get errored helm deployments 
 kubectl get secrets -A -l owner=helm -o json | jq '.items[].metadata | select(.labels.status != "deployed" and .labels.status != "superseded") | (.name + " " + .namespace + " " + .labels.status)'
 
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
-$ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
+$ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {3} {1} {2}'
 $ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
 $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
 

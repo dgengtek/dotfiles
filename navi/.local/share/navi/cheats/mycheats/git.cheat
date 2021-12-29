@@ -208,8 +208,8 @@ git push <remote> --all && git push <remote> --tags
 # push and set upstream tracking name for branch
 git push --set-upstream <upstream_name> <branch>
 
-# set upstream tracking branch of branch
-git branch --set-upstream-to=<remote_branch> <branch>
+# set upstream tracking information of branch
+git branch --set-upstream-to=<remote>/<branch> <branch>
 
 # what changed in the repository since 2 weeks ago
 git log --no-merges --raw --since='2 weeks ago'
@@ -253,11 +253,12 @@ $ file: fd --type f
 $ deleted_file: git log --all --pretty=format: --name-only --diff-filter=D
 $ commit: git log -40 --oneline --- --column 0
 $ active_branch: git rev-parse --abbrev-ref HEAD
-$ branch: git branch --format "%(refname)"
-$ branch2: git branch --format "%(refname)"
+$ branch: git branch --format "%(refname:lstrip=2)"
+$ branch_any: git for-each-ref --format "%(refname)"
+$ branch2: git branch --format "%(refname:lstrip=2)"
 $ tag: git tag --list
 $ remote: git remote
-$ remote_branch: git branch --remotes
+$ remote_branch: git branch --remotes --format "%(refname:lstrip=2)"
 $ toplevel_directory: git rev-parse --show-toplevel
 $ untracked_files: git ls-files --other --exclude-standard --directory
 $ unstaged_files: git ls-files --modified --deleted
