@@ -146,21 +146,23 @@ fly -t <target> pipelines --json | jq -r '.[].name' | xargs -I {} fly -t <target
 
 
 # run all jobs which have not run once
-fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "errored") | .name' | sort | xargs -I {} fly -t <target> tj -j <pipeline>/{}
+fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "errored") | .name' | sort | xargs -L 1 -P 0 fly -t <target> tj -j <pipeline>/{}
 
 # run a one off task
 fly -t <target> execute -c <config_yaml>
 
+# abort all next pending builds of a pipeline
+fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.next_build.status == "pending") | ("-j " + .pipeline_name + "/" + .name + " -b " + .next_build.name)' | xargs -L 1 -P 0 fly -t <target> abort-build
 
-# abort all pending builds of a pipeline
-fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.next_build.status == "pending") | ("-j " + .pipeline_name + "/" + .name + " -b " + .next_build.name)' | xargs fly -t <target> abort-build
+# abort all pending builds
+fly -t intranet builds --json | jq -r '.[] | select(.status == "pending") | ("-j " + .pipeline_name + "/" + .job_name + " -b " + .name)' | xargs -L 1 -P 0 fly -t intranet abort-build
 
 
 $ target:   fly targets --- --column 1
 $ team:     fly -t "$target" teams --json | jq -r '.[].name'
 $ job:      fly -t "$target" jobs --pipeline "$pipeline" --json | jq -r '.[].name'
 $ build:    fly -t "$target" builds --job="${pipeline}/${job}" --json | jq -r '.[].name'
-$ job_build:    fly -t "$target" builds --pipeline "$pipeline" --json | jq -r '.[] | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + "/" + .name + " " + .status)' --- --column 1 --delimiter ' '
+$ job_build:    fly -t "$target" builds --pipeline "<pipeline>" --json | jq -r '.[] | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + "/" + .name + " " + .status)' --- --column 1 --delimiter ' '
 $ resource: fly -t "$target" resources --pipeline "$pipeline" --json | jq -r '.[].name'
 $ version:  fly -t "$target" resource-versions --resource="${pipeline}/${resource}" --json | jq -r '.[].id'
 $ pipeline: fly -t "$target" pipelines --json | jq -r '.[].name'
