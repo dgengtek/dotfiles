@@ -146,7 +146,8 @@ fly -t <target> pipelines --json | jq -r '.[].name' | xargs -I {} fly -t <target
 
 
 # run all jobs which have not run once
-fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "errored") | .name' | sort | xargs -L 1 -P 0 fly -t <target> tj -j <pipeline>/{}
+fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "errored" or .finished_build.status == "aborted") | .name' | sort | xargs -L 1 -P 0 fly -t <target> tj -j <pipeline>/{}
+
 
 # run a one off task
 fly -t <target> execute -c <config_yaml>
