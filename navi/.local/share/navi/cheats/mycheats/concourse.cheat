@@ -152,8 +152,18 @@ fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build 
 # run a one off task
 fly -t <target> execute -c <config_yaml>
 
+
+# get all pending builds
+fly -t <target> jobs --json | jq -r '.[] | select(.next_build.status == "pending") | ("-j " + .pipeline_name + "/" + .name + " -b " + .next_build.name)'
+
+
+# get all failed jobs
+fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "errored" or .finished_build.status == "aborted") | .name' | sort
+
+
 # abort all next pending builds of a pipeline
 fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.next_build.status == "pending") | ("-j " + .pipeline_name + "/" + .name + " -b " + .next_build.name)' | xargs -L 1 -P 0 fly -t <target> abort-build
+
 
 # abort all pending builds
 fly -t intranet builds --json | jq -r '.[] | select(.status == "pending") | ("-j " + .pipeline_name + "/" + .job_name + " -b " + .name)' | xargs -L 1 -P 0 fly -t intranet abort-build
