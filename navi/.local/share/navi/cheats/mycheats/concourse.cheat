@@ -154,7 +154,7 @@ fly -t <target> execute -c <config_yaml>
 
 
 # get all pending builds
-fly -t <target> jobs --json | jq -r '.[] | select(.next_build.status == "pending") | ("-j " + .pipeline_name + "/" + .name + " -b " + .next_build.name)'
+fly -t <target> builds --json | jq -r '.[] | select(.status == "pending") | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + "/" + .name + " " + .status + " " + .team_name + " " + .start_time + " " + .end_time)'
 
 
 # get all failed jobs
@@ -166,7 +166,15 @@ fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.next_build.stat
 
 
 # abort all pending builds
-fly -t intranet builds --json | jq -r '.[] | select(.status == "pending") | ("-j " + .pipeline_name + "/" + .job_name + " -b " + .name)' | xargs -L 1 -P 0 fly -t intranet abort-build
+fly -t <target> builds --json | jq -r '.[] | select(.status == "pending") | ("-j " + .pipeline_name + "/" + .job_name + " -b " + .name)' | xargs -L 1 -P 0 fly -t <target> abort-build
+
+
+# check resources of all failed jobs
+fly -t <target> resources -p <pipeline> --json | jq -r '.[] | select(.build.status == "failed" or .build == null) | (.pipeline_name + "/" + .name)' | xargs -L 1 -P 0 fly -t <target> check-resource --resource
+
+
+# get logs of jobs with finished build state
+fly --target intranet jobs --pipeline create-pipelines --json | jq -r '.[] | select(.finished_build.status == "<build_state>") | .finished_build.id' | sort | xargs -L 1 fly -t <target> watch -b
 
 
 $ target:   fly targets --- --column 1
@@ -179,3 +187,4 @@ $ version:  fly -t "$target" resource-versions --resource="${pipeline}/${resourc
 $ pipeline: fly -t "$target" pipelines --json | jq -r '.[].name'
 $ worker: fly -t "$target" workers --json | jq -r '.[].name'
 $ config_yaml: fd --type f '.*\.(yaml|yml)$'
+$ build_state: echo -n 'errored,failed,aborted,pending' | tr ',' '\n'
