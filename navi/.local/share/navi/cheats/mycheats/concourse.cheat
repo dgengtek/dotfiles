@@ -97,11 +97,11 @@ fly --target <target> builds --job=<pipeline>/<job> --count=<amount>
 fly --target <target> hijack --job=<pipeline>/<job> --build <build>
 
 
-# Watch the log output from a running job
-fly --target <target> watch --job=<pipeline>/<job> --build <build>
+# Watch the log output from the last build of a job
+fly --target <target> watch --job=<pipeline>/<job>
 
 
-# Watch the log output from a build of a pipeline
+# Watch the log output from a build of a pipeline job
 fly --target <target> watch --build <job_build>
 
 
@@ -172,9 +172,8 @@ fly -t <target> builds --json | jq -r '.[] | select(.status == "pending") | ("-j
 # check resources of all failed jobs
 fly -t <target> resources -p <pipeline> --json | jq -r '.[] | select(.build.status == "failed" or .build == null) | (.pipeline_name + "/" + .name)' | xargs -L 1 -P 0 fly -t <target> check-resource --resource
 
-
-# get logs of jobs with finished build state
-fly --target intranet jobs --pipeline create-pipelines --json | jq -r '.[] | select(.finished_build.status == "<build_state>") | .finished_build.id' | sort | xargs -L 1 fly -t <target> watch -b
+# get logs of all jobs with finished build state
+fly --target <target> jobs --pipeline <pipeline> --json | jq -r '.[] | select(.finished_build.status == "<build_state>") | .finished_build.id' | sort | xargs -L 1 fly -t <target> watch -b
 
 
 $ target:   fly targets --- --column 1
