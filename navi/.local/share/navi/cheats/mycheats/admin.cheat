@@ -112,6 +112,9 @@ encrypt.py
 # export a prompted password
 export <NAME>=$(systemd-ask-password -n)
 
+# generate a single random password
+pwgen.py -c 1 <length>
+
 
 % certificate
 

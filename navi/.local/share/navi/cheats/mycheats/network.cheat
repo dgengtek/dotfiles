@@ -91,6 +91,10 @@ ping -M do -s <packetsize> <destination>
 # output to stdout for wireshark
 sudo tcpdump -i any -s 0 -U -w - | wireshark -k -i -
 
+
+# get tcpdump over netcat
+nc -l 22233 | wireshark -k -i -
+
 # dnsmasq dhcp server with boot
 dnsmasq --no-daemon --keep-in-foreground --log-queries --interface=enlan --bind-interfaces --dhcp-range=10.0.41.2,10.0.41.254,1h --dhcp-boot
 
