@@ -173,6 +173,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'stephpy/vim-yaml'
   Plug 'lervag/wiki.vim'
   Plug 'NoahTheDuke/vim-just'
+  Plug 'unblevable/quick-scope'
 
 " Initialize plugin system
 call plug#end()
@@ -189,6 +190,12 @@ if &diff
   highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
   highlight DiffText cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 endif 
+
+" quick-scope
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" disable on long lines
+let g:qs_max_chars=89
 
 " ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
