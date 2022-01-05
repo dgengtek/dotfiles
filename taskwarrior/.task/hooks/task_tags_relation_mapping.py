@@ -98,7 +98,13 @@ tag_relations = {
             "linux",
             "identity",
             "storage",
-            },
+        },
+        "helm": {
+            "kubernetes",
+            "devops",
+            "linux",
+            "admin",
+        },
         "kubernetes": {
             "cluster",
             "k8",
