@@ -4,6 +4,20 @@ if ! hash fzf 2>&1 | logger -t bashrc -p user.info; then
   return 1
 fi
 
+
+_widget_history_append() {
+  # from __fzf_history__
+  local output;
+  output=$(
+  builtin fc -lnr -2147483648 |
+    last_hist=$(HISTTIMEFORMAT='' builtin history 1) perl -n -l0 -e 'BEGIN { getc; $/ = "\n\t"; $HISTCMD = $ENV{last_hist} + 1 } s/^[ *]//; print $HISTCMD - $. . "\t$_" if !$seen{$_}++' |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS +m --read0" $(__fzfcmd) --query "$READLINE_LINE"
+  ) || return;
+  READLINE_LINE="${READLINE_LINE}${output#*$'\t'}"
+}
+bind -x '"\eh": _widget_history_append'
+
+
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }

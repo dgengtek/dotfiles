@@ -82,6 +82,12 @@ $ filesystem: mount -l | egrep 'type ext(2|3|4)' --- --column 1 --delimiter ' '
 
 % machine, host
 
+# set new http_proxy vars
+http_proxy="<http_proxy>"; export http_proxy; export https_proxy=$http_proxy
+
+# set new no_proxy vars
+export no_proxy="<no_proxy>"
+
 # print system information
 uname -a
 
@@ -114,6 +120,9 @@ export <NAME>=$(systemd-ask-password -n)
 
 # generate a single random password
 pwgen.py -c 1 <length>
+
+# copy a password to clipboard
+pwgen.py -a -c 1 32 | xclip -selection c; sleep 15 && echo -n "cleared pw" | xclip -selection c
 
 
 % certificate
@@ -173,3 +182,6 @@ $ randint: python -c "from random import randint;print(randint(<a>,<b>), end='')
 
 # remotely unseal vault
 pass=$(systemd-ask-password -n); sudo salt -I "tags:vault" cmd.run "vault operator unseal $pass" python_shell=True
+
+# unseal vault in k8
+pass=$(systemd-ask-password -n); for i in $(seq 0 2); do kubectl -n ops exec vault-$i -- vault operator unseal $pass; done

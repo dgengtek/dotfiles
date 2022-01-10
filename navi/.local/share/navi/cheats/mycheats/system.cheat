@@ -1,7 +1,7 @@
 % system
 
 # Copy environment variable to clipboard
-echo "<env_var_value>" | xclip
+echo "<env_var_value>" | xclip -selection c
 
 # List path available commands
 which "<cmd>"

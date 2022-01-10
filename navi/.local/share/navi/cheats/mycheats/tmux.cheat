@@ -44,6 +44,12 @@ tmux choose-buffer
 # delete buffer
 tmux delete-buffer -b <buffer>
 
+# pipe to tmux buffer, clip output
+tmux loadb -
+
+# print clipped, saved output
+tmux saveb -
+
 # Save the contents of the specified paste buffer to path
 tmux save-buffer -b <buffer> <path>
 

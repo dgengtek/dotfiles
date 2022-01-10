@@ -20,5 +20,11 @@ daemon:
     pomodoro: 1
     q: 1
 shared:
+  pueue_directory: /home/intranet.dgeng.eu/dgeng/.local/share/pueue
+  use_unix_socket: true
+  unix_socket_path: /home/intranet.dgeng.eu/dgeng/.local/share/pueue/pueue_dgeng.socket
   host: 127.0.0.1
   port: "6924"
+  daemon_cert: /home/intranet.dgeng.eu/dgeng/.local/share/pueue/certs/daemon.cert
+  daemon_key: /home/intranet.dgeng.eu/dgeng/.local/share/pueue/certs/daemon.key
+  shared_secret_path: /home/intranet.dgeng.eu/dgeng/.local/share/pueue/shared_secret

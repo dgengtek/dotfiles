@@ -247,11 +247,20 @@ git check-ignore *
 # how many commits behind is the branch compared to the selected branch2?
 git rev-list --count <branch>..<branch2>
 
+# checkout a specific commit
+git checkout <commit>
 
+# get a specific commit
+<commit>
+
+# get pretty oneline custom log entries
+git log --pretty=format:'%Cred%H%Creset -%C(yellow)%d%Creset %s %Cgreen(%cI) %C(bold blue)<%an, %ae>%Creset'
+
+
+$ commit: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --column 0 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
 $ folder: fd --type d
 $ file: fd --type f
 $ deleted_file: git log --all --pretty=format: --name-only --diff-filter=D
-$ commit: git log -40 --oneline --- --column 0
 $ active_branch: git rev-parse --abbrev-ref HEAD
 $ branch: git branch --format "%(refname:lstrip=2)"
 $ branch_any: git for-each-ref --format "%(refname)"
