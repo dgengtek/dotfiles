@@ -1,0 +1,11 @@
+% prometheus
+
+# get firing alerts
+curl \
+  --data-urlencode 'query=ALERTS{alertstate="firing"}' \
+  -s "<prometheus_url>" \
+    | jq -r '.data.result[].metric | [(.alertstate, .severity, .alertname, .instance)] | join(" ")'
+
+
+$ prometheus_host: echo "${PROMETHEUS_HOST:-prometheus}"
+$ prometheus_url: echo "${PROMETHEUS_URL:-<prometheus_host>/api/v1/query}"

@@ -108,3 +108,15 @@ sudo docker-compose down
 
 # Prevent all containers from autostarting on boot
 sudo docker update --restart=no $(sudo docker ps -a -q)
+
+
+% docker, registry
+
+# set docker username, password and url
+export DOCKER_URL="<url>" DOCKER_USERNAME="<username>" DOCKER_PASSWORD="$(systemd-ask-password -n)" 
+
+# get catalog
+curl \
+  --user "${DOCKER_PASSWORD:?required}:${DOCKER_PASSWORD:?required}" \
+  -X GET  \
+  "${DOCKER_URL}/v2/_catalog"

@@ -1,0 +1,13 @@
+% gitea
+
+# admin management script
+giteacli.py
+
+# add a collaborator to all repositories
+while read line; do 
+  repo=${line#*/}
+  owner=${line%/*}
+  giteacli.py \
+    repos add collaborator \
+    "$owner" "$repo" <collaborator> write
+done < <(giteacli.py user list repos)

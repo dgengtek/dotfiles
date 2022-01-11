@@ -164,6 +164,9 @@ hash /usr/bin/sensors && watch -n 1 /usr/bin/sensors
 # pull key archive from data storage
 keyfiles_suffix=("gpg" "gpg.par2.tar" "gpg.sha256"); version="<keystorage_version>"; for file in "${keyfiles_suffix[@]}"; do mc cp "data/archive/keystorage_${version}.tar.gz.${file}" .; done
 
+# manage pki environment
+pki_manage.sh
+
 $ keystorage_version: mc ls --json data/archive | jq -r .key | sd '^keystorage_(\d+\.\d+\.\d+).*' '$1' | sort | uniq
 
 

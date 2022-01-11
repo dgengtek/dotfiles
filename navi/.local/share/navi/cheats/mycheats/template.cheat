@@ -21,6 +21,22 @@
 # test11
 echo <envvars_tmux>
 
+# select a bookmarked directory
+<fsbookmark>
+
+# select a relative directory or bookmarked directory
+<directory>
+
+# select a yaml file
+<compgen_file_yaml>
+
+# select a json file
+<compgen_file_json>
+
+# get common filesystem path excludes
+<excludes>
+
+
 $ path: echo -e './\n'
 $ compgen_file_cwd: fd --absolute-path --type f --follow --exclude ".git" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 $ compgen_file: fd --type f --follow --exclude ".git" . "<path>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'

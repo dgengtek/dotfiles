@@ -256,6 +256,12 @@ git checkout <commit>
 # get pretty oneline custom log entries
 git log --pretty=format:'%Cred%H%Creset -%C(yellow)%d%Creset %s %Cgreen(%cI) %C(bold blue)<%an, %ae>%Creset'
 
+# update with new repository origin
+git remote rm <remote>
+git remote add <new_remote> <new_repository_url>
+git pull --all
+git push --mirror -u
+
 
 $ commit: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --column 0 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
 $ folder: fd --type d
