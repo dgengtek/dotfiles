@@ -147,6 +147,9 @@ sudo salt-key --out json -L | jq -r '.minions_denied[]' | xargs -I {} sudo salt-
 # generic pillar for upgrading hosts by tag
 <orch_pillar_upgrade_tags_json>
 
+# get list of hosts from an orchestration config
+$(yamltojson.py <compgen_file_yaml> | jq -r '.orch.targets | join(",")')
+
 
 $ file_tags_of_hosts: echo "$HOME/tmp_tags_of_hosts.json"
 $ tags_of_hosts: test -f <file_tags_of_hosts> && [[ "$(find <file_tags_of_hosts> -mtime -1)" ]] || sudo salt-run --out=json netbox.list_tags_of_hosts > <file_tags_of_hosts>_tmp; test -s <file_tags_of_hosts>_tmp && mv <file_tags_of_hosts>{_tmp,}; echo <file_tags_of_hosts>

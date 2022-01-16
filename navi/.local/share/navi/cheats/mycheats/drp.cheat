@@ -1,4 +1,25 @@
 % drp
 
-# parse machines list into lines
+# parse machines list into lines from saltstack json output
 jq -r '.mimas | fromjson | .[] | [.Name, " ", .Arch, " ", .Address, " ", (.HardwareAddrs | join(" ")), " ", .Uuid] | join(" ")'
+
+# get detailed machines output per line
+jq -r '.[] | ([.Uuid, .Address, (.HardwareAddrs|join(",")), ("workflow="+.Workflow + "<=>" + (.WorkflowComplete|tostring)), ("stage=" +.Stage), ("bootenv="+.BootEnv), ("job="+.CurrentJob), ("task="+(.CurrentTask|tostring)) ] | join(" "))'
+
+# smaller machines output
+jq '.[] | del(.Params)'
+
+# show per line workflows
+jq -r '.[] | [.Name, "stages="+(.Stages|join(","))] | join(" ")'
+
+# get bootenvs per line
+jq -r '.[] | [.Name, ("available="+(.Available|tostring)), .Description] | join(" ")'
+
+# get machine object
+jq -cn --arg machine_name $(echo -n 'd<mac>.<domain>' | tr ':' '-') '{HardwareAddrs: ["<mac>"], Name: $machine_name}'
+
+# export drp url
+export RS_ENDPOINT=https://<hostname>:8092
+
+# run drpcli
+sudo docker run --rm -it --entrypoint drpcli digitalrebar/provision:v4.6.5 machines list
