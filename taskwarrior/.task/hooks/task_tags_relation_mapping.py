@@ -48,6 +48,7 @@ tag_alias_map = [
         {"doc", "documentation", "dokumentation"},
         {"milestone", "target"},
         {"cs", "compsci"},
+        {"decide", "decision", "entscheidung", "beschluss", "entscheid"},
         {"math", "mathematics", "mathe"},
         {"phy", "physics", "physik"},
         {"graph", "graphtheory", "graphentheorie"},
