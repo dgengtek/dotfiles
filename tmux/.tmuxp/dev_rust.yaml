@@ -1,0 +1,23 @@
+session_name: "dev rust - ${PWD}"
+start_directory: "${PWD}" # load session relative to config location (project root).
+windows:
+- window_name: sh
+  focus: True
+  layout: main-vertical
+  #options:
+  #  main-pane-height: 35
+  panes:
+  - shell_command:
+      - vim Cargo.toml
+    focus: true
+  - just wcheck
+- window_name: src
+  #layout: main-horizontal
+  start_directory: src/
+  panes:
+  - vim main.rs
+- window_name: tests
+  #layout: main-horizontal
+  start_directory: tests/
+  panes:
+  - just wtest

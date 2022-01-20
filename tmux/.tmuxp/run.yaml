@@ -1,0 +1,15 @@
+session_name: run
+start_directory: ~/
+windows:
+  - window_name: pomodoro
+    layout: even-horizontal
+    panes:
+      - shell_command:
+        - unset HISTFILE
+  - window_name: run
+    layout: even-vertical
+    panes:
+      - shell_command:
+        - unset HISTFILE
+        - watch "pueue status --json | jq -r '.tasks | .[] | select(.status? == \"Running\" or .status? == \"Queued\") | [(.id, .command, .group)] | join(\" \")'"
+      - null

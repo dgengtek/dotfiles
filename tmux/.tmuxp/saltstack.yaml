@@ -1,0 +1,31 @@
+session_name: saltstack-dev
+start_directory: "${HOME}/mnt/bigx/salt"
+windows:
+  - window_name: browse
+    focus: true
+    panes:
+      - shell_command:
+          - tree -C -L 1
+  - window_name: pillars-dev
+    layout: even-horizontal
+    start_directory: pillar/pillar
+    panes:
+      - shell_command:
+        - vim top.sls
+  - window_name: top-dev
+    start_directory: top
+    layout: even-horizontal
+    panes:
+      - shell_command:
+        - vim top/top.sls
+  - window_name: cookie
+    start_directory: formulas
+    layout: even-horizontal
+    panes:
+      - source ~/.local/venv/cookiecutter/bin/activate
+  - window_name: stack
+    start_directory: pillar-stack
+    layout: even-horizontal
+    panes:
+      - shell_command:
+          - tree -C -L 1

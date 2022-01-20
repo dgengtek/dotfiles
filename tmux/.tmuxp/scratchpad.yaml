@@ -1,0 +1,34 @@
+session_name: "scratchpad"
+start_directory: "${HOME}" # load session relative to config location (project root).
+windows:
+- window_name: scratch
+  layout: even-horizontal
+  panes:
+    - shell_command:
+        - vim
+      focus: True
+    - shell_command:
+      - jrnl
+- window_name: mutt
+  focus: True
+  #layout: main-horizontal
+  panes:
+    - shell_command:
+        - "mkdir /tmp/startup_gpg2_lock \
+        && read \
+        && retry.sh \"mount_dmcrypt_image.sh /mnt/nfs/homes/dgeng/private.img ${HOME}/mnt/private\" \
+        && gpg-connect-agent updatestartuptty /bye \
+        && rmdir /tmp/startup_gpg2_lock \
+        && mutt"
+- window_name: 'music'
+  layout: even-vertical
+  panes:
+    - shell_command:
+      - "while ! test -d '/mnt/nfs/homes/dgeng/music/downloaded/unsorted'; do sleep 1; done \
+        && command cd /mnt/nfs/homes/dgeng/music/downloaded/unsorted \
+        && systemctl --user restart mpd mpd-mpris mpris-proxy \
+        && mpc"
+    - shell_command:
+      - "while ! test -d '/mnt/nfs/homes/dgeng/music/'; do sleep 1; done \
+        && command cd /mnt/nfs/homes/dgeng/music/ \
+        && f.sh"

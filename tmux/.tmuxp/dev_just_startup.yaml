@@ -1,0 +1,21 @@
+session_name: "dev - ${PWD}"
+start_directory: "${PWD}" # load session relative to config location (project root).
+windows:
+- window_name: sh
+  focus: True
+  layout: main-vertical
+  #options:
+  #  main-pane-height: 35
+  panes:
+  - focus: true
+  - just test
+- window_name: src
+  #layout: main-horizontal
+  start_directory: src/
+  panes:
+  - null
+- window_name: tests
+  #layout: main-horizontal
+  start_directory: tests/
+  panes:
+  - null

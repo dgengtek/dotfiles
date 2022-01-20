@@ -1,0 +1,11 @@
+session_name: "ci"
+start_directory: "${PWD}" # load session relative to config location (project root).
+windows:
+- window_name: concourse
+  focus: True
+  #layout: main-horizontal
+  panes:
+      # use for init other window
+    - shell_command:
+        - "fly -t intranet login && watch fly -t intranet builds"
+      focus: True

@@ -1,0 +1,13 @@
+session_name: test
+start_directory: /tmp
+windows:
+  - window_name: browse
+    layout: even-horizontal
+    focus: true
+    panes:
+      - shell_command:
+          - tree -C -L 1
+  - window_name: editing-roles
+    layout: even-horizontal
+    panes:
+      - null
