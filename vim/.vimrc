@@ -174,6 +174,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'lervag/wiki.vim'
   Plug 'NoahTheDuke/vim-just'
   Plug 'unblevable/quick-scope'
+  Plug 'ActivityWatch/aw-watcher-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -249,7 +250,7 @@ let g:vimwiki_list = [wiki_1, wiki_2]
 
 " wiki
 let g:wiki_root = '~/wiki'
-let g:wiki_link_target_type = 'adoc'
+let g:wiki_link_target_type = 'adoc_xref_bracket'
 let g:wiki_link_extension = '.adoc'
 let g:wiki_filetypes = ['adoc']
 let g:wiki_mappings_use_defaults = 'local'
