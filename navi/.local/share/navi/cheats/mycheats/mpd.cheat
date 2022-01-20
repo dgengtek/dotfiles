@@ -1,7 +1,7 @@
 # add current song to favorite playlist
-echo '<current_song>' >> <fav_playlist>
+mpc current -f '%file%' >> <fav_playlist>
 
 $ current_song: mpc current -f '%file%'
-$ path_playlist: awk '/playlist_directory/ {gsub("\"", "", $2); print $2}' .mpd/mpd.conf
+$ path_playlist: awk '/playlist_directory/ {gsub("\"", "", $2); print $2}' $HOME/.mpd/mpd.conf
 $ playlist: fd -t f '\.m3u$' <path_playlist>
 $ fav_playlist: fd -t f 'fav.*\.m3u$' <path_playlist>
