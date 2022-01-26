@@ -135,6 +135,12 @@ kubectl get rs -l <label> --sort-by={'.metadata.creationTimestamp'} -o name | se
 # get object with namespace
 kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
 
+# get pv volumeName storage details from pvc
+kubectl describe $(kubectl get <pvc> -o go-template='{{.spec.volumeName}}'); kubectl describe pv "$volume_name"
+
+# get pv location from a persistentvolumeclaim claimref
+kubectl get pv -o json | jq -r '.items[] | select(.spec.claimRef) | (.metadata.name + " " + .spec.storageClassName + " " + .spec.capacity.storage + " " + (.spec.nodeAffinity.required.nodeSelectorTerms[].matchExpressions[].values[])? + " " + .spec.claimRef.namespace + " " + .spec.claimRef.name + " " + (if .spec.local? then (.spec.local.fsType + " " + .spec.local.path) elif .spec.nfs? then (.spec.nfs.server + ":" + .spec.nfs.path) else "" end))'
+
 # save secret in variable
 <variable_name>=$(kubectl get <secrets_object> --template={{.data}})
 
@@ -173,5 +179,6 @@ $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " 
 $ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
 $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
 
-$ pod: kubectl get pods -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
+$ pod: kubectl get pods -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
+$ pvc: kubectl get pvc -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
 $ secrets_object: kubectl get secrets -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
