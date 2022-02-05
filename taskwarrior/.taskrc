@@ -36,7 +36,7 @@ include /usr/share/doc/task/rc/dark-violets-256.theme
 uda.state.label=State
 uda.state.type=string
 # pending: still needs to be fleshed(temporary IN tray) out and defined properly as nextaction, project, maybe
-uda.state.values=maybe,await,pending,nextaction,proj # it does not like project, wait
+uda.state.values=maybe,await,pending,nextaction,doing,proj # it does not like project, wait
 uda.state.default=pending
 uda.state.description="Category list the task is in. In-tray is the physical compartment. Only processed items are entered to this program. Can only be in one. await someone or something, pending is process, maybe is for projects you do not intend to work on this week and can be reviewed on the weekly review to refocus, nextaction is the very next physical action required to move the situation forward, project is used to track the project description and its dependencies"
 
@@ -61,11 +61,11 @@ uda.context.description="Context in which the action can be completed."
 
 
 # energy
-uda.context.label=Energy
-uda.context.type=string
-uda.context.values=mental,creative,physical,little,mundane
-uda.context.default=mental
-uda.context.description="What kind of energy is required for this task? Little to none of either? Mundane, repetetive, no thought, attention required?"
+uda.energy.label=Energy
+uda.energy.type=string
+uda.energy.values=mental,creative,physical,little,mundane
+uda.energy.default=mental
+uda.energy.description="What kind of energy is required for this task? Little to none of either? Mundane, repetetive, no thought, attention required?"
 
 ##
 # priorities
