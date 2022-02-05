@@ -58,6 +58,7 @@ tag_alias_map = [
         {"ci", "continuous_integration"},
         {"cd", "continuous_deployment"},
         {"compsci", "informatik", "cs"},
+        {"bug", "fehler"},
         {"calculus", "calc", "analysis"},
         {"exam", "prüfung", "klausur"},
         {"uni", "university", "fachhochschule"},
