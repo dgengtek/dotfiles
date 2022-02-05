@@ -188,3 +188,9 @@ pass=$(systemd-ask-password -n); sudo salt -I "tags:vault" cmd.run "vault operat
 
 # unseal vault in k8
 pass=$(systemd-ask-password -n); for i in $(seq 0 2); do kubectl -n ops exec vault-$i -- vault operator unseal $pass; done
+
+
+% virtualization
+
+# is nested virtualization supported?
+cat /sys/module/kvm_intel/parameters/nested /sys/module/kvm_amd/parameters/nested
