@@ -194,3 +194,9 @@ pass=$(systemd-ask-password -n); for i in $(seq 0 2); do kubectl -n ops exec vau
 
 # is nested virtualization supported?
 cat /sys/module/kvm_intel/parameters/nested /sys/module/kvm_amd/parameters/nested
+
+
+% debug
+
+# get list of deleted files in use
+lsof -nP | rg '(deleted)'
