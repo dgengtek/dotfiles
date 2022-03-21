@@ -68,6 +68,7 @@ set ruler  " Show ruler
 
 " disable mouse
 set mouse=
+set ttymouse=
 " hide mouse when typing
 "set mousehide  
 
