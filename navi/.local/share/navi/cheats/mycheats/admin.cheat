@@ -58,6 +58,12 @@ sudo tune2fs -l <filesystem> | egrep -i "mount count|Check interval|Last|Next"
 # dump filesystem information
 sudo dumpe2fs <filesystem>
 
+# get fsck frequency
+sudo dumpe2fs -h <filesystem> | grep -i 'mount count'
+
+# set fsck frequency on boot
+sudo tune2fs -c <count> <filesystem>
+
 # unmount filesystem
 sudo umount <mountpoint>
 
@@ -69,6 +75,13 @@ unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
 
 # mount blockdevice
 sudo mount <device>
+
+# get all mounted filesystems
+mount -l | egrep 'type ext(2|3|4)' | awk '{print $1}'
+
+# get last fsck for each mounted filesystem
+mount -l | egrep 'type ext(2|3|4)' | awk '{print $1}' | xargs -I {} bash -c 'echo -n "{} ==> "; sudo tune2fs -l {} | grep checked'
+
 
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ mountpoint: mount -l --- --column 3 --delimiter ' '
