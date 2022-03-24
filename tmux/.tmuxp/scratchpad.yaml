@@ -16,7 +16,7 @@ windows:
     - shell_command:
         - "mkdir /tmp/startup_gpg2_lock \
         && read \
-        && retry.sh \"mount_dmcrypt_image.sh /mnt/nfs/homes/dgeng/private.img ${HOME}/mnt/private\" \
+        && retry.sh \"mount_dmcrypt_image.sh /mnt/glusterfs/homes/${USER}/private.img ${HOME}/mnt/private\" \
         && gpg-connect-agent updatestartuptty /bye \
         && rmdir /tmp/startup_gpg2_lock \
         && mutt"
@@ -24,11 +24,11 @@ windows:
   layout: even-vertical
   panes:
     - shell_command:
-      - "while ! test -d '/mnt/nfs/homes/dgeng/music/downloaded/unsorted'; do sleep 1; done \
-        && command cd /mnt/nfs/homes/dgeng/music/downloaded/unsorted \
+      - "while ! test -d '/mnt/glusterfs/homes/${USER}/music/downloaded/unsorted'; do sleep 1; done \
+        && command cd /mnt/glusterfs/homes/${USER}/music/downloaded/unsorted \
         && systemctl --user restart mpd mpd-mpris mpris-proxy \
         && mpc"
     - shell_command:
-      - "while ! test -d '/mnt/nfs/homes/dgeng/music/'; do sleep 1; done \
-        && command cd /mnt/nfs/homes/dgeng/music/ \
+      - "while ! test -d '/mnt/glusterfs/homes/${USER}/music/'; do sleep 1; done \
+        && command cd /mnt/glusterfs/homes/${USER}/music/ \
         && f.sh"
