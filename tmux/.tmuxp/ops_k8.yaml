@@ -16,7 +16,6 @@ windows:
 - window_name: run
   #layout: main-horizontal
   focus: True
-  start_directory: tests/
   panes:
   - shell_command:
     - source ./.env
