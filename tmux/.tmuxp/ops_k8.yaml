@@ -1,0 +1,23 @@
+session_name: "ops k8"
+start_directory: "/mnt/hdd/bigX/workspace/ops-k8" # load session relative to config location (project root).
+# before_script: "pip3 install ./requirements/dev.txt"
+windows:
+- window_name: helmfiles
+  layout: main-vertical
+  #options:
+  #  main-pane-height: 35
+  panes:
+  - vim -O helmfile.d/helmfile.yaml values.yaml
+- window_name: values
+  #layout: main-horizontal
+  start_directory: values
+  panes:
+  - tree
+- window_name: run
+  #layout: main-horizontal
+  focus: True
+  start_directory: tests/
+  panes:
+  - shell_command:
+    - source ./.env
+    - kubectl get nodes
