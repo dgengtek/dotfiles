@@ -54,6 +54,9 @@ kubectl get nodes --show-labels -o wide
 # Get namespaces
 kubectl get namespaces
 
+# get all crds
+kubectl get crds -o json | jq -r .items[].metadata.name
+
 # Get pods from namespace (add option '-o wide' for details)
 kubectl get pods -n <namespace>
 
