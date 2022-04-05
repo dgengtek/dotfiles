@@ -154,7 +154,7 @@ fly -t <target> execute -c <config_yaml>
 
 
 # get all builds in specific state
-fly -t "<target>" builds --count=<build_count> --json | jq -r '.[] | select(.status == "<build_state>") | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + "/" + .name + " " + .status + " " + (.start_time? | todate) + " " + (if .end_time == null then .end_time else (.end_time | todate) end))'
+fly -t "<target>" builds --count=<build_count> --json | jq -r '.[] | select(.status == "<build_state>") | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + "/" + .name + " " + .status + " " + (if .start_time == null then .start_time else (.start_time | todate) end) + " " + (if .end_time == null then .end_time else (.end_time | todate) end))'
 
 
 # get all failed jobs
