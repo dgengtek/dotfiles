@@ -116,7 +116,6 @@ watch_until() {
   done
 }
 alias watchu=watch_until
-alias loopu=watch_until
 
 
 watch_time() {
@@ -139,7 +138,6 @@ watch_while() {
   done
 }
 alias watchw=watch_while
-alias loop=watch_while
 
 
 chmod_def() {

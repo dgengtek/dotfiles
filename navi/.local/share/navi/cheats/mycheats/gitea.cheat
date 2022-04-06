@@ -3,11 +3,18 @@
 # admin management script
 giteacli.py
 
-# add a collaborator to all repositories
+# add a collaborator to all repositories the currently authenticated user has access to
 while read line; do 
   repo=${line#*/}
   owner=${line%/*}
   giteacli.py \
     repos add collaborator \
     "$owner" "$repo" <collaborator> write
-done < <(giteacli.py user list repos)
+done < <(giteacli.py user repos)
+
+
+# add collaborator to repos owned by a user
+owner=<owner>; while read name; do giteacli.py     repos add collaborator     "$owner" "$name" ci write; done < <(giteacli.py users repos "$owner" --json | jq -r .[].name)
+
+# add collaborator to repos owned by an org
+org=<organization>; while read name; do giteacli.py     repos add collaborator     "$org" "$name" ci write; done < <(giteacli.py repos list "$org" | jq -r .[].name)
