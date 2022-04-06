@@ -14,7 +14,7 @@ done < <(giteacli.py user repos)
 
 
 # add collaborator to repos owned by a user
-owner=<owner>; while read name; do giteacli.py     repos add collaborator     "$owner" "$name" ci write; done < <(giteacli.py users repos "$owner" --json | jq -r .[].name)
+owner=<owner>; while read name; do giteacli.py     repos add collaborator     "$owner" "$name" <collaborator> write; done < <(giteacli.py users repos "$owner" --json | jq -r .[].name)
 
 # add collaborator to repos owned by an org
-org=<organization>; while read name; do giteacli.py     repos add collaborator     "$org" "$name" ci write; done < <(giteacli.py repos list "$org" | jq -r .[].name)
+org=<organization>; while read name; do giteacli.py     repos add collaborator     "$org" "$name" <collaborator> write; done < <(giteacli.py repos list "$org" | jq -r .[].name)
