@@ -66,6 +66,9 @@ systemctl --type target
 # List running services
 systemctl list-units --type=service --state=running
 
+# list active targets
+systemctl list-units --type target --state active
+
 # List enabled services
 systemctl list-unit-files --type=service --state=enabled
 
