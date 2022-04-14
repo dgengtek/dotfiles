@@ -47,6 +47,12 @@ git push -f origin master
 # rebase on top of remote master
 git rebase origin/master
 
+# check if tag contains a commit
+git tag --contains <commit>
+
+# check if branch contains a commit
+git branch --contains <commit>
+
 # Merge upstream master into local/origin master (use if people clone your repository)
 git fetch <remote_name>
 git checkout master
@@ -180,6 +186,9 @@ git for-each-ref --format='delete %(refname)' refs/original \
   | git update-ref --stdin
 git reflog expire --expire=now --all
 git gc --prune=now
+
+# show full hash history
+git reflog --no-abbrev
 
 # set remote origin from current environment to the repository basename
 git_init_remote_origin.sh -b
