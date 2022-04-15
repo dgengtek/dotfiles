@@ -10,6 +10,9 @@ fd --size +1b --type f --exec-batch vim -R {} \;
 # run vim without any config
 vim -u NONE
 
+# prepend
+sed "1s;^;${some_var}\n;"
+
 # remove all spaces from string
 sed '/^$/d;G'
 
