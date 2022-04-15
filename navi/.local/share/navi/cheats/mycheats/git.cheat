@@ -53,6 +53,9 @@ git tag --contains <commit>
 # check if branch contains a commit
 git branch --contains <commit>
 
+# Apply the changes introduced by some existing commits
+git cherry-pick
+
 # Merge upstream master into local/origin master (use if people clone your repository)
 git fetch <remote_name>
 git checkout master
