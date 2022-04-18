@@ -8,9 +8,6 @@ sudo salt-run fileserver.update
 # get list of hosts from netbox
 sudo salt-run --out=json netbox.list_hosts | jq -r '.[]'
 
-# get list of hosts from netbox
-sudo salt-run --out=json netbox.list_hosts | jq -r '.[]'
-
 # convert flat inventory to saltstack roster
 jq 'to_entries | .[] | {(.value|tostring): {"host": .value}}' inventory | jq -r -s '. | add | tojson' | jsontoyaml.py
 
