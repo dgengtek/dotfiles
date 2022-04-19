@@ -67,6 +67,10 @@ ssh -4aCxkt \
   -o 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,hmac-sha1' \
   -o 'GatewayPorts no'
 
+
+# tar copy folder between hosts
+ssh <source_host> -- tar -czf - <source_path> | ssh <destination_host> -- tar -xzf - --directory <destination_path>
+
 $ user : echo -e "$(whoami)\nroot"
 $ sshkey : find ~/.ssh | grep -v known_hosts | grep -v config
 $ key: { fd --type f --exclude='known_hosts*' --exclude='config' . ~/.ssh; fd --type f --max-depth 1; }
