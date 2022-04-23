@@ -1,0 +1,4 @@
+% mdadm
+
+# get status of raid
+cat /proc/mdstat
