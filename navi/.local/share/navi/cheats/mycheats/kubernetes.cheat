@@ -168,7 +168,10 @@ jq '.items[].metadata.labels'
 # get all service node ports
 kubectl get svc --all-namespaces -o go-template='{{range .items}}{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{.}}{{"\n"}}{{end}}{{end}}{{end}}'
 
-# get all ports from a resource(statefulset, pods, deployment)
+# get all ports from pods
+kubectl get pods --all-namespaces -o go-template='{{range .items}}{{$meta:=.}}{{range .spec.containers}}{{range .ports}}{{$meta.metadata.namespace}}{{" "}}{{$meta.metadata.name}}{{" "}}{{.}}{{"\n"}}{{end}}{{end}}{{end}}'
+
+# get all ports from a resource template(statefulset, deployment)
 kubectl get <resource> --all-namespaces -o go-template='{{range .items}}{{$meta:=.}}{{range .spec.template.spec.containers}}{{range .ports}}{{$meta.metadata.namespace}}{{" "}}{{$meta.metadata.name}}{{" "}}{{.}}{{"\n"}}{{end}}{{end}}{{end}}'
 
 # sort by age
