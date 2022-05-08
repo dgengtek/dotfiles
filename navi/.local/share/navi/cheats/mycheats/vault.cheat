@@ -160,6 +160,25 @@ jq -nc --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_acces
 # get a vault token via ldap
 vault login -method=ldap username=$USER
 
+# lookup token metadata and id
+vault token lookup
+
+# lookup entity information about a user
+jq -nc '{ "id": "<entity_id>" }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/identity/lookup/entity
+
+# lookup entity information about a group
+jq -nc '{ "id": "<entity_id>" }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/identity/lookup/group
+
 # get a token via approle auth method
 jq -nc --arg secret_id "$(systemd-ask-password -n)" '{ "role_id": "<role_id>", "secret_id": $secret_id }' \
   | curl \
