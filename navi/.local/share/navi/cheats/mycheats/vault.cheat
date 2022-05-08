@@ -1,6 +1,6 @@
 % vault, pki
 # submit CA information for the backend via a PEM file containing the CA private key and its certificate concatenated
-jq -Rs '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>) | curl \
+jq -Rc '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>) | curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
   --request POST \
   --data @- \
@@ -8,7 +8,7 @@ jq -Rs '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>) | cur
 
 
 # generate a new certificate
-jq -ns '{ "common_name": "<common_name>", "ttl": "<ttl>" }' \
+jq -nc '{ "common_name": "<common_name>", "ttl": "<ttl>" }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -93,7 +93,7 @@ curl \
 
 
 # updates the roleid of an existing approle to a custom value
-jq -ns '{ "role_id": "<custom_role_id>" }' \
+jq -nc '{ "role_id": "<custom_role_id>" }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -102,10 +102,11 @@ jq -ns '{ "role_id": "<custom_role_id>" }' \
 
 
 # generates and issues a new secretid on an existing approle, secret_id_accessor for info, deleting
-jq -ns '{ "metadata": "<custom_metadata>" }' \
+jq -nc '{ "metadata": "<custom_metadata>" }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
+    --data @- \
     ${VAULT_ADDR}/v1/auth/approle/role/<approle>/secret-id
 
 
@@ -117,7 +118,7 @@ curl \
 
 
 # lookup approle secret id properties
-jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }' \
+jq -nc --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -126,7 +127,7 @@ jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }
 
 
 # destroy approle secret id
-jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }' \
+jq -nc --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -135,7 +136,7 @@ jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "secret_id": $secret_id }
 
 
 # lookup approle secret id accessor properties
-jq -ns --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_accessor": $secret_id_accessor }' \
+jq -nc --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_accessor": $secret_id_accessor }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -144,7 +145,7 @@ jq -ns --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_acces
 
 
 # destroy an approle secret id by its accessor
-jq -ns --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_accessor": $secret_id_accessor }' \
+jq -nc --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_accessor": $secret_id_accessor }' \
   | curl \
     --header "X-Vault-Token: ${VAULT_TOKEN}" \
     --request POST \
@@ -160,7 +161,7 @@ jq -ns --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_acces
 vault login -method=ldap username=$USER
 
 # get a token via approle auth method
-jq -ns --arg secret_id "$(systemd-ask-password -n)" '{ "role_id": "<role_id>", "secret_id": $secret_id }' \
+jq -nc --arg secret_id "$(systemd-ask-password -n)" '{ "role_id": "<role_id>", "secret_id": $secret_id }' \
   | curl \
     --request POST \
     --data @- \
