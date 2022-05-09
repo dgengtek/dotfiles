@@ -11,3 +11,19 @@ consul catalog nodes
 
 # Lists all known datacenters
 consul catalog datacenters
+
+# get a session id for acquiring locks
+curl \
+  -X PUT -d '{"Name": "<session_name>"}' \
+  --header "X-Consul-Token: ${CONSUL_HTTP_TOKEN}" \
+  ${CONSUL_HTTP_ADDR}/v1/session/create
+
+# delete session
+curl \
+  --header "X-Consul-Token: ${CONSUL_HTTP_TOKEN}" \
+  ${CONSUL_HTTP_ADDR}/v1/session/destroy/<session_uuid>
+
+# list sessions
+curl \
+  --header "X-Consul-Token: ${CONSUL_HTTP_TOKEN}" \
+  ${CONSUL_HTTP_ADDR}/v1/session/list
