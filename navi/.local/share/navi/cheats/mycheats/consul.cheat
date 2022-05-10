@@ -20,6 +20,7 @@ curl \
 
 # delete session
 curl \
+  -X PUT \
   --header "X-Consul-Token: ${CONSUL_HTTP_TOKEN}" \
   ${CONSUL_HTTP_ADDR}/v1/session/destroy/<session_uuid>
 
