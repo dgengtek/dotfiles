@@ -193,3 +193,9 @@ jq -nc '{ "token": "<token>" }' \
     --request POST \
     --data @- \
     ${VAULT_ADDR}/v1/auth/token/revoke
+
+# revoke, delete own token
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  --request POST \
+  ${VAULT_ADDR}/v1/auth/token/revoke-self
