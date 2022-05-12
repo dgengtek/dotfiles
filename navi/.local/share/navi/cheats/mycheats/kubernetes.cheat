@@ -177,6 +177,12 @@ kubectl get <resource> --all-namespaces -o go-template='{{range .items}}{{$meta:
 # sort by age
 --sort-by={.metadata.creationTimestamp}
 
+# get all claimed volumes from all pods
+kubectl get pods -A -o json | jq '[.items[] | {"claimName": (.spec.volumes[] | select(.persistentVolumeClaim) | .persistentVolumeClaim.claimName), "name": .metadata.name}]'
+
+# group by claimed persistent volume name for each pod
+{ kubectl -n ops get pods -o json | jq '.items[] | {"claimName": (.spec.volumes[] | select(.persistentVolumeClaim) | .persistentVolumeClaim.claimName), "pod": .metadata.name}'; kubectl get pv -o json | jq -r '.items[] | (select(.spec.claimRef) | {"name": .metadata.name, "class": .spec.storageClassName, "capacity": .spec.capacity.storage, "node": (.spec.nodeAffinity.required.nodeSelectorTerms[].matchExpressions[].values[]), "namespace": .spec.claimRef.namespace, "claimName": .spec.claimRef.name, "path": (if .spec.local? then .spec.local.path elif .spec.nfs? then (.spec.nfs.server + ":" + .spec.nfs.path) else "" end), "fstype": (if .spec.local.fsType? then .spec.local.fsType else "" end)})'; } | jq -s 'group_by(.claimName)[] | add'
+
 # debug events
 kubectl get events --sort-by='{.lastTimestamp}'
 
