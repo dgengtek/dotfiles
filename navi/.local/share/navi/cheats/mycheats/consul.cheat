@@ -28,3 +28,9 @@ curl \
 curl \
   --header "X-Consul-Token: ${CONSUL_HTTP_TOKEN}" \
   ${CONSUL_HTTP_ADDR}/v1/session/list
+
+# revoke, delete a token
+curl \
+  --header "X-Consul-Token: ${CONSUL_HTTP_TOKEN}" \
+  --request DELETE \
+  ${CONSUL_HTTP_ADDR}/v1/acl/token/<token>

@@ -185,3 +185,11 @@ jq -nc --arg secret_id "$(systemd-ask-password -n)" '{ "role_id": "<role_id>", "
     --request POST \
     --data @- \
     ${VAULT_ADDR}/v1/auth/approle/login
+
+# revoke, delete a token
+jq -nc '{ "token": "<token>" }' \
+  | curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/auth/token/revoke
