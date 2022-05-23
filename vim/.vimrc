@@ -88,9 +88,16 @@ set wildignore+=*.egg-info/**
 set viminfo='100,<50,s2048,h
 set history=10000
 
-set statusline=%f "tail of the filename
-set statusline+=%#warningmsg#
-set statusline+=%*
+set statusline=
+set statusline +=\ %n\ %*            "buffer number
+set statusline +=%{&ff}%*            "file format
+set statusline +=%y%*                "file type
+set statusline +=\ %<%F%*            "full path
+set statusline +=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+set statusline +=%4v\ %*             "virtual column number
+set statusline +=0x%04B\ %*          "character under cursor
+set statusline +=%#warningmsg#
+set statusline +=%*
 
 " highlight search
 set hlsearch
