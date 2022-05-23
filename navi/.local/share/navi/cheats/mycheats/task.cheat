@@ -108,12 +108,17 @@ task add state:pending project:"<project>" <tags> -- <description>
 # show the projects tracking root task
 task state:'proj' project:"<project>"
 
+# duplicate a task and edit
+new_task=$(task dup <task> | sed -n '/Created task/s/Created task \([[:digit:]]*\)\./\1/p') && test -n "$new_task" && task edit "$new_task"
+
 # get a task id
 <task>
 
 # select multiple tasks
 intent print lines | fzf --multi
 
+# select multiple tasks directly
+task status:pending "$@" export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' | fzf --preview="task {1}"
 
 $ command_modify: echo -e 'add\nmodify\n'
 $ task: intent print lines --- --delimiter '\s+' --preview 'task {1} information' --column 1
