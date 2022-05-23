@@ -7,5 +7,15 @@ windows:
   panes:
       # use for init other window
     - shell_command:
-        - "fly -t intranet login && watch fly -t intranet builds"
+        - |
+            while :; do 
+              fly -t "intranet" builds --count=200 --json \
+                | jq -r '.[] | select(.status == "started" or .status == "pending") | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + "/" + .name + " " + .status + " " + (if .start_time == null then .start_time else (.start_time | todate) end) + " " + (if .end_time == null then .end_time else (.end_time | todate) end))'
+              echo "---"
+              sleep 30
+            done
+      focus: False
+    - shell_command:
+        - "fly -t intranet login && watch -n 15 fly -t intranet builds -c 25"
       focus: True
+
