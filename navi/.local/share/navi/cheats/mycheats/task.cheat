@@ -31,13 +31,13 @@ task add state:pending project:"$(task _project | fzf)"
 task_project=$(task _project | fzf --no-multi)
 
 # select a project and prompt for new inbox tasks
-task_project=$(task _project | fzf); with "task add state:pending project:'$task_project' +kubernetes "
+task_project=$(task _project | fzf); with "task add state:pending project:'$task_project' "
 
 # add a task to the inbox of a project with dependencies
 task add state:pending project:<project> deps:<tasks_joined> <tags> -- <description>
 
 # convert a task to a project task
-task <task> modify state:proj why:<why>
+task <task> modify +project state:proj why:<why>
 
 # search a task interactively
 intentm search
