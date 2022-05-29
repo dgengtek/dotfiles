@@ -10,7 +10,7 @@ PYTHONSTARTUP="${PATH_USER_LIB}startup.py"
 # ------------------------------------------------------------------------------
 #JAVA_HOME="/usr/local/java/jdk1.8.0_40"
 # oracle
-JAVA_HOME="/usr/lib/jvm/java-8-jdk"
+JAVA_HOME="/usr/lib/jvm/java-17-jdk"
 JUNIT_HOME="/usr/local/java/JUnit/"
 CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit4.10.jar"
 CLASSPATH="$CLASSPATH:$JAVA_HOME/lib/"
