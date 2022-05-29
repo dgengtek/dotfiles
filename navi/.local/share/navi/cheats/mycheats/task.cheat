@@ -117,6 +117,9 @@ new_task=$(task dup <task> | sed -n '/Created task/s/Created task \([[:digit:]]*
 # select multiple tasks
 intent print lines | fzf --multi
 
+# watch project overview
+watch "task project:'<project>' decide"
+
 # select multiple tasks directly
 task status:pending "$@" export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' | fzf --preview="task {1}"
 
