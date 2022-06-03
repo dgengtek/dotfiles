@@ -35,7 +35,10 @@ sed -i -n 'p; s,^\(GRUB_CMDLINE_LINUX_DEFAULT.*\),#\1,p' /etc/default/grub; sed 
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # generate random base64 data
-dd if=/dev/urandom count=1 bs=32 2>/dev/null | base64 -w 0
+dd if=/dev/urandom count=1 bs=<bytes_count> 2>/dev/null | base64 -w 0
+
+# generate pseudo-random bytes
+openssl rand -base64 <bytes_count>
 
 # wipe device
 sudo shred --verbose --random-source=/dev/urandom --zero <device>
