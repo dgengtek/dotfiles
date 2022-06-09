@@ -99,6 +99,9 @@ sudo salt --async "<host>" system.reboot \
 # setup host for first time
 sudo salt-run state.orch orch.setup_host pillar='<orch_pillar_upgrade_host_json>'
 
+# download current saltstack bootstrap script
+curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
+
 # provision salt minion
 sudo salt-run state.orch orch.provision_salt_minion pillar=
 
