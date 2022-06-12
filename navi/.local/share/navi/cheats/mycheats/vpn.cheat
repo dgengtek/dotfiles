@@ -1,0 +1,7 @@
+% wireguard
+
+# generate key pairs
+wg genkey | (umask 0077 && tee $(hostname).key) | wg pubkey > $(hostname).pub
+
+# enable debug logs
+echo module wireguard +p | sudo tee /sys/kernel/debug/dynamic_debug/control

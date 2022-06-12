@@ -23,6 +23,24 @@ sudo salt-run saltutil.sync_modules
 # sync all on salt-master
 sudo salt -I "tags:salt-master" saltutil.sync_all
 
+# run saltstack master container for local development
+path_salt=$(realpath "<directory>")
+cid=$(sudo docker run \
+  -d \
+  -p 4505:4505 \
+  -p 4506:4506 \
+  --rm \
+  --mount type=bind,source="$path_salt/master",target=/etc/salt/master,readonly \
+  --mount type=bind,source="$path_salt/pillar",target=/srv/salt/pillar,readonly \
+  -it \
+  saltstack \
+    --log-file=file:///dev/stdout \
+    -l info
+  )
+echo "$cid"
+sudo docker exec -it "$cid" bash
+sudo docker stop "$cid"
+
 # sync all minions
 sudo salt --async "*" saltutil.sync_all
 
