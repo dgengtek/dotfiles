@@ -88,6 +88,14 @@ mount -l | egrep 'type ext(2|3|4)' | awk '{print $1}'
 # get last fsck for each mounted filesystem
 mount -l | egrep 'type ext(2|3|4)' | awk '{print $1}' | xargs -I {} bash -c 'echo -n "{} ==> "; sudo tune2fs -l {} | grep checked'
 
+# get attributes of device
+sudo smartctl -A <device>
+
+# get health of device
+sudo smartctl -H <device>
+
+# check for errors in attributes of device
+sudo smartctl -A <device> | egrep 'Uncorrectable|Pending_Sector|Reported_Uncorrect|UDMA_CRC'
 
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ mountpoint: mount -l --- --column 3 --delimiter ' '
