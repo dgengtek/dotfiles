@@ -7,7 +7,7 @@ xrdb $HOME/.Xresources
 xmodmap $HOME/.Xmodmap
 
 # grab x11 key presses
-xev | awk -F'\''[ )]+'\'' '\''/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'\''
+xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
 
 % i3, window manager
 
