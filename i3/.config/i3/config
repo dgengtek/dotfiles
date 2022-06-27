@@ -40,7 +40,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id alacritty -e tmux
-bindsym $mod+Shift+Return exec alacritty
+bindsym $mod+Shift+Return exec --no-startup-id alacritty
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -107,7 +107,7 @@ bindsym $mod+Control+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+q exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -136,9 +136,9 @@ mode "resize" {
 }
 
 bindsym $mod+z mode "resize"
-bindsym $mod+r exec rofi -show run
-# bindsym $mod+r exec alacritty -e bash -i -c 'setsid --fork $(navi --print)'
-#bindsym $mod+r exec urxvtc -geometry 80x42+0+0 -e ~/.config/i3/i3menu.sh 
+bindsym $mod+r exec --no-startup-id rofi -show run
+# bindsym $mod+r exec --no-startup-id alacritty -e bash -i -c 'setsid --fork $(navi --print)'
+#bindsym $mod+r exec --no-startup-id urxvtc -geometry 80x42+0+0 -e ~/.config/i3/i3menu.sh 
 #for_window [title="^i3menu.sh$"] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -168,20 +168,26 @@ bindsym $mod+p workspace prev_on_output
 bindsym $mod+Control+j focus output left
 bindsym $mod+Control+k focus output right
 
-bindsym $mod+F1 exec alacritty -e vim ~/.config/i3/config
+bindsym $mod+F1 exec --no-startup-id alacritty -e vim ~/.config/i3/config
 
 # media keyboard control
-bindsym XF86AudioRaiseVolume exec audio_vol_up.sh
-bindsym XF86AudioLowerVolume exec audio_vol_down.sh
-bindsym XF86AudioMute exec audio_mute_toggle.sh
+bindsym XF86AudioRaiseVolume exec --no-startup-id audio_vol_up.sh
+bindsym XF86AudioLowerVolume exec --no-startup-id audio_vol_down.sh
+bindsym XF86AudioMute exec --no-startup-id audio_mute_toggle.sh
+bindsym XF86AudioMicMute exec --no-startup-id mic_mute_toggle.sh
 
 # screen lock
-bindsym $mod+Control+minus exec i3lock -c 000000
+bindsym $mod+Control+minus exec --no-startup-id i3lock -c 000000
 
 # screenshots
-bindsym $mod+Print exec screenshot.sh
-bindsym $mod+Control+Print exec screenshot.sh -w
-bindsym $mod+Shift+Print exec screenshot.sh -s
+bindsym $mod+Print exec --no-startup-id screenshot.sh
+bindsym $mod+Control+Print exec --no-startup-id screenshot.sh -w
+bindsym $mod+Shift+Print exec --no-startup-id screenshot.sh -s
+
+# music player
+bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+bindsym XF86AudioPrev exec --no-startup-id mpc previous
 
 # options
 force_focus_wrapping yes
