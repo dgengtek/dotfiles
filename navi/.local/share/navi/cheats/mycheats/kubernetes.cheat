@@ -28,7 +28,10 @@ kubectl delete <resource_object>
 kubectl <operation> <resource_object>
 
 # change persistent volume policy
-kubectl patch pv <pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+kubectl patch pv <pv> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+
+# remove finalizers from pv
+kubectl patch pv <pv> -p '{"metadata":{"finalizers":null}}'
 
 # Print the supported API resources on the server
 kubectl api-resources
@@ -147,6 +150,15 @@ kubectl get pv -o json | jq -r '.items[] | select(.spec.claimRef) | (.metadata.n
 # save secret in variable
 <variable_name>=$(kubectl get <secrets_object> --template={{.data}})
 
+# select a persistent volume object
+<pv>
+
+# select a persistent volume claim object
+<pvc>
+
+# select a pod object
+<pod>
+
 # get namespace and object name
 jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
 
@@ -199,4 +211,5 @@ $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
 
 $ pod: kubectl get pods -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
 $ pvc: kubectl get pvc -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
+$ pv: kubectl get pv -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
 $ secrets_object: kubectl get secrets -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'

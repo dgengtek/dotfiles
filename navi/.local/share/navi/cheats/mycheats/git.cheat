@@ -105,6 +105,14 @@ git push <remote_name> <branch>:<branch_to_overwrite>
 # Overwrites remote branch with local branch changes
 git push <remote_name> <branch_name> -f
 
+# delete remote branch
+git push -d <remote_name> <branch_name>
+
+# delete local, tracking and remote branch
+git push -d <remote_name> <branch_name>
+git branch -d <branch_name>
+git branch -dr <remote_name>
+
 # Pulls changes to a remote repo to the local repo
 git pull --ff-only
 
