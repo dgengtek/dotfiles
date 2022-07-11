@@ -41,3 +41,5 @@ run.sh -q -n --
 # run a display of done notification
 run.sh -- echo 'task done'
 
+# prompt for downloading a youtube link
+prompt_run.py --format pueue add -g q -- '"youtube-dl -f '"'"'(bestvideo[width>=1920]/bestvideo)+bestaudio/best'"'"' -x --no-playlist --output '"'"'%(title)s.%(ext)s'"'"' '"'"'{}'"'"'"'
