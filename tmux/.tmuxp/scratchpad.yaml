@@ -24,8 +24,7 @@ windows:
   layout: even-vertical
   panes:
     - shell_command:
-      - "while ! test -d '/mnt/homes/${USER}/music/downloaded/unsorted'; do sleep 1; done \
-        && command cd /mnt/homes/${USER}/music/downloaded/unsorted \
+      - "command cd ${HOME}/downloads/music \
         && systemctl --user restart mpd mpd-mpris mpris-proxy \
         && mpc"
     - shell_command:
