@@ -15,6 +15,14 @@ qemu-system-x86_64 -enable-kvm -cpu host -nographic -serial stdio -kernel <kerne
 # run qemu with ssh forwarding
 qemu-system-x86_64 -m 1024 -enable-kvm -cpu host -netdev user,id=q1,ipv6=off,hostfwd=tcp::46336-:22 -device e1000,netdev=q1 -drive if=none,id=drive0,snapshot=on,discard=unmap,file=
 
+# use bridge and boot from network
+qemu-system-x86_64 -enable-kvm -cpu host -vga std -m 2G -nic bridge,br=<bridge>,model=virtio-net-pci,mac=<mac> -boot order=nc,reboot-timeout=6 -drive file=<disk_image>,format=raw,index=0,media=disk,if=virtio
+
+# boot with cloud-init image
+qemu-system-x86_64 -enable-kvm -cpu host -vga std -m 2G -nic bridge,br=<bridge>,model=virtio-net-pci,mac=<mac> -drive file=<disk_image>,format=raw,index=0,media=disk,if=virtio -cdrom <cloud-init_image>
+
+# generate cloud init image and boot from environment
+hostname=<hostname> mac_address=<mac_address> ip_address=<ip_address> domain=<domain> ip_address_gateway=<ip_address_gateway> genisoimage_cloud_init.sh <cloud-init-config> seedci.iso; qemu-system-x86_64 -enable-kvm -cpu host -vga std -m 2G -nic bridge,br=<bridge>,model=virtio-net-pci,mac=<mac_address> -drive file=<iso_image>,format=raw,index=0,media=disk,if=virtio -cdrom seedci.iso
 
 $ standard_memory: echo -e '1G\n'
 $ image_format: echo -e 'raw,qcow2' | tr ',' '\n'

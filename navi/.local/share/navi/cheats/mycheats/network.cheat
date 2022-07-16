@@ -104,6 +104,11 @@ echo -e 'CONNECT google.de:443 HTTP/1.1\nUser-Agent: Mozilla/5.0\nHost: google.d
 # create a random mac
 mac_generate.sh
 
+# create a tap device with the given interface as master
+sudo ip tuntap add dev <ifname> mode tap && sudo ip link set <ifname> master <interface> && sudo ip link set <ifname> up
+
+# create a vlan device connected to interface
+sudo ip link add link <interface> name <vlan_ifname> type vlan id <vlan_id> && sudo ip link set dev <vlan_ifname> up && sudo ip addr add <ip_address> dev <vlan_ifname>
 
 $ interface: ip -json link | jq -r '.[].ifname'
 $ self_global_ip: dig +short myip.opendns.com @resolver1.opendns.com
