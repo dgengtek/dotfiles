@@ -16,6 +16,15 @@ git shortlog -s -n
 # output patch by commit
 git format-patch --stdout -1 <commit>
 
+# check if a patch can be applied
+git apply --stat <patch>
+
+# apply a patch to current directory
+git apply <patch>
+
+# apply a series of patches from email
+git am <patch>
+
 # show current commit tree of all branches
 git log --graph --decorate --oneline --simplify-by-decoration --all
 
