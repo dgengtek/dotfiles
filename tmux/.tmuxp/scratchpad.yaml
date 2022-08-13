@@ -14,20 +14,24 @@ windows:
   #layout: main-horizontal
   panes:
     - shell_command:
-        - "mkdir /tmp/startup_gpg2_lock \
-        && read \
-        && retry.sh \"mount_dmcrypt_image.sh /mnt/homes/${USER}/private.img ${HOME}/mnt/private\" \
-        && gpg-connect-agent updatestartuptty /bye \
-        && rmdir /tmp/startup_gpg2_lock \
-        && mutt"
+        - |
+            mkdir /tmp/startup_gpg2_lock \
+            && read \
+            && retry.sh "mount_dmcrypt_image.sh /mnt/homes/${USER}/private.img ${HOME}/mnt/private" \
+            && gpg-connect-agent updatestartuptty /bye \
+            && rmdir /tmp/startup_gpg2_lock \
+            && mutt
 - window_name: 'music'
   layout: even-vertical
   panes:
     - shell_command:
-      - "command cd ${HOME}/downloads/music \
-        && systemctl --user restart mpd mpd-mpris mpris-proxy \
-        && mpc"
+        - |
+            command cd ${HOME}/downloads/music \
+            && systemctl --user restart mpd mpd-mpris mpris-proxy \
+            && mpc \
+            && prompt_run.py --format pueue add -g q -- '"youtube-dl -f '"'"'(bestvideo[width>=1920]/bestvideo)+bestaudio/best'"'"' -x --no-playlist --output '"'"'%(title)s.%(ext)s'"'"' '"'"'{}'"'"'"'
     - shell_command:
-      - "while ! test -d '/mnt/homes/${USER}/music/'; do sleep 1; done \
-        && command cd /mnt/homes/${USER}/music/ \
-        && f.sh"
+        - | 
+            while ! test -d '/mnt/homes/${USER}/music/'; do sleep 1; done \
+            && command cd /mnt/homes/${USER}/music/ \
+            && fzf
