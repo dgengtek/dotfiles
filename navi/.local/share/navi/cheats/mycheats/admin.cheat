@@ -12,6 +12,9 @@ sudo cat /sys/class/dmi/id/product_uuid
 # clone device
 sudo dd bs=64k conv=noerror,sync status=progress if=<device>
 
+# show system max supported open files
+cat /proc/sys/fs/file-max
+
 # remove mbr boot loader
 sudo dd if=/dev/zero of=/dev/sda bs=440 count=1 oflag=direct
 

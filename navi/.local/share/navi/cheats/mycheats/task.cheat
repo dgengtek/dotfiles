@@ -60,6 +60,12 @@ task l
 # get report of active projects and next actions
 task
 
+# get report of tasks i should not do during my leisure
+task -freizeit -hobby -lebensziel
+
+# show milestones of project
+task project:"<project>" +milestone decide
+
 # get detailed report of every task in the database
 task all
 
