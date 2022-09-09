@@ -1,0 +1,4 @@
+% help
+
+# grep options in manpage
+man <manpage> | grep -A 4 -E "[ ]{2}+-.*"

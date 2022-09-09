@@ -110,6 +110,9 @@ sudo ip tuntap add dev <ifname> mode tap && sudo ip link set <ifname> master <in
 # create a vlan device connected to interface
 sudo ip link add link <interface> name <vlan_ifname> type vlan id <vlan_id> && sudo ip link set dev <vlan_ifname> up && sudo ip addr add <ip_address> dev <vlan_ifname>
 
+# replace mac separator
+sed 's,:,,g'
+
 $ interface: ip -json link | jq -r '.[].ifname'
 $ self_global_ip: dig +short myip.opendns.com @resolver1.opendns.com
 $ process: lsof -iTCP -sTCP:LISTEN -n -P | sed -E "s/:([0-9][0-9][0-9]+) /:$(tput setaf 3)\1$(tput sgr0) /g" --- --header-lines 1
