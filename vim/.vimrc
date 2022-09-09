@@ -182,7 +182,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'lervag/wiki.vim'
   Plug 'NoahTheDuke/vim-just'
   Plug 'unblevable/quick-scope'
-  Plug 'ActivityWatch/aw-watcher-vim'
 
 " Initialize plugin system
 call plug#end()
