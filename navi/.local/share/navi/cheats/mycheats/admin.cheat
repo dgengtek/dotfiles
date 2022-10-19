@@ -122,7 +122,7 @@ mount -l | egrep 'type ext(2|3|4)' | awk '{print $1}' | xargs -I {} bash -c 'ech
 sudo smartctl -A <device>
 
 # check health of device
-sudo smartctl -H -l error -l selftest -l xerror -l xselftest -l defect <device>
+sudo smartctl -H -l error -l selftest -l xerror -l xselftest -l defects <device>
 
 # check for errors in attributes of device
 sudo smartctl -A <device> | egrep 'Uncorrectable|Pending_Sector|Reported_Uncorrect|UDMA_CRC'
