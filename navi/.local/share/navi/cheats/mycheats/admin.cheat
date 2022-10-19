@@ -6,6 +6,9 @@ sudo dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to
 # debug systemd networkd name policy assignments
 SYSTEMD_LOG_LEVEL=debug sudo -E udevadm test-builtin net_setup_link /sys/class/net/hub0
 
+# are logins disabled?
+ls -l /var/run/nologin /etc/nologin
+
 # get hardware unique address
 sudo cat /sys/class/dmi/id/product_uuid
 
@@ -21,15 +24,39 @@ sudo dd if=/dev/zero of=/dev/sda bs=440 count=1 oflag=direct
 # wipe mbr
 sudo dd if=/dev/zero of=<device> bs=512 count=1 oflag=direct
 
+# erases all signatures from the device and create a signature backup file for each
+sudo wipefs --all --backup <device>
+
 # overwrite device
 sudo dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
 
+# zero device
+sudo dd if=/dev/zero of=<device>
+
 # resize gpt partition 
-sgdisk --move-second-header \
-  && sgdisk --delete=<device_partition_nr> <device> \
-  && sgdisk --new=<device_partition_nr>:0:0 --typecode=0:8e00 --change-name=0:pv <device> \
-  && partprobe <device> \
-  && pvresize <device><device_partition_nr>
+sudo sgdisk --move-second-header \
+  && sudo sgdisk --delete=<device_partition_nr> <device> \
+  && sudo sgdisk --new=<device_partition_nr>:0:0 --typecode=0:8e00 --change-name=0:pv <device> \
+  && sudo partprobe <device> \
+  && sudo pvresize <device><device_partition_nr>
+
+# list partitions of disk
+sudo gdisk -l <device>
+
+# delete partition tables
+sudo sfdisk --backup --backup-file ./sfdisk --delete <device>
+
+# dump device layout to text file
+sudo sfdisk --dump <device> > <device_name>.dump
+
+# restore device layout from text file 
+read -p "WARNING this will erase the existing layout on <device>. Abort with ctrl-c" && sudo sfdisk <device> < <filename>
+
+# backup all partition sectors
+sudo sfdisk --backup-file ./sfdisk-pt --backup-pt-sectors <device>
+
+# example: restore partition sector
+echo 'dd if=~/sfdisk-sda-0x00000200.bak of=/dev/sda seek=$((0x00000200)) bs=1'
 
 # add kernel parameter for systemd logging
 sed -i -n 'p; s,^\(GRUB_CMDLINE_LINUX_DEFAULT.*\),#\1,p' /etc/default/grub; sed -i 's,^\(GRUB_CMDLINE_LINUX_DEFAULT\)=['\''"]*\([^'\''"]*\)['\''" ]*,\1="\2 systemd.log_level=debug systemd.log_target=kmsg log_buf_len=1M printk.devkmsg=on enforcing=0",' /etc/default/grub

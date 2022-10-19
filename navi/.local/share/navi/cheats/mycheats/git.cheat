@@ -56,6 +56,9 @@ git push -f origin master
 # rebase on top of remote master
 git rebase origin/master
 
+# since today
+--since=midnight
+
 # check if tag contains a commit
 git tag --contains <commit>
 

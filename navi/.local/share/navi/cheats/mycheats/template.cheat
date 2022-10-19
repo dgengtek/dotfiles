@@ -51,8 +51,8 @@ $ compgen_file_yaml: fd --type f --follow --exclude ".git" '.*(yaml|yml)' "<path
 $ compgen_file_json: fd --type f --follow --exclude ".git" '.*\.json' "<path>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 
 
-$ fsbookmark: cat "$PATH_FSBOOKMARK" --- --preview 'tree -C {} | head -200'
-$ directory: { cat "$PATH_FSBOOKMARK"; fd --type d --hidden --follow --exclude ".git"; } --- --preview 'tree -C {} | head -200'
+$ fsbookmark: zoxide query -l --- --preview 'tree -C {} | head -200'
+$ directory: { zoxide query -l; fd --type d --hidden --follow --exclude ".git"; } --- --preview 'tree -C {} | head -200'
 $ filename: fd --type f --follow --exclude ".git" . "<directory>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 
 $ binary: compgen -c | uniq
