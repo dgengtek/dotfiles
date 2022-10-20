@@ -1,0 +1,19 @@
+% minikube
+
+# use docker engine inside minikube environment from local cli
+eval $(minikube docker-env)
+
+# Update kubeconfig in case of an IP or port change
+minikube update-context
+
+# get minikube 
+minikube update-context
+
+# Retrieves the IP address of the specified node
+minikube ip --node <node>
+
+# Get or list the current profiles (clusters)
+<profile>
+
+$ profile: minikube profile
+$ node: minikube node list --- --column 1 --delimiter ' '

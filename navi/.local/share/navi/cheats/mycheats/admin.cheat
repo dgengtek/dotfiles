@@ -145,6 +145,9 @@ http_proxy="<http_proxy>"; export http_proxy; export https_proxy=$http_proxy
 # set new no_proxy vars
 export no_proxy="<no_proxy>"
 
+# add the current path to the environment
+export PATH=$PATH:$PWD
+
 # print system information
 uname -a
 
