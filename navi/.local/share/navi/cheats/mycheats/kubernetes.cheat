@@ -204,6 +204,9 @@ kubectl create secret docker-registry regcred --docker-server='https://docker-re
 # get errored helm deployments 
 kubectl get secrets -A -l owner=helm -o json | jq '.items[].metadata | select(.labels.status != "deployed" and .labels.status != "superseded") | (.name + " " + .namespace + " " + .labels.status)'
 
+# rollout restart and wait for all objects in a resource
+for name in $(kubectl -n <namespace> get <resource_rollout> -o jsonpath='{.items[*].metadata.name}'); do kubectl -n <namespace> rollout restart <resource_rollout> $name; kubectl -n <namespace> rollout status --watch <resource_rollout>; done
+
 # select the active context
 kubectl config use-context <context>
 
@@ -217,8 +220,10 @@ kubectl config current-context
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {3} {1} {2}'
 $ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
+$ resource_rollout: echo -e 'deployment,daemonset,replicaset,statefulset' | tr ',' '\n'
 $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
 $ context: kubectl config get-contexts -o name
+$ namespace: kubectl get namespaces -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n'
 
 $ pod: kubectl get pods -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
 $ pvc: kubectl get pvc -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'

@@ -1,0 +1,4 @@
+% helm
+
+# display rendered templates
+helm install --dry-run --debug
