@@ -207,6 +207,13 @@ $ username: getent passwd | awk -F ':' '{print $1}'
 # load cpu
 yes > /dev/null &
 
+
+# sequential i/o performance
+sudo dd if=/dev/zero of=BIGFILE bs=16M count=64 oflag=dsync
+
+# measure JBOD performance
+iozone -t 32 -I -r 32K -s 256M -F /mnt/drive{1..8}/tmp{1..4}
+
 % device
 
 # search a device for bad blocks and check
