@@ -6,6 +6,9 @@ sudo dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to
 # debug systemd networkd name policy assignments
 SYSTEMD_LOG_LEVEL=debug sudo -E udevadm test-builtin net_setup_link /sys/class/net/hub0
 
+# get network interface speed
+cat /sys/class/net/<interface>/speed
+
 # are logins disabled?
 ls -l /var/run/nologin /etc/nologin
 
@@ -129,6 +132,7 @@ sudo smartctl -A <device> | egrep 'Uncorrectable|Pending_Sector|Reported_Uncorre
 
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ mountpoint: mount -l --- --column 3 --delimiter ' '
+$ interface: find /sys/class/net/ -mindepth 1 -maxdepth 1 | xargs -n 1 basename
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[0-9]$/ d'
 $ device_partition: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[^0-9]$/ d'
