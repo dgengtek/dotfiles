@@ -17,8 +17,11 @@ sudo salt-run --out=json netbox.tags | jq -r '.[]'
 # convert flat inventory to saltstack roster
 jq 'to_entries | .[] | {(.value|tostring): {"host": .value}}' inventory | jq -r -s '. | add | tojson' | jsontoyaml.py
 
-# get all failed tasks from jid result
-q '.[].return.data[][] | select(.result == false)'
+# get jid results from state or highstate
+jq 'to_entries[] | {(.key): (.value | (to_entries | map(select(.value.result? != true)) | from_entries))}'
+
+# get jid results from orchestration
+jq 'to_entries | .[] | .value.return.data | to_entries[].value | to_entries[].value.changes.ret | to_entries[] | ( (.value | to_entries[]) * {"minion": .key}) | select(.value.result? != true)'
 
 # export and compress salt repository for simple install
 git archive --format=tar HEAD salt setup.py setup.cfg requirements README.rst scripts doc/man | xz -9 --stdout
