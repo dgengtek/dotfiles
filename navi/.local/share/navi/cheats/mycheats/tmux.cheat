@@ -38,6 +38,9 @@ tmux show-environment -t <session>
 # display the global environment 
 tmux show-environment -g -t <session>
 
+# show the current session name
+tmux display-message -p '#S'
+
 # Put a pane into buffer mode, where a buffer may be chosen interactively from a list.
 tmux choose-buffer
 
