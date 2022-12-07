@@ -2,3 +2,9 @@
 
 # display rendered templates
 helm install --dry-run --debug
+
+# update repos
+helm repo update
+
+# lookup current chart versions
+helm repo search <chart>

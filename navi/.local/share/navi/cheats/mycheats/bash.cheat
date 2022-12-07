@@ -5,3 +5,7 @@ curl "cheat.sh/<command>"
 
 # clear bash history duplicates
 tac $HISTFILE | awk '!x[\$0]++' | tac | sponge $HISTFILE
+
+
+# generate a help message from bash functions which start with an underscore
+sed -n 's/^_\([^_)(]*\)() {[ ]*#\(.*\)/\1  \2/p' <script name> | sort -k1 | column -t -N '<command>' -l 2
