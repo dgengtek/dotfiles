@@ -21,6 +21,12 @@ sudo dd bs=64k conv=noerror,sync status=progress if=<device>
 # show system max supported open files
 cat /proc/sys/fs/file-max
 
+# show irqs
+cat /proc/interrupts
+
+# report processor related statistics for all processors
+mpstat -P all
+
 # remove mbr boot loader
 sudo dd if=/dev/zero of=/dev/sda bs=440 count=1 oflag=direct
 

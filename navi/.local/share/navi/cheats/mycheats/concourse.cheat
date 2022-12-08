@@ -97,6 +97,10 @@ fly --target <target> builds --job=<pipeline>/<job> --count=<build_count>
 fly --target <target> hijack --job=<pipeline>/<job> --build <build>
 
 
+# Hijack a failed build
+fly --target <target> hijack --build <build>
+
+
 # Watch the log output from the last build of a job
 fly --target <target> watch --job=<pipeline>/<job>
 
@@ -192,3 +196,4 @@ $ pipeline: fly -t "$target" pipelines --json | jq -r '.[].name'
 $ worker: fly -t "$target" workers --json | jq -r '.[].name'
 $ config_yaml: fd --type f '.*\.(yaml|yml)$'
 $ build_state: echo -n 'errored,failed,aborted,pending,started' | tr ',' '\n'
+$ failed_build: fly -t "$target" builds --count=<build_count> --json | jq -r '.[] | select(.status == "failed") | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + " " + .status + " " + (if .start_time == null then .start_time else (.start_time | todate) end) + " " + (if .end_time == null then .end_time else (.end_time | todate) end))' --- --column 1
