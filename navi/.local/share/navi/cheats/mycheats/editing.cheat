@@ -61,6 +61,9 @@ search="<pattern>";rg --ignore-case --files-with-matches --follow "$pattern" | x
 # print random line from file
 random_line.py <compgen_file_cwd> 
 
+# print a random line and delete it
+cp <compgen_file_cwd>{,.bak}; r=$(random_line.py <compgen_file_cwd>.bak) && sed -i "/$r/ d" <compgen_file_cwd>.bak && echo $r
+
 # filter hostname
 tr -dc '[:alnum:]-'
 
