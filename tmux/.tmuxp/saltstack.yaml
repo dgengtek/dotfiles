@@ -19,7 +19,7 @@ windows:
       - shell_command:
         - vim top/top.sls
   - window_name: cookie
-    start_directory: formulas
+    start_directory: formulas/cookiecutter-salt-formula
     layout: even-horizontal
     panes:
       - source ~/.local/venv/cookiecutter/bin/activate
