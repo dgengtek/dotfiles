@@ -117,7 +117,7 @@ task state:'proj' project:"<project>"
 # duplicate a task and edit
 new_task=$(task dup <task> | sed -n '/Created task/s/Created task \([[:digit:]]*\)\./\1/p') && test -n "$new_task" && task edit "$new_task"
 
-# get a task id
+# search for and get a task id
 <task>
 
 # select multiple tasks
