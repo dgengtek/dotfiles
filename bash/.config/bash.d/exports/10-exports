@@ -40,16 +40,19 @@ NQDIR=$TMP
 set +a
 if hash fzf 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
   if hash fd 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
-    FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude ".git"'
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude ".git"'
   elif hash rg 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
-    FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+    export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
   fi
   FZF_DEFAULT_OPTS='--bind alt-p:accept'
-  FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#cccccc,bg:#000000,hl:#de382b --color=fg+:#ffffff,bg+:#000000,hl+:#ff0000 --color=info:#9a9a9a,prompt:#007acc,pointer:#ff0000 --color=marker:#39b54a,spinner:#9a9a9a,header:#9a9a9a'
-  FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-  FZF_ALT_C_COMMAND="fd --type d --min-depth 1 --hidden --follow --no-ignore-vcs --exclude '.git'"
-  FZF_COMPLETION_OPTS="--preview 'if test -f {}; then bat --color=always --style=numbers --line-range=:500 {}; else tree -C {} | head -200;fi'"
-  FZF_CTRL_T_OPTS="--preview 'if test -f {}; then bat --color=always --style=numbers --line-range=:500 {}; else tree -C {} | head -200;fi'"
-  FZF_CTRL_T_COMMAND="fd --min-depth 1 --hidden --follow --no-ignore-vcs --exclude '.git'"
-  FZF_TMUX_HEIGHT="100%"
+  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#cccccc,bg:#000000,hl:#de382b --color=fg+:#ffffff,bg+:#000000,hl+:#ff0000 --color=info:#9a9a9a,prompt:#007acc,pointer:#ff0000 --color=marker:#39b54a,spinner:#9a9a9a,header:#9a9a9a'
+  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+  export FZF_ALT_C_COMMAND="fd --type d --min-depth 1 --hidden --follow --no-ignore-vcs --exclude '.git'"
+  export FZF_COMPLETION_OPTS="--preview 'if test -f {}; then bat --color=always --style=numbers --line-range=:500 {}; else tree -C {} | head -200;fi'"
+  export FZF_CTRL_T_OPTS="--preview 'if test -f {}; then bat --color=always --style=numbers --line-range=:500 {}; else tree -C {} | head -200;fi'"
+  export FZF_CTRL_T_COMMAND="fd --min-depth 1 --hidden --follow --no-ignore-vcs --exclude '.git'"
+  export FZF_TMUX_HEIGHT="100%"
+fi
+if hash navi 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
+  export NAVI_FZF_OVERRIDES_VAR="--with-nth 1,2,3,4,5,6,7,8,9,10,11"
 fi
