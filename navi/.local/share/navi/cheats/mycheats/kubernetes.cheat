@@ -147,6 +147,9 @@ kubectl describe $(kubectl get <pvc> -o go-template='{{.spec.volumeName}}'); kub
 # get pv location from a persistentvolumeclaim claimref
 kubectl get pv -o json | jq -r '.items[] | select(.spec.claimRef) | (.metadata.name + " " + .spec.storageClassName + " " + .spec.capacity.storage + " " + (.spec.nodeAffinity.required.nodeSelectorTerms[].matchExpressions[].values[])? + " " + .spec.claimRef.namespace + " " + .spec.claimRef.name + " " + (if .spec.local? then (.spec.local.fsType + " " + .spec.local.path) elif .spec.nfs? then (.spec.nfs.server + ":" + .spec.nfs.path) else "" end))'
 
+# get pv information from every persistent volume
+kubectl get pv -o json | jq -r '.items[] | (.metadata.name + " " + .spec.storageClassName + " " + .spec.capacity.storage + " " + (.spec.nodeAffinity.required.nodeSelectorTerms[].matchExpressions[].values[])? + " " + .spec.claimRef.namespace + " " + .spec.claimRef.name + " " + (if .spec.local? then (.spec.local.fsType + " " + .spec.local.path) elif .spec.nfs? then (.spec.nfs.server + ":" + .spec.nfs.path) else "" end) + " " + .status.phase)'
+
 # save secret in variable
 <variable_name>=$(kubectl get <secrets_object> --template={{.data}})
 
