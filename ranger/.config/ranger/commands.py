@@ -103,11 +103,11 @@ class fzf_select(Command):
         import os.path
         if self.quantifier:
             # match only directories
-            command="find -L . \( -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = "find -L . \( -fstype 'dev' -o -fstype 'proc' \) -prune \
             -o -mindepth 1 -type d -print 2> /dev/null | fzf --no-multi"
         else:
             # match files and directories
-            command="find -L . \( -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = "find -L . \( -fstype 'dev' -o -fstype 'proc' \) -prune \
             -o -mindepth 1 -print 2> /dev/null | fzf --no-multi"
         fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
@@ -117,3 +117,23 @@ class fzf_select(Command):
                 self.fm.cd(fzf_file)
             else:
                 self.fm.select_file(fzf_file)
+
+
+class zoxide_query(Command):
+    """
+    :fzf_select
+
+    Switch to a directory with zoxide
+
+    https://github.com/ajeetdsouza/zoxide
+    """
+    def execute(self):
+        import subprocess
+        import os.path
+        command = "zoxide query -i"
+        result = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
+        stdout, stderr = result.communicate()
+        if result.returncode == 0:
+            output = os.path.abspath(stdout.rstrip('\n'))
+            if os.path.isdir(output):
+                self.fm.cd(output)
