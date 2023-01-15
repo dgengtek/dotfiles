@@ -12,6 +12,7 @@ if has("syntax")
 endif
 
 
+" set completeopt=menu,preview
 set backupskip+=test,tmp,temp
 
 set encoding=utf-8
@@ -226,6 +227,10 @@ let g:syntastic_asciidoc_asciidoc_exec = "asciidoctor"
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 let g:ycm_auto_hover = ''
 let g:ycm_autoclose_preview_window_after_completion = 1
+" for reference
+" let g:ycm_key_invoke_completion = '<C-Space>'
+" let g:ycm_key_list_stop_completion = ['<C-y>']
+" let g:ycm_key_detailed_diagnostics = '<leader>d'
 
 
 let g:ftplugin_sql_omni_key = '<Leader>sql'
