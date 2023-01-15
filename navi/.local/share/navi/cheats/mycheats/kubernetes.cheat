@@ -15,8 +15,14 @@ kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 # get authorization bearer token
 kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode
 
-# delete a list of a resource with the given state
-kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase == "<state>") | .metadata.name' | xargs -n 1 kubectl delete <resource>
+# delete resources  with the given state
+kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase == "<state>") | .metadata.name' | xargs -L 1 kubectl delete
+
+# delete evicted pods 
+kubectl get pods -A -o json | jq -r '.items[] | select(.status.phase == "Failed" and .status.reason == "Evicted") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' | xargs -L 1 kubectl delete
+
+# get status of failed pods
+kubectl get pods -A -o json | jq '.items[] | select(.status.phase == "Failed") | .metadata.name, .metadata.namespace, .status'
 
 # get resources which have not the given state
 kubectl get <resource> -A -o json | jq -r '.items[] | select(.status.phase != "<state>") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
