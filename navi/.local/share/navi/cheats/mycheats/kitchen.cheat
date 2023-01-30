@@ -16,5 +16,8 @@ kitchen login <instance>
 # set a different kitchen file to use
 export KITCHEN_YAML="<compgen_file_cwd>"
 
-$ instance: kitchen list --json | jq -r '.[].instance'
+# compile kitchen cookbook
+ytt -f <ytt_kitchen_source>/schema.yaml -f <ytt_kitchen_source>/default.yml --data-values-file <ytt_kitchen_source>/data.yaml --data-values-file ./data_kitchen.yml > kitchen.yml
 
+$ instance: kitchen list --json | jq -r '.[].instance'
+$ ytt_kitchen_source: echo "$REPOSITORY_URL/ops/ops-environment/raw/branch/master/kitchen"

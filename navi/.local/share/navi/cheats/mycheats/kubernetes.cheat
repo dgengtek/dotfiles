@@ -27,6 +27,9 @@ kubectl get pods -A -o json | jq '.items[] | select(.status.phase == "Failed") |
 # get resources which have not the given state
 kubectl get <resource> -A -o json | jq -r '.items[] | select(.status.phase != "<state>") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
 
+# get containers which are not in ready state
+kubectl get pods -A -o json | jq '.items[] | select(.status.phase == "Running" and .status.containerStatuses[].ready == false) | {"name": .metadata.name, "namespace": .metadata.namespace, "containers": .status.containerStatuses[]}'
+
 # delete a single resource
 kubectl delete <resource_object>
 
