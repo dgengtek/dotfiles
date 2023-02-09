@@ -262,10 +262,18 @@ prepare() {
 }
 
 install_vim_plugins() {
-  hash curl vim || exit 2
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  vim -c "PluginInstall" -c "qa"
+  hash curl git || exit 2
+  if hash nvim; then
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+    nvim -c "PackerSync" -c "qa"
+  elif hash vim; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim -c "PluginInstall" -c "qa"
+  else
+    exit 2
+  fi
 }
 
 install_tmux_plugins() {

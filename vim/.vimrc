@@ -1,10 +1,12 @@
 " use vi improved
 set nocompatible              
-filetype off                  
 filetype plugin indent on
 " coloring
 if (&term == "screen" || &term == "screen-bce" || &term == "xterm" || &term == "xterm-256color")
   set t_Co=256
+endif
+if has('termguicolors')
+  set termguicolors
 endif
 
 if has("syntax")
@@ -69,7 +71,10 @@ set ruler  " Show ruler
 
 " disable mouse
 set mouse=
-set ttymouse=
+
+if !has('nvim')
+    set ttymouse=
+endif
 " hide mouse when typing
 "set mousehide  
 
@@ -102,10 +107,13 @@ set statusline +=%*
 
 " highlight search
 set hlsearch
+
+if !has('nvim')
 "highlight code longer than 88
 highlight OverLength term=bold ctermbg=blue ctermfg=white guibg=blue
 highlight StatusLineNC cterm=bold ctermfg=white ctermbg=darkgray
 match OverLength /\%89v.\+/
+endif
 
 set pastetoggle=<F10>
 
@@ -122,7 +130,6 @@ endif
 
 
 "if has("autocmd")
-  filetype plugin indent on
   autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o 
   autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4
@@ -131,6 +138,7 @@ endif
   autocmd FileType java setlocal shiftwidth=4 softtabstop=4
   autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
   autocmd FileType anki_vim UltiSnipsAddFiletypes tex.texmath.latex
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "endif
 
 au BufRead,BufNewFile *.adoc,*.asciidoc setfiletype asciidoc
@@ -157,19 +165,17 @@ au BufRead,BufNewFile justfile setfiletype just
 " PlugStatus 	Check the status of plugins
 " PlugDiff 	Examine changes from the previous update and the pending changes
 " PlugSnapshot[!] [output path] 	Generate script for restoring the current snapshot of the plugins
+
+" for vim
+if !has('nvim')
 call plug#begin('~/.vim/plugged')
   Plug 'vimwiki/vimwiki'
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-surround'
   Plug 'Chiel92/vim-autoformat'
-  Plug 'Valloric/YouCompleteMe'
   Plug 'scrooloose/syntastic'
   Plug 'https://github.com/ludovicchabant/vim-gutentags'
-  " snippets
-  Plug 'SirVer/ultisnips'
-  " snippets collection
-  Plug 'honza/vim-snippets'
   " syntax
   Plug 'lervag/vimtex'
   Plug 'https://github.com/cespare/vim-toml'
@@ -184,8 +190,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'NoahTheDuke/vim-just'
   Plug 'unblevable/quick-scope'
 
+  Plug 'Valloric/YouCompleteMe'
+  " snippets
+  Plug 'SirVer/ultisnips'
+  " snippets collection
+  Plug 'honza/vim-snippets'
 " Initialize plugin system
 call plug#end()
+endif
 
 " reload vim on changes with vimrc
 augroup myvimrc
@@ -223,6 +235,7 @@ let g:autofmt_autosave = 1
 " syntastic
 let g:syntastic_asciidoc_asciidoc_exec = "asciidoctor"
 
+if !has('nvim')
 " ycm
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 let g:ycm_auto_hover = ''
@@ -231,6 +244,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_key_invoke_completion = '<C-Space>'
 " let g:ycm_key_list_stop_completion = ['<C-y>']
 " let g:ycm_key_detailed_diagnostics = '<leader>d'
+endif
 
 
 let g:ftplugin_sql_omni_key = '<Leader>sql'
@@ -279,6 +293,7 @@ function! HLNext (blinktime)
 endfunction
 
 set modeline
+
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
@@ -291,12 +306,14 @@ endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 
+if !has('nvim')
 " No need for relative numbers in background windows
 augroup BgHighlight
   autocmd!
   autocmd WinEnter * set relativenumber
   autocmd WinLeave * set norelativenumber
 augroup END
+endif " nvim
 
 
 " get backlinks
@@ -373,9 +390,12 @@ nnoremap <F9> :buffers<CR>:buffer<Space>
 " stop cr
 vnoremap // y/<C-R>"<CR>
 
+
+if !has('nvim')
 " Damian Conway's Die Blinkënmatchen: highlight matches
 nnoremap <silent> n n:call HLNext(0.1)<cr>
 nnoremap <silent> N N:call HLNext(0.1)<cr>
+endif
 
 " sudo overwrite file
 cmap w!! w !sudo tee > /dev/null %
