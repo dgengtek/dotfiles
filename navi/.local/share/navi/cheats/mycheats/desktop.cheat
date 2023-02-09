@@ -1,0 +1,7 @@
+% desktop
+
+# list all fonts
+fc-list
+
+# list all font family names
+fc-list : family
