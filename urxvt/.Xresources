@@ -321,37 +321,75 @@
 ! Here is a list of the ANSI colours with their names.
 ! URxvt*same, and 72 (or 240 in 256 colour mode) colours arranged in an 4x4x4 (or 6x6x6) colour RGB cube plus a 8 (24) colour greyscale ramp.
 
-!! black dark/light
-*color0: #010101
-*color8: #808080
+! !! black dark/light
+! *color0: #010101
+! *color8: #808080
+!
+! !! red dark/light
+! *color1: #de382b
+! *color9: #ff0000
+!
+! !! green dark/light
+! *color2: #39b54a
+! *color10: #00ff00
+!
+! !! yellow dark/light
+! *color3: #ffc706
+! *color11: #ffff00
+!
+! !! blue dark/light
+! *color4: #007acc
+! *color12: #1e90ff
+!
+! !! magenta dark/light
+! *color5: #ad38a5
+! *color13: #0000ff
+!
+! !! cyan dark/light
+! *color6: #2cb5e9
+! *color14: #00ffff
+!
+! !! white dark/light
+! *color7: #cccccc
+! *color15: #ffffff
 
-!! red dark/light
-*color1: #de382b
-*color9: #ff0000
+! https://github.com/rebelot/kanagawa.nvim/blob/master/extras/.Xresources
+! special
+*.foreground:   #dcd7ba
+*.background:   #1f1f28
+*.cursorColor:  #dcd7ba
 
-!! green dark/light
-*color2: #39b54a
-*color10: #00ff00
+! black
+*.color0:       #090618
+*.color8:       #727169
 
-!! yellow dark/light
-*color3: #ffc706
-*color11: #ffff00
+! red
+*.color1:       #c34043
+*.color9:       #e82424
 
-!! blue dark/light
-*color4: #007acc
-*color12: #1e90ff
+! green
+*.color2:       #76946a
+*.color10:      #98bb6c
 
-!! magenta dark/light
-*color5: #ad38a5
-*color13: #0000ff
+! yellow
+*.color3:       #c0a36e
+*.color11:      #e6c384
 
-!! cyan dark/light
-*color6: #2cb5e9
-*color14: #00ffff
+! blue
+*.color4:       #7e9cd8
+*.color12:      #7fb4ca
 
-!! white dark/light
-*color7: #cccccc
-*color15: #ffffff
+! magenta
+*.color5:       #957fb8
+*.color13:      #938aa9
+
+! cyan
+*.color6:       #6a9589
+*.color14:      #7aa89f
+
+! white
+*.color7:       #c8c093
+*.color15:      #dcd7ba
 
 ! The following text gives values for the standard 88 colour mode (and values for the 256 colour mode in parentheses).
 ! URxvt*the colour name of color0-color15.

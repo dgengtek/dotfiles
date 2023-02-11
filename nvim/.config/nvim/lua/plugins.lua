@@ -187,12 +187,38 @@ return require('packer').startup(function(use)
     },
   }
 
+  use { "nvchad/nvim-colorizer.lua",
+    config = function ()
+      require("colorizer").setup {
+      }
+    end
+  }
+
   use {
     'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup()
     end
   }
+  use 'unblevable/quick-scope'
+
+  -- colorschemes
+  -- https://github.com/rebelot/kanagawa.nvim
+  use 'rebelot/kanagawa.nvim'
+  -- modus-vivendi, maybe, not good function color
+  use 'ishan9299/modus-theme-vim'
+  use 'ray-x/aurora'
+  -- use { "bluz71/vim-moonfly-colors", as = "moonfly" }
+  -- maybe, functions are too bright
+  use 'PHSix/nvim-hybrid'
+  -- starry_style = moonlight, dracula, dracula_blood, monokai, mariana, emerald, middlenight_blue, earlysummer, darksolar
+  -- moonlight, too much red
+  -- dracula good
+  -- monokai good
+  -- middlenight_blue ok
+  -- earlysummer good
+  use 'ray-x/starry.nvim'
+  use 'dracula/vim'
 end)
 
 --[=====[ 
