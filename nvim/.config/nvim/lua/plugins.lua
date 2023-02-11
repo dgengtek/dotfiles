@@ -58,14 +58,6 @@ return require('packer').startup(function(use)
     requires = {
       { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
     },
-    config = function()
-      vim.g.coq_settings = {
-        keymap = {
-          recommended = false,
-        },
-        auto_start = "shut-up",
-      }
-    end,
   }
 
   use {
@@ -130,7 +122,6 @@ return require('packer').startup(function(use)
   use "williamboman/mason.nvim"
   use {
     "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
   }
   use "lukas-reineke/indent-blankline.nvim"
 
