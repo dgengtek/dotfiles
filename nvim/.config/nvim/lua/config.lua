@@ -111,3 +111,6 @@ remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
 
 require('lspconfig').yamlls.setup{}
+require('lspconfig').pylsp.setup{}
+require('lspconfig').rust_analyzer.setup{}
+require('lspfuzzy').setup {}

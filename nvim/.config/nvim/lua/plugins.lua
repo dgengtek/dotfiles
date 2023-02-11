@@ -22,10 +22,29 @@
 
 -- Loads opt plugin immediately
 :PackerLoad completion-nvim ale
---]=====]
 
 
 -- TODO for folding maybe https://github.com/kevinhwang91/nvim-ufo
+
+--- TODO try out and configure, check lsp plugins
+neovim/nvim-lspconfig: Quickstart configs for Nvim LSP
+https://github.com/neovim/nvim-lspconfig
+
+ nvim-lspconfig/server_configurations.md at master · neovim/nvim-lspconfig
+https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+
+ mfussenegger/nvim-lint: An asynchronous linter plugin for Neovim complementary to the built-in Language Server Protocol support.
+https://github.com/mfussenegger/nvim-lint
+
+ jose-elias-alvarez/null-ls.nvim: Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+https://github.com/jose-elias-alvarez/null-ls.nvim
+
+ mhartington/formatter.nvim
+https://github.com/mhartington/formatter.nvim
+
+Snippets · neovim/nvim-lspconfig Wiki
+https://github.com/neovim/nvim-lspconfig/wiki/Snippets
+--]=====]
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
