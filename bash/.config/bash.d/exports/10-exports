@@ -13,9 +13,16 @@ PAGER="less"
 #  SYSTEMD_PAGER="$PAGER"
 #fi
 SYSTEMD_PAGER="$PAGER"
-EDITOR="nvim"
+set +a
+if hash nvim 2>&1 >/dev/null | logger -s -t bashrc -p user.info; then
+  export EDITOR="nvim"
+else
+  export EDITOR="vim"
+fi
+set -a
 SYSTEMD_EDITOR="$EDITOR"
 VISUAL="$EDITOR"
+GIT_EDITOR="$EDITOR"
 SUDO_EDITOR="$EDITOR"
 BAT_THEME="ansi"
 
