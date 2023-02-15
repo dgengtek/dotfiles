@@ -216,7 +216,13 @@ endif
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " disable on long lines
-let g:qs_max_chars=89
+" let g:qs_max_chars=89
+" for colorschemes, must be set before setting colorschemes
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+augroup END
 
 " ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
