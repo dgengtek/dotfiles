@@ -30,9 +30,6 @@
 neovim/nvim-lspconfig: Quickstart configs for Nvim LSP
 https://github.com/neovim/nvim-lspconfig
 
- nvim-lspconfig/server_configurations.md at master · neovim/nvim-lspconfig
-https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-
  mfussenegger/nvim-lint: An asynchronous linter plugin for Neovim complementary to the built-in Language Server Protocol support.
 https://github.com/mfussenegger/nvim-lint
 
@@ -47,15 +44,49 @@ https://github.com/neovim/nvim-lspconfig/wiki/Snippets
 --]=====]
 
 return require('packer').startup(function(use)
-  -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
-  use 'nvim-tree/nvim-web-devicons'
-  use 'nvim-lua/plenary.nvim'
-  use 'ThePrimeagen/harpoon'
-  use 'chentoast/marks.nvim'
-  use "sitiom/nvim-numbertoggle"
+  -- install and manage lsp, formatters, linters etc.
+  -- use {
+  --   "williamboman/mason.nvim",
+  --   config = function()
+  --     require("mason").setup({
+  --         ui = {
+  --             icons = {
+  --                 package_installed = "✓",
+  --                 package_pending = "➜",
+  --                 package_uninstalled = "✗"
+  --             }
+  --         }
+  --     })
+  --   end,
+  -- }
+  -- use {
+  --   'williamboman/mason-lspconfig.nvim',
+  --   config = function()
+  --     require("mason-lspconfig").setup()
+  --   end,
+  -- }
 
+  -- nvim-lspconfig/server_configurations.md at master · neovim/nvim-lspconfig
+  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+  use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
+  -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      require('null-ls').setup()
+    end,
+    requires = { "nvim-lua/plenary.nvim" },
+  }
+  use 'nvim-tree/nvim-web-devicons'
+  -- lua lib
+  use 'nvim-lua/plenary.nvim'
+  -- marks across nvim
+  use 'ThePrimeagen/harpoon'
+  -- better marks
+  use 'chentoast/marks.nvim'
+
+  -- quick move with s
   use {
     'ggandor/leap.nvim',
     config = function()
@@ -65,6 +96,7 @@ return require('packer').startup(function(use)
   }
 
   -- Post-install/update hook with call of vimscript function with argument
+  -- embed nvim in firefox
   use {
     'glacambre/firenvim',
     run = function() vim.fn['firenvim#install'](0) end 
@@ -84,7 +116,8 @@ return require('packer').startup(function(use)
     branch = 'artifacts',
   }
 
-  -- maybe? https://github.com/toppair/reach.nvim
+  -- https://github.com/ibhagwan/fzf-lua
+  -- :FzfLua 
   use { 'ibhagwan/fzf-lua',
     -- optional for icon support
     requires = { 'nvim-tree/nvim-web-devicons' }
@@ -109,6 +142,7 @@ return require('packer').startup(function(use)
   -- https://github.com/is0n/fm-nvim
   -- use {'is0n/fm-nvim'}
 
+  -- edit filesystem like a buffer
   use {
     'stevearc/oil.nvim',
     config = function() require('oil').setup() end
@@ -127,6 +161,7 @@ return require('packer').startup(function(use)
 
   -- Load on a combination of conditions: specific filetypes or commands
   -- Also run code after load (see the "config" key)
+  -- syntax analyzer
   use {
     'w0rp/ale',
     -- ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},
@@ -138,11 +173,9 @@ return require('packer').startup(function(use)
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'nvim-treesitter/nvim-treesitter-context'
 
-  use "williamboman/mason.nvim"
   use {
     "windwp/nvim-autopairs",
   }
-  use "lukas-reineke/indent-blankline.nvim"
 
   use {
     "tversteeg/registers.nvim",
@@ -192,11 +225,19 @@ return require('packer').startup(function(use)
       require('Comment').setup()
     end
   }
-  use 'unblevable/quick-scope'
 
   -- colorschemes
   -- https://github.com/rebelot/kanagawa.nvim
-  use 'rebelot/kanagawa.nvim'
+  use {
+    'rebelot/kanagawa.nvim',
+    config = function()
+      require("kanagawa").setup({
+        overrides = {
+          Visual = { bg = "#938056" }
+        },
+      })
+    end
+  }
   -- modus-vivendi, maybe, not good function color
   use 'ishan9299/modus-theme-vim'
   use 'ray-x/aurora'
@@ -211,46 +252,31 @@ return require('packer').startup(function(use)
   -- earlysummer good
   use 'ray-x/starry.nvim'
   use 'dracula/vim'
+  -- 
+  use "lukas-reineke/indent-blankline.nvim"
+  --
+  use 'tpope/vim-fugitive'
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+
+  -- use 'vimwiki/vimwiki'
+  -- syntax
+  use 'ledger/vim-ledger'
+  use 'lervag/vimtex'
+  use 'cespare/vim-toml'
+  use 'chrisbra/csv.vim'
+  use 'elzr/vim-json'
+  use 'rust-lang/rust.vim'
+  use 'saltstack/salt-vim'
+  use 'fatih/vim-go'
+  use 'Glench/Vim-Jinja2-Syntax'
+  use 'stephpy/vim-yaml'
+  use 'NoahTheDuke/vim-just'
+
+  -- etc
+  use 'unblevable/quick-scope'
 end)
-
---[=====[ 
-  Plug 'vimwiki/vimwiki'
-  Plug 'junegunn/fzf.vim'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'Chiel92/vim-autoformat'
-  Plug 'scrooloose/syntastic'
-  Plug 'https://github.com/ludovicchabant/vim-gutentags'
-  " syntax
-  Plug 'lervag/vimtex'
-  Plug 'https://github.com/cespare/vim-toml'
-  Plug 'https://github.com/chrisbra/csv.vim'
-  Plug 'https://github.com/elzr/vim-json'
-  Plug 'https://github.com/rust-lang/rust.vim'
-  Plug 'saltstack/salt-vim'
-  Plug 'https://github.com/fatih/vim-go'
-  Plug 'Glench/Vim-Jinja2-Syntax'
-  Plug 'stephpy/vim-yaml'
-  Plug 'lervag/wiki.vim'
-  Plug 'NoahTheDuke/vim-just'
-  Plug 'unblevable/quick-scope'
-
-
-
-  " snippets
-  Plug 'SirVer/ultisnips'
-  " snippets collection
-  Plug 'honza/vim-snippets'
-
-
-  -- Simple plugins can be specified as strings
-  use 'rstacruz/vim-closer'
-
-  -- Lazy loading:
-  -- Load on specific commands
-  use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
-
-  -- Load on an autocommand event
-  use {'andymass/vim-matchup', event = 'VimEnter'}
-
-
---]=====]
