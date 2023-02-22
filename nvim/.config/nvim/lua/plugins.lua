@@ -228,16 +228,7 @@ return require('packer').startup(function(use)
 
   -- colorschemes
   -- https://github.com/rebelot/kanagawa.nvim
-  use {
-    'rebelot/kanagawa.nvim',
-    config = function()
-      require("kanagawa").setup({
-        overrides = {
-          Visual = { bg = "#938056" }
-        },
-      })
-    end
-  }
+  use 'rebelot/kanagawa.nvim'
   -- modus-vivendi, maybe, not good function color
   use 'ishan9299/modus-theme-vim'
   use 'ray-x/aurora'

@@ -104,3 +104,10 @@ require('lspconfig').yamlls.setup{}
 require('lspconfig').pylsp.setup{}
 require('lspconfig').rust_analyzer.setup{}
 require('lspfuzzy').setup {}
+
+
+require("kanagawa").setup({
+  overrides = {
+    Visual = { bg = "#605439" }
+  },
+})
