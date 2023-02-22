@@ -17,6 +17,10 @@ alias pqs="pueue status"
 alias pqa="pueue add"
 alias pql="pueue log"
 alias pqc="pueue clean"
+alias justl="just --list"
+alias justc="just --choose"
+alias juste="just --edit"
+alias justv="just --variables"
 
 ################################################################################
 # io 
