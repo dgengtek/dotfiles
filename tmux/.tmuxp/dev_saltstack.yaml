@@ -14,7 +14,7 @@ windows:
   panes:
     - shell_command:
       - ls -1
-      - kitchen list
+      - just
 - window_name: src
   panes:
     - shell_command:
