@@ -67,5 +67,8 @@ walk_parent.sh
 # fuzzy search and preview files with bat
 fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 
+# count inodes
+find <directory> -xdev -printf '%h\n' | sort | uniq -c | sort -k 1 -n
+
 $ min_depth: echo -e '1\n'
 $ max_depth: echo -e '1\n'
