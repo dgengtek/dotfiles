@@ -1,7 +1,7 @@
 % wiki
 
 # :: vimwiki
-vim -c VimwikiIndex
+nvim -c VimwikiIndex
 
 # select vimwiki :: vimwiki_select
-vim -c VimwikiUISelect
+nvim -c VimwikiUISelect

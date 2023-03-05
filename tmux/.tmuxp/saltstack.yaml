@@ -11,13 +11,13 @@ windows:
     start_directory: pillar/pillar
     panes:
       - shell_command:
-        - vim top.sls
+        - nvim top.sls
   - window_name: top-dev
     start_directory: top
     layout: even-horizontal
     panes:
       - shell_command:
-        - vim top/top.sls
+        - nvim top/top.sls
   - window_name: cookie
     start_directory: formulas/cookiecutter-salt-formula
     layout: even-horizontal

@@ -7,7 +7,7 @@ windows:
   #options:
   #  main-pane-height: 35
   panes:
-  - vim -O helmfile.d/helmfile.yaml values.yaml
+  - nvim -O helmfile.d/helmfile.yaml values.yaml
 - window_name: values
   #layout: main-horizontal
   start_directory: values

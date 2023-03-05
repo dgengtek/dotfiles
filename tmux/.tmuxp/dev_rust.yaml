@@ -8,14 +8,14 @@ windows:
     #  main-pane-height: 35
     panes:
       - shell_command:
-          - vim Cargo.toml
+          - nvim Cargo.toml
         focus: true
       - just wcheck
   - window_name: src
     #layout: main-horizontal
     start_directory: src/
     panes:
-    - vim main.rs
+    - nvim main.rs
   - window_name: tests
     #layout: main-horizontal
     start_directory: tests/

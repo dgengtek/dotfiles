@@ -5,7 +5,7 @@ windows:
   layout: even-horizontal
   panes:
     - shell_command:
-        - vim
+        - nvim
       focus: True
     - shell_command:
       - jrnl
