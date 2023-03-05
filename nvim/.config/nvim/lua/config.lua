@@ -106,6 +106,10 @@ require('lspconfig').rust_analyzer.setup{}
 require('lspfuzzy').setup {}
 
 
+-- " 1. Modify your config
+-- " 2. Restart nvim
+-- " 3. Run this command:
+-- :KanagawaCompile
 require("kanagawa").setup({
   overrides = function(colors) -- add/modify highlights
         colors = {
