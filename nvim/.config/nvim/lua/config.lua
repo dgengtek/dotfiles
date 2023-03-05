@@ -107,7 +107,59 @@ require('lspfuzzy').setup {}
 
 
 require("kanagawa").setup({
-  overrides = {
-    Visual = { bg = "#605439" }
-  },
+  overrides = function(colors) -- add/modify highlights
+        colors = {
+          Visual = { bg = "#605439" }
+        }
+        return colors
+  end,
+})
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+local null_ls = require("null-ls")
+null_ls.setup({
+    -- TODO install sources
+    -- sources = {
+    --     null_ls.builtins.completion.spell,
+    --     -- tags
+    --     null_ls.builtins.completion.tags,
+    --     -- make files
+    --     null_ls.builtins.diagnostics.checkmake,
+    --     -- latex
+    --     null_ls.builtins.diagnostics.chktex,
+    --     -- dot files
+    --     null_ls.builtins.diagnostics.dotenv_linter,
+    --     null_ls.builtins.diagnostics.luacheck,
+    --     null_ls.builtins.diagnostics.markdownlint,
+    --     null_ls.builtins.diagnostics.pycodestyle,
+    --     -- python
+    --     -- null_ls.builtins.diagnostics.flake8,
+    --     -- python
+    --     null_ls.builtins.diagnostics.ruff,
+    --     null_ls.builtins.diagnostics.shellcheck,
+    --     -- json, yaml
+    --     null_ls.builtins.diagnostics.spectral,
+    --     -- null_ls.builtins.diagnostics.yamllint,
+    --     -- javascript
+    --     -- null_ls.builtins.diagnostics.standardjs,
+    --     null_ls.builtins.diagnostics.cspell,
+    --     -- sql
+    --     -- null_ls.builtins.diagnostics.sqlfluff,
+    --     null_ls.builtins.diagnostics.stylelint,
+    --     -- html
+    --     -- null_ls.builtins.diagnostics.tidy,
+    --     null_ls.builtins.code_actions.cspell,
+    --     -- openapi
+    --     -- null_ls.builtins.diagnostics.vacuum,
+    --     null_ls.builtins.formatting.stylua,
+    --     null_ls.builtins.diagnostics.eslint,
+    --     null_ls.builtins.completion.spell,
+    --     -- python code formatter
+    --     null_ls.builtins.formatting.black,
+    --     null_ls.builtins.formatting.jq,
+    --     null_ls.builtins.formatting.just,
+    --     null_ls.builtins.formatting.ruff,
+    --     null_ls.builtins.formatting.rustfmt,
+    --     null_ls.builtins.formatting.shfmt,
+    -- },
 })

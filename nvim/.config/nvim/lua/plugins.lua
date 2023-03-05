@@ -30,9 +30,6 @@
 neovim/nvim-lspconfig: Quickstart configs for Nvim LSP
 https://github.com/neovim/nvim-lspconfig
 
- mfussenegger/nvim-lint: An asynchronous linter plugin for Neovim complementary to the built-in Language Server Protocol support.
-https://github.com/mfussenegger/nvim-lint
-
  jose-elias-alvarez/null-ls.nvim: Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
 https://github.com/jose-elias-alvarez/null-ls.nvim
 
@@ -73,9 +70,6 @@ return require('packer').startup(function(use)
   -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
   use {
     'jose-elias-alvarez/null-ls.nvim',
-    config = function()
-      require('null-ls').setup()
-    end,
     requires = { "nvim-lua/plenary.nvim" },
   }
   use 'nvim-tree/nvim-web-devicons'
