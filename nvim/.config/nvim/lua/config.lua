@@ -100,9 +100,25 @@ end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
 
-require('lspconfig').yamlls.setup{}
-require('lspconfig').pylsp.setup{}
-require('lspconfig').rust_analyzer.setup{}
+local coq = require "coq"
+require('lspconfig').yamlls.setup(coq.lsp_ensure_capabilities())
+-- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+require('lspconfig').pylsp.setup(coq.lsp_ensure_capabilities({
+  settings = {
+    pylsp = {
+      plugins = {
+        flake8 = {
+          enabled = true
+        },
+        pyflakes = {
+          enabled = false
+        },
+      }
+    }
+  }
+}))
+require('lspconfig').rust_analyzer.setup(coq.lsp_ensure_capabilities())
+
 require('lspfuzzy').setup {}
 
 
@@ -123,7 +139,7 @@ require("kanagawa").setup({
 local null_ls = require("null-ls")
 null_ls.setup({
     -- TODO install sources
-    -- sources = {
+    sources = {
     --     null_ls.builtins.completion.spell,
     --     -- tags
     --     null_ls.builtins.completion.tags,
@@ -159,11 +175,23 @@ null_ls.setup({
     --     null_ls.builtins.diagnostics.eslint,
     --     null_ls.builtins.completion.spell,
     --     -- python code formatter
-    --     null_ls.builtins.formatting.black,
-    --     null_ls.builtins.formatting.jq,
+        null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.jq,
     --     null_ls.builtins.formatting.just,
     --     null_ls.builtins.formatting.ruff,
-    --     null_ls.builtins.formatting.rustfmt,
+        null_ls.builtins.formatting.rustfmt,
     --     null_ls.builtins.formatting.shfmt,
-    -- },
+    },
+})
+
+
+vim.diagnostic.config({
+  virtual_text = {
+    source = "always",  -- Or "if_many"
+    prefix = '●', -- Could be '■', '▎', 'x'
+  },
+  severity_sort = true,
+  -- float = {
+  --   source = "always",  -- Or "if_many"
+  -- },
 })
