@@ -31,7 +31,7 @@ task add state:pending project:"$(task _project | fzf)"
 task_project=$(task _project | fzf --no-multi)
 
 # select a project and prompt for new inbox tasks
-task_project=$(task _project | fzf); with "task add state:pending project:'$task_project' "
+task_project=$(task _project | fzf); prompt_run.py task add state:pending project:"$task_project" --
 
 # add a task to the inbox of a project with dependencies
 task add state:pending project:<project> deps:<tasks_joined> <tags> -- <description>
