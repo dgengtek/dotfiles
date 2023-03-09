@@ -1,4 +1,9 @@
+icons_format = "{icon}"
+
+[theme]
 theme = "native"
+
+[icons]
 icons = "none"
 
 [[block]]
@@ -9,4 +14,4 @@ interval = 10
 [[block]]
 block = "time"
 interval = 5
-format = "dow %u, week %U, %Y-%m-%d(%a) %H:%M:%S"
+format = "$timestamp.datetime(f:'dow %u, week %U, %Y-%m-%d(%a) %H:%M:%S')"
