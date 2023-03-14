@@ -21,6 +21,12 @@ kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase == "<sta
 # delete evicted pods 
 kubectl get pods -A -o json | jq -r '.items[] | select(.status.phase == "Failed" and .status.reason == "Evicted") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' | xargs -L 1 kubectl delete
 
+# get jobs overview with state
+kubectl get jobs -A -o json | jq '.items[] | del(.spec, .kind)'
+
+# get command string list of jobs for a given state 
+kubectl get jobs -A -o json | jq -r '.items[] | select(.status.conditions[].type == "<job_state>") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
+
 # get status of failed pods
 kubectl get pods -A -o json | jq '.items[] | select(.status.phase == "Failed") | .metadata.name, .metadata.namespace, .status'
 
@@ -232,6 +238,8 @@ kubectl config current-context
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {3} {1} {2}'
 $ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
+$ pod_state: echo -e 'Pending,Running,Succeeded,Failed,Unknown' | tr ',' '\n'
+$ job_state: echo -e 'Complete,Failed' | tr ',' '\n'
 $ resource_rollout: echo -e 'deployment,daemonset,replicaset,statefulset' | tr ',' '\n'
 $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
 $ context: kubectl config get-contexts -o name

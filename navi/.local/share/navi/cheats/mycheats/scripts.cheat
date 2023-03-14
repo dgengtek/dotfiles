@@ -10,6 +10,9 @@ tmux_new_session.sh -n
 # spawn a new terminal emulator in a directory
 run.sh -q -n -- alacritty --working-directory <directory> --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
 
+# spawn a new terminal emulator
+run.sh -q -n -- alacritty --working-directory $PWD --command bash --init-file <(cat ~/.bashrc; echo 'unset TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH')
+
 # spawn a new terminal emulator with tmux in a specific directory 
 tmux_new_session.sh -p <directory>
 
