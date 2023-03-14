@@ -238,6 +238,7 @@ kubectl config current-context
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {3} {1} {2}'
 $ operation: echo -e 'get,describe,explain,edit,delete,logs' | tr ',' '\n'
+# https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
 $ pod_state: echo -e 'Pending,Running,Succeeded,Failed,Unknown' | tr ',' '\n'
 $ job_state: echo -e 'Complete,Failed' | tr ',' '\n'
 $ resource_rollout: echo -e 'deployment,daemonset,replicaset,statefulset' | tr ',' '\n'
