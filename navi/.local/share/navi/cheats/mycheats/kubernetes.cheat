@@ -165,6 +165,9 @@ kubectl get pv -o json | jq -r '.items[] | select(.spec.claimRef) | (.metadata.n
 # get pv information from every persistent volume
 kubectl get pv -o json | jq -r '.items[] | (.metadata.name + " " + .spec.storageClassName + " " + .spec.capacity.storage + " " + (.spec.nodeAffinity.required.nodeSelectorTerms[].matchExpressions[].values[])? + " " + .spec.claimRef.namespace + " " + .spec.claimRef.name + " " + (if .spec.local? then (.spec.local.fsType + " " + .spec.local.path) elif .spec.nfs? then (.spec.nfs.server + ":" + .spec.nfs.path) else "" end) + " " + .status.phase)'
 
+# cleanup old signing requests by filtering for approved 
+kubectl get certificatesigningrequests.certificates.k8s.io -o json | jq -r '.items[] | select(now - (.metadata.creationTimestamp | fromdate) > 432000) | select(.status.conditions[].type == "Approved") | .metadata.name' | xargs -L 1 -P $(($(nproc)*4)) kubectl delete certificatesigningrequests.certificates.k8s.io
+
 # save secret in variable
 <variable_name>=$(kubectl get <secrets_object> --template={{.data}})
 
