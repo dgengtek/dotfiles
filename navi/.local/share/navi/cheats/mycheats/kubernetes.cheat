@@ -48,7 +48,7 @@ kubectl patch pv <pv> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 # remove finalizers from pv
 kubectl patch pv <pv> -p '{"metadata":{"finalizers":null}}'
 
-# Print the supported API resources on the server
+# Print the available API resource types on the server
 kubectl api-resources
 
 # debug and diagnose cluster problems
