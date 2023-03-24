@@ -1,6 +1,6 @@
 % vault, pki
 # submit CA information for the backend via a PEM file containing the CA private key and its certificate concatenated
-jq -Rc '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>) | curl \
+jq -Rsc '{ "pem_bundle": . }' < <(cat <pki_private_key> <pki_public_chain>) | curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
   --request POST \
   --data @- \
