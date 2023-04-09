@@ -29,7 +29,7 @@ windows:
             command cd ${HOME}/downloads/music \
             && systemctl --user restart mpd mpd-mpris mpris-proxy \
             && mpc \
-            && prompt_run.py --format pueue add -g q -- '"youtube-dl -f '"'"'(bestvideo[width>=1920]/bestvideo)+bestaudio/best'"'"' -x --no-playlist --output '"'"'%(title)s.%(ext)s'"'"' '"'"'{}'"'"'"'
+            && prompt_run.py --format pueue add -g q -- '"yt-dlp -f '"'"'(bestvideo[width>=1920]/bestvideo)+bestaudio/best'"'"' -x --no-playlist --output '"'"'%(title)s.%(ext)s'"'"' '"'"'{}'"'"'"'
     - shell_command:
         - | 
             while ! test -d '/mnt/homes/${USER}/music/'; do sleep 1; done \
