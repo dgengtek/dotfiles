@@ -136,6 +136,17 @@ tag_relations = {
         "vim": {
             "editor",
             },
+        # openid connect
+        "oidc": {
+            "identity",
+            "authentication",
+            "sso",
+            "oauth"
+            },
+        "oauth": {
+            "identity",
+            "authorization",
+            },
         "vimwiki": {
             "wiki",
             "vim",
