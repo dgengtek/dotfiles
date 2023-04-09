@@ -261,6 +261,7 @@ return require('packer').startup(function(use)
   use 'Glench/Vim-Jinja2-Syntax'
   use 'stephpy/vim-yaml'
   use 'NoahTheDuke/vim-just'
+  use 'jvirtanen/vim-hcl'
 
   -- etc
   use 'unblevable/quick-scope'
