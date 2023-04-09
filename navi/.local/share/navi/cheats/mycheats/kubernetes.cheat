@@ -121,7 +121,7 @@ kubectl uncordon <name>
 kubectl cordon <name>
 
 # run a shell in a container on the cluster
-kubectl run tmp-shell --restart=Never --rm -i --tty --image centos -- /bin/bash
+kubectl run tmp-shell --restart=Never --rm -i --tty --image alpine:edge -- /bin/bash
 
 # Display resource (cpu/memory/storage) usage
 kubectl top <type>
