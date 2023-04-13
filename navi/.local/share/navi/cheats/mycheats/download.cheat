@@ -1,10 +1,10 @@
 % video
 
 # download youtube video in best quality
-youtube-dl -f '(bestvideo[width>=1920]/bestvideo)+bestaudio/best'
+yt-dlp -f '(bestvideo[width>=1920]/bestvideo)+bestaudio/best'
 
 # download audio
-youtube-dl -f '(bestvideo[width>=1920]/bestvideo)+bestaudio/best' -x --no-playlist --output '%(title)s.%(ext)s'
+yt-dlp -f '(bestvideo[width>=1920]/bestvideo)+bestaudio/best' -x --no-playlist --output '%(title)s.%(ext)s'
 
 % download
 
