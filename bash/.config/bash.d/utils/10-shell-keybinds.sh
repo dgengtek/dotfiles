@@ -6,11 +6,9 @@ fi
 
 __edit_readline_in_editor() {
   new_line=$(echo "$READLINE_LINE" | vipe)
-  if [[ -z "$new_line" ]]; then
-    READLINE_LINE="${READLINE_LINE}"
-  else
+  if [[ -n "$new_line" ]]; then
     READLINE_LINE="$new_line"
   fi
 }
-# alt+s
+# alt+e
 bind -x '"\ee": __edit_readline_in_editor'
