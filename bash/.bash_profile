@@ -13,4 +13,10 @@ if xhost >& /dev/null ; then
     xmodmap ~/.Xmodmap
   fi
 fi
+# loadkeys -u neoqwertz
+# sudo localectl --no-convert set-keymap neoqwertz # console
+# sudo localectl --no-convert set-x11-keymap de pc105 neo_qwertz # x11
+
+# set old keymap in /etc/vconsole.conf
+# KEYMAP=/usr/local/share/kbd/keymaps/de-gd-keys.map # old custom keymap
 [[ -f ~/.bashrc ]] && . ~/.bashrc
