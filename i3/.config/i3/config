@@ -39,8 +39,8 @@ client.background       #ffffff
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id alacritty -e tmux
-bindsym $mod+Shift+Return exec --no-startup-id alacritty
+bindsym $mod+u exec --no-startup-id alacritty -e tmux
+bindsym $mod+Shift+u exec --no-startup-id alacritty
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -130,7 +130,8 @@ mode "resize" {
   bindsym $mod+c move position center
 
   # back to normal: Enter or Escape
-  bindsym Return mode "default"
+  bindsym $mod+u mode "default"
+  bindsym ISO_Level5_Shiftv+v mode "default"
   bindsym Escape mode "default"
   bindsym Control+c mode "default"
 }
@@ -195,10 +196,10 @@ workspace_auto_back_and_forth yes
 workspace_layout tabbed
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+numbersign move scratchpad
+bindsym $mod+Shift+0 move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+numbersign scratchpad show
+bindsym $mod+0 scratchpad show
 
 # switch to workspace mode
 bindsym $mod+1 mode "$output0"
@@ -271,7 +272,7 @@ mode "$output0" {
   bindsym $mod+Shift+5 move container to workspace $ws05;mode "default"
   bindsym $mod+Shift+6 move container to workspace $ws06;mode "default"
   bindsym $mod+Shift+7 move container to workspace $ws07;mode "default"
-  bindsym Return mode "default"
+  bindsym $mod+u mode "default"
   bindsym Escape mode "default"
   bindsym Control+c mode "default"
 }
@@ -304,7 +305,7 @@ mode "$output1" {
   bindsym $mod+Shift+5 move container to workspace $ws15;mode "default"
   bindsym $mod+Shift+6 move container to workspace $ws16;mode "default"
   bindsym $mod+Shift+7 move container to workspace $ws17;mode "default"
-  bindsym Return mode "default"
+  bindsym $mod+u mode "default"
   bindsym Escape mode "default"
   bindsym Control+c mode "default"
 }

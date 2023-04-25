@@ -8,7 +8,6 @@ if xhost >& /dev/null ; then
     xrdb -merge ~/.Xresources
   fi
 
-  setxkbmap de
   if [[ -f ~/.Xmodmap ]]; then
     xmodmap ~/.Xmodmap
   fi

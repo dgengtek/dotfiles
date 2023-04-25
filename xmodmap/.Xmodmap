@@ -2,4 +2,3 @@ keycode 121 = XF86AudioMute
 keycode 122 = XF86AudioLowerVolume
 keycode 123 = XF86AudioRaiseVolume
 keycode 172 = XF86AudioPlay
-keycode 66 = ISO_Level3_Shift
