@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:NotoSans 14
+font pango:TerminessTTF Nerd Font 15
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #2cb5e9 #285577 #ffffff #2e9ef4   #285577
@@ -168,7 +168,7 @@ bindsym $mod+p workspace prev_on_output
 bindsym $mod+Control+j focus output left
 bindsym $mod+Control+k focus output right
 
-bindsym $mod+F1 exec --no-startup-id alacritty -e vim ~/.config/i3/config
+bindsym $mod+F1 exec --no-startup-id alacritty -e nvim ~/.config/i3/config
 
 # media keyboard control
 bindsym XF86AudioRaiseVolume exec --no-startup-id audio_vol_up.sh
