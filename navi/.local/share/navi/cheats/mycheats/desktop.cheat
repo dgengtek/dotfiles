@@ -8,3 +8,6 @@ fc-list : family
 
 # set keymap to neo
 sudo localectl --no-convert set-keymap neoqwertz && sudo localectl --no-convert set-x11-keymap de pc105 neo_qwertz
+
+# load for current session
+setxkbmap -model pc105 -layout de -variant neo_qwertz
