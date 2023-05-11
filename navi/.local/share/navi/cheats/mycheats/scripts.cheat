@@ -28,6 +28,12 @@ fsbookmark.sh check | xargs -I {} fsbookmark.sh del '{}'
 # edit a script found in PATH
 edit_cmd.sh <binary>
 
+# generate a random amount of directories and files
+generate_environment.sh <directory>
+
+# interactively select files from a source and select a destination directory to pass to a command 
+f_cmd_source_destination.sh <command> <directory> <compgen_directory>
+
 # scan image to pdf
 datum="<datum>"; author="<author>"; subject="<betreff>"; name="$author $subject"; SCAN_DPI=150 ocr_archive.sh --enable-batch-scan --delete-original-scan --disable-tagging --date "$datum" --title "$name" --subject "$subject" --author "$author" "$name"
 
