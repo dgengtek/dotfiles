@@ -26,8 +26,8 @@ require'marks'.setup {
   cyclic = true,
   -- whether the shada file is updated after modifying uppercase marks. default false
   force_write_shada = false,
-  -- how often (in ms) to redraw signs/recompute mark positions. 
-  -- higher values will have better performance but may cause visual lag, 
+  -- how often (in ms) to redraw signs/recompute mark positions.
+  -- higher values will have better performance but may cause visual lag,
   -- while lower values may cause performance penalties. default 150.
   refresh_interval = 250,
   -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
@@ -108,7 +108,7 @@ require('lspconfig').pylsp.setup(coq.lsp_ensure_capabilities({
     pylsp = {
       plugins = {
         flake8 = {
-          enabled = true
+          enabled = false
         },
         pyflakes = {
           enabled = false
@@ -171,9 +171,10 @@ null_ls.setup({
     --     null_ls.builtins.diagnostics.pycodestyle,
     --     -- python
     --     -- null_ls.builtins.diagnostics.flake8,
-    --     -- python
-    --     null_ls.builtins.diagnostics.ruff,
-    --     null_ls.builtins.diagnostics.shellcheck,
+    --     -- python linter
+          null_ls.builtins.diagnostics.ruff,
+    --     -- shell linter
+          null_ls.builtins.diagnostics.shellcheck,
     --     -- json, yaml
     --     null_ls.builtins.diagnostics.spectral,
           null_ls.builtins.diagnostics.yamllint,
@@ -194,10 +195,21 @@ null_ls.setup({
     --     -- python code formatter
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.jq,
-    --     null_ls.builtins.formatting.just,
-    --     null_ls.builtins.formatting.ruff,
+    -- null_ls.builtins.formatting.dprint,
+        null_ls.builtins.formatting.just,
+        -- null_ls.builtins.formatting.ruff,
+        -- rust format
         null_ls.builtins.formatting.rustfmt,
-    --     null_ls.builtins.formatting.shfmt,
+        -- shell format
+        null_ls.builtins.formatting.shfmt,
+        --  NF{print s $0; s=""; next} {s=s ORS}'
+        null_ls.builtins.formatting.trim_newlines,
+        -- '{ sub(/[ \t]+$/, ""); print }'
+        null_ls.builtins.formatting.trim_whitespace,
+        -- todo sort and update in place
+        --null_ls.builtins.formatting.yq.with({
+          --args = { "sort_keys(..)", "$FILENAME" }
+        -- }),
     },
 })
 
