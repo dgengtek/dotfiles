@@ -101,7 +101,7 @@ remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
 
 local coq = require "coq"
-require('lspconfig').yamlls.setup(coq.lsp_ensure_capabilities())
+-- require('lspconfig').yamlls.setup(coq.lsp_ensure_capabilities())
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 require('lspconfig').pylsp.setup(coq.lsp_ensure_capabilities({
   settings = {
@@ -176,7 +176,7 @@ null_ls.setup({
     --     null_ls.builtins.diagnostics.shellcheck,
     --     -- json, yaml
     --     null_ls.builtins.diagnostics.spectral,
-    --     -- null_ls.builtins.diagnostics.yamllint,
+          null_ls.builtins.diagnostics.yamllint,
     --     -- javascript
     --     -- null_ls.builtins.diagnostics.standardjs,
     --     null_ls.builtins.diagnostics.cspell,
