@@ -40,7 +40,7 @@ let dark_theme = {
       } else if $in < 52wk {
         'deepskyblue3b'
       } else { 'dark_gray' }
-    }    
+    }
     range: white
     float: white
     string: white
@@ -179,7 +179,7 @@ let light_theme = {
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
   # true or false to enable or disable the welcome banner at startup
-  show_banner: true
+  show_banner: false
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
     clickable_links: true # enable or disable clickable links. Your terminal has to support links.
@@ -191,7 +191,7 @@ let-env config = {
     abbreviations: false # allows `cd s/o/f` to expand to `cd some/other/folder`
   }
   table: {
-    mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+    mode: thin # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
     index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
     show_empty: true # show 'empty list' and 'empty record' placeholders for command output
     trim: {
@@ -267,7 +267,7 @@ let-env config = {
     case_sensitive: false # set to true to enable case-sensitive completions
     quick: true  # set this to false to prevent auto-selecting completions when only one remains
     partial: true  # set this to false to prevent partial filling of the prompt
-    algorithm: "prefix"  # prefix or fuzzy
+    algorithm: "fuzzy"  # prefix or fuzzy
     external: {
       enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
       max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
@@ -280,8 +280,8 @@ let-env config = {
   }
   cursor_shape: {
     emacs: line # block, underscore, line (line is the default)
-    vi_insert: block # block, underscore, line (block is the default)
-    vi_normal: underscore # block, underscore, line  (underscore is the default)
+    vi_insert: line # block, underscore, line (block is the default)
+    vi_normal: block # block, underscore, line  (underscore is the default)
   }
   color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
   use_grid_icons: true
@@ -534,3 +534,23 @@ let-env config = {
     }
   ]
 }
+
+source utils.nu
+
+
+let-env STARSHIP_SHELL = "nu"
+
+def create_left_prompt [] {
+    starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
+}
+
+# Use nushell functions to define your right and left prompt
+let-env PROMPT_COMMAND = { || create_left_prompt }
+let-env PROMPT_COMMAND_RIGHT = ""
+
+# The prompt indicators are environmental variables that represent
+# the state of the prompt
+let-env PROMPT_INDICATOR = ""
+let-env PROMPT_INDICATOR_VI_INSERT = ": "
+let-env PROMPT_INDICATOR_VI_NORMAL = "〉"
+let-env PROMPT_MULTILINE_INDICATOR = "::: "
