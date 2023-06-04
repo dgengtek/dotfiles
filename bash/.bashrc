@@ -65,12 +65,3 @@ if hash starship; then
 else
  echo "Install starship to use custom prompt." >&2
 fi
-if hash zoxide; then
-  eval "$(zoxide init bash)"
-  unset zi
-  zz() {
-    __zoxide_zi "$@"
-  }
-else
- echo "Install zoxide." >&2
-fi

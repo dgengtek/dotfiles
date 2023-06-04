@@ -1,25 +1,6 @@
 #!/usr/bin/env bash
 
 
-cd() {
-  if [[ -z $1 ]]; then
-    builtin cd
-  elif [[ $1 == "--" ]] || [[ $1 == "-" ]]; then
-    fsbookmark.sh -q add "$@"
-    builtin cd "$@"
-  elif ! [[ -d $1 ]]; then
-    echo -n "$1 is not a directory." >&2
-    local dir=$(dirname "$1" 2> /dev/null)
-    echo "Stripping component - cd to $dir." >&2
-    fsbookmark.sh -q add "$dir"
-    builtin cd "$dir"
-  else
-    fsbookmark.sh -q add "$@"
-    builtin cd "$@"
-  fi
-}
-
-
 awksleep() {
   # slow down command output
   local -r sleep_time=${1:-'0.5'}
@@ -35,7 +16,7 @@ ping_host() {
   if [[ -z $host ]]; then
     echo "No host has been supplied." >&2
     return 1
-  fi 
+  fi
   trap "trap - SIGINT;echo -e '\nInterrupted ping.';return 1" SIGINT
   echo "PING ==> ${host}..."
   until ping -W 3 -c 1 "$host" >& /dev/null; do echo -n "." >&2;(sleep 1 & wait); done
@@ -57,11 +38,11 @@ ping_host_port() {
   if ! hash nc; then
     echo "nc not found in path." >&2
     return 1
-  fi 
+  fi
   if [[ -z $host ]]; then
     echo "No host has been supplied." >&2
     return 1
-  fi 
+  fi
   trap "trap - SIGINT;echo -e '\nInterrupted nc.';return 1" SIGINT
   echo "PING ==> ${host}:${port}..."
   until nc -w 3 -vz "$host" "$port" >& /dev/null; do echo -n "." >&2;(sleep 1 & wait); done
@@ -173,8 +154,8 @@ pushd_all() {
       pushd "$(realpath $i)" || failed=1
     fi
     if (($failed)); then
-      builtin cd $cwd 
-      dirs -c 
+      builtin cd $cwd
+      dirs -c
       return 1
     fi
   done

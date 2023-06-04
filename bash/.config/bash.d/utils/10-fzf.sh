@@ -11,7 +11,7 @@ _widget_history_append() {
   output=$(
   builtin fc -lnr -2147483648 |
     last_hist=$(HISTTIMEFORMAT='' builtin history 1) perl -n -l0 -e 'BEGIN { getc; $/ = "\n\t"; $HISTCMD = $ENV{last_hist} + 1 } s/^[ *]//; print $HISTCMD - $. . "\t$_" if !$seen{$_}++' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS +m --read0" $(__fzfcmd) 
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS +m --read0" $(__fzfcmd)
   ) || return;
   READLINE_LINE="${READLINE_LINE}${output#*$'\t'}"
 }
@@ -24,29 +24,6 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
-
-unalias z 2> /dev/null
-z() {
-  local PATH_BOOKMARKS=${PATH_BOOKMARKS:-"${HOME}/.local/share/"}
-  local -r FSBOOKMARKS="${PATH_BOOKMARKS}fsbookmarks.db.txt"
-  local -r result=$(sort "$FSBOOKMARKS" | fzf)
-  [[ -z $result ]] && return 0
-  if ! [[ -d $result ]]; then
-    fsbookmark.sh del "$result"
-    echo "$result is not a directory. Removed from $FSBOOKMARKS" >&2
-    return 0
-  fi
-  echo -n "$result"
-}
-
-
-zz() {
-  local -r dir="$(z)"
-  if [[ -n "$dir" ]]; then
-    builtin cd "$dir"
-  fi
-}
-
 
 # fkill - kill process
 f_kill() {
@@ -179,7 +156,7 @@ EOF
   local state=$(echo $1 | tr [:lower:] [:upper:])
 
   local files=
-  files=($(git status -s | awk '/^[? ]['"$state"']/ {print $2}' | fzf --multi --select-1 --exit-0 --preview="git diff {}")) 
+  files=($(git status -s | awk '/^[? ]['"$state"']/ {print $2}' | fzf --multi --select-1 --exit-0 --preview="git diff {}"))
   [[ -n $files ]] && git add "${files[@]}"
 }
 alias f_gcherry=f_git_cherry_pick
@@ -300,25 +277,25 @@ alias f_he=f_history_edit
 
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
 f_kill() {
-    local pid 
+    local pid
     if [ "$UID" != "0" ]; then
         pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
     else
         pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-    fi  
+    fi
 
     if [ "x$pid" != "x" ]
     then
         echo $pid | xargs kill -${1:-9}
-    fi  
+    fi
 }
 
 
 # fjrnl - Search JRNL headlines
-f_jrnl() {                                                                                                                                                                                               
-  title=$(jrnl --short | fzf --tac --no-sort) &&                                                                                                                                                         
-  jrnl -on "$(echo $title | cut -c 1-16)" $1                                                                                                                                                             
-  } 
+f_jrnl() {
+  title=$(jrnl --short | fzf --tac --no-sort) &&
+  jrnl -on "$(echo $title | cut -c 1-16)" $1
+  }
 
 f_buku() {
     # save newline separated string into an array
