@@ -5,8 +5,8 @@ xplr.config.modes.custom.fzxplr = {
   name = "fzxplr",
   key_bindings = {
     on_key = {
-      F = {
-        help = "search",
+      c = {
+        help = "search in current directory",
         messages = {
           {
             BashExec = [===[
