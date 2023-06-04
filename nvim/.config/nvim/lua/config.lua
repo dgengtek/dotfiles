@@ -20,6 +20,7 @@ require("indent_blankline").setup {
 require('fm-nvim').setup{
       -- Path to broot config
       -- broot_conf = vim.fn.stdpath("data") .. "/site/pack/packer/start/fm-nvim/assets/broot_conf.hjson"
+      broot_conf = vim.fn.expand("\"$HOME/.config/broot/conf.hjson;$HOME/.config/broot/select.toml\"")
 }
 
 require'marks'.setup {
