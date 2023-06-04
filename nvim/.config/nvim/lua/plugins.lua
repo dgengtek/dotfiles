@@ -1,4 +1,4 @@
---[=====[ 
+--[=====[
 -- You must run this or `PackerSync` whenever you make changes to your plugin configuration
 -- Regenerate compiled loader file
 :PackerCompile
@@ -93,7 +93,7 @@ return require('packer').startup(function(use)
   -- embed nvim in firefox
   use {
     'glacambre/firenvim',
-    run = function() vim.fn['firenvim#install'](0) end 
+    run = function() vim.fn['firenvim#install'](0) end
   }
 
   -- Use specific branch, dependency and run lua file after load
@@ -111,12 +111,12 @@ return require('packer').startup(function(use)
   }
 
   -- https://github.com/ibhagwan/fzf-lua
-  -- :FzfLua 
+  -- :FzfLua
   use { 'ibhagwan/fzf-lua',
     -- optional for icon support
     requires = { 'nvim-tree/nvim-web-devicons' }
   }
-  
+
   -- json editing with jq, for yaml requires yq
   use "gennaro-tedesco/nvim-jqx"
 
@@ -132,9 +132,9 @@ return require('packer').startup(function(use)
 
   -- file explorer
   -- :RnvimrToggle
-  use 'kevinhwang91/rnvimr'
+  -- use 'kevinhwang91/rnvimr'
   -- https://github.com/is0n/fm-nvim
-  -- use {'is0n/fm-nvim'}
+  use {'is0n/fm-nvim'}
 
   -- edit filesystem like a buffer
   use {
@@ -227,7 +227,7 @@ return require('packer').startup(function(use)
   -- earlysummer good
   use 'ray-x/starry.nvim'
   use 'dracula/vim'
-  -- 
+  --
   use "lukas-reineke/indent-blankline.nvim"
   --
   use 'tpope/vim-fugitive'

@@ -17,6 +17,11 @@ require("indent_blankline").setup {
     show_trailing_blankline_indent = false,
 }
 
+require('fm-nvim').setup{
+      -- Path to broot config
+      -- broot_conf = vim.fn.stdpath("data") .. "/site/pack/packer/start/fm-nvim/assets/broot_conf.hjson"
+}
+
 require'marks'.setup {
   -- whether to map keybinds or not. default true
   default_mappings = true,
