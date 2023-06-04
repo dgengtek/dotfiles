@@ -536,6 +536,9 @@ let-env config = {
 }
 
 source utils.nu
+use monokai-dark.nu
+let-env config = ($env.config | merge {color_config: (monokai-dark)})
+# source zoxide.nu
 
 
 let-env STARSHIP_SHELL = "nu"
