@@ -90,7 +90,7 @@ task tags.none: edit
 # list all task for filtering
 task long
 
-# show all tasks which have no project set 
+# show all tasks which have no project set
 task projects.none: long
 
 # view all next projects
@@ -117,10 +117,7 @@ task state:'proj' project:"<project>"
 # duplicate a task and edit
 new_task=$(task dup <task> | sed -n '/Created task/s/Created task \([[:digit:]]*\)\./\1/p') && test -n "$new_task" && task edit "$new_task"
 
-# search for and get a task
-task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' | fzf --preview="task {1}"
-
-# search and select multiple tasks directly
+# search for and get, select tasks
 task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' | fzf --preview="task {1}" --multi
 
 # select multiple tasks
