@@ -14,7 +14,6 @@ cd() {
   if [[ -z $1 ]]; then
     builtin cd || return
   elif [[ $1 == "--" ]] || [[ $1 == "-" ]]; then
-    zoxide add "$1"
     builtin cd "$@" || return
   elif ! [[ -d $1 ]]; then
     echo -n "$1 is not a directory." >&2
@@ -23,7 +22,7 @@ cd() {
     zoxide add "$dir"
     builtin cd "$dir" || return
   else
-    zoxide add "$dir"
+    zoxide add "$@"
     builtin cd "$@" || return
   fi
 }
