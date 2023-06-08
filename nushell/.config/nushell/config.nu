@@ -537,6 +537,7 @@ let-env config = {
 
 source utils.nu
 source env.nu
+source git.nu
 use monokai-dark.nu
 let-env config = ($env.config | merge {color_config: (monokai-dark)})
 # source zoxide.nu
