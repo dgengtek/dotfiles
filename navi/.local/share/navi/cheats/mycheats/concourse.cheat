@@ -185,8 +185,7 @@ fly --target <target> jobs --pipeline <pipeline> --json | jq -r '.[] | select(.f
 fly --target <target> jobs --pipeline <pipeline> --json | jq -r '.[] | .finished_build.id' | sort | xargs -L 1 fly -t <target> watch -b
 
 
-% fly, concourse, pipeline, ci-cd, nushell
-# trigger all jobs which did not succeed
+# nushell: trigger all jobs which did not succeed
 nu -c 'fly -t intranet jobs -p <pipeline> --json | from json | filter { |i| ($i.finished_build | is-empty) or ($i.finished_build.status != "succeeded")} | each {|i| fly -t intranet tj -j $"($i.pipeline_name)/($i.name)" }'
 
 
