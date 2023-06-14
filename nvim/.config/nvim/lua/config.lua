@@ -183,7 +183,8 @@ null_ls.setup({
           null_ls.builtins.diagnostics.shellcheck,
     --     -- json, yaml
     --     null_ls.builtins.diagnostics.spectral,
-          null_ls.builtins.diagnostics.yamllint,
+          -- yamlls seems broken, autocompleting in insert mode
+          -- null_ls.builtins.diagnostics.yamllint,
     --     -- javascript
     --     -- null_ls.builtins.diagnostics.standardjs,
     --     null_ls.builtins.diagnostics.cspell,
@@ -198,6 +199,7 @@ null_ls.setup({
     --     null_ls.builtins.formatting.stylua,
     --     null_ls.builtins.diagnostics.eslint,
     --     null_ls.builtins.completion.spell,
+        null_ls.builtins.formatting.yamlfmt,
     --     -- python code formatter
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.jq,
