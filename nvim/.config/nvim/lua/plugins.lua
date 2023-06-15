@@ -252,6 +252,7 @@ return require('packer').startup(function(use)
   use 'stephpy/vim-yaml'
   use 'NoahTheDuke/vim-just'
   use 'jvirtanen/vim-hcl'
+  use { 'LhKipp/nvim-nu', run = ':TSInstall nu' }
 
   -- etc
   use 'unblevable/quick-scope'
