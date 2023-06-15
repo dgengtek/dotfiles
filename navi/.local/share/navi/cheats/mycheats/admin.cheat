@@ -40,9 +40,9 @@ sudo wipefs --all --backup <device>
 sudo dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting <device>'
 
 # zero device
-sudo dd if=/dev/zero of=<device>
+sudo dd if=/dev/zero of=<device> bs=1M oflag=dsync
 
-# resize gpt partition 
+# resize gpt partition
 sudo sgdisk --move-second-header \
   && sudo sgdisk --delete=<device_partition_nr> <device> \
   && sudo sgdisk --new=<device_partition_nr>:0:0 --typecode=0:8e00 --change-name=0:pv <device> \
@@ -58,7 +58,7 @@ sudo sfdisk --backup --backup-file ./sfdisk --delete <device>
 # dump device layout to text file
 sudo sfdisk --dump <device> > <device_name>.dump
 
-# restore device layout from text file 
+# restore device layout from text file
 read -p "WARNING this will erase the existing layout on <device>. Abort with ctrl-c" && sudo sfdisk <device> < <filename>
 
 # backup all partition sectors
@@ -79,8 +79,11 @@ dd if=/dev/urandom count=1 bs=<bytes_count> 2>/dev/null | base64 -w 0
 # generate pseudo-random bytes
 openssl rand -base64 <bytes_count>
 
-# wipe device
+# wipe device with random data
 sudo shred --verbose --random-source=/dev/urandom --zero <device>
+
+# wipe device with zero
+sudo shred --verbose --force --iterations 0 --zero <device>
 
 # trim an entire SSD device, all data on device will be lost!
 : "data will be lost"; blkdiscard <device>
@@ -170,6 +173,10 @@ for x in /sys/class/scsi_disk/*; do echo '1' > $x/device/rescan; done
 
 # select a random hostname from stdin
 find . -type f -exec cat {} + | random_line.py | strip.py | tr -dc '[:alnum:]-' | tr 'A-Z' 'a-z'
+
+
+# flush cache
+sync; echo 3 | sudo tee /proc/sys/vm/drop_caches
 
 
 % udiskctl
