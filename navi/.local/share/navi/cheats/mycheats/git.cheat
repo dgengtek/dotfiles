@@ -195,6 +195,12 @@ git_auto_pull.sh -r <remote> -- --ff
 # cat deleted file from git history
 git show $(git rev-list --max-count=1 --all -- <deleted_file>)^:<deleted_file>
 
+# cat, get file from a different branch
+git show <branch>:<file>
+
+# cat, get file from a different commit
+git show <commit>:<file>
+
 # is file tracked?
 git ls-files --error-unmatch <file>
 
