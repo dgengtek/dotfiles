@@ -62,6 +62,7 @@ alias vi="vim"
 alias vimr="vim -R"
 alias view=vimr
 alias edit="vim"
+alias nvimdiff="nvim -d"
 alias info="info --vi-keys"
 alias pager="$PAGER"
 alias rgh="rg --hidden"
