@@ -183,6 +183,9 @@ git reset --soft HEAD~<number_of_commits>
 # squash the last commits
 git reset --soft HEAD~<number_of_commits> && git commit
 
+# squash
+git merge --squash
+
 # get current git head name, branch
 git rev-parse --abbrev-ref HEAD
 
@@ -298,10 +301,16 @@ git checkout <commit>
 git log --pretty=format:'%Cred%H%Creset -%C(yellow)%d%Creset %s %Cgreen(%cI) %C(bold blue)<%an, %ae>%Creset'
 
 # update with new repository origin
-git remote rm <remote>
-git remote add <new_remote> <new_repository_url>
-git pull --all
-git push --mirror -u
+git remote rm <remote> &&
+git remote add <new_remote> <new_repository_url> &&
+git pull --all &&
+git push --mirror -u;
+
+# git rebase commits onto branch
+git checkout -b staging_branch &&
+git rebase --interactive HEAD~<number_of_commits> --onto <branch> &&
+git checkout <branch> &&
+echo git merge staging_branch;
 
 
 $ commit: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --column 0 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
