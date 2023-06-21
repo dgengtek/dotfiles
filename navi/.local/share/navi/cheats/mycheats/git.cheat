@@ -60,10 +60,10 @@ git rebase origin/master
 --since=midnight
 
 # check if tag contains a commit
-git tag --contains <commit>
+git tag --contains <input_commit>
 
 # check if branch contains a commit
-git branch --contains <commit>
+git branch --contains <input_commit>
 
 # Apply the changes introduced by some existing commits
 git cherry-pick
@@ -294,8 +294,11 @@ git rev-list --count <branch>..<branch2>
 # checkout a specific commit
 git checkout <commit>
 
-# get a specific commit
+# get, search for a specific commit
 <commit>
+
+# select multiple commits
+<commits>
 
 # get pretty oneline custom log entries
 git log --pretty=format:'%Cred%H%Creset -%C(yellow)%d%Creset %s %Cgreen(%cI) %C(bold blue)<%an, %ae>%Creset'
@@ -314,6 +317,7 @@ echo git merge staging_branch;
 
 
 $ commit: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --column 0 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
+$ commits: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --multi --column 0 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
 $ folder: fd --type d
 $ file: fd --type f
 $ deleted_file: git log --all --pretty=format: --name-only --diff-filter=D

@@ -81,7 +81,7 @@ sudo pacman -Qe
 # List packages installed automatically (as dependencies), equal to `apt-mark showauto`
 sudo pacman -Qd
 
-# Display packages which require X to be installed, equal to `apt-cache rdepends <pkg_name>` or `aptitude search ~D$pattern`
+# Display packages which require <pkg_name> to be installed, equal to `apt-cache rdepends <pkg_name>` or `aptitude search ~D$pattern`
 sudo pacman -Sii <pkg_name>
 
 # List all packages which are required for the given package, equal to `apt-cache depends <pkg_name>` or `apt-cache show <pkg_name>`
