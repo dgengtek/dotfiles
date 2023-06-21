@@ -125,6 +125,9 @@ require('lspconfig').pylsp.setup(coq.lsp_ensure_capabilities({
         flake8 = {
           enabled = false
         },
+        pycodestyle = {
+          enabled = false
+        },
         pyflakes = {
           enabled = false
         },
