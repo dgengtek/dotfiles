@@ -319,8 +319,8 @@ git checkout <branch> &&
 echo git merge staging_branch;
 
 
-$ commit: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --column 0 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
-$ commits: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --multi --column 0 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
+$ commit: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --column 1 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
+$ commits: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --multi --column 1 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
 $ folder: fd --type d
 $ file: fd --type f
 $ deleted_file: git log --all --pretty=format: --name-only --diff-filter=D
