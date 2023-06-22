@@ -291,6 +291,9 @@ git check-ignore *
 # how many commits behind is the branch compared to the selected branch2?
 git rev-list --count <branch>..<branch2>
 
+# pick, edit, drop, reword, squash, fix the list of commits until the selected commit
+git rebase -i <commit>^
+
 # checkout a specific commit
 git checkout <commit>
 
@@ -311,7 +314,7 @@ git push --mirror -u;
 
 # git rebase commits onto branch
 git checkout -b staging_branch &&
-git rebase --interactive HEAD~<number_of_commits> --onto <branch> &&
+git rebase --interactive <commit>^ --onto <branch> &&
 git checkout <branch> &&
 echo git merge staging_branch;
 
