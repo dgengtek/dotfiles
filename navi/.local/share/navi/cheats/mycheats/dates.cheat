@@ -1,0 +1,19 @@
+% date
+
+# get epoch
+date --date @
+
+# get hours minutes seconds date
+date +%T
+
+# get year month day date
+date +%F
+
+# get current date for filenames
+date +%Y%m%dT%H%M%S
+
+# get date in iso 8602 format
+date --iso-8602=ns
+
+# get date for logcli in rfc3339 nano
+date +%FT%T.%N%:z
