@@ -22,9 +22,12 @@ alias bo="broot --conf '$HOME/.config/broot/conf.hjson;$HOME/.config/broot/selec
 
 unalias z 2> /dev/null
 z() {
-  local dir=$(broot --only-folders --conf "$HOME/.config/broot/conf.hjson;$HOME/.config/broot/selectd.toml")
+  local dir=$(broot --conf "$HOME/.config/broot/conf.hjson;$HOME/.config/broot/selectd.toml")
   if [[ -z "$dir" ]]; then
     builtin cd || return
+  fi
+  if [[ -f "$dir" ]]; then
+    dir=$(dirname "$dir")
   fi
   cd "$dir"
 }
