@@ -18,6 +18,9 @@ qemu-system-x86_64 -m 1024 -enable-kvm -cpu host -device virtio-net,netdev=user.
 # use bridge and boot from network
 qemu-system-x86_64 -enable-kvm -cpu host -vga std -m 2G -nic bridge,br=<bridge>,model=virtio-net-pci,mac=<mac> -boot order=nc,reboot-timeout=6 -drive file=<disk_image>,format=raw,index=0,media=disk,if=virtio
 
+# simple run with ssh 5522 and vnc 5900
+qemu-system-x86_64 -m 2G -enable-kvm -cpu host -snapshot -device virtio-net,netdev=user.0 -netdev user,id=user.0,hostfwd=tcp::5522-:22 -vnc :0
+
 # boot with cloud-init image
 qemu-system-x86_64 -enable-kvm -cpu host -vga std -m 2G -nic bridge,br=<bridge>,model=virtio-net-pci,mac=<mac> -drive file=<disk_image>,format=raw,index=0,media=disk,if=virtio -cdrom <cloud-init_image>
 

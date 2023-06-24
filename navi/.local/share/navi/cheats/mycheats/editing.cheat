@@ -20,7 +20,8 @@ sed '/^$/d;G'
 sed 's/$/echo \\\r/'
 
 # convert dos endline to unix endline
-sed 's/$//'
+sed 's/
+$//'
 
 # convert newline to escaped newline
 sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'
@@ -59,7 +60,7 @@ f.sh | xargs_vim.sh
 search="<pattern>";rg --ignore-case --files-with-matches --follow "$pattern" | xargs sed -i "s<delimiter>$search<delimiter><replacement><delimiter>"
 
 # print random line from file
-random_line.py <compgen_file_cwd> 
+random_line.py <compgen_file_cwd>
 
 # print a random line and delete it
 cp <compgen_file_cwd>{,.bak}; r=$(random_line.py <compgen_file_cwd>.bak) && sed -i "/$r/ d" <compgen_file_cwd>.bak && echo $r
@@ -71,8 +72,27 @@ tr -dc '[:alnum:]-'
 canonize.sh
 
 # filter prefix and suffix
+awk '{ sub(/[ \t]+$/, ""); sub(/^[ \t]+/, ""); print }'
 
 # filter filenames
 filename_canonize.py
+
+# create a patch file
+diff -u <file> <new_file> > <file>.patch
+
+# apply a patch
+patch <file> < <patch_filename>
+
+# revert a patch
+patch -R <file> < <patch_filename>
+
+# create a patch for a directory
+diff -ruN <directory> <new_directory> > <directory>.patch
+
+# apply patch to directory
+patch -p0 < <patch_filename>
+
+# undo patch to directory
+patch -R -p0 < <patch_filename>
 
 $ delimiter: echo -e ",\n"

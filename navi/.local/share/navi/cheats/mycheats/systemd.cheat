@@ -3,7 +3,7 @@
 # debug systemd
 sudo -E SYSTEMD_LOG_LEVEL=debug
 
-# on the next boot open a root login shell on tty9 very early in the boot process, disable after debug
+# on the next boot open a root login shell on tty9 very early in the boot process, disable after debug, on tty9
 sudo systemctl enable debug-shell
 
 # Start service
