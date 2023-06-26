@@ -205,7 +205,7 @@ pwgen.py -a -c 1 32 | xclip -selection c; sleep 15 && echo -n "cleared pw" | xcl
 % certificate
 
 # split a certificate chain into individual files
-awk 'split_after == 1 {n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".crt"}' < <file_certificate_chain>
+awk 'split_after == 1 {n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n+1 ".crt"}' < <file_certificate_chain>
 
 
 % sudo, passwd
