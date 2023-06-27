@@ -66,6 +66,12 @@ drawio-desktop
 # scan and decode bar codes from image file(s)
 zbarimg
 
+# run a temporary new instance of firefox
+tmp_dir=$(mktemp -d /tmp/firefox-XXXXXX); firefox -profile $tmp_dir -no-remote -new-instance; rm -rf $tmp_dir
+
+# get list of active firefox plugins
+jq -r '.addons[] | select(.active) | .defaultLocale.name' ~/.mozilla/firefox/<profile>/extensions.json | sort
+
 % espeak
 # speak german text
 espeak -v de -s 143 -p 20 "<text>"
