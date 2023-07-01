@@ -1,0 +1,5 @@
+% uefi
+
+
+# check if host booted into uefi
+test -d /sys/firmware/efi/efivars
