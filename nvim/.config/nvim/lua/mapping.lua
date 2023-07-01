@@ -46,15 +46,27 @@ nmap("<space>ss", function() require("fzf-lua").live_grep() end)
 nmap("<space>sS", function() require("fzf-lua").live_grep_glob() end)
 nmap("<space>sw", function() require("fzf-lua").grep_cword() end)
 
+nmap("<space>t", function() require("fzf-lua").tabs() end)
+nmap("<space>b", function() require("fzf-lua").buffers() end)
+
 nmap("<space>ff", function() require("fzf-lua").files() end)
+nmap("<space>fq", function() require("fzf-lua").quickfix() end)
+nmap("<space>fl", function() require("fzf-lua").loclist() end)
 nmap("<space>fh", function() require("fzf-lua").help_tags() end)
 nmap("<space>ss", function() require("fzf-lua").live_grep() end)
 nmap("<space>sS", function() require("fzf-lua").live_grep_glob() end)
 nmap("<space>sw", function() require("fzf-lua").grep_cword() end)
 nmap("<space>sb", function() require("fzf-lua").grep_curbuf() end)
-nmap("<space>;",  function() require("fzf-lua").buffers() end)
 nmap("<space>gc", function() require("fzf-lua").git_commits() end)
 nmap("<space>gC", function() require("fzf-lua").git_bcommits() end)
+
+nmap("<space>hc", function() require("fzf-lua").command_history() end)
+nmap("<space>hs", function() require("fzf-lua").search_history() end)
+nmap("<space>hr", function() require("fzf-lua").registers() end)
+nmap("<space>hm", function() require("fzf-lua").marks() end)
+nmap("<space>hj", function() require("fzf-lua").jumps() end)
+nmap("<space>hk", function() require("fzf-lua").keymaps() end)
+nmap("<space>ha", function() require("fzf-lua").autocmds() end)
 
 -- splitting windows and buffers
 nmap('<leader>sw<left>', ":topleft vnew<CR>")
@@ -106,4 +118,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
+})
+
+
+vim.api.nvim_create_autocmd({"User"}, {
+  pattern = "FugitiveIndex",
+  command = "nmap <buffer> dt :Gtabedit <Plug><cfile><Bar>Gdiffsplit<CR>"
 })
