@@ -1,16 +1,17 @@
 % udev
+@ device, backup, image
 
 # get udevadm info for all
 sudo udevadm info --query=all
 
-# reload udev and retrigger 
+# reload udev and retrigger
 sudo udevadm control --reload-rules && sudo udevadm trigger
 
 # monitor udev events
 sudo udevadm monitor --environment
 
 # test device
-sudo udevadm test $(sudo udevadm info --query=path --name=<device_name>) 2>&1
+sudo udevadm test $(sudo udevadm info --query=path --name=<any_device>) 2>&1
 
 # load new rules
 sudo udevadm control --reload
@@ -18,8 +19,11 @@ sudo udevadm control --reload
 # force trigger rules
 sudo udevadm trigger
 
-# list attributes of a device
-sudo udevadm info --attribute-walk --name=<device_name>
+# walk all attributes of a device
+sudo udevadm info --attribute-walk --name=<any_device>
 
 # trigger a subsystem action
 sudo udevadm trigger --verbose --type=subsystems --action=<action> --subsystem-match=<subsystem> --attr-match="<attribute>"
+
+# list attributes of a device
+sudo udevadm info --name=<any_device>

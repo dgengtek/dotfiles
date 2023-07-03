@@ -1,5 +1,8 @@
 % device, backup, image
 
+# display device drivers in use
+lspci -nnk
+
 # zero all available space with dd and remove after
 sudo dd if=/dev/zero of=<directory_to_zero>/ZEROED bs=1M || rm -fv <directory_to_zero>/ZEROED
 
@@ -144,6 +147,7 @@ $ mountpoint: mount -l --- --column 3 --delimiter ' '
 $ interface: find /sys/class/net/ -mindepth 1 -maxdepth 1 | xargs -n 1 basename
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
 $ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[0-9]$/ d'
+$ any_device: find /dev -mindepth 1 -not -type d
 $ device_partition: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[^0-9]$/ d'
 $ device_name: basename "<device>"
 $ device_partition_nr: find /dev/ -mindepth 1 -maxdepth 1 -name '<device_name>?*' | sed 's,^/dev/<device_name>,,'
