@@ -91,7 +91,26 @@ echo | \
   openssl s_client -servername <DOMAIN> -connect <URL>:<PORT> 2>/dev/null | \
   openssl x509 -text | less
 
+# generate a private key with the given public key algorithm
+openssl genpkey -algorithm <private_key_algorithm>
+
+# generate rsa key pair
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:<rsa_bits>
+
+# generate ec parameters
+openssl genpkey \
+  -genparam -algorithm EC \
+  -pkeyopt ec_paramgen_curve:secp384r1 \
+  -pkeyopt ec_param_enc:named_curve
+
+# generate ec key
+openssl genpkey \
+  -algorithm EC \
+  -pkeyopt ec_paramgen_curve:P-384 \
+  -pkeyopt ec_param_enc:named_curve
+
 # Sensible/common default alternatives
+$ private_key_algorithm: echo -n "RSA,RSA-PSS,EC,X25519,X448,ED25519,ED448" | tr ',' '\n'
 $ VALIDITY: printf "DAYS\tCOMMENT\n1\ta day\n30\ta month\n365\ta year\n730\ttwo years" --- --column 1 --headers 1
 $ RSA_LENGTH: printf "KEY LENGTH\tCOMMENT\n2048\t\tDefault\n4096\t\tBetter\n8192\t\tSlow?" --- --column 1 --headers 1
 
