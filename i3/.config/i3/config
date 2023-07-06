@@ -139,7 +139,7 @@ mode "resize" {
 bindsym $mod+z mode "resize"
 bindsym $mod+r exec --no-startup-id rofi -show run
 # bindsym $mod+r exec --no-startup-id alacritty -e bash -i -c 'setsid --fork $(navi --print)'
-#bindsym $mod+r exec --no-startup-id urxvtc -geometry 80x42+0+0 -e ~/.config/i3/i3menu.sh 
+#bindsym $mod+r exec --no-startup-id urxvtc -geometry 80x42+0+0 -e ~/.config/i3/i3menu.sh
 #for_window [title="^i3menu.sh$"] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -201,110 +201,221 @@ bindsym $mod+Shift+0 move scratchpad
 # Show the first scratchpad window
 bindsym $mod+0 scratchpad show
 
+set $mode_ws1 output_0_ws1
+set $mode_ws2 output_0_ws2
+set $mode_ws3 output_1_ws3
+set $mode_ws4 output_1_ws4
+
 # switch to workspace mode
-bindsym $mod+1 mode "$output0"
-bindsym $mod+2 mode "$output1"
+bindsym $mod+1 mode $mode_ws1
+bindsym $mod+2 mode $mode_ws2
+bindsym $mod+3 mode $mode_ws3
+bindsym $mod+4 mode $mode_ws4
 
 set $screen0 DisplayPort-2
 set $screen1 DVI-D-0
 
-set $ws01 "1:shells"
-set $ws02 "2:surf"
-set $ws03 "3:priv"
-set $ws04 "4:work"
-set $ws05 "5:media"
-set $ws06 "6:etc"
-set $ws07 "7:0"
-set $ws08 "8:0"
+set $ws1_01 "1:shells"
+set $ws1_02 "2:surf"
+set $ws1_03 "3:priv"
+set $ws1_04 "4:work"
+set $ws1_05 "5:media"
+set $ws1_06 "6:etc"
+set $ws1_07 "7:0"
 
-set $ws11 "1:read"
-set $ws12 "2:ssh"
-set $ws13 "3:reference"
-set $ws14 "4:services"
-set $ws15 "5:discover"
-set $ws16 "6:1"
-set $ws17 "7:1"
+set $ws2_01 "8:shells"
+set $ws2_02 "9:surf"
+set $ws2_03 "10:priv"
+set $ws2_04 "11:work"
+set $ws2_05 "12:media"
+set $ws2_06 "13:etc"
+set $ws2_07 "14:0"
 
-workspace $ws01 output $screen0
-workspace $ws02 output $screen0
-workspace $ws03 output $screen0
-workspace $ws04 output $screen0
-workspace $ws05 output $screen0
-workspace $ws06 output $screen0
-workspace $ws07 output $screen0
-workspace $ws08 output $screen0
+set $ws3_01 "1:read"
+set $ws3_02 "2:ssh"
+set $ws3_03 "3:reference"
+set $ws3_04 "4:services"
+set $ws3_05 "5:discover"
+set $ws3_06 "6:1"
+set $ws3_07 "7:1"
 
-workspace $ws11 output $screen1
-workspace $ws12 output $screen1
-workspace $ws13 output $screen1
-workspace $ws14 output $screen1
-workspace $ws15 output $screen1
-workspace $ws16 output $screen1
-workspace $ws17 output $screen1
+set $ws4_01 "8:read"
+set $ws4_02 "9:ssh"
+set $ws4_03 "10:reference"
+set $ws4_04 "11:services"
+set $ws4_05 "12:discover"
+set $ws4_06 "13:1"
+set $ws4_07 "14:1"
 
-mode "$output0" {
-  set $screen0 DisplayPort-2
-  bindsym 1 workspace $ws01;mode "default"
-  bindsym 2 workspace $ws02;mode "default"
-  bindsym 3 workspace $ws03;mode "default"
-  bindsym 4 workspace $ws04;mode "default"
-  bindsym 5 workspace $ws05;mode "default"
-  bindsym 6 workspace $ws06;mode "default"
-  bindsym 7 workspace $ws07;mode "default"
-  bindsym $mod+1 workspace $ws01;mode "default"
-  bindsym $mod+2 workspace $ws02;mode "default"
-  bindsym $mod+3 workspace $ws03;mode "default"
-  bindsym $mod+4 workspace $ws04;mode "default"
-  bindsym $mod+5 workspace $ws05;mode "default"
-  bindsym $mod+6 workspace $ws06;mode "default"
-  bindsym $mod+7 workspace $ws07;mode "default"
-  bindsym Shift+1 move container to workspace $ws01;mode "default"
-  bindsym Shift+2 move container to workspace $ws02;mode "default"
-  bindsym Shift+3 move container to workspace $ws03;mode "default"
-  bindsym Shift+4 move container to workspace $ws04;mode "default"
-  bindsym Shift+5 move container to workspace $ws05;mode "default"
-  bindsym Shift+6 move container to workspace $ws06;mode "default"
-  bindsym Shift+7 move container to workspace $ws07;mode "default"
-  bindsym $mod+Shift+1 move container to workspace $ws01;mode "default"
-  bindsym $mod+Shift+2 move container to workspace $ws02;mode "default"
-  bindsym $mod+Shift+3 move container to workspace $ws03;mode "default"
-  bindsym $mod+Shift+4 move container to workspace $ws04;mode "default"
-  bindsym $mod+Shift+5 move container to workspace $ws05;mode "default"
-  bindsym $mod+Shift+6 move container to workspace $ws06;mode "default"
-  bindsym $mod+Shift+7 move container to workspace $ws07;mode "default"
+workspace $ws1_01 output $screen0
+workspace $ws1_02 output $screen0
+workspace $ws1_03 output $screen0
+workspace $ws1_04 output $screen0
+workspace $ws1_05 output $screen0
+workspace $ws1_06 output $screen0
+workspace $ws1_07 output $screen0
+workspace $ws1_08 output $screen0
+
+workspace $ws2_01 output $screen0
+workspace $ws2_02 output $screen0
+workspace $ws2_03 output $screen0
+workspace $ws2_04 output $screen0
+workspace $ws2_05 output $screen0
+workspace $ws2_06 output $screen0
+workspace $ws2_07 output $screen0
+workspace $ws2_08 output $screen0
+
+
+workspace $ws3_01 output $screen1
+workspace $ws3_02 output $screen1
+workspace $ws3_03 output $screen1
+workspace $ws3_04 output $screen1
+workspace $ws3_05 output $screen1
+workspace $ws3_06 output $screen1
+workspace $ws3_07 output $screen1
+workspace $ws3_08 output $screen1
+
+workspace $ws4_01 output $screen1
+workspace $ws4_02 output $screen1
+workspace $ws4_03 output $screen1
+workspace $ws4_04 output $screen1
+workspace $ws4_05 output $screen1
+workspace $ws4_06 output $screen1
+workspace $ws4_07 output $screen1
+workspace $ws4_08 output $screen1
+
+
+mode "$mode_ws1" {
+  bindsym 1 workspace $ws1_01;mode "default"
+  bindsym 2 workspace $ws1_02;mode "default"
+  bindsym 3 workspace $ws1_03;mode "default"
+  bindsym 4 workspace $ws1_04;mode "default"
+  bindsym 5 workspace $ws1_05;mode "default"
+  bindsym 6 workspace $ws1_06;mode "default"
+  bindsym 7 workspace $ws1_07;mode "default"
+  bindsym $mod+1 workspace $ws1_01;mode "default"
+  bindsym $mod+2 workspace $ws1_02;mode "default"
+  bindsym $mod+3 workspace $ws1_03;mode "default"
+  bindsym $mod+4 workspace $ws1_04;mode "default"
+  bindsym $mod+5 workspace $ws1_05;mode "default"
+  bindsym $mod+6 workspace $ws1_06;mode "default"
+  bindsym $mod+7 workspace $ws1_07;mode "default"
+  bindsym Shift+1 move container to workspace $ws1_01;mode "default"
+  bindsym Shift+2 move container to workspace $ws1_02;mode "default"
+  bindsym Shift+3 move container to workspace $ws1_03;mode "default"
+  bindsym Shift+4 move container to workspace $ws1_04;mode "default"
+  bindsym Shift+5 move container to workspace $ws1_05;mode "default"
+  bindsym Shift+6 move container to workspace $ws1_06;mode "default"
+  bindsym Shift+7 move container to workspace $ws1_07;mode "default"
+  bindsym $mod+Shift+1 move container to workspace $ws1_01;mode "default"
+  bindsym $mod+Shift+2 move container to workspace $ws1_02;mode "default"
+  bindsym $mod+Shift+3 move container to workspace $ws1_03;mode "default"
+  bindsym $mod+Shift+4 move container to workspace $ws1_04;mode "default"
+  bindsym $mod+Shift+5 move container to workspace $ws1_05;mode "default"
+  bindsym $mod+Shift+6 move container to workspace $ws1_06;mode "default"
+  bindsym $mod+Shift+7 move container to workspace $ws1_07;mode "default"
   bindsym $mod+u mode "default"
   bindsym Escape mode "default"
   bindsym Control+c mode "default"
 }
-mode "$output1" {
-  bindsym 1 workspace $ws11;mode "default"
-  bindsym 2 workspace $ws12;mode "default"
-  bindsym 3 workspace $ws13;mode "default"
-  bindsym 4 workspace $ws14;mode "default"
-  bindsym 5 workspace $ws15;mode "default"
-  bindsym 6 workspace $ws16;mode "default"
-  bindsym 7 workspace $ws17;mode "default"
-  bindsym $mod+1 workspace $ws11;mode "default"
-  bindsym $mod+2 workspace $ws12;mode "default"
-  bindsym $mod+3 workspace $ws13;mode "default"
-  bindsym $mod+4 workspace $ws14;mode "default"
-  bindsym $mod+5 workspace $ws15;mode "default"
-  bindsym $mod+6 workspace $ws16;mode "default"
-  bindsym $mod+7 workspace $ws17;mode "default"
-  bindsym Shift+1 move container to workspace $ws11;mode "default"
-  bindsym Shift+2 move container to workspace $ws12;mode "default"
-  bindsym Shift+3 move container to workspace $ws13;mode "default"
-  bindsym Shift+4 move container to workspace $ws14;mode "default"
-  bindsym Shift+5 move container to workspace $ws15;mode "default"
-  bindsym Shift+6 move container to workspace $ws16;mode "default"
-  bindsym Shift+7 move container to workspace $ws17;mode "default"
-  bindsym $mod+Shift+1 move container to workspace $ws11;mode "default"
-  bindsym $mod+Shift+2 move container to workspace $ws12;mode "default"
-  bindsym $mod+Shift+3 move container to workspace $ws13;mode "default"
-  bindsym $mod+Shift+4 move container to workspace $ws14;mode "default"
-  bindsym $mod+Shift+5 move container to workspace $ws15;mode "default"
-  bindsym $mod+Shift+6 move container to workspace $ws16;mode "default"
-  bindsym $mod+Shift+7 move container to workspace $ws17;mode "default"
+
+mode "$mode_ws2" {
+  bindsym 1 workspace $ws2_01;mode "default"
+  bindsym 2 workspace $ws2_02;mode "default"
+  bindsym 3 workspace $ws2_03;mode "default"
+  bindsym 4 workspace $ws2_04;mode "default"
+  bindsym 5 workspace $ws2_05;mode "default"
+  bindsym 6 workspace $ws2_06;mode "default"
+  bindsym 7 workspace $ws2_07;mode "default"
+  bindsym $mod+1 workspace $ws2_01;mode "default"
+  bindsym $mod+2 workspace $ws2_02;mode "default"
+  bindsym $mod+3 workspace $ws2_03;mode "default"
+  bindsym $mod+4 workspace $ws2_04;mode "default"
+  bindsym $mod+5 workspace $ws2_05;mode "default"
+  bindsym $mod+6 workspace $ws2_06;mode "default"
+  bindsym $mod+7 workspace $ws2_07;mode "default"
+  bindsym Shift+1 move container to workspace $ws2_01;mode "default"
+  bindsym Shift+2 move container to workspace $ws2_02;mode "default"
+  bindsym Shift+3 move container to workspace $ws2_03;mode "default"
+  bindsym Shift+4 move container to workspace $ws2_04;mode "default"
+  bindsym Shift+5 move container to workspace $ws2_05;mode "default"
+  bindsym Shift+6 move container to workspace $ws2_06;mode "default"
+  bindsym Shift+7 move container to workspace $ws2_07;mode "default"
+  bindsym $mod+Shift+1 move container to workspace $ws2_01;mode "default"
+  bindsym $mod+Shift+2 move container to workspace $ws2_02;mode "default"
+  bindsym $mod+Shift+3 move container to workspace $ws2_03;mode "default"
+  bindsym $mod+Shift+4 move container to workspace $ws2_04;mode "default"
+  bindsym $mod+Shift+5 move container to workspace $ws2_05;mode "default"
+  bindsym $mod+Shift+6 move container to workspace $ws2_06;mode "default"
+  bindsym $mod+Shift+7 move container to workspace $ws2_07;mode "default"
+  bindsym $mod+u mode "default"
+  bindsym Escape mode "default"
+  bindsym Control+c mode "default"
+}
+
+mode "$mode_ws3" {
+  bindsym 1 workspace $ws3_01;mode "default"
+  bindsym 2 workspace $ws3_02;mode "default"
+  bindsym 3 workspace $ws3_03;mode "default"
+  bindsym 4 workspace $ws3_04;mode "default"
+  bindsym 5 workspace $ws3_05;mode "default"
+  bindsym 6 workspace $ws3_06;mode "default"
+  bindsym 7 workspace $ws3_07;mode "default"
+  bindsym $mod+1 workspace $ws3_01;mode "default"
+  bindsym $mod+2 workspace $ws3_02;mode "default"
+  bindsym $mod+3 workspace $ws3_03;mode "default"
+  bindsym $mod+4 workspace $ws3_04;mode "default"
+  bindsym $mod+5 workspace $ws3_05;mode "default"
+  bindsym $mod+6 workspace $ws3_06;mode "default"
+  bindsym $mod+7 workspace $ws3_07;mode "default"
+  bindsym Shift+1 move container to workspace $ws3_01;mode "default"
+  bindsym Shift+2 move container to workspace $ws3_02;mode "default"
+  bindsym Shift+3 move container to workspace $ws3_03;mode "default"
+  bindsym Shift+4 move container to workspace $ws3_04;mode "default"
+  bindsym Shift+5 move container to workspace $ws3_05;mode "default"
+  bindsym Shift+6 move container to workspace $ws3_06;mode "default"
+  bindsym Shift+7 move container to workspace $ws3_07;mode "default"
+  bindsym $mod+Shift+1 move container to workspace $ws3_01;mode "default"
+  bindsym $mod+Shift+2 move container to workspace $ws3_02;mode "default"
+  bindsym $mod+Shift+3 move container to workspace $ws3_03;mode "default"
+  bindsym $mod+Shift+4 move container to workspace $ws3_04;mode "default"
+  bindsym $mod+Shift+5 move container to workspace $ws3_05;mode "default"
+  bindsym $mod+Shift+6 move container to workspace $ws3_06;mode "default"
+  bindsym $mod+Shift+7 move container to workspace $ws3_07;mode "default"
+  bindsym $mod+u mode "default"
+  bindsym Escape mode "default"
+  bindsym Control+c mode "default"
+}
+
+mode "$mode_ws4" {
+  bindsym 1 workspace $ws4_01;mode "default"
+  bindsym 2 workspace $ws4_02;mode "default"
+  bindsym 3 workspace $ws4_03;mode "default"
+  bindsym 4 workspace $ws4_04;mode "default"
+  bindsym 5 workspace $ws4_05;mode "default"
+  bindsym 6 workspace $ws4_06;mode "default"
+  bindsym 7 workspace $ws4_07;mode "default"
+  bindsym $mod+1 workspace $ws4_01;mode "default"
+  bindsym $mod+2 workspace $ws4_02;mode "default"
+  bindsym $mod+3 workspace $ws4_03;mode "default"
+  bindsym $mod+4 workspace $ws4_04;mode "default"
+  bindsym $mod+5 workspace $ws4_05;mode "default"
+  bindsym $mod+6 workspace $ws4_06;mode "default"
+  bindsym $mod+7 workspace $ws4_07;mode "default"
+  bindsym Shift+1 move container to workspace $ws4_01;mode "default"
+  bindsym Shift+2 move container to workspace $ws4_02;mode "default"
+  bindsym Shift+3 move container to workspace $ws4_03;mode "default"
+  bindsym Shift+4 move container to workspace $ws4_04;mode "default"
+  bindsym Shift+5 move container to workspace $ws4_05;mode "default"
+  bindsym Shift+6 move container to workspace $ws4_06;mode "default"
+  bindsym Shift+7 move container to workspace $ws4_07;mode "default"
+  bindsym $mod+Shift+1 move container to workspace $ws4_01;mode "default"
+  bindsym $mod+Shift+2 move container to workspace $ws4_02;mode "default"
+  bindsym $mod+Shift+3 move container to workspace $ws4_03;mode "default"
+  bindsym $mod+Shift+4 move container to workspace $ws4_04;mode "default"
+  bindsym $mod+Shift+5 move container to workspace $ws4_05;mode "default"
+  bindsym $mod+Shift+6 move container to workspace $ws4_06;mode "default"
+  bindsym $mod+Shift+7 move container to workspace $ws4_07;mode "default"
   bindsym $mod+u mode "default"
   bindsym Escape mode "default"
   bindsym Control+c mode "default"
