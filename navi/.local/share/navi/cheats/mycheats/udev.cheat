@@ -25,5 +25,8 @@ sudo udevadm info --attribute-walk --name=<any_device>
 # trigger a subsystem action
 sudo udevadm trigger --verbose --type=subsystems --action=<action> --subsystem-match=<subsystem> --attr-match="<attribute>"
 
+# export udev properties of the device
+udevadm info --no-pager --query=property --export <any_device>
+
 # list attributes of a device
 sudo udevadm info --name=<any_device>
