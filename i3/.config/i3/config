@@ -151,6 +151,7 @@ bar {
   output primary
   tray_output primary
   position bottom
+  strip_workspace_numbers yes
 }
 
 bar {
@@ -160,6 +161,7 @@ bar {
   output nonprimary
   tray_output none
   position bottom
+  strip_workspace_numbers yes
 }
 ################################################################################
 # custom
@@ -215,37 +217,37 @@ bindsym $mod+4 mode $mode_ws4
 set $screen0 DisplayPort-2
 set $screen1 DVI-D-0
 
-set $ws1_01 "1:shells"
-set $ws1_02 "2:surf"
-set $ws1_03 "3:priv"
-set $ws1_04 "4:work"
-set $ws1_05 "5:media"
-set $ws1_06 "6:etc"
-set $ws1_07 "7:0"
+set $ws1_01 "1:1+1 shells"
+set $ws1_02 "2:1+2 surf"
+set $ws1_03 "3:1+3 priv"
+set $ws1_04 "4:1+4 work"
+set $ws1_05 "5:1+5 media"
+set $ws1_06 "6:1+6 etc"
+set $ws1_07 "7:1+7 0"
 
-set $ws2_01 "8:shells"
-set $ws2_02 "9:surf"
-set $ws2_03 "10:priv"
-set $ws2_04 "11:work"
-set $ws2_05 "12:media"
-set $ws2_06 "13:etc"
-set $ws2_07 "14:0"
+set $ws2_01 "8:2+1 shells"
+set $ws2_02 "9:2+2 surf"
+set $ws2_03 "10:2+3 priv"
+set $ws2_04 "11:2+4 work"
+set $ws2_05 "12:2+5 media"
+set $ws2_06 "13:2+6 etc"
+set $ws2_07 "14:2+7 0"
 
-set $ws3_01 "1:read"
-set $ws3_02 "2:ssh"
-set $ws3_03 "3:reference"
-set $ws3_04 "4:services"
-set $ws3_05 "5:discover"
-set $ws3_06 "6:1"
-set $ws3_07 "7:1"
+set $ws3_01 "1:3+1 read"
+set $ws3_02 "2:3+2 ssh"
+set $ws3_03 "3:3+3 reference"
+set $ws3_04 "4:3+4 services"
+set $ws3_05 "5:3+5 discover"
+set $ws3_06 "6:3+6 1"
+set $ws3_07 "7:3+7 1"
 
-set $ws4_01 "8:read"
-set $ws4_02 "9:ssh"
-set $ws4_03 "10:reference"
-set $ws4_04 "11:services"
-set $ws4_05 "12:discover"
-set $ws4_06 "13:1"
-set $ws4_07 "14:1"
+set $ws4_01 "8:4+1 read"
+set $ws4_02 "9:4+2 ssh"
+set $ws4_03 "10:4+3 reference"
+set $ws4_04 "11:4+4 services"
+set $ws4_05 "12:4+5 discover"
+set $ws4_06 "13:4+6 1"
+set $ws4_07 "14:4+7 1"
 
 workspace $ws1_01 output $screen0
 workspace $ws1_02 output $screen0
