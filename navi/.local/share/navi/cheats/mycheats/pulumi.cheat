@@ -1,0 +1,4 @@
+% pulumi
+
+# login to relative local directory
+pulumi login file://./
