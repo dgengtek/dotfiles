@@ -1,12 +1,12 @@
 % minikube
 
+# export required environment for minikube development
+export no_proxy="${no_proxy},$(minikube ip --node minikube)" KUBECONFIG=./kubeconfig; minikube update-context
+
 # use docker engine inside minikube environment from local cli
 eval $(minikube docker-env)
 
-# Update kubeconfig in case of an IP or port change
-minikube update-context
-
-# get minikube 
+# Update kubeconfig in case of an IP or port change, get minikube
 minikube update-context
 
 # Retrieves the IP address of the specified node

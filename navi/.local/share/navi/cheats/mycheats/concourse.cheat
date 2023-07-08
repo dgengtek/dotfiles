@@ -189,6 +189,10 @@ fly --target <target> jobs --pipeline <pipeline> --json | jq -r '.[] | .finished
 nu -c 'fly -t intranet jobs -p <pipeline> --json | from json | filter { |i| ($i.finished_build | is-empty) or ($i.finished_build.status != "succeeded")} | each {|i| fly -t intranet tj -j $"($i.pipeline_name)/($i.name)" }'
 
 
+# get a failed build
+fly -t "<target>" builds --count=<build_count> --json | jq -r '.[] | select(.status == "failed") | ((.id|tostring) + " " + .pipeline_name + "/" + if has("job_name") then .job_name else .resource_name end + " " + .status + " " + (if .start_time == null then .start_time else (.start_time | todate) end) + " " + (if .end_time == null then .end_time else (.end_time | todate) end))' | fzf --preview "fly -t <target> w -j {1} | tail -n 40"
+
+
 $ target:   fly targets --- --column 1
 $ team:     fly -t "$target" teams --json | jq -r '.[].name'
 $ job:      fly -t "$target" jobs --pipeline "$pipeline" --json | jq -r '.[].name'
