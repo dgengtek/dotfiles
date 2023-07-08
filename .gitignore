@@ -9,3 +9,4 @@ ranger/.config/ranger/copy_buffer
 ciparams.yml
 **/systemd/user/default.target.wants/
 nvim/.config/nvim/plugin/packer_compiled.lua
+.token*
