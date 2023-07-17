@@ -162,7 +162,7 @@ fly -t "<target>" builds --count=<build_count> --json | jq -r '.[] | select(.sta
 
 
 # get all failed jobs
-fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "errored" or .finished_build.status == "aborted") | .name' | sort
+fly -t <target> jobs -p <pipeline> --json | jq -r '.[] | select(.finished_build == null or .finished_build.status == "errored" or .finished_build.status == "aborted" or .finished_build.status == "failed") | .name'
 
 
 # abort all next pending builds of a pipeline

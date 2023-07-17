@@ -18,13 +18,13 @@ kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0
 # delete resources  with the given state
 kubectl get <resource> -o json | jq -r '.items[] | select(.status.phase == "<state>") | .metadata.name' | xargs -L 1 kubectl delete
 
-# delete evicted pods 
+# delete evicted pods
 kubectl get pods -A -o json | jq -r '.items[] | select(.status.phase == "Failed" and .status.reason == "Evicted") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' | xargs -L 1 kubectl delete
 
 # get jobs overview with state
 kubectl get jobs -A -o json | jq '.items[] | del(.spec, .kind)'
 
-# get command string list of jobs for a given state 
+# get command string list of jobs for a given state
 kubectl get jobs -A -o json | jq -r '.items[] | select(.status.conditions[].type == "<job_state>") | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)'
 
 # get status of failed pods
@@ -112,7 +112,7 @@ kubectl get deployments -n <namespace>
 kubectl edit deployment/<name> -n <namespace>
 
 # Drain node in preparation for maintenance
-kubectl drain <name>
+kubectl drain <node>
 
 # Mark node as schedulable
 kubectl uncordon <name>
@@ -126,7 +126,7 @@ kubectl run tmp-shell --restart=Never --rm -i --tty --image alpine:edge -- /bin/
 # Display resource (cpu/memory/storage) usage
 kubectl top <type>
 
-# debug a pod 
+# debug a pod
 pod=<pod>; podname=${pod##*/}; kubectl debug -it "$pod" --image=busybox --target="$podname"
 
 # run a paused pod for testing
@@ -165,7 +165,7 @@ kubectl get pv -o json | jq -r '.items[] | select(.spec.claimRef) | (.metadata.n
 # get pv information from every persistent volume
 kubectl get pv -o json | jq -r '.items[] | (.metadata.name + " " + .spec.storageClassName + " " + .spec.capacity.storage + " " + (.spec.nodeAffinity.required.nodeSelectorTerms[].matchExpressions[].values[])? + " " + .spec.claimRef.namespace + " " + .spec.claimRef.name + " " + (if .spec.local? then (.spec.local.fsType + " " + .spec.local.path) elif .spec.nfs? then (.spec.nfs.server + ":" + .spec.nfs.path) else "" end) + " " + .status.phase)'
 
-# cleanup old signing requests by filtering for approved 
+# cleanup old signing requests by filtering for approved
 kubectl get certificatesigningrequests.certificates.k8s.io -o json | jq -r '.items[] | select(now - (.metadata.creationTimestamp | fromdate) > 432000) | select(.status.conditions[].type == "Approved") | .metadata.name' | xargs -L 1 -P $(($(nproc)*4)) kubectl delete certificatesigningrequests.certificates.k8s.io
 
 # save secret in variable
@@ -222,7 +222,7 @@ kubectl get events --sort-by='{.lastTimestamp}'
 # create docker registry secret
 kubectl create secret docker-registry regcred --docker-server='https://docker-registry.ops.svc:5000' --docker-username="cluster" --docker-password="$(systemd-ask-password)"
 
-# get errored helm deployments 
+# get errored helm deployments
 kubectl get secrets -A -l owner=helm -o json | jq '.items[].metadata | select(.labels.status != "deployed" and .labels.status != "superseded") | (.name + " " + .namespace + " " + .labels.status)'
 
 # rollout restart and wait for all objects in a resource
@@ -237,6 +237,18 @@ kubectl config view
 # Display the current-context
 kubectl config current-context
 
+# get a pod from namespace
+kubectl <operation> <npod>
+
+# get a resource from namespace
+kubectl <operation> <nresource>
+
+# rollout restart a statefulset pod by index on delete
+pod=<pod_statefulset>; namespace=<namespace>; kubectl -n $namespace delete pod $pod; kubectl -n $namespace wait -l statefulset.kubernetes.io/pod-name=pod --for=condition=ready pod --timeout=-1s
+
+# rollout restart vault by index on delete
+index=<index>; namespace=<namespace>; replicas=$(($(kubectl -n <namespace> get statefulset vault -o json | jq -r .spec.replicas) - 1)); kubectl -n $namespace delete pod vault-$index; for i in $(seq 0 $replicas); do pass=$(systemd-ask-password);  kubectl -n $namespace exec vault-$index -- vault operator unseal $pass; done; kubectl -n $namespace wait -l statefulset.kubernetes.io/pod-name=vault-$index --for=condition=ready pod --timeout=-1s
+
 
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {3} {1} {2}'
@@ -249,7 +261,11 @@ $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
 $ context: kubectl config get-contexts -o name
 $ namespace: kubectl get namespaces -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n'
 
+
+$ nresource: kubectl -n <namespace> get <resource> -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
+$ npod: kubectl -n <namespace> get pods -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
 $ pod: kubectl get pods -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
+$ pod_statefulset: kubectl -n <namespace> get pods -A -o json | jq -r '.items[].metadata | select(.ownerReferences[].kind == "StatefulSet") | .name'
 $ pvc: kubectl get pvc -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
 $ pv: kubectl get pv -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
 $ secrets_object: kubectl get secrets -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {2}'
