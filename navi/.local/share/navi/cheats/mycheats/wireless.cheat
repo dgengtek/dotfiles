@@ -1,0 +1,4 @@
+% wifi, wireless, wlan
+
+# debug wlan interface
+interface=<interface>; ssid=<ssid>; dmesg | grep $interface; sudo iw list; sudo iw dev; sudo iw dev $interface link; sudo ip link set $interface up; sudo ip link show $interface; sudo iw dev $interface scan
