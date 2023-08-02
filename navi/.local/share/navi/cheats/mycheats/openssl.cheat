@@ -97,6 +97,9 @@ openssl genpkey -algorithm <private_key_algorithm>
 # generate rsa key pair
 openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:<rsa_bits>
 
+# get the rsa public key
+openssl rsa -in <private_key> -pubout
+
 # generate ec parameters
 openssl genpkey \
   -genparam -algorithm EC \
