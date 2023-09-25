@@ -160,13 +160,13 @@ report.mailr.context=0
 
 
 # default report, choose a project from here to then choose a nextaction from 'decide' report
-report.next.columns=id,project,context,state,description.count,outcome,urgency
-report.next.labels=ID,Project,Context,State,Description,Outcome,U
+report.next.columns=id,project,tags,context,state,description.count,outcome,urgency
+report.next.labels=ID,Project,Tags,Context,State,Description,Outcome,U
 report.next.filter=status:pending -WAITING ((state:'nextaction' and project:'') or state:'proj' or state:'await') limit:page -BLOCKED
 
 # for deciding on working on a nextaction
-report.decide.columns=id,priority,value,effort,project,context,state,description,outcome
-report.decide.labels=ID,Priority,Value,Effort,Project,Context,State,Description,Outcome
+report.decide.columns=id,priority,value,effort,project,tags,context,state,description,outcome
+report.decide.labels=ID,Priority,Value,Effort,Project,Tags,Context,State,Description,Outcome
 report.decide.filter=(status:pending -WAITING) and state.not:'proj' and state.not:'maybe' -project limit:page
 report.decide.sort=urgency-
 
@@ -190,17 +190,17 @@ report.top.filter=status:pending -WAITING
 report.top.sort=urgency-
 
 # get minimal listing
-report.l.columns=id,start.active,depends,project,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,description.count,note
+report.l.columns=id,start.active,depends,project,tags,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,description.count,note
 report.l.description=Show short details about tasks
 report.l.filter=(status:pending or +WAITING) and limit:page
-report.l.labels=ID,A,D,Project,State,R,Wait,S,Due,Until,Description,Note
+report.l.labels=ID,A,D,Project,T,State,R,Wait,S,Due,Until,Description,Note
 report.l.sort=urgency-,due+
 
 # get minimal listing of projects main task grouping all subtasks
-report.project.columns=id,start.active,depends,description.count,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,note
+report.project.columns=id,start.active,depends,tags,description.count,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,note
 report.project.description=Show short details about projects main task
 report.project.filter=(state:proj or +project) and limit:none and project.not:""
-report.project.labels=ID,A,D,Project,State,R,Wait,S,Due,Until,Note
+report.project.labels=ID,A,Deps,T,Desc,State,R,Wait,S,Due,Until,Note
 report.project.sort=urgency-,due+
 
 ################################################################################
