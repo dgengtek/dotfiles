@@ -6,6 +6,7 @@ windows:
     panes:
       - shell_command:
         - unset HISTFILE
+        - source $HOME/.local/venv/tools/bin/activate
   - window_name: run
     layout: even-vertical
     panes:
