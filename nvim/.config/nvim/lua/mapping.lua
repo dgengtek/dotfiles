@@ -6,6 +6,7 @@ end
 
 local imap = build_keymap_set("i")
 local nmap = build_keymap_set("n")
+local vmap = build_keymap_set("v")
 
 -- coq Keybindings
 imap('<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
@@ -125,3 +126,20 @@ vim.api.nvim_create_autocmd({"User"}, {
   pattern = "FugitiveIndex",
   command = "nmap <buffer> dt :Gtabedit <Plug><cfile><Bar>Gdiffsplit<CR>"
 })
+
+
+-- https://github.com/mickael-menu/zk-nvim
+local opts = { noremap=true, silent=false }
+
+-- Create a new note after asking for its title.
+nmap("<leader>zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", opts)
+
+-- Open notes.
+nmap("<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", opts)
+-- Open notes associated with the selected tags.
+nmap("<leader>zt", "<Cmd>ZkTags<CR>", opts)
+
+-- Search for the notes matching a given query.
+nmap("<leader>zf", "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", opts)
+-- Search for the notes matching the current visual selection.
+vmap("<leader>zf", ":'<,'>ZkMatch<CR>", opts)

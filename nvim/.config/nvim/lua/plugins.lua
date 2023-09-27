@@ -257,4 +257,5 @@ return require('packer').startup(function(use)
 
   -- etc
   use 'unblevable/quick-scope'
+  use "mickael-menu/zk-nvim"
 end)
