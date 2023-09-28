@@ -1,25 +1,18 @@
-session_name: wiki
+session_name: notizen
 start_directory: ~/
 windows:
-  - window_name: vimwiki
+  - window_name: notizbuch
     layout: even-horizontal
-    start_directory: ~/vimwiki/std
+    start_directory: ~/notizbuch
     focus: true
     panes:
       - shell_command:
-        - vimwiki
+        - zk index; zk list --format oneline --limit 30 --sort modified
         focus: true
-  - window_name: zettelkasten
+  - window_name: privat
     layout: even-horizontal
     panes:
       - shell_command:
-        - while ! test -d "${HOME}/mnt/private/zettelkasten/"; do sleep 1; done
-        - command cd "${HOME}/mnt/private/zettelkasten"
-        - vim index.adoc
-  - window_name: wiki_private
-    layout: even-horizontal
-    panes:
-      - shell_command:
-        - while ! test -d "${HOME}/mnt/private/wiki_private/"; do sleep 1; done
-        - command cd "${HOME}/mnt/private/wiki_private"
-        - vim index.adoc
+        - while ! test -d "${HOME}/mnt/private/notizbuch_privat/"; do sleep 1; done
+        - command cd "${HOME}/mnt/private/notizbuch_privat"
+        - zk index; zk list --format oneline --limit 30 --sort modified
