@@ -174,7 +174,9 @@ null_ls.setup({
     --     -- dot files
     --     null_ls.builtins.diagnostics.dotenv_linter,
     --     null_ls.builtins.diagnostics.luacheck,
-    --     null_ls.builtins.diagnostics.markdownlint,
+          -- null_ls.builtins.diagnostics.markdownlint,
+          -- markdown, tex, asciidoc
+          -- null_ls.builtins.diagnostics.vale,
     --     null_ls.builtins.diagnostics.pycodestyle,
     --     -- python
     --     -- null_ls.builtins.diagnostics.flake8,
@@ -215,6 +217,10 @@ null_ls.setup({
         null_ls.builtins.formatting.trim_newlines,
         -- '{ sub(/[ \t]+$/, ""); print }'
         null_ls.builtins.formatting.trim_whitespace,
+        null_ls.builtins.formatting.deno_fmt.with({
+          -- { "javascript", "javascriptreact", "json", "jsonc", "markdown", "typescript", "typescriptreact" }
+                    filetypes = { "markdown" }, -- only runs `deno fmt` for markdown
+        }),
         -- todo sort and update in place
         --null_ls.builtins.formatting.yq.with({
           --args = { "sort_keys(..)", "$FILENAME" }
@@ -289,5 +295,13 @@ require("zk").setup({
       enabled = true,
       filetypes = { "markdown" },
     },
+  },
+})
+
+require("nvim-treesitter.configs").setup({
+  -- ...
+  highlight = {
+    -- ...
+    additional_vim_regex_highlighting = { "markdown" }
   },
 })

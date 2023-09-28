@@ -18,5 +18,15 @@ zk edit --sort created- --created-after 'last two weeks' --interactive
 # create daily journal note entry
 zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"
 
+# search for notes interactively
+zk list --interactive --format long
 
-$ zk_path: zk list --format path
+# edit note
+nvim <zk_path>
+
+# select existing tags from index
+<tags>
+
+
+$ zk_path: zk list --format path --- --preview 'mdcat {}'
+$ tags: zk tag list --no-pager --- --multi
