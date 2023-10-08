@@ -21,6 +21,9 @@ zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"
 # search for notes interactively
 zk list --interactive --format long
 
+# list last modified notes
+zk list --no-pager --format oneline --limit 20 --sort modified
+
 # edit note
 nvim <zk_path>
 

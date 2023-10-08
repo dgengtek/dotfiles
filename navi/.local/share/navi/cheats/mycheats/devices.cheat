@@ -1,0 +1,4 @@
+% sr0, cdrom, dvdrom
+
+# print drive capabilities for MMC compliant drives
+wodim -prcap

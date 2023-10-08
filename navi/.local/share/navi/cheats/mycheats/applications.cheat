@@ -15,6 +15,9 @@ scrot -s
 # navigate, explore and get an overview of directories like tree
 broot
 
+# graphical process/system monitor
+bottom
+
 # file manager
 xplr
 

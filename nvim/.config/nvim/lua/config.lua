@@ -1,8 +1,5 @@
 local remap = vim.api.nvim_set_keymap
 
--- https://github.com/lukas-reineke/indent-blankline.nvim
-vim.cmd [[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine]]
 
 require("nu").setup {
     use_lsp_features = true, -- requires https://github.com/jose-elias-alvarez/null-ls.nvim
@@ -13,17 +10,31 @@ require("nu").setup {
     --  * a function, returning a list of strings and the return value is used as the source for completions
     all_cmd_names = [[nu -c 'help commands | get name | str join "\n"']]
 }
-require("indent_blankline").setup {
-    char = "",
-    char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-    },
-    space_char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-    },
-    show_trailing_blankline_indent = false,
+
+-- https://github.com/lukas-reineke/indent-blankline.nvim
+
+-- vim.cmd [[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine]]
+-- doesnt work
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   desc = "Refresh indent colors",
+--   callback = function()
+--     vim.cmd [[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]]
+--     vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine]]
+--   end,
+-- })
+require("ibl").setup {
+  --   indent = {
+  --     highlight = {
+  --       "CursorColumn",
+  --       "Whitespace"
+  --
+  --   }, char = ""
+  -- },
+  -- whitespace = {
+  --     highlight = highlight,
+  --     remove_blankline_trail = false,
+  -- },
 }
 
 require('fm-nvim').setup{
