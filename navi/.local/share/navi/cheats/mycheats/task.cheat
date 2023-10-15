@@ -126,6 +126,9 @@ intent print lines | fzf --multi
 # watch project overview
 watch "task project:'<project>' decide"
 
+# get a report for a specific project
+task project:"$(task _project | fzf)" <reports>
+
 
 $ command_modify: echo -e 'add\nmodify\n'
 $ task:  task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' --- --delimiter '\s+' --preview 'task {1} information' --column 1
@@ -135,3 +138,4 @@ $ context: rg ^context "$HOME/.taskrc" | awk -F '.' '{print $2}' | sort | uniq
 $ id: task top
 $ project: task _project
 $ tag: task _tags
+$ reports: echo 'l,long,ls,list,maybe,minimal,next,information,oldest,newest,overdue,recurring,unblocked,waiting' | sed 's/,/\n/'
