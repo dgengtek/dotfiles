@@ -2,3 +2,6 @@
 
 # login to relative local directory
 pulumi login file://./
+
+# disable default providers
+pulumi config set --path 'pulumi:disable-default-providers[0]' '*'

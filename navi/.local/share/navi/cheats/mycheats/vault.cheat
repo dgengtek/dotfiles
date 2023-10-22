@@ -160,6 +160,9 @@ jq -nc --arg secret_id_accessor "$(systemd-ask-password -n)" '{ "secret_id_acces
 # get a vault token via ldap
 vault login -method=ldap username=$USER
 
+# login with approle
+vault write auth/approle/login role_id=$(systemd-ask-password) secret_id=$(systemd-ask-password)
+
 # lookup token metadata and id
 vault token lookup
 
@@ -199,3 +202,6 @@ curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
   --request POST \
   ${VAULT_ADDR}/v1/auth/token/revoke-self
+
+# revoke
+vault token revoke ${VAULT_TOKEN:-$(systemd-ask-password)}
