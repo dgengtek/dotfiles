@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-set -a 
+set -a
 ################################################################################
 # Python
 # ------------------------------------------------------------------------------
 PYTHONSTARTUP="${PATH_USER_LIB}startup.py"
+PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ################################################################################
 # JAVA
 # openjdk
