@@ -118,7 +118,7 @@ task state:'proj' project:"<project>"
 new_task=$(task dup <task> | sed -n '/Created task/s/Created task \([[:digit:]]*\)\./\1/p') && test -n "$new_task" && task edit "$new_task"
 
 # search for and get, select tasks
-task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' | fzf --preview="task {1}" --multi
+task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))]? | join(" ")' | fzf --preview="task {1}" --multi
 
 # select multiple tasks
 intent print lines | fzf --multi
@@ -131,8 +131,8 @@ task project:"$(task _project | fzf)" <reports>
 
 
 $ command_modify: echo -e 'add\nmodify\n'
-$ task:  task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' --- --delimiter '\s+' --preview 'task {1} information' --column 1
-$ tasks:  task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))] | join(" ")' --- --delimiter '\s+' --preview 'task {1} information' --column 1 --multi
+$ task:  task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))]? | join(" ")' --- --delimiter '\s+' --preview 'task {1} information' --column 1
+$ tasks:  task status:pending export | jq -r '.[] | [.id, .description, "[[[" + ( [try .annotations[].description] | join(", ")) + "]]]", (try .tags | join(","))]? | join(" ")' --- --delimiter '\s+' --preview 'task {1} information' --column 1 --multi
 $ tasks_joined: echo -n '<tasks>' | tr '\n' ','
 $ context: rg ^context "$HOME/.taskrc" | awk -F '.' '{print $2}' | sort | uniq
 $ id: task top
