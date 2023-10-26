@@ -30,6 +30,15 @@ sed -Ei "s/PasswordAuthentication.*/PasswordAuthentication true/g" "<sshd_config
 # Disable password authentication
 sed -Ei "s/PasswordAuthentication.*/PasswordAuthentication false/g" "<sshd_config>"
 
+# Lists public key parameters of all identities currently represented by the agent
+ssh-add -L
+
+# Lists fingerprints of all identities currently represented by the agent
+ssh-add -l
+
+# Tests whether the private keys that correspond to the specified pubkey files are usable by performing sign and verify operations on each
+ssh-add -T <key>
+
 # use only the specified public key
 ssh \
   -o PubkeyAuthentication=yes \
