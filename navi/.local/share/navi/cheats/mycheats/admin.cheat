@@ -193,7 +193,7 @@ sudo udisksctl power-off -b <device>
 # encrypt a prompted password and copy to system clipboard
 systemd-ask-password -n | gpg --armor --batch --encrypt -r <benutzer> | xclip -selection c
 
-# get linux, passwd valid user line
+# get linux, passwd valid user line, sha, crypt
 encrypt.py
 
 # export a prompted password
@@ -204,6 +204,18 @@ pwgen.py -c 1 <length>
 
 # copy a password to clipboard
 pwgen.py -a -c 1 32 | xclip -selection c; sleep 15 && echo -n "cleared pw" | xclip -selection c
+
+# get random salt
+head -c 40 /dev/random | base64 |
+
+# get random password from system
+tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c <length>; echo
+
+# get random alphanumeric password
+tr -dc A-Za-z0-9 </dev/urandom | head -c <length>; echo ''
+
+# encrypt password with crypt frontend
+mkpasswd --rounds 500000 -m sha-512 --salt $(pwgen.py -a -c 1 15)
 
 
 % certificate
