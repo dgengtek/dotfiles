@@ -239,7 +239,6 @@ return require('packer').startup(function(use)
     end
   }
 
-  use 'vimwiki/vimwiki'
   -- syntax
   use 'ledger/vim-ledger'
   use 'lervag/vimtex'

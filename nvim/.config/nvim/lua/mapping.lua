@@ -112,7 +112,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, opts)
     nmap('<space>D', vim.lsp.buf.type_definition, opts)
-    nmap('<space>rn', vim.lsp.buf.rename, opts)
+    nmap('<space>rn', vim.lsp.buf.rename, {buffer = ev.buf, desc="rename"})
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     nmap('gr', vim.lsp.buf.references, opts)
     nmap('<space>f', function()
