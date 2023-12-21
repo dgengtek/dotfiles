@@ -26,6 +26,11 @@ COOKIECUTTER_CONFIG="$HOME/.cookiecutterrc"
 # ------------------------------------------------------------------------------
 CARGO_HOME="/data/tmp/$USER/cargo"
 RUSTUP_HOME="/data/tmp/$USER/rustup"
+
+
+# nix
+NIX_REMOTE=daemon
+
 set +a
 
 
