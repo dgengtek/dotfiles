@@ -81,6 +81,7 @@ require'marks'.setup {
 vim.g.coq_settings = {
   keymap = {
     recommended = false,
+    eval_snips = "<leader>j",
   },
   auto_start = "shut-up",
 }
