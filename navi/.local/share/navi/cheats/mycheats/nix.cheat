@@ -1,0 +1,13 @@
+% nix
+
+# upgrade nix
+nix-channel --update && nix-env --install --attr nixpkgs.nix nixpkgs.cacert
+
+# list of all the currently existing generations for the active profile
+nix-env --list-generations
+
+# displays information about either the store paths that are installed in the current generation of the active profile (--installed), or the derivations that are available for installation in the active Nix expression
+nix-env --query
+
+# print the output path of the derivation of currently installed packages
+nix-env --query --out-path

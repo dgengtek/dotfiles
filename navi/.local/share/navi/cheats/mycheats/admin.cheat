@@ -146,7 +146,7 @@ $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ mountpoint: mount -l --- --column 3 --delimiter ' '
 $ interface: find /sys/class/net/ -mindepth 1 -maxdepth 1 | xargs -n 1 basename
 $ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
-$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[0-9]$/ d'
+$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[0-9]$/ d' --- --preview-window up,50% --preview 'lsblk -f {}'
 $ any_device: find /dev -mindepth 1 -not -type d
 $ device_partition: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[^0-9]$/ d'
 $ device_name: basename "<device>"

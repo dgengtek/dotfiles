@@ -6,4 +6,4 @@ buku -d <index>
 # open bookmark in browser
 buku -o <index>
 
-$ index: buku --json -p | jq -r '.[] | [(.index, .title, .uri, .tags)] | join(" ")' --- --delimiter ' ' --column 1 --preview 'buku -p {1}'
+$ index: buku --nostdin --json -p | jq -r '.[] | [(.index, .title, .uri, .tags)] | join(" ")' --- --delimiter ' ' --column 1 --preview 'buku --nostdin -p {1}'
