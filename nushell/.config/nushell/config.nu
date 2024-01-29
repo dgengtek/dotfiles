@@ -159,14 +159,14 @@ $env.config = {
         mode: thin # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
         index_mode: auto # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
         show_empty: true # show 'empty list' and 'empty record' placeholders for command output
-        padding: { left: 1, right: 1 } # a left right padding of each column in a table
+        padding: { left: 0, right: 1 } # a left right padding of each column in a table
         trim: {
             methodology: wrapping # wrapping or truncating
             wrapping_try_keep_words: true # A strategy used by the 'wrapping' methodology
             truncating_suffix: "..." # A suffix used by the 'truncating' methodology
         }
         header_on_separator: false # show header text on separator/border line
-        # abbreviated_row_count: 10 # limit data rows from top and bottom after reaching a set point
+        # abbreviated_row_count: 6 # limit data rows from top and bottom after reaching a set point
     }
 
     error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
