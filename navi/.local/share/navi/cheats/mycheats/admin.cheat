@@ -46,9 +46,9 @@ sudo dd if=<idevice> of=<device> bs=1M || run.sh -- echo 'done with overwriting 
 sudo dd if=/dev/zero of=<device> bs=1M oflag=dsync
 
 # resize gpt partition
-sudo sgdisk --move-second-header \
+sudo sgdisk --move-second-header <device> \
   && sudo sgdisk --delete=<device_partition_nr> <device> \
-  && sudo sgdisk --new=<device_partition_nr>:0:0 --typecode=0:8e00 --change-name=0:pv <device> \
+  && sudo sgdisk --new=<device_partition_nr>:0:0 --typecode=<device_partition_nr>:8e00 --change-name=<device_partition_nr>:pv <device> \
   && sudo partprobe <device> \
   && sudo pvresize <device><device_partition_nr>
 
@@ -139,6 +139,9 @@ sudo smartctl -A <device>
 # check health of device
 sudo smartctl -H -l error -l selftest -l xerror -l xselftest -l defects <device>
 
+# poweroff and eject device
+sudo udisksctl power-off -b <device>
+
 # check for errors in attributes of device
 result=$(sudo smartctl -A <device>); echo "$result" | egrep 'Uncorrectable|Pending_Sector|Reported_Uncorrect|UDMA_CRC|Raw_Read_Error_Rate|Spin_Up_Time|Start_Stop_Count|Reallocated_Sector_Ct|Seek_Error_Rate|Seek_Error_Rate'; echo "$result" | grep 'Pre-fail'; echo "$result" | grep 'Old_age'
 
@@ -181,12 +184,6 @@ find . -type f -exec cat {} + | random_line.py | strip.py | tr -dc '[:alnum:]-' 
 
 # flush cache
 sync; echo 3 | sudo tee /proc/sys/vm/drop_caches
-
-
-% udiskctl
-@ admin, squashfs, backup, image
-# poweroff and eject device
-sudo udisksctl power-off -b <device>
 
 
 % password

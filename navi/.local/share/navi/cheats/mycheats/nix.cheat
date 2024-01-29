@@ -6,8 +6,64 @@ nix-channel --update && nix-env --install --attr nixpkgs.nix nixpkgs.cacert
 # list of all the currently existing generations for the active profile
 nix-env --list-generations
 
+# upgrade all packages in environment
+nix-env --upgrade
+
 # displays information about either the store paths that are installed in the current generation of the active profile (--installed), or the derivations that are available for installation in the active Nix expression
 nix-env --query
 
 # print the output path of the derivation of currently installed packages
 nix-env --query --out-path
+
+# print runtime dependencies of the program
+nix-store --query --references $(which <program>)
+
+# print reverse dependencies of the program
+nix-store --query --referrers $(which <program>)
+
+# switch to older generation
+nix-env --rollback
+
+# switch to generation
+nix-env --switch-generation <generation>
+
+# create hash of the file for nix store
+nix-hash --type sha256 --flat --base32 <filename>
+
+# get path to the store for the file
+nix-store --print-fixed-path sha256 <filename_hash> $(basename <filename>)
+
+# register the storepath in the nix database, the storepath must exist
+printf "<new_storepath>\n\n0\n" | nix-store --register-validity --reregister
+
+# run a custom build vm with the desired configuration
+export QEMU_OPTS="-nographic -serial mon:stdio" QEMU_KERNEL_PARAMS=console=ttyS0 QEMU_NET_OPTS="hostfwd=tcp::2222-:22"
+nix-build '\<nixpkgs/nixos\>' -A vm -k -I nixos-config=./vm.nix
+
+# rebuild a package with debug symbols
+nix-build -E 'with import \<nixpkgs\> {}; enableDebugging <package>'
+
+# check syntax
+nix-instantiate --parse-only <nix_file>
+
+# override package with channel
+nix-build -E 'with (import <nixpkgs>{}); <package>.override {  }'
+
+# override package on a local repo
+nix-build -E 'with (import ./default.nix{}); <package>.override {  }'
+
+# build specified derive file
+nix-store --realise <derivation>
+
+
+$ nix_file: fd --type f --follow --exclude ".git" \.nix "<path>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
+$ package_installed: nix-env --query | sed 's,-.*,,'
+
+% nixos
+
+# upgrade nixos and set as current boot
+nixos-rebuild --upgrade boot
+
+# run a custom build vm with the desired configuration
+export QEMU_OPTS="-nographic -serial mon:stdio" QEMU_KERNEL_PARAMS=console=ttyS0 QEMU_NET_OPTS="hostfwd=tcp::2222-:22"
+nixos-rebuild -I nixpkgs=<path nixpkgs> -I nixos-config=./vm.nix build-vm
