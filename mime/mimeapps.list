@@ -12,6 +12,9 @@ text/plain=gvim.desktop;
 text/plain=vim.desktop;
 video/H264=vlc.desktop;
 application/json=gvim.desktop;
+text/csv=gvim.desktop;
+binary/octet-stream=gvim.desktop;
+text/yaml=gvim.desktop;
 
 [Default Applications]
 application/epub+zip=com.github.johnfactotum.Foliate.desktop;
@@ -23,3 +26,10 @@ image/png=imv.desktop;
 image/vnd.djvu=org.pwmt.zathura-djvu.desktop;
 text/plain=vim.desktop;
 video/H264=vlc.desktop;
+x-scheme-handler/discord-610508934456934412=discord-610508934456934412.desktop
+text/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/about=firefox.desktop
+x-scheme-handler/unknown=firefox.desktop
+x-scheme-handler/discord-378483863044882443=discord-378483863044882443.desktop
