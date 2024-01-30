@@ -55,8 +55,31 @@ nix-build -E 'with (import ./default.nix{}); <package>.override {  }'
 # build specified derive file
 nix-store --realise <derivation>
 
+# get build dependencies of a derivation
+nix-store --query --references $(nix-instantiate <nix_file>)
 
-$ nix_file: fd --type f --follow --exclude ".git" \.nix "<path>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
+# garbage collect, deletes all unreachable store objects in the Nix store to clean up your system
+nix-store --gc
+
+# print all paths considered before performing a garbage collect
+nix-store --gc --print-roots
+
+# get garbage collect roots
+nix-store --query --roots $(which <program>)
+
+# list indirect garbage collect roots
+ls -l /nix/var/nix/gcroots/auto/
+
+# get resolved indirect gc roots
+fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink
+
+# full upgrade
+nix-channel --update && nix-env -u --always
+
+# full cleanup of old entries, generations, builds
+fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink | xargs rm; nix-collect-garbage --delete-old
+
+$ nix_file: fd --type f --follow --exclude ".git" \.nix "." --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 $ package_installed: nix-env --query | sed 's,-.*,,'
 
 % nixos
