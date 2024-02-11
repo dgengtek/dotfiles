@@ -145,6 +145,12 @@ sudo udisksctl power-off -b <device>
 # check for errors in attributes of device
 result=$(sudo smartctl -A <device>); echo "$result" | egrep 'Uncorrectable|Pending_Sector|Reported_Uncorrect|UDMA_CRC|Raw_Read_Error_Rate|Spin_Up_Time|Start_Stop_Count|Reallocated_Sector_Ct|Seek_Error_Rate|Seek_Error_Rate'; echo "$result" | grep 'Pre-fail'; echo "$result" | grep 'Old_age'
 
+# check for errors, value not zero, replace disk
+egrep 'Reallocated_Sector_Ct|Reported_Uncorrect|Command_Timeout|Current_Pending_Sector|Offline_Uncorrectable'
+
+# has errors recommended to replace
+egrep 'Reallocated_Sector_Ct|Current_Pending_Sector|Offline_Uncorrectable'
+
 $ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
 $ mountpoint: mount -l --- --column 3 --delimiter ' '
 $ interface: find /sys/class/net/ -mindepth 1 -maxdepth 1 | xargs -n 1 basename

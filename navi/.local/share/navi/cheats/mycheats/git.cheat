@@ -319,6 +319,10 @@ git checkout <branch> &&
 echo git merge staging_branch;
 
 
+# commit, push fast, skip, irrelevant, ok
+git commit -m "ohne kommentar" && git push
+
+
 $ commit: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --column 1 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
 $ commits: git log --pretty=format:'%H - %d %s (%cI) <%an, %ae>' --- --multi --column 1 --delimiter ' ' --preview 'git show --pretty=fuller --color=always {1}'
 $ folder: fd --type d
