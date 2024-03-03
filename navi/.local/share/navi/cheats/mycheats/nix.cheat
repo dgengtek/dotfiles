@@ -1,6 +1,6 @@
 % nix
 
-# upgrade nix
+# upgrade nix (old)
 nix-channel --update && nix-env --install --attr nixpkgs.nix nixpkgs.cacert
 
 # list of all the currently existing generations for the active profile
@@ -74,6 +74,9 @@ ls -l /nix/var/nix/gcroots/auto/
 fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink
 
 # full upgrade
+nix-channel --update && nix profile upgrade '.*'
+
+# full upgrade (old)
 nix-channel --update && nix-env -u --always
 
 # full cleanup of old entries, generations, builds

@@ -1,6 +1,12 @@
 # add current song to favorite playlist
 mpc current -f '%file%' >> <fav_playlist>
 
+# update database
+mpc update --wait
+
+# rescan unmodified files
+mpc rescan --wait
+
 $ current_song: mpc current -f '%file%'
 $ path_playlist: awk '/playlist_directory/ {gsub("\"", "", $2); print $2}' $HOME/.mpd/mpd.conf
 $ playlist: fd -t f '\.m3u$' <path_playlist>
