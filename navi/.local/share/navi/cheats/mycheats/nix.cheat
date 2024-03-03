@@ -82,6 +82,12 @@ nix-channel --update && nix-env -u --always
 # full cleanup of old entries, generations, builds
 fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink | xargs rm; nix-collect-garbage --delete-old
 
+# get hash for url
+nix-prefetch-url --type sha256 --unpack <url>
+
+# pin nixpkgs with niv sources
+nix-shell -p niv --run "niv init --nixpkgs nixos/nixpkgs --nixpkgs-branch nixos-23.11"
+
 $ nix_file: fd --type f --follow --exclude ".git" \.nix "." --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 $ package_installed: nix-env --query | sed 's,-.*,,'
 
@@ -89,6 +95,9 @@ $ package_installed: nix-env --query | sed 's,-.*,,'
 
 # upgrade nixos and set as current boot
 nixos-rebuild --upgrade boot
+
+# generate minimal iso image configuration
+nix-shell -I nixpkgs=channel:nixos-23.11 -p 'let pkgs = import <nixpkgs> { config = {}; overlays = []; }; iso-config = pkgs.path + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix; nixos = pkgs.nixos iso-config; in nixos.config.system.build.nixos-generate-config' --command 'nixos-generate-config --dir ./'
 
 # run a custom build vm with the desired configuration
 export QEMU_OPTS="-nographic -serial mon:stdio" QEMU_KERNEL_PARAMS=console=ttyS0 QEMU_NET_OPTS="hostfwd=tcp::2222-:22"

@@ -7,7 +7,19 @@ mpc update --wait
 # rescan unmodified files
 mpc rescan --wait
 
+# lists all songs in the current queue
+mpc playlist
+
+# get current songpos
+mpc current -f '%position%'
+
+# print songname and remove from current playlist
+mpc current -f '%file%'; mpc del $(mpc current -f '%position%')
+
 $ current_song: mpc current -f '%file%'
+$ current_songposition: mpc current -f '%position%'
+$ queued_songs: mpc playlist
 $ path_playlist: awk '/playlist_directory/ {gsub("\"", "", $2); print $2}' $HOME/.mpd/mpd.conf
 $ playlist: fd -t f '\.m3u$' <path_playlist>
+$ playlists: mpc lsplaylists
 $ fav_playlist: fd -t f 'fav.*\.m3u$' <path_playlist>
