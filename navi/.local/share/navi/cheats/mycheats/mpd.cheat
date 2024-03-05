@@ -16,6 +16,9 @@ mpc current -f '%position%'
 # print songname and remove from current playlist
 mpc current -f '%file%'; mpc del $(mpc current -f '%position%')
 
+# remove music file from playlist and filesystem
+filename="$(mpc current -f '%file%')"; mpc del $(mpc current -f '%position%'); rm "$filename"
+
 $ current_song: mpc current -f '%file%'
 $ current_songposition: mpc current -f '%position%'
 $ queued_songs: mpc playlist

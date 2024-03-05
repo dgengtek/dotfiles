@@ -8,6 +8,12 @@ find . -maxdepth 1 -name "<name>"
 find . -name "<name>"
 
 
+# search for video files
+find . -type f -exec file -N -i -- {} + | grep video
+
+# get filename of video files
+find . -type f -exec file -N -i -- {} + | sed -n 's!: video/[^:]*$!!p'
+
 # find file in the directory
 find <dir> -type f -follow -print
 
@@ -21,11 +27,11 @@ find <dir> -type f -follow -print | zip -j <ZipFileName> -@
 
 
 # find files with specific name in the directory and zip all
-find <dir> -type f -name "<name>"  -follow -print | zip -@ <ZipFileName>  
+find <dir> -type f -name "<name>"  -follow -print | zip -@ <ZipFileName>
 
 
 # find files with specific name in the directory and zip all files without directories
-find <dir> -type f -name "<name>"  -follow -print | zip -j -@ <ZipFileName>  
+find <dir> -type f -name "<name>"  -follow -print | zip -j -@ <ZipFileName>
 
 
 # search, find a file

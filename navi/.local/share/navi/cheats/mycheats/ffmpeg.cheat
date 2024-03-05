@@ -6,6 +6,9 @@ ffmpeg -i <InputFile> -r 30 -s 960x540 -strict -2 <OutputFile>
 # fix mp4 for whatsapp
 ffmpeg -i <broken mp4> -c:v libx264 -profile:v baseline -level 3.0 -pix_fmt yuv420p <new mp4>
 
+# extract audio
+ffmpeg -i <input.mov> -map 0:a -c copy <output.mov>
+
 # Convert video file
 ffmpeg \
   -i "<input>" \

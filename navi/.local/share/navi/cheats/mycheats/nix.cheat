@@ -36,12 +36,12 @@ nix-store --print-fixed-path sha256 <filename_hash> $(basename <filename>)
 # register the storepath in the nix database, the storepath must exist
 printf "<new_storepath>\n\n0\n" | nix-store --register-validity --reregister
 
-# run a custom build vm with the desired configuration
+# build a custom nixos vm with the desired configuration
 export QEMU_OPTS="-nographic -serial mon:stdio" QEMU_KERNEL_PARAMS=console=ttyS0 QEMU_NET_OPTS="hostfwd=tcp::2222-:22"
-nix-build '\<nixpkgs/nixos\>' -A vm -k -I nixos-config=./vm.nix
+nix-build '<nixpkgs/nixos>' -A vm -k -I nixos-config=./vm.nix
 
 # rebuild a package with debug symbols
-nix-build -E 'with import \<nixpkgs\> {}; enableDebugging <package>'
+nix-build -E 'with import <nixpkgs> {}; enableDebugging <package>'
 
 # check syntax
 nix-instantiate --parse-only <nix_file>
@@ -99,6 +99,13 @@ nixos-rebuild --upgrade boot
 # generate minimal iso image configuration
 nix-shell -I nixpkgs=channel:nixos-23.11 -p 'let pkgs = import <nixpkgs> { config = {}; overlays = []; }; iso-config = pkgs.path + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix; nixos = pkgs.nixos iso-config; in nixos.config.system.build.nixos-generate-config' --command 'nixos-generate-config --dir ./'
 
-# run a custom build vm with the desired configuration
+# build iso image
+NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/tarball/nixos-23.11 nix-shell -p nixos-generators --run "nixos-generate --format iso --configuration ./<nix_file> -o result
+
+# create qemu vm with nixos configuration
+nix-build '<nixpkgs/nixos>' -A vm -I nixpkgs=channel:nixos-23.11 -I nixos-config=./<nixos_config>
+QEMU_KERNEL_PARAMS=CONSOLE=TTYS0 ./result/bin/run-nixos-vm -nographic; reset
+
+# run a custom nixos vm with the desired configuration
 export QEMU_OPTS="-nographic -serial mon:stdio" QEMU_KERNEL_PARAMS=console=ttyS0 QEMU_NET_OPTS="hostfwd=tcp::2222-:22"
-nixos-rebuild -I nixpkgs=<path nixpkgs> -I nixos-config=./vm.nix build-vm
+nixos-rebuild -I nixpkgs=<path nixpkgs> -I nixos-config=./<vm_nix_file> build-vm
