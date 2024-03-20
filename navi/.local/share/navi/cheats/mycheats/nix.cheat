@@ -1,5 +1,8 @@
 % nix
 
+# nixpkgs loaded in nix repl
+nix repl '<nixpkgs>'
+
 # upgrade nix (old)
 nix-channel --update && nix-env --install --attr nixpkgs.nix nixpkgs.cacert
 
