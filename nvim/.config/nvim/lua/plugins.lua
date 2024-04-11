@@ -253,6 +253,7 @@ return require('packer').startup(function(use)
   use 'NoahTheDuke/vim-just'
   use 'jvirtanen/vim-hcl'
   use { 'LhKipp/nvim-nu', run = ':TSInstall nu' }
+  use 'nickel-lang/vim-nickel'
 
   -- etc
   use 'unblevable/quick-scope'
