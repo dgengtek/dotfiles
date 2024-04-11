@@ -3,6 +3,15 @@
 # nixpkgs loaded in nix repl
 nix repl '<nixpkgs>'
 
+# drop in build environment for an expression
+nix-shell -E "with import <nixpkgs> {}; callPackage <nix_file> {}"
+
+# get derivation values generated from nix file
+nix show-derivation $(nix-instantiate <nix_file>)
+
+# run manual build from a nix shell
+export out=$(mktemp -d); set -x; set +e; export NIX_ENFORCE_PURITY=0; genericBuild
+
 # upgrade nix (old)
 nix-channel --update && nix-env --install --attr nixpkgs.nix nixpkgs.cacert
 
@@ -24,11 +33,21 @@ nix-store --query --references $(which <program>)
 # print reverse dependencies of the program
 nix-store --query --referrers $(which <program>)
 
+# print current references to active user profile
+nix-store --query --references $HOME/.nix-profile
+
+
 # switch to older generation
 nix-env --rollback
 
 # switch to generation
 nix-env --switch-generation <generation>
+
+# get nix config
+nix config show
+
+# get store path of package
+nix eval --raw nixpkgs#<package>
 
 # create hash of the file for nix store
 nix-hash --type sha256 --flat --base32 <filename>
@@ -95,6 +114,9 @@ $ nix_file: fd --type f --follow --exclude ".git" \.nix "." --- --preview 'bat -
 $ package_installed: nix-env --query | sed 's,-.*,,'
 
 % nixos
+
+# get list of system packages
+nix-store -q --references /run/current-system/sw
 
 # upgrade nixos and set as current boot
 nixos-rebuild --upgrade boot
