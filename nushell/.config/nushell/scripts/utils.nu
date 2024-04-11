@@ -1,5 +1,5 @@
 # command for executing external commands in a list of directories
-def run-in-dir [command: string, --disable-capture: bool, ...args] {
+def run-in-dir [command: string, --disable-capture, ...args] {
   let directories = $in
   let directories_type = ($directories | describe)
   let $directories = if $directories_type == "list<string>" {
