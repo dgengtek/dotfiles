@@ -47,7 +47,7 @@ COLORTERM = "truecolor"
 size = 15.0
 
 [font.bold]
-family = "TerminessTTF Nerd Font"
+family = "Terminess Nerd Font"
 style = "Bold"
 
 [font.glyph_offset]
@@ -55,11 +55,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "TerminessTTF Nerd Font"
+family = "Terminess Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "TerminessTTF Nerd Font"
+family = "Terminess Nerd Font"
 style = "Regular"
 
 [font.offset]
