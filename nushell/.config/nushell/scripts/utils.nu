@@ -18,9 +18,9 @@ def run-in-dir [command: string, --disable-capture, ...args] {
     }
     cd $dir
     let result = if $disable_capture {
-      run-external $command $args | complete
+      run-external $command ...$args | complete
     } else {
-      run-external --redirect-combine $command $args | complete
+      run-external --redirect-combine $command ...$args | complete
     }
     {"dir": $dir, "command": $result}
   }

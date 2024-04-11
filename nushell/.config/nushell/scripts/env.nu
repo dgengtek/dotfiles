@@ -5,7 +5,7 @@ def env-from-raw [] {
 
 # output shell environment variables from env records
 def env-to-raw [
-  --export (-e): bool  # prefix variables with export
+  --export (-e) # prefix variables with export
 ] {
   let out = (
     $in | items {|k, v|
