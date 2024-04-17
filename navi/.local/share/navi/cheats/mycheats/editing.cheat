@@ -7,6 +7,9 @@ vipe <&- |
 # view all files readonly
 fd --size +1b --type f --exec-batch vim -R {} \;
 
+# run nvim clean without plugins
+nvim --clean --noplugin
+
 # run vim without any config
 vim -u NONE
 
