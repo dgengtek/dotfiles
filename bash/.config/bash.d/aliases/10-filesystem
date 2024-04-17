@@ -16,10 +16,10 @@ if hash bat; then
   alias cat=bat
 fi
 alias c="bat -p"
-alias ls=exa
-alias ll="exa -l"
-alias lla="exa -la"
-alias la="exa -a"
+alias ls=eza
+alias ll="eza -l"
+alias lla="eza -la"
+alias la="eza -a"
 alias t="tree -C | $PAGER"
 
 alias rm="rm -i --preserve-root"
