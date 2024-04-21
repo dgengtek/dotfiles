@@ -1,5 +1,5 @@
 % tmux
-@ template, reuse
+@ template
 
 # load tmuxp defined session
 if ! { [[ "$TERM" =~ "screen" ]] && [[ -n "$TMUX" ]]; }; then

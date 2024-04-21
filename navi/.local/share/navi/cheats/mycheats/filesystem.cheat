@@ -1,5 +1,5 @@
 % fs, filesystem
-@ template, reuse
+@ template
 
 # Delete all broken symlinks in the selected directory
 find <directory> -xtype l -exec rm -vI {} +; 

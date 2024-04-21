@@ -1,6 +1,6 @@
 % saltstack
 
-@ template, reuse
+@ template
 
 # sync fileserver
 sudo salt-run fileserver.update

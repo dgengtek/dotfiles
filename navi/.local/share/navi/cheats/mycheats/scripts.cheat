@@ -1,5 +1,5 @@
 % scripts
-@ template, reuse
+@ template
 
 # create a new tmux session if none exists and spawn a new terminal shell session if in a TMUX session
 tmux_new_session.sh

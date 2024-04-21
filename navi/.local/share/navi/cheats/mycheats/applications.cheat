@@ -99,7 +99,7 @@ espeak -v en -s 145 -p 23 "<text>"
 
 
 % pdf
-@ template, reuse
+@ template
 
 # reduce size of pdf file
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default \

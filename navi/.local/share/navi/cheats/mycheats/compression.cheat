@@ -1,5 +1,5 @@
 % compression
-@ template, reuse
+@ template
 
 # Create a tar containing files
 tar cf <name>.tar <files>

@@ -113,6 +113,9 @@ sudo ip link add link <interface> name <vlan_ifname> type vlan id <vlan_id> && s
 # replace mac separator
 sed 's,:,,g'
 
+# create admin vlan device in different namespace
+sudo ip link add link brlan name admin.254 netns adm type vlan id 254; sudo ip -n adm addr add 10.254.0.201/24 dev admin.254; sudo ip -n adm link set admin.254 up
+
 $ interface: ip -json link | jq -r '.[].ifname'
 $ self_global_ip: dig +short myip.opendns.com @resolver1.opendns.com
 $ process: lsof -iTCP -sTCP:LISTEN -n -P | sed -E "s/:([0-9][0-9][0-9]+) /:$(tput setaf 3)\1$(tput sgr0) /g" --- --header-lines 1

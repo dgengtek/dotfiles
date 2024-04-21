@@ -1,9 +1,9 @@
-% template, reuse
+% template
 
 # run a binary from PATH
 <binary>
 
-# find an alias 
+# find an alias
 <alias>
 
 # find a function
@@ -12,7 +12,7 @@
 # output the search of a file, path from the directory
 <compgen_path>
 
-# output the search of a directory from the given path 
+# output the search of a directory from the given path
 <compgen_directory>
 
 # search, select file relative from a selected directory

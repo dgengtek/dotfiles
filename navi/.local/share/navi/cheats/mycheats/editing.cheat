@@ -1,5 +1,5 @@
 % edit, string
-@ template, reuse
+@ template
 
 # edit and pipe output to some command
 vipe <&- |

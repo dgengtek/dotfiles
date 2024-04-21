@@ -95,7 +95,7 @@ $ service_user: systemctl --user list-units --type=service --all | awk '{print $
 
 
 % journal, log
-@ template, reuse
+@ template
 
 # use journal from another location
 journalctl --directory <path>
