@@ -13,7 +13,7 @@ readonly INSTALLER=${INSTALLER:-install.py}
 usage() {
   cat >&2 << EOF
 Usage:	${0##*/} [OPTIONS] [<configuration file>]]
-  
+
 OPTIONS:
   -h			  help
   --install-vim
@@ -35,7 +35,7 @@ main() {
   local setup_config="setup.ini"
 
   check_dependencies
-  # parse input args 
+  # parse input args
   parse_options "$@"
   # set leftover options parsed local input args
   set -- ${args[@]}
@@ -47,7 +47,7 @@ main() {
   prepare_env
   pre_run
   run "$@"
-  post_run 
+  post_run
   unset_signal_handlers
 }
 
@@ -67,8 +67,12 @@ run() {
     "$installer" "${installer_options[@]}" "$setup_config" || exit 1
 
     install_plugins
-    curl -o "$HOME/.local/share/bash-completion/completions/fzf" 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash'
-    curl -o "$HOME/.local/share/bash-completion/completions/fzf-key-bindings.bash" 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash'
+    if hash fzf 2>&1 | logger -t bashrc -p user.info; then
+      local fzf_version=$(fzf --version | cut -d ' ' -f 1)
+      local fzf_url="https://raw.githubusercontent.com/junegunn/fzf/${fzf_version}/shell"
+      curl -o "$HOME/.local/share/bash-completion/completions/fzf" "${fzf_url}/completion.bash"
+      curl -o "$HOME/.local/share/bash-completion/completions/fzf-key-bindings.bash" "${fzf_url}/key-bindings.bash"
+    fi
 
     print_dependencies
   fi
@@ -254,7 +258,7 @@ prepare() {
   # create tmp directory for user on big disk
   mkdir -p /data/tmp/$USER
   (
-  umask 077 
+  umask 077
   mkdir -p .gnupg
   mkdir -p .ssh/sockets
   )
@@ -319,8 +323,8 @@ install_ycm() {
 }
 
 if [[ $(type -t error) != "function" ]]; then
-echo() ( 
-  IFS=" " 
+echo() (
+  IFS=" "
   printf '%s\n' "$*"
 )
 out() { echo "$1 $2" "${@:3}"; }
