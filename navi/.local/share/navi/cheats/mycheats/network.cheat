@@ -113,8 +113,8 @@ sudo ip link add link <interface> name <vlan_ifname> type vlan id <vlan_id> && s
 # replace mac separator
 sed 's,:,,g'
 
-# create admin vlan device in different namespace
-sudo ip link add link brlan name admin.254 netns adm type vlan id 254; sudo ip -n adm addr add 10.254.0.201/24 dev admin.254; sudo ip -n adm link set admin.254 up
+# create admin vlan device in different namespace and attach to it with tmux
+ns="adm"; sudo ip netns add $ns; sudo ip link add link brlan name admin.254 netns $ns type vlan id 254; sudo ip -n $ns addr add 10.254.0.201/24 dev admin.254; sudo ip -n $ns link set admin.254 up; sudo ip netns exec $ns ip route add default via 10.254.0.1; sudo ip netns exec $ns sudo -u $USER tmux -L "tmux_${ns}" new -A
 
 $ interface: ip -json link | jq -r '.[].ifname'
 $ self_global_ip: dig +short myip.opendns.com @resolver1.opendns.com
