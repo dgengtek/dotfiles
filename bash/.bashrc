@@ -61,8 +61,6 @@ fi
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
 
-if hash starship; then
+if hash starship 2>&1 | logger -t bashrc -p user.info; then
   eval "$(starship init bash)"
-else
-  echo "Install starship to use custom prompt." >&2
 fi
