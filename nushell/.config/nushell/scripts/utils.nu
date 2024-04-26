@@ -1,5 +1,5 @@
 # command for executing external commands in a list of directories
-def run-in-dir [command: string, --disable-capture, ...args] {
+def run-external-dir [command: string, --disable-capture, --sync, ...args] {
   let directories = $in
   let directories_type = ($directories | describe)
   let $directories = if $directories_type == "list<string>" {
@@ -9,7 +9,8 @@ def run-in-dir [command: string, --disable-capture, ...args] {
   } else {
     error make {msg: "this command requires a list<string> as input"}
   }
-  $directories | each { |d|
+
+  let run_external_dir = { |d|
     let dir = (__get_valid_directory $d)
     if ($dir | is-empty) {
       use std
@@ -23,6 +24,11 @@ def run-in-dir [command: string, --disable-capture, ...args] {
       run-external --redirect-combine $command ...$args | complete
     }
     {"dir": $dir, "command": $result}
+  }
+  if $sync {
+    $directories | each $run_external_dir
+  } else {
+    $directories | par-each $run_external_dir
   }
 }
 
