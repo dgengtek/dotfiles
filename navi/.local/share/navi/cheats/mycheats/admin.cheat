@@ -128,7 +128,7 @@ unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
 sudo mount <device>
 
 # mount as user
-sudo mount -o user <device> <mount_dir>; sudo bindfs -u $(id -u) -g $(id -g) <mount_dir> <user_mount_dir>
+sudo mount -o user <device_partition> <mount_dir>; sudo bindfs -u $(id -u) -g $(id -g) <mount_dir> <user_mount_dir>
 
 # get all mounted filesystems
 mount -l | egrep 'type ext(2|3|4)' | awk '{print $1}'
