@@ -62,13 +62,13 @@ gpg --verify -r <public_key>
 gpg --sign -r <public_key>
 
 # list gpg private and public keys
-gpg -K; gpg -k
+gpg --list-secret-keys --with-keygrip; gpg --list-public-keys --with-keygrip
 
 # list gpg private and public keys in long keyformat
 gpg --keyid-format 0xlong -K; gpg --keyid-format 0xlong -k
 
 # list all gpg private and public keys including unusuable subkeys
-gpg --keyid-format 0xlong -K --with-fingerprint --list-options show-unusable-subkeys; gpg --keyid-format 0xlong -k --with-subkey-fingerprint --list-options show-unusable-subkeys
+gpg --keyid-format 0xlong --list-secret-keys --with-fingerprint --with-keygrip --list-options show-unusable-subkeys; gpg --keyid-format 0xlong --list-public-keys --with-subkey-fingerprint --with-keygrip --list-options show-unusable-subkeys
 
 # export secret keys as ascii
 gpg --export-secret-keys --armor
