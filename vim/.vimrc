@@ -1,5 +1,5 @@
 " use vi improved
-set nocompatible              
+set nocompatible
 filetype plugin indent on
 " coloring
 if (&term == "screen" || &term == "screen-bce" || &term == "xterm" || &term == "xterm-256color")
@@ -10,7 +10,7 @@ if has('termguicolors')
 endif
 
 if has("syntax")
-  syntax on                      
+  syntax on
 endif
 
 
@@ -76,16 +76,16 @@ if !has('nvim')
     set ttymouse=
 endif
 " hide mouse when typing
-"set mousehide  
+"set mousehide
 
 " ignore case when all chars are lower
 set smartcase
 set incsearch
 
 " menu completion with tab in cmd mode
-set wildmenu                  
+set wildmenu
 " matches all
-set wildmode=full             
+set wildmode=full
 " Ignore these files when completing
 set wildignore+=*.o,*.obj,.git,*.pyc
 set wildignore+=eggs/**
@@ -100,7 +100,8 @@ set statusline +=%{&ff}%*            "file format
 set statusline +=%y%*                "file type
 set statusline +=\ %<%F%*            "full path
 set statusline +=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
-set statusline +=%4v\ %*             "virtual column number
+set statusline +=%{fugitive#statusline()}
+set statusline +=%4l,%v\ %*             "virtual column number
 set statusline +=0x%04B\ %*          "character under cursor
 set statusline +=%#warningmsg#
 set statusline +=%*
@@ -121,7 +122,7 @@ set number
 set relativenumber
 
 if has("unnamedplus")
-  " yank into + register, * all 
+  " yank into + register, * all
   set clipboard=unnamedplus
 else
   " all op into * register
@@ -130,7 +131,7 @@ endif
 
 
 "if has("autocmd")
-  autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o 
+  autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
   autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4
   autocmd FileType bash setlocal shiftwidth=2 softtabstop=2
@@ -210,7 +211,7 @@ if &diff
   highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
   highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
   highlight DiffText cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-endif 
+endif
 
 " quick-scope
 " Trigger a highlight in the appropriate direction when pressing these keys:
@@ -256,7 +257,7 @@ endif
 let g:ftplugin_sql_omni_key = '<Leader>sql'
 
 " vimwiki
-let g:vimwiki_global_ext = 0 
+let g:vimwiki_global_ext = 0
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_hl_cb_checked = 1
 let g:vimwiki_url_maxsave = 40
@@ -325,7 +326,7 @@ endif " nvim
 " get backlinks
 function! s:markdown_backlinks()
   call fzf#vim#grep(
-    \ "rg --column --line-number --no-heading --color=always --smart-case " 
+    \ "rg --column --line-number --no-heading --color=always --smart-case "
     \ . expand('%:t') , 1,
     \ fzf#vim#with_preview('right:50%:hidden', '?'), 0)
 endfunction
@@ -416,7 +417,7 @@ nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'RG ' . input('RG/')<CR>
-nnoremap <silent> <leader>. :RG 
+nnoremap <silent> <leader>. :RG
 
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
