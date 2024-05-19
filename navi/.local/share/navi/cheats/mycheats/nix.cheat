@@ -3,6 +3,9 @@
 # nixpkgs loaded in nix repl
 nix repl '<nixpkgs>'
 
+# run repl with local flake loaded
+nix repl --expr "builtins.getFlake \"$PWD\""
+
 # drop in build environment for an expression
 nix-shell -E "with import <nixpkgs> {}; callPackage <nix_file> {}"
 
@@ -94,6 +97,9 @@ ls -l /nix/var/nix/gcroots/auto/
 
 # get resolved indirect gc roots
 fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink
+
+# get build hash
+nu -c "nix derivation show | from json | values | get outputs.out.path | first | path parse | get stem | parse --regex '([^-]*)-.*' | get capture0 | get 0"
 
 # full upgrade
 nix-channel --update && nix profile upgrade '.*'

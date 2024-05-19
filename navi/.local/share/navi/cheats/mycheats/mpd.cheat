@@ -10,6 +10,9 @@ mpc rescan --wait
 # lists all songs in the current queue
 mpc playlist
 
+# set playlist
+mpc load <playlists>
+
 # get current songpos
 mpc current -f '%position%'
 
