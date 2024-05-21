@@ -188,6 +188,8 @@ null_ls.setup({
 	sources = {
 		-- nix lints, suggestions
 		null_ls.builtins.diagnostics.statix,
+		-- nix formatter
+		null_ls.builtins.formatting.nixpkgs_fmt,
 		--     null_ls.builtins.completion.spell,
 		--     -- tags
 		--     null_ls.builtins.completion.tags,
