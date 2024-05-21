@@ -69,8 +69,12 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
   use {
-    'jose-elias-alvarez/null-ls.nvim',
-    requires = { "nvim-lua/plenary.nvim" },
+    'nvimtools/none-ls.nvim',
+    requires = { 
+      "nvim-lua/plenary.nvim",
+      "nvimtools/none-ls-extras.nvim",
+      "gbprod/none-ls-shellcheck.nvim",
+    },
   }
   use 'nvim-tree/nvim-web-devicons'
   -- lua lib
@@ -154,7 +158,12 @@ return require('packer').startup(function(use)
   }
 
   -- Post-install/update hook with neovim command
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 
+    'nvim-treesitter/nvim-treesitter',
+    requires = {
+      "nushell/tree-sitter-nu",
+    },
+    run = ':TSUpdate' }
   use 'nvim-treesitter/nvim-treesitter-context'
 
   use {

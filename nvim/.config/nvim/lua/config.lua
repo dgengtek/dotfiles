@@ -136,7 +136,21 @@ require('lspconfig').pylsp.setup(coq.lsp_ensure_capabilities({
     }
   }
 }))
+require('lspconfig').nushell.setup(coq.lsp_ensure_capabilities())
+-- nix lsp
+require('lspconfig').nil_lsp.setup(coq.lsp_ensure_capabilities())
+-- nickel
+require('lspconfig').nickel_ls.setup(coq.lsp_ensure_capabilities())
 require('lspconfig').rust_analyzer.setup(coq.lsp_ensure_capabilities())
+require('lspconfig').ruff_lsp.setup(coq.lsp_ensure_capabilities({
+  init_options = {
+    settings = {
+      -- Any extra CLI arguments for `ruff` go here.
+      args = {},
+    }
+  }
+}))
+
 
 require('lspfuzzy').setup {}
 
@@ -176,6 +190,8 @@ null_ls.setup({
     end,
     -- TODO install sources
     sources = {
+          -- nix lints, suggestions
+          null_ls.builtins.diagnostics.statix,
     --     null_ls.builtins.completion.spell,
     --     -- tags
     --     null_ls.builtins.completion.tags,
@@ -193,9 +209,14 @@ null_ls.setup({
     --     -- python
     --     -- null_ls.builtins.diagnostics.flake8,
     --     -- python linter
-          null_ls.builtins.diagnostics.ruff,
     --     -- shell linter
-          null_ls.builtins.diagnostics.shellcheck,
+          -- lua diagnostics
+          null_ls.builtins.diagnostics.selene,
+          -- lua formatter
+          null_ls.builtins.formatting.stylua,
+	  require("none-ls-shellcheck.diagnostics"),
+	  require("none-ls-shellcheck.code_actions"),
+
     --     -- json, yaml
     --     null_ls.builtins.diagnostics.spectral,
           -- yamlls seems broken, autocompleting in insert mode
@@ -214,25 +235,25 @@ null_ls.setup({
     --     null_ls.builtins.formatting.stylua,
     --     null_ls.builtins.diagnostics.eslint,
     --     null_ls.builtins.completion.spell,
+        -- nickel, bash
+        null_ls.builtins.formatting.topiary,
         null_ls.builtins.formatting.yamlfmt,
     --     -- python code formatter
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.jq,
+        require("none-ls.formatting.jq"),
     -- null_ls.builtins.formatting.dprint,
         null_ls.builtins.formatting.just,
-        -- null_ls.builtins.formatting.ruff,
         -- rust format
-        null_ls.builtins.formatting.rustfmt,
+        require("none-ls.formatting.rustfmt"),
         -- shell format
         null_ls.builtins.formatting.shfmt,
         --  NF{print s $0; s=""; next} {s=s ORS}'
-        null_ls.builtins.formatting.trim_newlines,
+        require("none-ls.formatting.trim_newlines"),
         -- '{ sub(/[ \t]+$/, ""); print }'
-        null_ls.builtins.formatting.trim_whitespace,
-        null_ls.builtins.formatting.deno_fmt.with({
-          -- { "javascript", "javascriptreact", "json", "jsonc", "markdown", "typescript", "typescriptreact" }
-                    filetypes = { "markdown" }, -- only runs `deno fmt` for markdown
-        }),
+        require("none-ls.formatting.trim_whitespace"),
+        -- null_ls.builtins.formatting.deno_fmt.with({
+        --   -- { "javascript", "javascriptreact", "json", "jsonc", "markdown", "typescript", "typescriptreact" }
+        --             filetypes = { "markdown" }, -- only runs `deno fmt` for markdown
+        -- }),
         -- todo sort and update in place
         --null_ls.builtins.formatting.yq.with({
           --args = { "sort_keys(..)", "$FILENAME" }
@@ -311,6 +332,10 @@ require("zk").setup({
 })
 
 require("nvim-treesitter.configs").setup({
+  -- ensure_installed = "all",
+  -- ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "bash", "rust", "diff", "dockerfile", "git_config", "git_rebase", "gitcommit", "go", "hcl", "jq", "latex", "ledger", "make", "muttrc", "nix", "python", "regex", "rust", "sql", "ssh_config", "tmux", "toml", "csv", "html", "http", "json", "xml", "yaml", "javascript" },
+  auto_install = true,
+  sync_install = true,
   -- ...
   highlight = {
     -- ...
