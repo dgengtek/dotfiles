@@ -214,6 +214,10 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		require("none-ls-shellcheck.diagnostics"),
 		require("none-ls-shellcheck.code_actions"),
+		-- prose, markdown, tex, asciidoc
+		null_ls.builtins.diagnostics.vale,
+		-- text, markdown format
+		null_ls.builtins.formatting.textlint,
 
 		--     -- json, yaml
 		--     null_ls.builtins.diagnostics.spectral,
@@ -233,6 +237,11 @@ null_ls.setup({
 		--     null_ls.builtins.formatting.stylua,
 		--     null_ls.builtins.diagnostics.eslint,
 		--     null_ls.builtins.completion.spell,
+		-- { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "jsonc" }
+		-- https://biomejs.dev/internals/language-support/
+		null_ls.builtins.formatting.biome,
+		-- html, xml diagnostics
+		null_ls.builtins.diagnostics.tidy,
 		-- nickel, bash
 		null_ls.builtins.formatting.topiary,
 		null_ls.builtins.formatting.yamlfmt,
