@@ -138,18 +138,20 @@ endif
   autocmd FileType just setlocal shiftwidth=2 softtabstop=2
   autocmd FileType java setlocal shiftwidth=4 softtabstop=4
   autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
-  autocmd FileType anki_vim UltiSnipsAddFiletypes tex.texmath.latex
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType nickel setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType nix setlocal ts=2 sts=2 sw=2 expandtab
 "endif
 
 au BufRead,BufNewFile *.adoc,*.asciidoc setfiletype asciidoc
 au BufRead,BufNewFile *.sls setfiletype sls
+au BufRead,BufNewFile *.nix setfiletype nix
+au BufRead,BufNewFile *.ncl setfiletype nickel
 au BufRead,BufNewFile *.jinja,*.jinja2,*.j2 setfiletype jinja
 au BufRead,BufNewFile *.yaml,*.yml setfiletype yaml
 au BufRead,BufNewFile *.toml setfiletype toml
 au BufRead,BufNewFile *.rs setfiletype rust
 au BufRead,BufNewFile *.csv,*.dat setfiletype csv
-au BufRead,BufNewFile *.anki_vim setfiletype anki_vim
 au BufRead,BufNewFile justfile setfiletype just
 
 
@@ -425,7 +427,3 @@ nnoremap <silent> <leader>ft :Filetypes<CR>
 
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
-
-" TODO: check git history why I added this?
-" nmap ,cs :let @*=expand("%")<CR>
-" nmap ,cl :let @*=expand("%:p")<CR>
