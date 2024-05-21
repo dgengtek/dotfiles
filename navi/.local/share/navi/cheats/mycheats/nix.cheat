@@ -102,7 +102,7 @@ fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink
 nu -c "nix derivation show | from json | values | get outputs.out.path | first | path parse | get stem | parse --regex '([^-]*)-.*' | get capture0 | get 0"
 
 # full upgrade
-nix-channel --update && nix profile upgrade '.*'
+nix-channel --update && nix profile upgrade --all
 
 # full upgrade (old)
 nix-channel --update && nix-env -u --always
