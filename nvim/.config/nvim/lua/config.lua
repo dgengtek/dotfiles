@@ -229,7 +229,7 @@ null_ls.setup({
 		-- prose, markdown, tex, asciidoc
 		null_ls.builtins.diagnostics.vale,
 		-- text, markdown format
-		-- null_ls.builtins.formatting.textlint,
+		null_ls.builtins.formatting.textlint,
 
 		--     -- json, yaml
 		--     null_ls.builtins.diagnostics.spectral,
