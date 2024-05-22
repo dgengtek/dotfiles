@@ -136,7 +136,19 @@ require("lspconfig").pylsp.setup(coq.lsp_ensure_capabilities({
 }))
 require("lspconfig").nushell.setup(coq.lsp_ensure_capabilities())
 -- nix lsp
-require("lspconfig").nil_lsp.setup(coq.lsp_ensure_capabilities())
+require("lspconfig").nil_ls.setup(coq.lsp_ensure_capabilities({
+	autostart = true,
+	-- capabilities = caps,
+	-- cmd = { lsp_path },
+	settings = {
+		["nil"] = {
+			testSetting = 42,
+			formatting = {
+				command = { "nixpkgs-fmt" },
+			},
+		},
+	},
+}))
 -- nickel
 require("lspconfig").nickel_ls.setup(coq.lsp_ensure_capabilities())
 require("lspconfig").rust_analyzer.setup(coq.lsp_ensure_capabilities())
@@ -217,7 +229,7 @@ null_ls.setup({
 		-- prose, markdown, tex, asciidoc
 		null_ls.builtins.diagnostics.vale,
 		-- text, markdown format
-		null_ls.builtins.formatting.textlint,
+		-- null_ls.builtins.formatting.textlint,
 
 		--     -- json, yaml
 		--     null_ls.builtins.diagnostics.spectral,
