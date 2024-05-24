@@ -213,8 +213,6 @@ null_ls.setup({
 		--     null_ls.builtins.diagnostics.dotenv_linter,
 		--     null_ls.builtins.diagnostics.luacheck,
 		-- null_ls.builtins.diagnostics.markdownlint,
-		-- markdown, tex, asciidoc
-		-- null_ls.builtins.diagnostics.vale,
 		--     null_ls.builtins.diagnostics.pycodestyle,
 		--     -- python
 		--     -- null_ls.builtins.diagnostics.flake8,
@@ -226,8 +224,9 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		require("none-ls-shellcheck.diagnostics"),
 		require("none-ls-shellcheck.code_actions"),
+		-- TODO: fix different languages, dictionary not good enough, remove global vale.ini
 		-- prose, markdown, tex, asciidoc
-		null_ls.builtins.diagnostics.vale,
+		-- null_ls.builtins.diagnostics.vale,
 		-- text, markdown format
 		null_ls.builtins.formatting.textlint,
 
