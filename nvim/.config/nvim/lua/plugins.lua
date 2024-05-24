@@ -267,7 +267,8 @@ return require("packer").startup(function(use)
 	use("stephpy/vim-yaml")
 	use("NoahTheDuke/vim-just")
 	use("jvirtanen/vim-hcl")
-	use({ "LhKipp/nvim-nu", run = ":TSInstall nu" })
+	-- TODO: 20240522T175404, does not work, throws errors in coq ts
+	-- use({ "LhKipp/nvim-nu", run = ":TSInstall nu" })
 	use("nickel-lang/vim-nickel")
 
 	-- etc
