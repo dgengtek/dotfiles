@@ -56,6 +56,9 @@ curl \
 curl \
   ${VAULT_ADDR}/v1/<pki_secrets_handler>/crl/pem
 
+# get json vault information
+curl ${VAULT_ADDR}/v1/sys/seal-status
+
 # tidy up vault certificate store
 vault write pki_int/tidy tidy_cert_store=true tidy_revoked_certs=true
 
