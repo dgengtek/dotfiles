@@ -1,21 +1,21 @@
 session_name: "dev salt - ${PWD}"
 start_directory: "${PWD}"
 windows:
-- window_name: browse
-  focus: True
-  #layout: main-horizontal
-  #options:
-  #  main-pane-height: 35
-  panes:
-    - shell_command:
-        - tree -C -L 1
-      focus: true
-- window_name: kitchen-converge
-  panes:
-    - shell_command:
-      - ls -1
-      - just
-- window_name: src
-  panes:
-    - shell_command:
-      - ls -1
+  - window_name: browse
+    focus: True
+    #layout: main-horizontal
+    #options:
+    #  main-pane-height: 35
+    panes:
+      - shell_command:
+          - tree -C -L 1
+        focus: true
+  - window_name: kitchen-converge
+    panes:
+      - shell_command:
+          - ls -1
+          - just
+  - window_name: src
+    panes:
+      - shell_command:
+          - nvim

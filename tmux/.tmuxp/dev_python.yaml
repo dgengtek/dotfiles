@@ -2,23 +2,21 @@ session_name: "dev python - ${PWD}"
 start_directory: "${PWD}" # load session relative to config location (project root).
 # before_script: "pip3 install ./requirements/dev.txt"
 windows:
-- window_name: sh
-  shell_command_before: 
-    - "[ -d venv ] && source venv/bin/activate"
-  focus: True
-  layout: main-vertical
-  #options:
-  #  main-pane-height: 35
-  panes:
-  - focus: true
-  - make wt || just wt
-- window_name: src
-  #layout: main-horizontal
-  start_directory: src/
-  panes:
-  - null
-- window_name: tests
-  #layout: main-horizontal
-  start_directory: tests/
-  panes:
-  - null
+  - window_name: sh
+    focus: True
+    layout: main-vertical
+    panes:
+      shell_command:
+        - nvim -p flake.nix pyproject.toml main.nu
+        #options:
+        #  main-pane-height: 35
+  - window_name: src
+    #layout: main-horizontal
+    #start_directory: src/
+    panes:
+      - nvim
+  - window_name: tests
+    #layout: main-horizontal
+    panes:
+      shell_command:
+        - nix develop
