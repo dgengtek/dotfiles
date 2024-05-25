@@ -157,7 +157,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		nmap("K", vim.lsp.buf.hover, gen_opts("display hover window"))
 		nmap("<C-k>", vim.lsp.buf.signature_help, gen_opts("display signature help"))
 		-- lsp signature
-		nmap("<space>lf", function()
+		nmap("<leader>k", function()
 			require("lsp_signature").toggle_float_win()
 		end, { silent = true, noremap = true, desc = "toggle signature" })
 		nmap("<space>wa", vim.lsp.buf.add_workspace_folder, gen_opts("add worksapce folder"))
