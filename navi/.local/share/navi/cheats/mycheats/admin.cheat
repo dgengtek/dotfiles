@@ -194,6 +194,15 @@ find . -type f -exec cat {} + | random_line.py | strip.py | tr -dc '[:alnum:]-' 
 # flush cache
 sync; echo 3 | sudo tee /proc/sys/vm/drop_caches
 
+# list all variables
+sysctl --all
+
+# list file descriptors in memory, allocated, unused allocated, max
+sysctl fs.file-nr
+
+# get max file descritpros
+sysctl fs.file-max
+
 
 % password
 # encrypt a prompted password and copy to system clipboard

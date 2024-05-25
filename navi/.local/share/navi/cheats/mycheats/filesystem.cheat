@@ -2,10 +2,13 @@
 @ template
 
 # Delete all broken symlinks in the selected directory
-find <directory> -xtype l -exec rm -vI {} +; 
+find <directory> -xtype l -exec rm -vI {} +;
 
 # Folder size
 du -sh
+
+# list inode usage
+df --inodes
 
 # shred safely
 shred -uzn 3
