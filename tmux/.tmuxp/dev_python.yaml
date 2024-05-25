@@ -6,10 +6,9 @@ windows:
     focus: True
     layout: main-vertical
     panes:
-      shell_command:
-        - nvim -p flake.nix pyproject.toml main.nu
-        #options:
-        #  main-pane-height: 35
+      - nvim -p flake.nix pyproject.toml main.nu
+      #options:
+      #  main-pane-height: 35
   - window_name: src
     #layout: main-horizontal
     #start_directory: src/
@@ -18,5 +17,4 @@ windows:
   - window_name: tests
     #layout: main-horizontal
     panes:
-      shell_command:
-        - nix develop
+      - nix develop
