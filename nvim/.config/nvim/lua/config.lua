@@ -358,3 +358,8 @@ require("nvim-treesitter.configs").setup({
 		additional_vim_regex_highlighting = { "markdown" },
 	},
 })
+
+local lsp_signature_config = {
+	hint_prefix = "<--> ",
+}
+require("lsp_signature").setup(lsp_signature_config)

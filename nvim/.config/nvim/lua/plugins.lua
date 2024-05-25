@@ -116,6 +116,8 @@ return require("packer").startup(function(use)
 		branch = "artifacts",
 	})
 
+	use("ray-x/lsp_signature.nvim")
+
 	-- https://github.com/ibhagwan/fzf-lua
 	-- :FzfLua
 	use({
