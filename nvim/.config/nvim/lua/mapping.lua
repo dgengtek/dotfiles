@@ -20,7 +20,7 @@ imap("<s-tab>", [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = tr
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 nmap("<space>e", vim.diagnostic.open_float, { desc = "open diagnostic" })
-nmap("[d", vim.diagnostic.goto_prev, { desc = "previouy diagnostic" })
+nmap("[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic" })
 nmap("]d", vim.diagnostic.goto_next, { desc = "next diagnostic" })
 nmap("<space>q", vim.diagnostic.setloclist, { desc = "set diagnostic loclist" })
 
