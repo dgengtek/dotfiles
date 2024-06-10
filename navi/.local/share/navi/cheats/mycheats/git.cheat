@@ -22,6 +22,9 @@ git apply --stat <patch>
 # apply a patch to current directory
 git apply <patch>
 
+# show simple changed files
+git log --oneline --name-only
+
 # apply a series of patches from email
 git am <patch>
 
