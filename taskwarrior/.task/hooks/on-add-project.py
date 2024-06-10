@@ -1,13 +1,18 @@
 #!/bin/env python3
 import tasklib
-import intent_manager
 
 
 def main():
     tw = tasklib.TaskWarrior()
     task = tasklib.Task.from_input()
+    try:
+        tags = task["tags"]
+    except TypeError:
+        pass
+    if not tags:
+        tags = set()
 
-    if intent_manager.utilities.task_is_project(task):
+    if task["state"] == "proj" or "project" in tags:
         # make sure the project name always matches the description
         task["project"] = task["description"]
     else:
