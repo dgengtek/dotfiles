@@ -1,25 +1,25 @@
 session_name: "private"
 start_directory: "${PWD}" # load session relative to config location (project root).
 windows:
-- window_name: intentm
-  focus: True
-  #layout: main-horizontal
-  panes:
-    - shell_command:
-      - source ~/.local/venv/tools/bin/activate
-      - task
-- window_name: private
-  layout: main-vertical
-  #options:
-  #  main-pane-height: 35
-  panes:
-    - shell_command:
-      - while ! test -d "${HOME}/mnt/private/documents/"; do sleep 1; done
-      - command cd "${HOME}/mnt/private/"
-- window_name: accounting
-  #layout: main-horizontal
-  start_directory: "${HOME}/mnt/bigx/workspace/accounting"
-  panes:
-    - shell_command:
-      - source ~/.local/venv/tools/bin/activate
-      - ledger b
+  - window_name: intentm
+    focus: True
+    #layout: main-horizontal
+    panes:
+      - shell_command:
+          - "source ${HOME}/.local/venv/tools/bin/activate"
+          - task
+  - window_name: private
+    layout: main-vertical
+    #options:
+    #  main-pane-height: 35
+    panes:
+      - shell_command:
+          - while ! test -d "${HOME}/mnt/private/documents/"; do sleep 1; done
+          - command cd "${HOME}/mnt/private/"
+  - window_name: accounting
+    #layout: main-horizontal
+    start_directory: "${HOME}/mnt/bigx/workspace/accounting"
+    panes:
+      - shell_command:
+          - source ~/.local/venv/tools/bin/activate
+          - ledger b
