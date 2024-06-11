@@ -196,6 +196,13 @@ report.l.filter=(status:pending or +WAITING) and limit:page
 report.l.labels=ID,A,D,Project,T,State,R,Wait,S,Due,Until,Description,Note
 report.l.sort=urgency-,due+
 
+# get task output
+report.t.columns=id,start.active,depends,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,description,note
+report.t.description=Show short details about tasks
+report.t.filter=(status:pending or +WAITING) and limit:page
+report.t.labels=ID,A,D,State,R,Wait,S,Due,Until,Description,Note
+report.t.sort=urgency-,due+
+
 # get minimal listing of projects main task grouping all subtasks
 report.project.columns=id,start.active,depends,tags,description.count,state,recur.indicator,wait.remaining,scheduled.remaining,due.remaining,until.remaining,note
 report.project.description=Show short details about projects main task
