@@ -75,6 +75,9 @@ task maybe
 # get a report of all blocking tasks
 task blocking
 
+# get a minimal task report
+task blocking
+
 # get a report of overdue tasks
 task overdue
 
@@ -138,4 +141,4 @@ $ context: rg ^context "$HOME/.taskrc" | awk -F '.' '{print $2}' | sort | uniq
 $ id: task top
 $ project: task _project
 $ tag: task _tags
-$ reports: echo 'l,long,ls,list,maybe,minimal,next,information,oldest,newest,overdue,recurring,unblocked,waiting' | sed 's/,/\n/'
+$ reports: echo 'l,t,long,ls,list,maybe,minimal,next,information,oldest,newest,overdue,recurring,unblocked,waiting' | sed 's/,/\n/'
