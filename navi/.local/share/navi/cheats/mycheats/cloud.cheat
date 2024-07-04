@@ -1,0 +1,4 @@
+% cloud
+
+# generate cloud init image
+genisoimage -output cidata.iso -volid cidata -joliet -rock user-data meta-data

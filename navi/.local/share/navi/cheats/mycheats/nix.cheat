@@ -98,6 +98,9 @@ ls -l /nix/var/nix/gcroots/auto/
 # get resolved indirect gc roots
 fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink
 
+# remove, delete, cleanup builds
+fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink | rg result | xargs rm -v; nix-collect-garbage --delete-old
+
 # get build hash
 nu -c "nix derivation show | from json | values | get outputs.out.path | first | path parse | get stem | parse --regex '([^-]*)-.*' | get capture0 | get 0"
 
@@ -120,6 +123,12 @@ $ nix_file: fd --type f --follow --exclude ".git" \.nix "." --- --preview 'bat -
 $ package_installed: nix-env --query | sed 's,-.*,,'
 
 % nixos
+
+# list nixos generations
+nix profile history --profile /nix/var/nix/profiles/system
+
+# remove older nixos generations
+nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 14d
 
 # get list of system packages
 nix-store -q --references /run/current-system/sw
