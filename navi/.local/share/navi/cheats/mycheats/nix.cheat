@@ -1,10 +1,16 @@
 % nix
 
+# print nix system info
+nix-shell -p nix-info --run "nix-info -m"
+
 # nixpkgs loaded in nix repl
 nix repl '<nixpkgs>'
 
 # run repl with local flake loaded
 nix repl --expr "builtins.getFlake \"$PWD\""
+
+# run repl with nixpkgs tarball loaded
+nix repl --expr 'import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/tarball/nixos-24.05) {system = "x86_64-linux";}'
 
 # drop in build environment for an expression
 nix-shell -E "with import <nixpkgs> {}; callPackage <nix_file> {}"
@@ -39,6 +45,8 @@ nix-store --query --referrers $(which <program>)
 # print current references to active user profile
 nix-store --query --references $HOME/.nix-profile
 
+# fix store, nix paths
+nix-store --verify --check-contents --repair
 
 # switch to older generation
 nix-env --rollback
@@ -141,6 +149,9 @@ nix-shell -I nixpkgs=channel:nixos-23.11 -p 'let pkgs = import <nixpkgs> { confi
 
 # build iso image
 NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/tarball/nixos-23.11 nix-shell -p nixos-generators --run "nixos-generate --format iso --configuration ./<nix_file> -o result
+
+# generate qcow image from nixos config
+nix run github:nix-community/nixos-generators -- -c ./configuration.nix -f qcow
 
 # create qemu vm with nixos configuration
 nix-build '<nixpkgs/nixos>' -A vm -I nixpkgs=channel:nixos-23.11 -I nixos-config=./<nixos_config>
