@@ -1,5 +1,8 @@
 % nix
 
+# update single flake input
+nix flake lock --update-input <input>
+
 # print nix system info
 nix-shell -p nix-info --run "nix-info -m"
 
