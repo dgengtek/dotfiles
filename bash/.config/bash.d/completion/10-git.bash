@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-if ! declare -f __git_complete >/dev/null 2>&1 ; then
-  echo "Install bash-completion. Or source git completions" | logger -t bashrc -p user.info
-  continue
+if ! declare -f __git_complete >/dev/null 2>&1; then
+	echo "Install bash-completion. Or source git completions" | logger -t bashrc -p user.info
+	return
 fi
 
 __git_complete g _git_main
