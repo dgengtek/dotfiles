@@ -12,7 +12,7 @@ if [[ -x /usr/bin/dircolors ]]; then
 	alias egrep='egrep --color=auto'
 fi
 
-if command -v bat; then
+if command -v bat 2>&1 | logger -t bash -p user.info; then
 	alias cat=bat
 fi
 alias c="bat -p"
