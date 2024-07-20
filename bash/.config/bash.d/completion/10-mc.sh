@@ -1,3 +1,3 @@
-if hash mc; then
-  complete -C /usr/bin/mc mc
+if command -v mc; then
+	complete -C /usr/bin/mc mc
 fi

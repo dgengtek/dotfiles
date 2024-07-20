@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if ! hash broot 2>&1 | logger -t bashrc -p user.info; then
+if ! command -v broot 2>&1 | logger -t bashrc -p user.info; then
 	return 1
 fi
 

@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------------------
 alias sudok="sudo --reset-timestamp"
 alias sudokill="sudo --remove-timestamp"
-alias napnow="{ hash timew 2>&1 | logger -t bashrc -p user.info && timew stop; hash i3lock 2>&1 | logger -t bashrc -p user.info && i3lock -c 000000; systemctl suspend; }"
+alias napnow="{ command -v timew 2>&1 | logger -t bashrc -p user.info && timew stop; command -v i3lock 2>&1 | logger -t bashrc -p user.info && i3lock -c 000000; systemctl suspend; }"
 
 alias shutdown="systemctl poweroff"
 alias restart="systemctl reboot"
@@ -31,7 +31,6 @@ alias clip=systemclipboard
 alias clipclear="printf '' | xclip -i"
 alias clippaste="systemclipboard -o"
 
-
 alias h="history"
 alias htail="history 10"
 alias j="jobs -l"
@@ -45,7 +44,6 @@ alias geth4="getent ahostsv4"
 alias geth6="getent ahostsv6"
 alias getp="getent protocols"
 alias gets="getent services"
-
 
 alias freeh="free -h"
 
@@ -73,7 +71,7 @@ alias rgjson="rg --json"
 alias rgbuffer="rg --line-buffered" # default already
 alias rgnobuffer="rg --no-line-buffered"
 alias rgn="rg --line-number"
-alias rgU="rg --multiline --multiline-dotall" # enable multiline and dot . match to newline
+alias rgU="rg --multiline --multiline-dotall"        # enable multiline and dot . match to newline
 alias rgnoignore="rg --no-ignore --no-ignore-global" # ignore .gitignore, excludes etc
 alias rgo="rg --only-matching"
 alias rgw="rg --word-regexp"

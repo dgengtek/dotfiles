@@ -67,7 +67,7 @@ run() {
 		"$installer" "${installer_options[@]}" "$setup_config" || exit 1
 
 		install_plugins
-		if hash fzf 2>&1 | logger -t bashrc -p user.info; then
+		if command -v fzf 2>&1 | logger -t bashrc -p user.info; then
 			local fzf_version=$(fzf --version | cut -d ' ' -f 1)
 			local fzf_url="https://raw.githubusercontent.com/junegunn/fzf/${fzf_version}/shell"
 			curl -o "$HOME/.local/share/bash-completion/completions/fzf" "${fzf_url}/completion.bash"
@@ -210,7 +210,8 @@ sigh_usr2() {
 
 sigh_cleanup() {
 	trap - SIGINT SIGQUIT SIGTERM EXIT
-	local active_jobs=$(jobs -p)
+	local active_jobs
+	active_jobs=$(jobs -p)
 	for p in $active_jobs; do
 		if [[ -e "/proc/$p" ]]; then
 			kill "$p" >/dev/null 2>&1
@@ -220,14 +221,14 @@ sigh_cleanup() {
 }
 
 print_dependencies() {
-	if ! (hash fzf && hash rg); then
+	if ! (command -v fzf && command -v rg); then
 		echo "Remember to install fzf and ripgrep(rg) manully for utilities." >&2
 	fi
 }
 
 check_dependencies() {
-	hash python3 || error_exit 1 "Python 3 is missing."
-	if ! hash stow 2>&1 | logger -t install -p user.info; then
+	command -v python3 || error_exit 1 "Python 3 is missing."
+	if ! command -v stow 2>&1 | logger -t install -p user.info; then
 		error "'stow' is required for installation."
 	fi
 }
@@ -244,15 +245,16 @@ prepare() {
 	set_descriptors
 
 	# TODO: move directory setup to configuration file(install.py)
-	local parent_path=$(
-		cd "$path_script"
+	local parent_path
+	parent_path=$(
+		cd "$path_script" || exit
 		pwd -P
 	)
-	cd "$parent_path"
+	cd "$parent_path" || exit
 	pwd
 	curl -o "$path_script/vale/.local/share/vale/styles/deutsch/index.dic" 'https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/de/index.dic'
 	curl -o "$path_script/vale/.local/share/vale/styles/deutsch/index.aff" 'https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/de/index.aff'
-	pushd "$HOME"
+	pushd "$HOME" || exit
 	mkdir -p .local/share/bash-completion/completions
 	mkdir -p .local/share/navi/cheats
 	mkdir -p .config/bash.d/{utils,aliases,exports}
@@ -261,22 +263,20 @@ prepare() {
 	mkdir -p .tmuxp
 	mkdir -p .mpd
 	mkdir -p .vim
-	# create tmp directory for user on big disk
-	mkdir -p /data/tmp/$USER
 	(
 		umask 077
 		mkdir -p .gnupg
 		mkdir -p .ssh/sockets
 	)
-	popd
+	popd || exit
 }
 
 install_vim_plugins() {
-	hash curl git || exit 2
-	if hash nvim; then
+	command -v curl git || exit 2
+	if command -v nvim; then
 		git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 		nvim -c "PackerSync" -c "qa"
-	elif hash vim; then
+	elif command -v vim; then
 		curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 			https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		vim -c "PluginInstall" -c "qa"
@@ -307,10 +307,10 @@ install_python_packages() {
 
 install_ycm() {
 	# https://github.com/Valloric/YouCompleteMe
-	hash git vim cmake || exit 2
+	command -v git vim cmake || exit 2
 	local -r libs=$(ldconfig -p)
 	echo "$libs" | grep -E 'libclang[0-9._-]*.so' || error_exit 2 "Missing libclang. Please install clang."
-	echo "$libs" | grep -E 'libpython[0-9.]*\.so' || exit 2 "Missing libpython. Please install python."
+	echo "$libs" | grep -E 'libpython[0-9.]*\.so' || error_exit 2 "Missing libpython. Please install python."
 
 	local -a options
 	if (($ENABLE_COMPLETION_GO)) && hashq go; then
@@ -340,7 +340,7 @@ if [[ $(type -t error) != "function" ]]; then
 		error "$@"
 		exit $rc
 	}
-	hashq() { hash "$@" >/dev/null 2>&1; }
+	hashq() { command -v "$@" >/dev/null 2>&1; }
 fi
 
 prepare

@@ -271,7 +271,7 @@ badblocks -wsv
 % monitor
 
 # watch temperature sensors
-hash /usr/bin/sensors && watch -n 1 /usr/bin/sensors
+command -v /usr/bin/sensors && watch -n 1 /usr/bin/sensors
 
 
 % pki, gpg

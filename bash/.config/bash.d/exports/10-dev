@@ -20,23 +20,20 @@ ANDROID_HOME="/usr/local/android/android-sdk-linux/tools/"
 ANDROID_HOME="$ANDROID_HOME:/opt/android-sdk"
 COOKIECUTTER_CONFIG="$HOME/.cookiecutterrc"
 
-
 ################################################################################
 # Rust
 # ------------------------------------------------------------------------------
 CARGO_HOME="/data/tmp/$USER/cargo"
 RUSTUP_HOME="/data/tmp/$USER/rustup"
 
-
 # nix
 NIX_REMOTE=daemon
 
 set +a
 
-
 ################################################################################
 # Ruby
 # ------------------------------------------------------------------------------
-if hash ruby 2>&1 | logger -t bashrc -p user.info; then
-export RUBYPATH="$(ruby -e 'puts Gem.user_dir')/bin"  # is this even required?
+if command -v ruby 2>&1 | logger -t bashrc -p user.info; then
+	export RUBYPATH="$(ruby -e 'puts Gem.user_dir')/bin" # is this even required?
 fi
