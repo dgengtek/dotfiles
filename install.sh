@@ -236,12 +236,12 @@ prepare() {
 	pwd
 	curl -o "$path_script/vale/.local/share/vale/styles/deutsch/index.dic" 'https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/de/index.dic'
 	curl -o "$path_script/vale/.local/share/vale/styles/deutsch/index.aff" 'https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/de/index.aff'
-	cd "$HOME" || exit
-	mkdir .local/share/bash-completion/completions
-	mkdir .local/share/navi/cheats
-	mkdir .config/bash.d/{utils,aliases,exports}
-	mkdir .config/{ranger,awesome,git,i3,i3status,pueue,navi}
-	mkdir .config/systemd/user
+	pushd "$HOME" || exit
+	mkdir -p .local/share/bash-completion/completions
+	mkdir -p .local/share/navi/cheats
+	mkdir -p .config/bash.d/{utils,aliases,exports}
+	mkdir -p .config/{ranger,awesome,git,i3,i3status,pueue,navi}
+	mkdir -p .config/systemd/user
 	mkdir .tmuxp
 	mkdir .mpd
 	mkdir .vim
