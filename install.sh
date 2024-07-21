@@ -6,7 +6,6 @@ declare -ir INSTALL_PYTHON_PACKAGES=1
 
 export PATH="$PATH:$HOME/.local/bin/:$HOME/.bin/"
 export PATH_USER_LIB="$HOME/.local/lib/"
-readonly INSTALLER=${INSTALLER:-install.py}
 readonly path_script="$(dirname "${BASH_SOURCE[0]}")"
 
 # TODO: install external tools I depend on via ansible or in this script
@@ -18,7 +17,6 @@ Usage:	${0##*/} [OPTIONS] [<configuration file>]]
 OPTIONS:
   -h			  help
   --install-vim
-  --install-ycm
 EOF
 }
 
@@ -31,9 +29,6 @@ main() {
 	local -a options
 	local -a args
 	local -i flag_install_vim_plugins=0
-	local -i flag_install_ycm=0
-	local installer="$INSTALLER"
-	local setup_config="setup.ini"
 
 	check_dependencies
 	# parse input args
@@ -57,15 +52,11 @@ main() {
 ################################################################################
 
 run() {
-	local -a installer_options=()
-	(($enable_debug)) && installer_options+=("--debug")
 	local command=$1
 	if [[ $(type -t _${command}) == "function" ]]; then
 		echo "ran $command"
 		_${command}
 	else
-		"$installer" "${installer_options[@]}" "$setup_config" || exit 1
-
 		install_plugins
 		if command -v fzf 2>&1 | logger -t bashrc -p user.info; then
 			local fzf_version=$(fzf --version | cut -d ' ' -f 1)
@@ -78,17 +69,12 @@ run() {
 	fi
 }
 
-check_dependencies() {
-	! command -v "$installer" && error "Could not find $installer in PATH." && exit 1
-}
-
 check_input_args() {
 	:
 }
 
 prepare_env() {
 	set_descriptors
-	[[ -n $1 ]] && setup_config=$1
 }
 
 set_descriptors() {
@@ -162,9 +148,6 @@ parse_options() {
 	--install-vim)
 		let flag_install_vim_plugins=1
 		;;
-	--install-ycm)
-		let flag_install_ycm=1
-		;;
 	*)
 		do_shift=1
 		;;
@@ -235,7 +218,6 @@ check_dependencies() {
 
 install_plugins() {
 	(($flag_install_vim_plugins)) && install_vim_plugins
-	(($flag_install_ycm)) && install_ycm
 	# install_python_packages
 	install_tmux_plugins
 }
@@ -254,15 +236,15 @@ prepare() {
 	pwd
 	curl -o "$path_script/vale/.local/share/vale/styles/deutsch/index.dic" 'https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/de/index.dic'
 	curl -o "$path_script/vale/.local/share/vale/styles/deutsch/index.aff" 'https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/de/index.aff'
-	pushd "$HOME" || exit
-	mkdir -p .local/share/bash-completion/completions
-	mkdir -p .local/share/navi/cheats
-	mkdir -p .config/bash.d/{utils,aliases,exports}
-	mkdir -p .config/{ranger,awesome,git,i3,i3status,pueue,navi}
-	mkdir -p .config/systemd/user
-	mkdir -p .tmuxp
-	mkdir -p .mpd
-	mkdir -p .vim
+	cd "$HOME" || exit
+	mkdir .local/share/bash-completion/completions
+	mkdir .local/share/navi/cheats
+	mkdir .config/bash.d/{utils,aliases,exports}
+	mkdir .config/{ranger,awesome,git,i3,i3status,pueue,navi}
+	mkdir .config/systemd/user
+	mkdir .tmuxp
+	mkdir .mpd
+	mkdir .vim
 	(
 		umask 077
 		mkdir -p .gnupg
@@ -303,28 +285,6 @@ install_python_packages() {
 		"with"
 	)
 	pip install --user "${packages[@]}"
-}
-
-install_ycm() {
-	# https://github.com/Valloric/YouCompleteMe
-	command -v git vim cmake || exit 2
-	local -r libs=$(ldconfig -p)
-	echo "$libs" | grep -E 'libclang[0-9._-]*.so' || error_exit 2 "Missing libclang. Please install clang."
-	echo "$libs" | grep -E 'libpython[0-9.]*\.so' || error_exit 2 "Missing libpython. Please install python."
-
-	local -a options
-	if (($ENABLE_COMPLETION_GO)) && hashq go; then
-		options+=("--go-completer")
-	else
-		error "Go is not installed."
-	fi
-	if (($ENABLE_COMPLETION_RUST)) && hashq rustc; then
-		options+=("--rust-completer")
-	else
-		error "Rust is not installed."
-	fi
-
-	python3 ~/.vim/plugged/YouCompleteMe/install.py "${options[@]}"
 }
 
 if [[ $(type -t error) != "function" ]]; then
