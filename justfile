@@ -13,3 +13,5 @@ setup *args:
 
 prepare:
     ./install.sh
+
+install *args: prepare (setup args)
