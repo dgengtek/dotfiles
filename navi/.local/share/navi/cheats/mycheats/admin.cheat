@@ -184,6 +184,12 @@ uname -a
 # detect new virtual disk attached from hypervisor
 echo "- - -" > /sys/class/scsi_host/host0/scan
 
+# list scsi device ids
+cat /proc/scsi/scsi
+
+# get scsi controller
+cat /sys/class/scsi_host/host0/proc_name
+
 # rescan all devices for new disk
 for x in /sys/class/scsi_disk/*; do echo '1' > $x/device/rescan; done
 
