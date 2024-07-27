@@ -1,0 +1,6 @@
+[[verbs]]
+invocation = "ok"
+key = "enter"
+leave_broot = true
+execution = ":cd"
+apply_to = "directory"
