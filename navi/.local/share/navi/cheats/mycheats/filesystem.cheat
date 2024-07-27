@@ -4,6 +4,15 @@
 # Delete all broken symlinks in the selected directory
 find <directory> -xtype l -exec rm -vI {} +;
 
+# du+tree+find+wc+ls
+erd
+
+# print simple tree view
+broot --cmd ":pt"
+
+# ls print tree
+broot --cmd ':print_tree' -sdp
+
 # Folder size
 du -sh
 
