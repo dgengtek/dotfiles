@@ -27,6 +27,15 @@ export out=$(mktemp -d); set -x; set +e; export NIX_ENFORCE_PURITY=0; genericBui
 # upgrade nix (old)
 nix-channel --update && nix-env --install --attr nixpkgs.nix nixpkgs.cacert
 
+# list flake packages of architecture
+nix eval .#packages.x86_64-linux --apply builtins.attrNames --json
+
+# list available attributes of flake
+nix eval .#packages --apply builtins.attrNames --json
+
+# list all attributes of flake
+nix eval . --apply builtins.attrNames --json
+
 # list of all the currently existing generations for the active profile
 nix-env --list-generations
 
