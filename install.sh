@@ -242,9 +242,9 @@ prepare() {
 	mkdir -p .config/bash.d/{utils,aliases,exports}
 	mkdir -p .config/{ranger,awesome,git,i3,i3status,pueue,navi}
 	mkdir -p .config/systemd/user
-	mkdir .tmuxp
-	mkdir .mpd
-	mkdir .vim
+	mkdir -p .tmuxp
+	mkdir -p .mpd
+	mkdir -p .vim
 	(
 		umask 077
 		mkdir -p .gnupg
