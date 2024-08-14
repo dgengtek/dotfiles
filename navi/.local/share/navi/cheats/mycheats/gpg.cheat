@@ -70,6 +70,9 @@ gpg --keyid-format 0xlong -K; gpg --keyid-format 0xlong -k
 # list all gpg private and public keys including unusuable subkeys
 gpg --keyid-format 0xlong --list-secret-keys --with-fingerprint --with-keygrip --list-options show-unusable-subkeys; gpg --keyid-format 0xlong --list-public-keys --with-subkey-fingerprint --with-keygrip --list-options show-unusable-subkeys
 
+# list keys with fingerprint
+gpg --fingerprint
+
 # export secret keys as ascii
 gpg --export-secret-keys --armor
 

@@ -1,7 +1,0 @@
-% text, string
-
-# ignore comments and empty lines with rg
-rg -v -e '^#' -e '^;' -e '^[ ]*$'
-
-# rg flush to stdout immediately
-rg --line-buffered

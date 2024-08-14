@@ -1,0 +1,13 @@
+% string
+
+# ignore yaml header from file
+rg --invert-match --multiline --multiline-dotall --regexp '---.*---'
+
+# match second row
+cat <input_text> | awk '{if ($2=="<search_text>") {print $1,$2,$3} }'
+
+# ignore comments and empty lines with rg
+rg -v -e '^#' -e '^;' -e '^[ ]*$'
+
+# rg flush to stdout immediately
+rg --line-buffered

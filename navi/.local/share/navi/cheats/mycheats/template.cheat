@@ -33,6 +33,9 @@ echo <envvars_tmux>
 # select a json file
 <compgen_file_json>
 
+# select a relative file
+<compgen_file_cwd>
+
 # get common filesystem path excludes
 <excludes>
 
