@@ -165,8 +165,8 @@ report.next.labels=ID,Project,Tags,Context,State,Description,Outcome,U
 report.next.filter=status:pending -WAITING ((state:'nextaction' and project:'') or state:'proj' or state:'await') limit:page -BLOCKED
 
 # for deciding on working on a nextaction
-report.decide.columns=id,priority,value,effort,project,tags,context,state,description,outcome
-report.decide.labels=ID,Priority,Value,Effort,Project,Tags,Context,State,Description,Outcome
+report.decide.columns=id,priority,value,effort,description,tags,context,state,outcome,project
+report.decide.labels=ID,Priority,Value,Effort,Desc,Tags,Context,State,Outcome,Project
 report.decide.filter=(status:pending -WAITING) and state.not:'proj' and state.not:'maybe' -project limit:page
 report.decide.sort=urgency-
 
