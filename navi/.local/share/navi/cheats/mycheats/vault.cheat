@@ -16,13 +16,13 @@ jq -nc '{ "common_name": "<common_name>", "ttl": "<ttl>" }' \
     ${VAULT_ADDR}/v1/<pki_secrets_handler>/issue/<role>
 
 
-# query role definition
+# query pki role definition
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
   ${VAULT_ADDR}/v1/<pki_secrets_handler>/roles/<role>
 
 
-# list available role definitions
+# list available pki role definitions
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
   --request LIST \
