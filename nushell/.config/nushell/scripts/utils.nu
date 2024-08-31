@@ -19,9 +19,10 @@ def run-external-dir [command: string, --disable-capture, --sync, ...args] {
     }
     cd $dir
     let result = if $disable_capture {
-      run-external $command $args
+      run-external $command ...$args
+      $command
     } else {
-      run-external $command $args | complete
+      run-external $command ...$args | complete
     }
     {"dir": $dir, "command": $result}
   }
