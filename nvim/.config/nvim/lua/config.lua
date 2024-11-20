@@ -153,7 +153,7 @@ require("lspconfig").nil_ls.setup(coq.lsp_ensure_capabilities({
 -- nickel
 require("lspconfig").nickel_ls.setup(coq.lsp_ensure_capabilities())
 require("lspconfig").rust_analyzer.setup(coq.lsp_ensure_capabilities())
-require("lspconfig").ruff_lsp.setup(coq.lsp_ensure_capabilities({
+require("lspconfig").ruff.setup(coq.lsp_ensure_capabilities({
 	init_options = {
 		settings = {
 			-- Any extra CLI arguments for `ruff` go here.

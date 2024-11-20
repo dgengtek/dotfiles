@@ -231,6 +231,7 @@ return require("packer").startup(function(use)
 	-- colorschemes
 	-- https://github.com/rebelot/kanagawa.nvim
 	use("rebelot/kanagawa.nvim")
+	use("shaunsingh/solarized.nvim")
 	-- modus-vivendi, maybe, not good function color
 	use("ishan9299/modus-theme-vim")
 	use("ray-x/aurora")
