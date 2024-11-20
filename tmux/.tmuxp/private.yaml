@@ -14,7 +14,7 @@ windows:
     #  main-pane-height: 35
     panes:
       - shell_command:
-          - while ! test -d "${HOME}/mnt/private/documents/"; do sleep 1; done
+          - while ! test -d "${HOME}/mnt/private/dokumente/"; do sleep 1; done
           - command cd "${HOME}/mnt/private/"
   - window_name: accounting
     #layout: main-horizontal
