@@ -46,7 +46,10 @@ openssl pkcs12 -export -out <OUTPUT_PKCS12> -inkey <INPUT_KEY> -in <INPUT_CRT> -
 openssl req -text -noout -verify -in <OUTPUT_CSR>
 
 # verify certificates
-openssl verify
+openssl verify -x509_strict
+
+# verify certificates with certificate revokation list
+openssl verify -crl_download -crl_check_all
 
 # decrypt private key from input to stdout
 openssl rsa

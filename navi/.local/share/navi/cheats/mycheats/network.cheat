@@ -116,6 +116,9 @@ sed 's,:,,g'
 # create admin vlan device in different namespace and attach to it with tmux
 ns="adm"; sudo ip netns add $ns; sudo ip netns exec adm ip link set lo up; sudo ip link add link brlan name admin.254 netns $ns type vlan id 254; sudo ip -n $ns addr add 10.254.0.201/24 dev admin.254; sudo ip -n $ns link set admin.254 up; sudo ip netns exec $ns ip route add default via 10.254.0.1; sudo ip netns exec $ns sudo -u $USER tmux -L "tmux_${ns}" new -A
 
+# get interface names
+ip -json link | jq -r '.[].ifname'
+
 $ interface: ip -json link | jq -r '.[].ifname'
 $ self_global_ip: dig +short myip.opendns.com @resolver1.opendns.com
 $ process: lsof -iTCP -sTCP:LISTEN -n -P | sed -E "s/:([0-9][0-9][0-9]+) /:$(tput setaf 3)\1$(tput sgr0) /g" --- --header-lines 1

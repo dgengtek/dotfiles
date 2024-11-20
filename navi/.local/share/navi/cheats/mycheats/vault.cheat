@@ -16,6 +16,13 @@ jq -nc '{ "common_name": "<common_name>", "ttl": "<ttl>" }' \
     ${VAULT_ADDR}/v1/<pki_secrets_handler>/issue/<role>
 
 
+
+# query certificate information by serial number
+curl \
+  --header "X-Vault-Token: ${VAULT_TOKEN}" \
+  ${VAULT_ADDR}/v1/<pki_secrets_handler>/cert/<serial_number>
+
+
 # query pki role definition
 curl \
   --header "X-Vault-Token: ${VAULT_TOKEN}" \
@@ -61,6 +68,14 @@ curl ${VAULT_ADDR}/v1/sys/seal-status
 
 # tidy up vault certificate store
 vault write pki_int/tidy tidy_cert_store=true tidy_revoked_certs=true
+
+# revoke a certificate by serial number
+jq -nc '{ "serial_number": "<serial_number>" }' | \
+  curl \
+    --header "X-Vault-Token: ${VAULT_TOKEN}" \
+    --request POST \
+    --data @- \
+    ${VAULT_ADDR}/v1/pki_int/revoke
 
 
 $ serial: echo -e 'serialnumber,ca,crl,ca_chain' | tr ',' '\n'
