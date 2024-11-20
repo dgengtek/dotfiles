@@ -1,3 +1,4 @@
+[general]
 live_config_reload = true
 
 [bell]
@@ -8,29 +9,68 @@ duration = 0
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[colors.bright]
-black = "0x808080"
-blue = "0x1e90ff"
-cyan = "0x00ffff"
-green = "0x00ff00"
-magenta = "0xff00ff"
-red = "0xff0000"
-white = "0xffffff"
-yellow = "0xffff00"
-
-[colors.normal]
-black = "0x010101"
-blue = "0x007acc"
-cyan = "0x2cb5e9"
-green = "0x39b54a"
-magenta = "0xc13eb8"
-red = "0xde382b"
-white = "0xcccccc"
-yellow = "0xffc706"
+# Colors (Kanagawa Wave)
+# Source https//github.com/rebelot/kanagawa.nvim
 
 [colors.primary]
-background = "0x000000"
-foreground = "0xffffff"
+background = '#1f1f28'
+foreground = '#dcd7ba'
+
+[colors.normal]
+black   = '#090618'
+red     = '#c34043'
+green   = '#76946a'
+yellow  = '#c0a36e'
+blue    = '#7e9cd8'
+magenta = '#957fb8'
+cyan    = '#6a9589'
+white   = '#c8c093'
+
+[colors.bright]
+black   = '#727169'
+red     = '#e82424'
+green   = '#98bb6c'
+yellow  = '#e6c384'
+blue    = '#7fb4ca'
+magenta = '#938aa9'
+cyan    = '#7aa89f'
+white   = '#dcd7ba'
+
+[colors.selection]
+background = '#2d4f67'
+foreground = '#c8c093'
+
+[[colors.indexed_colors]]
+index = 16
+color = '#ffa066'
+
+[[colors.indexed_colors]]
+index = 17
+color = '#ff5d62'
+
+# [colors.bright]
+# black = "0x808080"
+# blue = "0x1e90ff"
+# cyan = "0x00ffff"
+# green = "0x00ff00"
+# magenta = "0xff00ff"
+# red = "0xff0000"
+# white = "0xffffff"
+# yellow = "0xffff00"
+#
+# [colors.normal]
+# black = "0x010101"
+# blue = "0x007acc"
+# cyan = "0x2cb5e9"
+# green = "0x39b54a"
+# magenta = "0xc13eb8"
+# red = "0xde382b"
+# white = "0xcccccc"
+# yellow = "0xffc706"
+#
+# [colors.primary]
+# background = "0x000000"
+# foreground = "0xffffff"
 
 [cursor]
 style = "Block"
