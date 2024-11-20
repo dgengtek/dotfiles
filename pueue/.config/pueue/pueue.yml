@@ -12,7 +12,7 @@ daemon:
   default_parallel_tasks: 1
   pause_group_on_failure: false
   pause_all_on_failure: false
-  callback: "notify-send \"Task {{ id }}\nCommand: {{ command }}\nPath: {{ path }}\nFinished with status '{{ result }}'\nTook: $(bc <<< \"{{end}} - {{start}}\") seconds\""
+  callback: "notify-send -u critical \"Task {{ id }}\nCommand: {{ command }}\nPath: {{ path }}\nFinished with status '{{ result }}'\nTook: $(bc <<< \"{{end}} - {{start}}\") seconds\""
   callback_log_lines: 10
   groups:
     alarm: 1000
