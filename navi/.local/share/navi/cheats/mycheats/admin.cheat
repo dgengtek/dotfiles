@@ -1,4 +1,5 @@
 % device, backup, image
+@ template
 
 # display device drivers in use
 lspci -nnk
@@ -154,17 +155,6 @@ egrep 'Reallocated_Sector_Ct|Reported_Uncorrect|Command_Timeout|Current_Pending_
 # has errors recommended to replace
 egrep 'Reallocated_Sector_Ct|Current_Pending_Sector|Offline_Uncorrectable'
 
-$ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
-$ mountpoint: mount -l --- --column 3 --delimiter ' '
-$ interface: find /sys/class/net/ -mindepth 1 -maxdepth 1 | xargs -n 1 basename
-$ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
-$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[0-9]$/ d' --- --preview-window up,50% --preview 'lsblk -f {}'
-$ any_device: find /dev -mindepth 1 -not -type d
-$ device_partition: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[^0-9]$/ d'
-$ device_name: basename "<device>"
-$ device_partition_nr: find /dev/ -mindepth 1 -maxdepth 1 -name '<device_name>?*' | sed 's,^/dev/<device_name>,,'
-$ filesystem: mount -l | egrep 'type ext(2|3|4)' --- --column 1 --delimiter ' '
-
 
 % machine, host
 
@@ -294,7 +284,7 @@ $ keystorage_version: mc ls --json data/archive | jq -r .key | sd '^keystorage_(
 % random
 
 # get random bytes from stream
-od -A n -t d -N <bytes> /dev/urandom | awk '{print $1}'
+od -A n -t <format> -N <bytes> /dev/urandom | awk '{print $1}'
 
 # random number inclusive range (a, b)
 python -c "from random import randint;print(randint(<a>,<b>), end='')"

@@ -243,6 +243,9 @@ kubectl <operation> <npod>
 # get a resource from namespace
 kubectl <operation> <nresource>
 
+# set credentials for kubeconfig
+a="kubelet"; kubectl --kubeconfig /etc/kubernetes/$a.conf config set-credentials <context> --client-key /etc/kubernetes/pki/$a.key --client-certificate /etc/kubernetes/pki/$a.crt --embed-certs
+
 # rollout restart a statefulset pod by index on delete
 pod=<pod_statefulset>; namespace=<namespace>; kubectl -n $namespace delete pod $pod; kubectl -n $namespace wait -l statefulset.kubernetes.io/pod-name=pod --for=condition=ready pod --timeout=-1s
 

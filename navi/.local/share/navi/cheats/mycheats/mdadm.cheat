@@ -1,4 +1,5 @@
 % mdadm
+@ template
 
 # get status of raid
 cat /proc/mdstat
@@ -8,3 +9,6 @@ cat /sys/block/md0/md/mismatch_cnt
 
 # get details on array
 mdadm --misc --detail /dev/md0
+
+# erase RAID config
+mdadm --misc --zero-superblock <any_device>

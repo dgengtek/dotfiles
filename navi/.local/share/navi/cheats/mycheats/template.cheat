@@ -67,3 +67,15 @@ $ dateisonow: date '+%Y%m%dT%H%M%S'
 $ excludes: __build_exclude_string() { local -ar __filesystem_excludes=("/dev/*" "/proc/*" "/sys/*" "/tmp/*" "/run/*" "/mnt/*" "/media/*" "/lost+found" "/swapfile" "/data/*" "/srv/*" ); local -r flag_prefix='--exclude'; local -a excludes=; local -r array_size="${#__filesystem_excludes[@]}"; for exclude in "${__filesystem_excludes[@]}"; do  excludes+=("$flag_prefix=$exclude"); done; echo -n "${excludes[@]}"; }; __build_exclude_string
 
 $ envvars_tmux: echo "TMUX TMUX_PANE TMUX_PLUGIN_MANAGER_PATH"
+
+
+$ idevice: echo '/dev/zero,/dev/random,/dev/urandom' | tr ',' '\n'
+$ mountpoint: mount -l --- --column 3 --delimiter ' '
+$ interface: find /sys/class/net/ -mindepth 1 -maxdepth 1 | xargs -n 1 basename
+$ comp: echo 'zstd,gzip,lzma,lzo,lz4,xz' | tr ',' '\n'
+$ device: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[0-9]$/ d' --- --preview-window up,50% --preview 'lsblk -f {}'
+$ any_device: find /dev -mindepth 1 -not -type d
+$ device_partition: find /dev -mindepth 1 -maxdepth 1 -name 'sd*' -or -name 'vd*' | sed '/[^0-9]$/ d'
+$ device_name: basename "<device>"
+$ device_partition_nr: find /dev/ -mindepth 1 -maxdepth 1 -name '<device_name>?*' | sed 's,^/dev/<device_name>,,'
+$ filesystem: mount -l | egrep 'type ext(2|3|4)' --- --column 1 --delimiter ' '
