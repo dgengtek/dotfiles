@@ -31,6 +31,6 @@ size=$(stat -Lc%s <filename>); virsh vol-create-as default <vol_name> $size --fo
 export LIBVIRT_DEFAULT_URI="qemu+ssh://<host>/system"
 
 $ snapshot_type: echo -e 'current\nrunning'
-$ format: echo -e 'raw\nqemu'
+$ format: echo -e 'raw\nqcow'
 $ domain: virsh list --all --name
 $ snapshot: virsh snapshot-list "<domain>" --name
