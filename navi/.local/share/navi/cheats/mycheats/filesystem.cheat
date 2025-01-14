@@ -1,6 +1,9 @@
 % fs, filesystem
 @ template
 
+# get filesize
+stat -Lc%s <filename>
+
 # Delete all broken symlinks in the selected directory
 find <directory> -xtype l -exec rm -vI {} +;
 

@@ -1,5 +1,8 @@
 % nix
 
+# output json from nix data
+nix eval --impure --json --expr "import <nix_file>"
+
 # update single flake input
 nix flake lock --update-input <input>
 
