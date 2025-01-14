@@ -24,9 +24,13 @@ virsh destroy "<domain>" && virsh undefine "<domain>" --remove-all-storage
 # start host
 virsh start <domain>
 
+# upload an image to libvirt storage pool
+size=$(stat -Lc%s <filename>); virsh vol-create-as default <vol_name> $size --format <format>; virsh vol-upload --pool <pool_name> <vol_name> <filename>
+
 # set the URI for connecting to a libvirtd hypervisor
 export LIBVIRT_DEFAULT_URI="qemu+ssh://<host>/system"
 
 $ snapshot_type: echo -e 'current\nrunning'
+$ format: echo -e 'raw\nqemu'
 $ domain: virsh list --all --name
 $ snapshot: virsh snapshot-list "<domain>" --name
