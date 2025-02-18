@@ -3,6 +3,9 @@
 # output json from nix data
 nix eval --impure --json --expr "import <nix_file>"
 
+# output nix data from json
+nix eval --impure --expr '(import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/tarball/nixos-<nixos_release>) {system = "x86_64-linux";}).lib.importJSON <filename>'
+
 # update single flake input
 nix flake lock --update-input <input>
 
@@ -16,7 +19,7 @@ nix repl '<nixpkgs>'
 nix repl --expr "builtins.getFlake \"$PWD\""
 
 # run repl with nixpkgs tarball loaded
-nix repl --expr 'import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/tarball/nixos-24.05) {system = "x86_64-linux";}'
+nix repl --expr 'import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/tarball/nixos-<nixos_release>) {system = "x86_64-linux";}'
 
 # drop in build environment for an expression
 nix-shell -E "with import <nixpkgs> {}; callPackage <nix_file> {}"
@@ -140,7 +143,7 @@ fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink | xargs rm; nix-c
 nix-prefetch-url --type sha256 --unpack <url>
 
 # pin nixpkgs with niv sources
-nix-shell -p niv --run "niv init --nixpkgs nixos/nixpkgs --nixpkgs-branch nixos-23.11"
+nix-shell -p niv --run "niv init --nixpkgs nixos/nixpkgs --nixpkgs-branch nixos-<nixos_release>"
 
 $ nix_file: fd --type f --follow --exclude ".git" \.nix "." --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 $ package_installed: nix-env --query | sed 's,-.*,,'
@@ -160,18 +163,20 @@ nix-store -q --references /run/current-system/sw
 nixos-rebuild --upgrade boot
 
 # generate minimal iso image configuration
-nix-shell -I nixpkgs=channel:nixos-23.11 -p 'let pkgs = import <nixpkgs> { config = {}; overlays = []; }; iso-config = pkgs.path + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix; nixos = pkgs.nixos iso-config; in nixos.config.system.build.nixos-generate-config' --command 'nixos-generate-config --dir ./'
+nix-shell -I nixpkgs=channel:nixos-<nixos_release> -p 'let pkgs = import <nixpkgs> { config = {}; overlays = []; }; iso-config = pkgs.path + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix; nixos = pkgs.nixos iso-config; in nixos.config.system.build.nixos-generate-config' --command 'nixos-generate-config --dir ./'
 
 # build iso image
-NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/tarball/nixos-23.11 nix-shell -p nixos-generators --run "nixos-generate --format iso --configuration ./<nix_file> -o result
+NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/tarball/nixos-<nixos_release> nix-shell -p nixos-generators --run "nixos-generate --format iso --configuration ./<nix_file> -o result
 
 # generate qcow image from nixos config
 nix run github:nix-community/nixos-generators -- -c ./configuration.nix -f qcow
 
 # create qemu vm with nixos configuration
-nix-build '<nixpkgs/nixos>' -A vm -I nixpkgs=channel:nixos-23.11 -I nixos-config=./<nixos_config>
+nix-build '<nixpkgs/nixos>' -A vm -I nixpkgs=channel:nixos-<nixos_release> -I nixos-config=./<nixos_config>
 QEMU_KERNEL_PARAMS=CONSOLE=TTYS0 ./result/bin/run-nixos-vm -nographic; reset
 
 # run a custom nixos vm with the desired configuration
 export QEMU_OPTS="-nographic -serial mon:stdio" QEMU_KERNEL_PARAMS=console=ttyS0 QEMU_NET_OPTS="hostfwd=tcp::2222-:22"
 nixos-rebuild -I nixpkgs=<path nixpkgs> -I nixos-config=./<vm_nix_file> build-vm
+
+$ nixos_release: "24.11"
