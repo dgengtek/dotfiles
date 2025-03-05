@@ -6,6 +6,9 @@ nix eval --impure --json --expr "import <nix_file>"
 # output nix data from json
 nix eval --impure --expr '(import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/tarball/nixos-<nixos_release>) {system = "x86_64-linux";}).lib.importJSON <filename>'
 
+# convert json to nix data structure
+nu -c 'ls | where type == file | each {|f| let p = $f.name | path parse; let c = $"\(import \(builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-24.11.tar.gz) {system = "x86_64-linux";}\).lib.importJSON ./($f.name)"; ^nix eval --impure --expr $"($c)" | complete | get stdout | save $"($p.stem).nix" }'
+
 # update single flake input
 nix flake lock --update-input <input>
 
