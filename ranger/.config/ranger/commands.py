@@ -37,7 +37,7 @@ class my_edit(Command):
             # reference to the currently selected file.
             target_filename = self.fm.thisfile.path
 
-        # This is a generic function to print text in ranger.  
+        # This is a generic function to print text in ranger.
         self.fm.notify("Let's edit the file " + target_filename + "!")
 
         # Using bad=True in fm.notify allows you to print error messages:
@@ -103,11 +103,11 @@ class fzf_select(Command):
         import os.path
         if self.quantifier:
             # match only directories
-            command = "find -L . \( -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = "find -L . \\( -fstype 'dev' -o -fstype 'proc' \\) -prune \
             -o -mindepth 1 -type d -print 2> /dev/null | fzf --no-multi"
         else:
             # match files and directories
-            command = "find -L . \( -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = "find -L . \\( -fstype 'dev' -o -fstype 'proc' \\) -prune \
             -o -mindepth 1 -print 2> /dev/null | fzf --no-multi"
         fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
