@@ -60,7 +60,7 @@ run() {
 		install_plugins
 		if command -v fzf 2>&1 | logger -t bashrc -p user.info; then
 			local fzf_version=$(fzf --version | cut -d ' ' -f 1)
-			local fzf_url="https://raw.githubusercontent.com/junegunn/fzf/${fzf_version}/shell"
+			local fzf_url="https://raw.githubusercontent.com/junegunn/fzf/refs/tags/v${fzf_version}/shell"
 			curl -o "$HOME/.local/share/bash-completion/completions/fzf" "${fzf_url}/completion.bash"
 			curl -o "$HOME/.local/share/bash-completion/completions/fzf-key-bindings.bash" "${fzf_url}/key-bindings.bash"
 		fi
