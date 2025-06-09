@@ -1,18 +1,33 @@
 session_name: notizen
 start_directory: ~/
 windows:
+  - window_name: notiz
+    layout: even-horizontal
+    panes:
+      - shell_command:
+          - nvim
+        focus: True
+      - shell_command:
+          - jrnl
   - window_name: notizbuch
     layout: even-horizontal
     start_directory: ~/notizbuch
     focus: true
     panes:
       - shell_command:
-        - zk index; zk list --format oneline --limit 30 --sort modified
+          - zk index; zk list --format oneline --limit 30 --sort modified
         focus: true
   - window_name: privat
     layout: even-horizontal
     panes:
       - shell_command:
-        - while ! test -d "${HOME}/mnt/private/notizbuch_privat/"; do sleep 1; done
-        - command cd "${HOME}/mnt/private/notizbuch_privat"
-        - zk index; zk list --format oneline --limit 30 --sort modified
+          - while ! test -d "${HOME}/mnt/private/notizbuch_privat/"; do sleep 1; done
+          - command cd "${HOME}/mnt/private/notizbuch_privat"
+          - zk index; zk list --format oneline --limit 30 --sort modified
+  - window_name: zettelkasten
+    layout: even-horizontal
+    panes:
+      - shell_command:
+          - while ! test -d "${HOME}/mnt/private/notizbuch_privat/"; do sleep 1; done
+          - command cd "${HOME}/mnt/private/zettelkasten"
+          - zk index; zk list --format oneline --limit 30 --sort modified
