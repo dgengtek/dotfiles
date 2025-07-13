@@ -1,0 +1,4 @@
+% nickel
+
+# export data format into nickel format
+nickel eval <(echo 'import "<filename>"')
