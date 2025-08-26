@@ -243,6 +243,9 @@ kubectl <operation> <npod>
 # get a resource from namespace
 kubectl <operation> <nresource>
 
+# get certificate expiration dates from cert-manager
+kubectl get certificaterequests.cert-manager.io -n <namespace> <certificaterequest_name> -o json | jq -r .status.certificate | base64 -d | openssl x509 -in /dev/stdin -startdate -enddate -noout
+
 # set credentials for kubeconfig
 a="kubelet"; kubectl --kubeconfig /etc/kubernetes/$a.conf config set-credentials <context> --client-key /etc/kubernetes/pki/$a.key --client-certificate /etc/kubernetes/pki/$a.crt --embed-certs
 

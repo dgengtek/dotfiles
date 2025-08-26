@@ -6,6 +6,9 @@ yt-dlp -f '(bestvideo[width>=1920]/bestvideo)+bestaudio/best'
 # download audio
 yt-dlp -f '(bestvideo[width>=1920]/bestvideo)+bestaudio/best' -x --no-playlist --output '%(title)s.%(ext)s'
 
+# download ask for title with random suffix
+read -p "title: " t; read -p "link: " link; yt-dlp -o "${t}_$(pwgen.py -a -c 1 8).%(ext)s" --cookies ~/cookies.txt "$link"
+
 % download
 
 # download to /dev/null

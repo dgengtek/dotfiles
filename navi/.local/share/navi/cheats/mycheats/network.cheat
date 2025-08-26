@@ -116,6 +116,9 @@ sed 's,:,,g'
 # create admin vlan device in different namespace and attach to it with tmux
 ns="adm"; sudo ip netns add $ns; sudo ip netns exec adm ip link set lo up; sudo ip link add link brlan name admin.254 netns $ns type vlan id 254; sudo ip -n $ns addr add 10.254.0.201/24 dev admin.254; sudo ip -n $ns link set admin.254 up; sudo ip netns exec $ns ip route add default via 10.254.0.1; sudo ip netns exec $ns sudo -u $USER tmux -L "tmux_${ns}" new -A
 
+# create and enter admin networking namespace
+ns="adm"; sudo ip netns add $ns; sudo ip netns exec adm ip link set lo up; sudo ip link add link brlan name admin.254 netns $ns type vlan id 254; sudo ip -n $ns addr add 10.254.0.201/24 dev admin.254; sudo ip -n $ns link set admin.254 up; sudo ip netns exec $ns ip route add default via 10.254.0.1; sudo ip link add link brlan name mgmt.255 netns $ns type vlan id 255; sudo ip -n $ns addr add 10.255.0.201/24 dev mgmt.255; sudo ip -n $ns link set mgmt.255 up; sudo -E ip netns exec adm sudo -Eu dgeng bash
+
 # get interface names
 ip -json link | jq -r '.[].ifname'
 
