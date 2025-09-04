@@ -1,5 +1,8 @@
 % network
 
+# check until port is open
+while ! nc -zv <hostname> <port> 2>/dev/null; do sleep 1; done
+
 # get current default ip gateway route
 command ip -d -json route | jq '.[] | select(.dst == "default")'
 
