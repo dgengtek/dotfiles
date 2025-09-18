@@ -19,6 +19,9 @@ ls -l /var/run/nologin /etc/nologin
 # get hardware unique address
 sudo cat /sys/class/dmi/id/product_uuid
 
+# get available entropy
+cat /proc/sys/kernel/random/entropy_avail
+
 # clone device
 sudo dd bs=64k conv=noerror,sync status=progress if=<device>
 

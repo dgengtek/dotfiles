@@ -67,7 +67,7 @@ nix-store --query --referrers $(which <program>)
 nix-store --query --references $HOME/.nix-profile
 
 # fix store, nix paths
-nix-store --verify --check-contents --repair
+nix store verify --repair --all
 
 # switch to older generation
 nix-env --rollback
