@@ -13,8 +13,8 @@ language = "de"
 default-title = "unbenannt"
 
 # Template used to generate a note's filename, without extension.
-# filename = "{{id}}"
-filename = "{{format-date now 'timestamp'}}"
+filename = "{{id}}"
+# filename = "{{format-date now 'timestamp'}}"
 
 # The file extension used for the notes.
 extension = "md"
