@@ -39,9 +39,6 @@ source_dir "$PATH_BASH_CONFIG/completion"
 
 source_file "$HOME/.LESS_TERMCAP"
 
-unset source_file
-unset source_dir
-
 if [[ -d "$HOME/.anacron" ]]; then
 	/usr/sbin/anacron -s \
 		-t ${HOME}/.anacron/etc/anacrontab \
@@ -61,5 +58,7 @@ fi
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
 if command -v starship 2>&1 | logger -t bashrc -p user.info; then
-	eval "$(starship init bash)"
+	source_file "$PATH_BASH_CONFIG/config/starship_init"
 fi
+unset source_file
+unset source_dir
