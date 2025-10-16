@@ -168,6 +168,9 @@ kubectl get pv -o json | jq -r '.items[] | (.metadata.name + " " + .spec.storage
 # cleanup old signing requests by filtering for approved
 kubectl get certificatesigningrequests.certificates.k8s.io -o json | jq -r '.items[] | select(now - (.metadata.creationTimestamp | fromdate) > 432000) | select(.status.conditions[].type == "Approved") | .metadata.name' | xargs -L 1 -P $(($(nproc)*4)) kubectl delete certificatesigningrequests.certificates.k8s.io
 
+# create kubernetes etcd snapshot
+kubectl -n kube-system exec -it etcd-iota -- sh -c "ETCDCTL_API=3 etcdctl --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --cacert=/etc/kubernetes/pki/etcd/ca.crt snapshot save snapshot.db"
+
 # save secret in variable
 <variable_name>=$(kubectl get <secrets_object> --template={{.data}})
 

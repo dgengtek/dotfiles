@@ -174,6 +174,7 @@ export PATH=$PATH:$PWD
 uname -a
 
 
+#
 # detect new virtual disk attached from hypervisor
 echo "- - -" > /sys/class/scsi_host/host0/scan
 
@@ -275,16 +276,22 @@ badblocks -wsv
 # watch temperature sensors
 command -v /usr/bin/sensors && watch -n 1 /usr/bin/sensors
 
+# watch cpu disk io utilization
+iostat -d 2
+
+# watch disk io utilization
+iotop
+
 
 % pki, gpg
 
 # pull pki, key archive from data storage
-keyfiles_suffix=("gpg" "gpg.par2.tar" "gpg.sha256"); version="<keystorage_version>"; for file in "${keyfiles_suffix[@]}"; do mc cp "data/archive/keystorage_${version}.tar.gz.${file}" .; done
+keyfiles_suffix=("gpg" "gpg.par2.tar" "gpg.sha256"); version="<keystorage_version>"; for file in "${keyfiles_suffix[@]}"; do mc cp "bigdata/archive/keystorage_${version}.tar.gz.${file}" .; done
 
 # manage pki environment
 pki_manage.sh
 
-$ keystorage_version: mc ls --json data/archive | jq -r .key | sd '^keystorage_(\d+\.\d+\.\d+).*' '$1' | sort | uniq
+$ keystorage_version: mc ls --json bigdata/archive | jq -r .key | sd '^keystorage_(\d+\.\d+\.\d+).*' '$1' | sort | uniq
 
 
 % random
@@ -317,3 +324,6 @@ cat /sys/module/kvm_intel/parameters/nested /sys/module/kvm_amd/parameters/neste
 
 # get list of deleted files in use
 lsof -nP | rg '(deleted)'
+
+# get count of inotify instances
+find /proc/*/fd -lname anon_inode:inotify 2>/dev/null | wc -l
