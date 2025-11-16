@@ -1,3 +1,11 @@
 % process, trace, debug
 # follow process and child process with file arguments
 strace -vfefile
+
+
+% debug
+# get list of deleted files in use
+lsof -nP | rg '(deleted)'
+
+# get count of inotify instances
+find /proc/*/fd -lname anon_inode:inotify 2>/dev/null | wc -l

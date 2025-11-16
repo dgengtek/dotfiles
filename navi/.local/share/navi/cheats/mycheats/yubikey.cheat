@@ -1,0 +1,8 @@
+% yubikey
+
+# generate totp code for account
+ykman oath accounts code '<account>'
+
+
+
+$ account: ykman oath accounts list

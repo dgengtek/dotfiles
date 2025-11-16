@@ -217,6 +217,9 @@ sysctl fs.file-max
 # encrypt a prompted password and copy to system clipboard
 systemd-ask-password -n | gpg --armor --batch --encrypt -r <benutzer> | xclip -selection c
 
+# generate 1024 random byte password
+head -c 32 /dev/urandom | base64
+
 # get linux, passwd valid user line, sha, crypt
 encrypt.py
 
@@ -328,11 +331,6 @@ pass=$(systemd-ask-password -n); for i in $(seq 0 2); do kubectl -n ops exec vau
 # is nested virtualization supported?
 cat /sys/module/kvm_intel/parameters/nested /sys/module/kvm_amd/parameters/nested
 
-
-% debug
-
-# get list of deleted files in use
-lsof -nP | rg '(deleted)'
-
-# get count of inotify instances
-find /proc/*/fd -lname anon_inode:inotify 2>/dev/null | wc -l
+% nfs
+# reexport nfs filesystems to clear stale file handles
+exportfs -r

@@ -1,5 +1,8 @@
 % ssh
 
+# delete ssh host key
+sed -i '<line_number>d' $HOME/.ssh/known_hosts
+
 # forward remote port to the destination port
 ssh -NnT -R <destination_port>:<remote_address>:<remote_port> <destination>
 

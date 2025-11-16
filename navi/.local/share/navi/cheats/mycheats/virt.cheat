@@ -1,0 +1,13 @@
+% virtual machines
+
+
+# increase blocksize of disk
+virsh blockresize <domain> <volume> --size <new_volume_size>
+
+# set libvirt hypervisor to use
+export LIBVIRT_DEFAULT_URI="qemu+ssh://<default_hypervisor_user>@<hypervisor hostname>/system"
+
+$ default_hypervisor_user: echo -n vmc
+$ domain: virsh list --all --name
+$ pool: virsh pool-list --name
+$ volume: virsh vol-list --pool <pool> | awk 'FNR >2 {print $2;}'
