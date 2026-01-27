@@ -289,7 +289,7 @@ git diff --cached --exit-code --quiet
 git ls-files --other --exclude-standard --directory | egrep -v '/$'
 
 # list ignored git files
-git check-ignore *
+git check-ignore -- *
 
 # how many commits behind is the branch compared to the selected branch2?
 git rev-list --count <branch>..<branch2>

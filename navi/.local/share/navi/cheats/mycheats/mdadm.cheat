@@ -5,10 +5,21 @@
 cat /proc/mdstat
 
 # how many blocks are flagged bad
-cat /sys/block/md0/md/mismatch_cnt
+cat /sys/block/<raid_device>/md/mismatch_cnt
+
+# run scrub
+echo check | sudo tee /sys/block/<raid_device>/md/sync_action
 
 # get details on array
-mdadm --misc --detail /dev/md0
+mdadm --misc --detail /dev/<raid_device>
 
 # erase RAID config
-mdadm --misc --zero-superblock <any_device>
+mdadm --misc --zero-superblock <raid_device>
+
+# check for errors
+journalctl -u mdadm --since "2 days ago" | grep -E "md|raid|fail|error"
+
+# check individual device
+mdadm --examine <device>
+
+$ raid_device: awk '/^md/ {print $1;}' /proc/mdstat

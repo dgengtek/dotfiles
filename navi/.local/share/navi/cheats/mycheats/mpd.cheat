@@ -2,7 +2,7 @@
 @ template
 
 # sortieren von musik
-mpc play; current="$(mpc current -f '%file%')"; echo "Aktuell gespielt: $current"; mpc current --wait; mpc stop; mv -vi "$current" "$(fd -t d . <directory> | fzf)"
+mpc play; current="$(mpc current -f '%file%')"; echo "Aktuell gespielt: $current"; mpc current --wait; mpc stop; mv -vi "$current" "$(fd -t d . <directory> | fzf --header "$current")"
 
 # add current song to favorite playlist
 mpc current -f '%file%' >> <fav_playlist>

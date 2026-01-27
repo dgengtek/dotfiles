@@ -54,8 +54,17 @@ nix-env --upgrade
 # displays information about either the store paths that are installed in the current generation of the active profile (--installed), or the derivations that are available for installation in the active Nix expression
 nix-env --query
 
+# print all dependencies of a closure, installable
+nix path-info --derivation $(nix path-info --derivation <closure>)
+
+# get derivation path of closure, installable
+nix path-info --derivation <closure>
+
 # print the output path of the derivation of currently installed packages
 nix-env --query --out-path
+
+# get dependencies of a derivation path
+nix-store --query --requisites <derivation>
 
 # print runtime dependencies of the program
 nix-store --query --references $(which <program>)
