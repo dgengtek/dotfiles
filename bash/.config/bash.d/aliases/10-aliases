@@ -23,7 +23,7 @@ alias juste="just --edit"
 alias justv="just --variables"
 
 ################################################################################
-# io 
+# io
 # ------------------------------------------------------------------------------
 alias echoerr=">&2 echo"
 
@@ -42,6 +42,8 @@ alias tmuxnn="tmux_new_session.sh -n"
 alias tmuxnd="tmux_new_session.sh -d"
 alias wp="walk_parent.sh"
 alias r="run.sh"
+alias rd="run.sh -- echo done"
+alias rdm="run.sh -m -- echo done"
 alias rq="run.sh -q -n"
 alias re="run.sh -e"
 alias tmuxr="tmux_run_session.sh"

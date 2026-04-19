@@ -23,4 +23,4 @@ USER udotfiles
 ENV PATH=$PATH:/home/udotfiles/.local/bin
 RUN set -x \
   && make -C /scripts install \
-  && bash /dotfiles/install.sh 
+  && bash /dotfiles/install.sh
