@@ -107,7 +107,7 @@ dnsmasq --no-daemon --keep-in-foreground --log-queries --interface=enlan --bind-
 echo -e 'CONNECT google.de:443 HTTP/1.1\nUser-Agent: Mozilla/5.0\nHost: google.de\nProxy-Connection: keep-alive\n\n' | netcat localhost 3128
 
 # create a random mac
-mac_generate.sh
+mac_generate.py
 
 # create a tap device with the given interface as master
 sudo ip tuntap add dev <ifname> mode tap && sudo ip link set <ifname> master <interface> && sudo ip link set <ifname> up

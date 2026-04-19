@@ -60,6 +60,9 @@ gotty
 # open, explore, summarize, and analyze datasets
 visidata
 
+# sending HTTP requests
+xh
+
 # image editor
 gimp
 

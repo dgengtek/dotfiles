@@ -253,6 +253,8 @@ awk 'split_after == 1 {n++;split_after=0} /-----END CERTIFICATE-----/ {split_aft
 # generate new user certificates from vault
 nu -c 'let headers = { X-Vault-Token: $env.vault_token }; let user = input "username: "; let home = $"($env.HOME)/.ssh/($user)"; let data = { common_name: $user }; let r = $data | to json | http post --headers $headers $"($env.VAULT_ADDR)/v1/pki_int/issue/user"; $r.data.certificate | save -f $"($home).crt"; ^chmod u+w $"($home).key"; $r.data.private_key | save -f $"($home).key"; ^chmod 400 $"($home).key";'
 
+# convert a certificate generated from vault in pkcs12 format
+nu --stdin -c 'let crt = $in | from json | get data; let dir = mktemp -dt tmp.XXXX; print $dir; cd $dir; $crt.private_key | save cert.key; $crt.certificate | save cert.crt; $crt.ca_chain | save ca-chain.crt; openssl pkcs12 -export -in cert.crt -inkey cert.key -certfile ca-chain.crt -out cert.p12'
 
 % sudo, passwd
 # reset timestamp of sudo to require password prompt

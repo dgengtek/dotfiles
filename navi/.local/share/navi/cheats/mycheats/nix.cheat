@@ -183,6 +183,15 @@ NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/tarball/nixos-<nixos_release> 
 # generate qcow image from nixos config
 nix run github:nix-community/nixos-generators -- -c ./configuration.nix -f qcow
 
+# get flake inputs dependencies
+nix flake metadata
+
+# export nar archive of a nix closure
+nix-store --export $(nix-store --query --requisites $(nix path-info --derivation <package>)) |
+
+# get all derivations of a nix path
+nix-store --query --requisites $(nix path-info --derivation <package>)
+
 # create qemu vm with nixos configuration
 nix-build '<nixpkgs/nixos>' -A vm -I nixpkgs=channel:nixos-<nixos_release> -I nixos-config=./<nixos_config>
 QEMU_KERNEL_PARAMS=CONSOLE=TTYS0 ./result/bin/run-nixos-vm -nographic; reset
@@ -191,4 +200,4 @@ QEMU_KERNEL_PARAMS=CONSOLE=TTYS0 ./result/bin/run-nixos-vm -nographic; reset
 export QEMU_OPTS="-nographic -serial mon:stdio" QEMU_KERNEL_PARAMS=console=ttyS0 QEMU_NET_OPTS="hostfwd=tcp::2222-:22"
 nixos-rebuild -I nixpkgs=<path nixpkgs> -I nixos-config=./<vm_nix_file> build-vm
 
-$ nixos_release: "24.11"
+$ nixos_release: "25.11"

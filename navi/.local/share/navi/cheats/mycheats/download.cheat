@@ -15,7 +15,7 @@ read -p "title: " t; read -p "link: " link; yt-dlp -o "${t}_$(pwgen.py -a -c 1 8
 wget -O /dev/null <url>
 
 # download website recursively for offline viewing
-wget --recursive --timestamping --no-clobber --page-requisites --adjust-extension --convert-links --no-parent --execute robots=off
+wget --recursive --timestamping --no-clobber --page-requisites --adjust-extension --convert-links --no-parent --execute robots=off '<website>'
 
 # download single webpage for offline viewing
-wget --timestamping --adjust-extension --execute robots=off --span-hosts --convert-links --backup-converted --page-requisites
+wget --timestamping --adjust-extension --execute robots=off --span-hosts --convert-links --backup-converted --page-requisites --no-host-directories --no-parent '<website>'

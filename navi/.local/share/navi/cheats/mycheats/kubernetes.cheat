@@ -240,6 +240,9 @@ kubectl config view
 # Display the current-context
 kubectl config current-context
 
+# list resources in namespace
+kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n <namespace>
+
 # get a pod from namespace
 kubectl <operation> <npod>
 
