@@ -1,6 +1,7 @@
 *.swp
 docker/.docker/.build*
 history
+nix/nix/netrc
 bookmarks
 *.log
 __pycache__
