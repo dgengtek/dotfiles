@@ -9,7 +9,7 @@ windows:
           - |
             mkdir /tmp/startup_gpg2_lock \
             && read \
-            && retry.sh "mount_dmcrypt_image.sh /mnt/homes/${USER}/private.img ${HOME}/mnt/private" \
+            && retry.sh "nix run nixpkgs/nixos-25.11#gocryptfs -- /mnt/nfs/data/privat ${HOME}/mnt/privat" \
             && gpg-connect-agent updatestartuptty /bye \
             && rmdir /tmp/startup_gpg2_lock \
             && mutt
@@ -24,6 +24,6 @@ windows:
             && prompt_run.py --format pueue add -g q -- '"yt-dlp -f '"'"'(bestvideo[width>=1920]/bestvideo)+bestaudio/best'"'"' -x --no-playlist --output '"'"'%(title)s.%(ext)s'"'"' '"'"'{}'"'"'"'
       - shell_command:
           - |
-            while ! test -d '/mnt/homes/${USER}/music/'; do sleep 1; done \
-            && command cd /mnt/homes/${USER}/music/ \
+            while ! test -d '/mnt/nfs/data/music/'; do sleep 1; done \
+            && command cd /mnt/nfs/data/music/ \
             && fzf

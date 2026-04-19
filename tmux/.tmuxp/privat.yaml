@@ -1,4 +1,4 @@
-session_name: "private"
+session_name: "privat"
 start_directory: "${PWD}" # load session relative to config location (project root).
 windows:
   - window_name: intentm
@@ -8,14 +8,14 @@ windows:
       - shell_command:
           - "source ${HOME}/.local/venv/tools/bin/activate"
           - task
-  - window_name: private
+  - window_name: privat
     layout: main-vertical
     #options:
     #  main-pane-height: 35
     panes:
       - shell_command:
-          - while ! test -d "${HOME}/mnt/private/dokumente/"; do sleep 1; done
-          - command cd "${HOME}/mnt/private/"
+          - while ! test -d "${HOME}/mnt/privat/dokumente/"; do sleep 1; done
+          - command cd "${HOME}/mnt/privat/"
   - window_name: accounting
     #layout: main-horizontal
     start_directory: "${HOME}/mnt/bigx/workspace/accounting"

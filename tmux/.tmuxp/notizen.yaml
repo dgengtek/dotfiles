@@ -8,6 +8,7 @@ windows:
           - nvim
         focus: True
       - shell_command:
+          - while ! test -d "${HOME}/mnt/privat/dokumente/"; do sleep 1; done
           - jrnl
   - window_name: notizbuch
     layout: even-horizontal
@@ -21,13 +22,13 @@ windows:
     layout: even-horizontal
     panes:
       - shell_command:
-          - while ! test -d "${HOME}/mnt/private/notizbuch_privat/"; do sleep 1; done
-          - command cd "${HOME}/mnt/private/notizbuch_privat"
+          - while ! test -d "${HOME}/mnt/privat/notizbuch_privat/"; do sleep 1; done
+          - command cd "${HOME}/mnt/privat/notizbuch_privat"
           - zk index; zk list --format oneline --limit 30 --sort modified
   - window_name: zettelkasten
     layout: even-horizontal
     panes:
       - shell_command:
-          - while ! test -d "${HOME}/mnt/private/notizbuch_privat/"; do sleep 1; done
-          - command cd "${HOME}/mnt/private/zettelkasten"
+          - while ! test -d "${HOME}/mnt/privat/notizbuch_privat/"; do sleep 1; done
+          - command cd "${HOME}/mnt/privat/zettelkasten"
           - zk index; zk list --format oneline --limit 30 --sort modified
