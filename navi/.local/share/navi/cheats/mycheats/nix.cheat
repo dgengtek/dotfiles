@@ -18,6 +18,12 @@ nix-shell -p nix-info --run "nix-info -m"
 # nixpkgs loaded in nix repl
 nix repl '<nixpkgs>'
 
+# build and print out path
+nix build --no-link --print-out-paths
+
+# get closure size
+nix path-info -Sh <path>
+
 # run repl with local flake loaded
 nix repl --expr "builtins.getFlake \"$PWD\""
 
