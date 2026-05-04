@@ -2,3 +2,6 @@
 
 # export data format into nickel format
 nickel eval <(echo 'import "<filename>"')
+
+# example to use inputs and export output
+nickel export -f text --field output template_create_db.ncl -- 'database="hydra"' 'user="hydra"' "password=\"$(systemd-ask-password | quotify.py)\""

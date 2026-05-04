@@ -12,5 +12,17 @@ FROM pg_stat_activity
 WHERE pg_stat_activity.datname = '<database>'
 AND pid <> pg_backend_pid();
 
+# get all search paths
+SELECT rolname AS role_name, datname AS database_name, pg_catalog.array_to_string(setconfig, E'\n') AS settings FROM pg_db_role_setting s LEFT JOIN pg_roles r ON r.oid = s.setrole LEFT JOIN pg_database d ON d.oid = s.setdatabase WHERE pg_catalog.array_to_string(setconfig, '') LIKE '%search_path%';
+
+# get table permissions
+SELECT * FROM information_schema.role_table_grants WHERE grantee = '<user>';
+
+# get table owner
+SELECT * FROM pg_tables WHERE tableowner = '<user>';
+
+# get schema permissions
+SELECT r.usename AS grantor, e.usename AS grantee, nspname, privilege_type, is_grantable FROM pg_namespace JOIN LATERAL (SELECT * FROM aclexplode(nspacl) AS x) a ON true JOIN pg_user e ON a.grantee = e.usesysid JOIN pg_user r ON a.grantor = r.usesysid WHERE e.usename = '<user>';
+
 # list all databases
 SELECT datname FROM pg_database
