@@ -264,7 +264,9 @@ null_ls.setup({
 		-- rust format
 		require("none-ls.formatting.rustfmt"),
 		-- shell format
-		null_ls.builtins.formatting.shfmt,
+		null_ls.builtins.formatting.shfmt.with({
+			extra_args = { "-i", "2", "-ci" },
+		}),
 		--  NF{print s $0; s=""; next} {s=s ORS}'
 		require("none-ls.formatting.trim_newlines"),
 		-- '{ sub(/[ \t]+$/, ""); print }'
