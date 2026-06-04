@@ -9,3 +9,6 @@ lsof -nP | rg '(deleted)'
 
 # get count of inotify instances
 find /proc/*/fd -lname anon_inode:inotify 2>/dev/null | wc -l
+
+# get count of open files per process
+for pid in /proc/[0-9]*; do p=$(basename $pid); printf "%4d FDs for PID %6d; command=%s\n" $(ls $pid/fd | wc -l) $p "$(ps -p $p -o comm=)"; done | sort -nr

@@ -75,6 +75,11 @@ nix-store --query --requisites <derivation>
 # print runtime dependencies of the program
 nix-store --query --references $(which <program>)
 
+# get required runtime dependencies for cache upload
+nix-store --query --references $(nix-instantiate <nix_file>) | \
+    xargs nix-store --realise | \
+    xargs nix-store --query --requisites | attic push ci
+
 # print reverse dependencies of the program
 nix-store --query --referrers $(which <program>)
 

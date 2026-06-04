@@ -261,6 +261,8 @@ pod=<pod_statefulset>; namespace=<namespace>; kubectl -n $namespace delete pod $
 # rollout restart vault by index on delete
 index=<index>; namespace=<namespace>; replicas=$(($(kubectl -n <namespace> get statefulset vault -o json | jq -r .spec.replicas) - 1)); kubectl -n $namespace delete pod vault-$index; for i in $(seq 0 $replicas); do pass=$(systemd-ask-password);  kubectl -n $namespace exec vault-$index -- vault operator unseal $pass; done; kubectl -n $namespace wait -l statefulset.kubernetes.io/pod-name=vault-$index --for=condition=ready pod --timeout=-1s
 
+# get kubernetes pods with a given state
+nu -c "kubectl get pods -A -o json | from json | get items | where {|i| \$i | get status.containerStatuses.state | transpose t v | get v | any {|vi| (\$vi | get -i reason) == \"<pod_state>\"}} | get metadata.name | to text"
 
 $ resource: kubectl api-resources -o name --- --preview 'kubectl explain {}'
 $ resource_object: kubectl get <resource> -A -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe {3} {1} {2}'

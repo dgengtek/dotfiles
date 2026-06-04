@@ -27,6 +27,9 @@ qemu-system-x86_64 -enable-kvm -cpu host -vga std -m 2G -nic bridge,br=<bridge>,
 # generate cloud init image and boot from environment
 hostname=<hostname> mac_address=<mac_address> ip_address=<ip_address> domain=<domain> ip_address_gateway=<ip_address_gateway> genisoimage_cloud_init.sh <cloud-init-config> seedci.iso; qemu-system-x86_64 -enable-kvm -cpu host -vga std -m 2G -nic bridge,br=<bridge>,model=virtio-net-pci,mac=<mac_address> -drive file=<iso_image>,format=raw,index=0,media=disk,if=virtio -cdrom seedci.iso
 
+# attach a usb smart card device
+-device qemu-xhci -device usb-host,vendorid=0x1050,productid=0x0407
+
 # add default user network device
 -nic user,model=e1000
 

@@ -4,6 +4,9 @@
 # get filesize
 stat -Lc%s <filename>
 
+# search for persisted files on a nixos impermanence host
+fd --one-file-system --base-directory / --type f --hidden --exclude "{tmp,etc/passwd,etc/shadow,etc/machine-id,etc/group,etc/NIXOS,etc/ssh/ssh_host*}"
+
 # Delete all broken symlinks in the selected directory
 find <directory> -xtype l -exec rm -vI {} +;
 
