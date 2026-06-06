@@ -2,3 +2,9 @@
 
 # decode hex into base64
 echo "<hex>" | xxd -r -p | base64
+
+# raw binary to hex
+( od -An -vtx1 | tr -d ' \n' )
+
+# hex to raw binary
+( tr '[:lower:]' '[:upper:]' | sed -e 's/\([0-9A-F]\{2\}\)/\\\\\\x\1/gI'| xargs printf )
