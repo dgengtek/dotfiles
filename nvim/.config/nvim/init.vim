@@ -3,7 +3,7 @@ let &packpath = &runtimepath
 source ~/.vimrc
 
 " https://neovim.io/doc/user/lua-guide.html#lua-guide
-lua require('plugins')
+"lua require('plugins')
 lua require('config')
 lua require('commands')
 lua require('mapping')

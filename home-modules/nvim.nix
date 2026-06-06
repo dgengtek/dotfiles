@@ -1,97 +1,55 @@
-{ config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 
 let
-  cfg = config.dgeng.neovim;
+  cfg = config.dotfiles.neovim;
   nvim_path = "../nvim/.config/nvim";
-  lsp_servers =
-    {
-      clangd = { };
-      nil_ls = { };
-      pyright = { };
-      dockerls = { };
-      bashls = { };
-      terraformls = { };
-      gopls = { };
-      tsserver = {
-        init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
-      };
-      taplo = { };
-      cssls = { };
-      eslint = { settings.format = false; };
-      jsonls = { init_options.provideFormatter = false; };
-      html = { init_options.provideFormatter = false; };
-      lua_ls = {
-        settings.Lua = {
-          runtime.version = "LuaJIT";
-          diagnostics.globals = [ "vim" ];
-          workspace.library = { };
-          telemetry.enable = false;
-        };
-      };
-    };
 in
 {
-  options.dgeng.neovim = with lib; {
+  options.dotfiles.neovim = with lib; {
     enable = mkEnableOption "neovim";
     enableLSP = mkEnableOption "enableLSP";
   };
 
   config = lib.mkIf cfg.enable {
-    home.sessionVariables = {
-      EDITOR = "nvim";
-    };
 
+    xdg.enable = true;
+    xdg.configFile."nvim/lua".source = ./. + "/${nvim_path}/lua";
+
+
+    # if required, reference the final packaged neovim output
+    # config.programs.neovim.finalPackage
     programs.neovim = lib.mkMerge [
       {
         enable = true;
-        package = pkgs.neovim.overrideAttrs (_: { CFLAGS = "-O3"; });
+        package = pkgs.neovim-unwrapped;
+        defaultEditor = true;
         vimAlias = true;
         viAlias = true;
-        withNodeJs = true;
+        withNodeJs = false;
         withPython3 = true;
         withRuby = false;
-        extraConfig = builtins.readFile "${nvim_path}/init.vim";
-        plugins = with pkgs.nvimPlugins; [
+        extraConfig = builtins.readFile (./. + "/${nvim_path}/init.vim");
+        #extraLuaConfig = "";
+        plugins = with pkgs.vimPlugins; [
           {
-            plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
+            plugin = nvim-treesitter.withAllGrammars;
             #plugin = nvim-treesitter;
             type = "lua";
             config = ''
-
-              			require("nushell/tree-sitter-nu")
-          '';
-          }
-          {
-            plugin = none-ls-nvim;
-            type = "lua";
-            config = ''
-              			require("nvim-lua/plenary.nvim")
-              			require("nvimtools/none-ls-extras.nvim")
-              			require("gbprod/none-ls-shellcheck.nvim")
             '';
           }
+          none-ls-nvim
+          nvim-web-devicons
+          plenary-nvim
+          harpoon
+          marks-nvim
           {
-            plugin = nvim-web-devicons;
-            type = "lua";
-          }
-          {
-            plugin = plenary.nvim;
-            type = "lua";
-          }
-          {
-            plugin = harpoon;
-            type = "lua";
-          }
-          {
-            plugin = marks.nvim;
-            type = "lua";
-          }
-          {
-            plugin = leap.nvim;
+            plugin = leap-nvim;
             type = "lua";
             config = ''
-              		require("tpope/vim-repeat")
-                  require("leap").add_default_mappings()
+              vim.keymap.set({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
+              vim.keymap.set({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
+              vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
             '';
           }
           {
@@ -99,68 +57,104 @@ in
             type = "lua";
             config = ''vim.fn["firenvim#install"](0)'';
           }
-          {
-            plugin = coq_nvim;
-            type = "lua";
-            config = ''
-              			require("ms-jpq/coq.artifacts", branch = "artifacts")
-
-            '';
-          }
-          {
-            plugin = coq.artifacts;
-            type = "lua";
-            branch = "artifacts";
-          }
-          {
-            plugin = fzf-lua;
-            type = "lua";
-            config = ''
-              		require("nvim-tree/nvim-web-devicons")
-            '';
-          }
-          {
-            plugin = nvim-jqx;
-            type = "lua";
-          }
+          coq_nvim
+          coq-artifacts
+          fzf-lua
+          nvim-jqx
           {
             plugin = nvim-surround;
             type = "lua";
             config = ''require("nvim-surround").setup({})'';
           }
           {
-            plugin = fm-nvim;
+            plugin = (pkgs.vimUtils.buildVimPlugin {
+              pname = "none-ls-extras-nvim";
+              version = "main";
+              src = pkgs.fetchFromGitHub {
+                owner = "nvimtools";
+                repo = "none-ls-extras.nvim";
+                rev = "167f29529ff1438e673b1792a71aaf79ddd6c74f";
+                hash = "sha256-3Os+DyijgE9gSRX4OwLAWnH24IUvYP8IBgl/HtZUtJU=";
+              };
+              meta = {
+                homepage = "https://github.com/nvimtools/none-ls-extras.nvim";
+                hydraPlatforms = [ ];
+              };
+            }).overrideAttrs
+              {
+                # required for import smoke test
+                dependencies = [ none-ls-nvim ];
+              };
             type = "lua";
           }
           {
-            plugin = oil.nvim;
+            plugin = pkgs.vimUtils.buildVimPlugin {
+              pname = "fm-nvim";
+              version = "master";
+              src = pkgs.fetchFromGitHub {
+                owner = "is0n";
+                repo = "fm-nvim";
+                rev = "8e6a77049330e7c797eb9e63affd75eb796fe75e";
+                hash = "sha256-I29p08P4Wh/LLTDZIQ2TkYy5Kdj0G8loU6k3eFM+iVE=";
+              };
+              meta = {
+                homepage = "https://github.com/is0n/fm-nvim";
+                license = lib.meta.getLicenseFromSpdxId "GPL-3.0-only";
+                hydraPlatforms = [ ];
+              };
+            };
+            type = "lua";
+          }
+          {
+            plugin = oil-nvim;
             type = "lua";
             config = ''require("oil").setup()'';
           }
           {
-            plugin = nvim-lspfuzzy;
+            plugin = pkgs.vimUtils.buildVimPlugin {
+              pname = "nvim-lspfuzzy";
+              version = "main";
+              src = pkgs.fetchFromGitHub {
+                owner = "ojroques";
+                repo = "nvim-lspfuzzy";
+                rev = "cd51aecb511d773226d8148124c708e636742457";
+                hash = "sha256-u+Zl9uITueAX/YPA6uuWX7e94VvRqCEq7SGefOxcXBw=";
+              };
+              meta = {
+                homepage = "https://github.com/ojroques/nvim-lspfuzzy";
+                license = lib.licenses.bsd2;
+                hydraPlatforms = [ ];
+              };
+            };
             type = "lua";
-            config = ''
-              			require("junegunn/fzf")
-              			require("junegunn/fzf.vim")
-            '';
           }
+          fzf-wrapper
+          fzf-vim
+          nvim-treesitter-context
           {
-            plugin = nvim-treesitter-context;
-            type = "lua";
-          }
-          {
-            plugin = registers.nvim;
+            plugin = pkgs.vimUtils.buildVimPlugin {
+              pname = "registers.nvim";
+              version = "main";
+              src = pkgs.fetchurl {
+                url = "https://codeberg.org/fosk/registers.nvim/archive/main.tar.gz";
+                hash = "sha256-NhNpiU7F/x3bJ25Cnk9y6UB6ZPEji0a79KZ4MMewq08=";
+              };
+              meta = {
+                homepage = "https://codeberg.org/fosk/registers.nvim";
+                license = lib.meta.getLicenseFromSpdxId "GPL-3.0-only";
+                hydraPlatforms = [ ];
+              };
+            };
             type = "lua";
             config = ''require("registers").setup()'';
           }
           {
-            plugin = fidget.nvim;
+            plugin = fidget-nvim;
             type = "lua";
             config = ''require("fidget").setup()'';
           }
           {
-            plugin = which-key.nvim;
+            plugin = which-key-nvim;
             type = "lua";
             config = ''
               vim.o.timeout = true
@@ -169,125 +163,57 @@ in
             '';
           }
           {
-            plugin = "cuducos/yaml.nvim";
+            plugin = pkgs.vimUtils.buildVimPlugin {
+              pname = "yaml.nvim";
+              version = "main";
+              src = pkgs.fetchFromGitHub {
+                owner = "cuducos";
+                repo = "yaml.nvim";
+                rev = "e70ee49f7aefc79dce020d3ffc3c9447b0c52236";
+                hash = "sha256-NNc5Zb4EYi6L+gd76I/NxIIYgxTvHplEhy03Q9GUAuc=";
+              };
+              meta = {
+                homepage = "https://github.com/cuducos/yaml.nvim";
+                license = lib.meta.getLicenseFromSpdxId "GPL-3.0-only";
+                hydraPlatforms = [ ];
+              };
+            };
             type = "lua";
-            config = ''
-              require("nvim-treesitter/nvim-treesitter")
-            '';
           }
           {
-            plugin = nvim-colorizer.lua;
+            plugin = nvim-colorizer-lua;
             type = "lua";
             config = ''require("colorizer").setup({})'';
           }
           {
-            plugin = Comment.nvim;
+            plugin = comment-nvim;
             type = "lua";
             config = ''require("Comment").setup()'';
           }
+          kanagawa-nvim
+          solarized-nvim
+          aurora
+          indent-blankline-nvim
+          vim-fugitive
           {
-            plugin = kanagawa.nvim;
-            type = "lua";
-          }
-          {
-            plugin = solarized.nvim;
-            type = "lua";
-          }
-          {
-            plugin = modus-theme-vim;
-            type = "lua";
-          }
-          {
-            plugin = aurora;
-            type = "lua";
-          }
-          {
-            plugin = nvim-hybrid;
-            type = "lua";
-          }
-          {
-            plugin = starry.nvim;
-            type = "lua";
-          }
-          {
-            plugin = "dracula/vim";
-            type = "lua";
-          }
-          {
-            plugin = indent-blankline.nvim;
-            type = "lua";
-          }
-          {
-            plugin = vim-fugitive;
-            type = "lua";
-          }
-          {
-            plugin = gitsigns.nvim;
+            plugin = gitsigns-nvim;
             type = "lua";
             config = ''require("gitsigns").setup()'';
           }
-          {
-            plugin = vim-ledger;
-            type = "lua";
-          }
-          {
-            plugin = vimtex;
-            type = "lua";
-          }
-          {
-            plugin = vim-toml;
-            type = "lua";
-          }
-          {
-            plugin = csv.vim;
-            type = "lua";
-          }
-          {
-            plugin = vim-json;
-            type = "lua";
-          }
-          {
-            plugin = rust.vim;
-            type = "lua";
-          }
-          {
-            plugin = salt-vim;
-            type = "lua";
-          }
-          {
-            plugin = vim-go;
-            type = "lua";
-          }
-          {
-            plugin = Vim-Jinja2-Syntax;
-            type = "lua";
-          }
-          {
-            plugin = vim-yaml;
-            type = "lua";
-          }
-          {
-            plugin = vim-just;
-            type = "lua";
-          }
-          {
-            plugin = vim-hcl;
-            type = "lua";
-          }
-          {
-            plugin = vim-nickel;
-            type = "lua";
-          }
-          {
-            plugin = quick-scope;
-            type = "lua";
-          }
-          {
-            plugin = zk-nvim;
-            type = "lua";
-          }
-
-
+          vim-ledger
+          vimtex
+          vim-toml
+          csv-vim
+          vim-json
+          rust-vim
+          salt-vim
+          vim-go
+          vim-yaml
+          vim-just
+          vim-hcl
+          vim-nickel
+          quick-scope
+          zk-nvim
 
           nvim-treesitter-textobjects
           vim-repeat
@@ -296,11 +222,12 @@ in
           ripgrep
           fd
           fzf
+          nushell
         ];
       }
 
       (lib.mkIf cfg.enableLSP {
-        plugins = with pkgs.nvimPlugins; [
+        plugins = with pkgs.vimPlugins; [
           (
             let
               lspServers = pkgs.writeText "lsp_servers.json" builtins.toJSON lsp_servers;
@@ -310,7 +237,7 @@ in
               type = "lua";
             }
           )
-          lsp_signature
+          lsp_signature-nvim
           nvim-autopairs
           # {
           #   plugin = nvim-dap;
@@ -329,9 +256,9 @@ in
           (python3.withPackages (ps: with ps; [
           ]))
           # Lua
-          unstable.lua-language-server
-          selene
-          stylua
+          lua-language-server
+          selene # lua diagnostics
+          stylua # lua formatter
 
           # text markdown
           textlint
@@ -340,36 +267,38 @@ in
           html-tidy
 
           # bash, nickel
-          topiary
+          topiary # nickel, sh, json fmt
+          bash-language-server
 
 
           # tools
-          yamlfmt
+          yamlfmt # yaml
           jq
           just
           rustfmt
 
           # Nix
-          statix
-          nixpkgs-fmt
-          nil
+          statix # nix lints, sugg
+          nixpkgs-fmt # nix formatter
+          nil # nix lsp
 
           # Shell scripting
-          shfmt
-          shellcheck
+          shfmt # bash format
+          shellcheck # bash lint
 
           # JavaScript
-          biome
+          biome # javascript formatter, diagnostics
 
           # Go
           go
+
+          nls # nickel lsp
+          nushell # nu lsp
+          vale # prose, markdown, tex,
+          nodePackages.textlint # text, markdown formatter
         ];
       })
     ];
 
-    xdg.configFile.nvim = {
-      recursive = true;
-      source = ../nvim/.config/nvim/lua;
-    };
   };
 }

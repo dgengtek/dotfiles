@@ -116,7 +116,9 @@ highlight StatusLineNC cterm=bold ctermfg=white ctermbg=darkgray
 match OverLength /\%89v.\+/
 endif
 
+if !has('nvim')
 set pastetoggle=<F10>
+endif
 
 set number
 set relativenumber

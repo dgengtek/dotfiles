@@ -117,7 +117,7 @@ remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 local coq = require("coq")
 -- require('lspconfig').yamlls.setup(coq.lsp_ensure_capabilities())
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
-require("lspconfig").pylsp.setup(coq.lsp_ensure_capabilities({
+vim.lsp.config("pylsp", coq.lsp_ensure_capabilities({
 	settings = {
 		pylsp = {
 			plugins = {
@@ -134,10 +134,15 @@ require("lspconfig").pylsp.setup(coq.lsp_ensure_capabilities({
 		},
 	},
 }))
+vim.lsp.enable("pylsp")
+-- bash
+vim.lsp.config("bashls", coq.lsp_ensure_capabilities())
+vim.lsp.enable("bashls")
 -- does not work
-require("lspconfig").nushell.setup(coq.lsp_ensure_capabilities())
+vim.lsp.config("nushell", coq.lsp_ensure_capabilities())
+vim.lsp.enable("nushell")
 -- nix lsp
-require("lspconfig").nil_ls.setup(coq.lsp_ensure_capabilities({
+vim.lsp.config("nil_ls", coq.lsp_ensure_capabilities({
 	autostart = true,
 	-- capabilities = caps,
 	-- cmd = { lsp_path },
@@ -150,10 +155,13 @@ require("lspconfig").nil_ls.setup(coq.lsp_ensure_capabilities({
 		},
 	},
 }))
+vim.lsp.enable("nil_ls")
 -- nickel
-require("lspconfig").nickel_ls.setup(coq.lsp_ensure_capabilities())
-require("lspconfig").rust_analyzer.setup(coq.lsp_ensure_capabilities())
-require("lspconfig").ruff.setup(coq.lsp_ensure_capabilities({
+vim.lsp.config("nickel_ls", coq.lsp_ensure_capabilities())
+vim.lsp.enable("nickel_ls")
+vim.lsp.config("rust_analyzer", coq.lsp_ensure_capabilities())
+vim.lsp.enable("rust_analyzer")
+vim.lsp.config("ruff", coq.lsp_ensure_capabilities({
 	init_options = {
 		settings = {
 			-- Any extra CLI arguments for `ruff` go here.
@@ -161,6 +169,7 @@ require("lspconfig").ruff.setup(coq.lsp_ensure_capabilities({
 		},
 	},
 }))
+vim.lsp.enable("ruff")
 
 require("lspfuzzy").setup({})
 
@@ -352,8 +361,8 @@ require("zk").setup({
 require("nvim-treesitter.configs").setup({
 	-- ensure_installed = "all",
 	-- ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "bash", "rust", "diff", "dockerfile", "git_config", "git_rebase", "gitcommit", "go", "hcl", "jq", "latex", "ledger", "make", "muttrc", "nix", "python", "regex", "rust", "sql", "ssh_config", "tmux", "toml", "csv", "html", "http", "json", "xml", "yaml", "javascript" },
-	auto_install = true,
-	sync_install = true,
+	auto_install = false,
+	sync_install = false,
 	-- ...
 	highlight = {
 		-- ...

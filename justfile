@@ -19,3 +19,6 @@ prepare:
 
 # create directories and link dotfiles into place
 install *args: prepare (setup args)
+
+home:
+    nix run home-manager -- switch --flake ".#dgeng@wsdg"
