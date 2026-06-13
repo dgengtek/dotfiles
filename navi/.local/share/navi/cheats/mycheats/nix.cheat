@@ -36,6 +36,14 @@ nix-shell -E "with import <nixpkgs> {}; callPackage <nix_file> {}"
 # get derivation values generated from nix file
 nix show-derivation $(nix-instantiate <nix_file>)
 
+# push package nix store paths to remote s3 cache
+nix-store --query --requisites $(nix path-info --derivation "<package>") \
+| nix copy --stdin --to "s3://nix-cache?endpoint=api-bigtmp"
+
+# push package nix store paths to attic cache
+nix-store --query --requisites $(nix path-info --derivation "<package>") \
+| attic push --stdin $USER
+
 # run manual build from a nix shell
 export out=$(mktemp -d); set -x; set +e; export NIX_ENFORCE_PURITY=0; genericBuild
 
