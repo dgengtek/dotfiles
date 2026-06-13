@@ -165,6 +165,9 @@ fd . --max-depth 1 /nix/var/nix/gcroots/auto/ | xargs readlink | xargs rm; nix-c
 # get hash for url
 nix-prefetch-url --type sha256 --unpack <url>
 
+# get nix docker pull image attributes
+nix run nixpkgs#nix-prefetch-docker -- -c nix-prefetch-docker --image-name "<image_name>" --image-tag "<image_tag>"
+
 # pin nixpkgs with niv sources
 nix-shell -p niv --run "niv init --nixpkgs nixos/nixpkgs --nixpkgs-branch nixos-<nixos_release>"
 
