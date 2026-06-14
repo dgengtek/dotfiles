@@ -212,6 +212,8 @@ sysctl fs.file-nr
 # get max file descritpros
 sysctl fs.file-max
 
+# get memory dirty pages ratios
+sysctl vm.dirty_ratio vm.dirty_background_ratio vm.swappiness
 
 % password
 # encrypt a prompted password and copy to system clipboard
