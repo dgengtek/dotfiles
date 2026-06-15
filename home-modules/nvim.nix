@@ -57,7 +57,16 @@ in
             type = "lua";
             config = ''vim.fn["firenvim#install"](0)'';
           }
-          coq_nvim
+          (coq_nvim.overrideAttrs (old: {
+            passthru = old.passthru // {
+              python3Dependencies =
+                ps: with ps; [
+                  pynvim-pp
+                  pyyaml
+                  std2
+                ];
+            };
+          }))
           coq-artifacts
           fzf-lua
           nvim-jqx
@@ -219,6 +228,10 @@ in
           vim-repeat
         ];
         extraPackages = with pkgs; [
+          (python313.withPackages (ps: with ps; [
+            # for coq_nvim
+            pynvim-pp
+          ]))
           ripgrep
           fd
           fzf
@@ -254,8 +267,6 @@ in
           # Python
           ruff
           (python3.withPackages (ps: with ps; [
-            pynvim
-            pynvim-pp
           ]))
           # Lua
           lua-language-server

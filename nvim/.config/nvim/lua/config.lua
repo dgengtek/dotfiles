@@ -117,23 +117,26 @@ remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 local coq = require("coq")
 -- require('lspconfig').yamlls.setup(coq.lsp_ensure_capabilities())
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
-vim.lsp.config("pylsp", coq.lsp_ensure_capabilities({
-	settings = {
-		pylsp = {
-			plugins = {
-				flake8 = {
-					enabled = false,
-				},
-				pycodestyle = {
-					enabled = false,
-				},
-				pyflakes = {
-					enabled = false,
+vim.lsp.config(
+	"pylsp",
+	coq.lsp_ensure_capabilities({
+		settings = {
+			pylsp = {
+				plugins = {
+					flake8 = {
+						enabled = false,
+					},
+					pycodestyle = {
+						enabled = false,
+					},
+					pyflakes = {
+						enabled = false,
+					},
 				},
 			},
 		},
-	},
-}))
+	})
+)
 vim.lsp.enable("pylsp")
 -- bash
 vim.lsp.config("bashls", coq.lsp_ensure_capabilities())
@@ -142,33 +145,39 @@ vim.lsp.enable("bashls")
 vim.lsp.config("nushell", coq.lsp_ensure_capabilities())
 vim.lsp.enable("nushell")
 -- nix lsp
-vim.lsp.config("nil_ls", coq.lsp_ensure_capabilities({
-	autostart = true,
-	-- capabilities = caps,
-	-- cmd = { lsp_path },
-	settings = {
-		["nil"] = {
-			testSetting = 42,
-			formatting = {
-				command = { "nixpkgs-fmt" },
+vim.lsp.config(
+	"nil_ls",
+	coq.lsp_ensure_capabilities({
+		autostart = true,
+		-- capabilities = caps,
+		-- cmd = { lsp_path },
+		settings = {
+			["nil"] = {
+				testSetting = 42,
+				formatting = {
+					command = { "nixpkgs-fmt" },
+				},
 			},
 		},
-	},
-}))
+	})
+)
 vim.lsp.enable("nil_ls")
 -- nickel
 vim.lsp.config("nickel_ls", coq.lsp_ensure_capabilities())
 vim.lsp.enable("nickel_ls")
 vim.lsp.config("rust_analyzer", coq.lsp_ensure_capabilities())
 vim.lsp.enable("rust_analyzer")
-vim.lsp.config("ruff", coq.lsp_ensure_capabilities({
-	init_options = {
-		settings = {
-			-- Any extra CLI arguments for `ruff` go here.
-			args = {},
+vim.lsp.config(
+	"ruff",
+	coq.lsp_ensure_capabilities({
+		init_options = {
+			settings = {
+				-- Any extra CLI arguments for `ruff` go here.
+				args = {},
+			},
 		},
-	},
-}))
+	})
+)
 vim.lsp.enable("ruff")
 
 require("lspfuzzy").setup({})
@@ -356,16 +365,16 @@ require("zk").setup({
 	},
 })
 
-require("nvim-treesitter.configs").setup({
-	-- ensure_installed = "all",
-	-- ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "bash", "rust", "diff", "dockerfile", "git_config", "git_rebase", "gitcommit", "go", "hcl", "jq", "latex", "ledger", "make", "muttrc", "nix", "python", "regex", "rust", "sql", "ssh_config", "tmux", "toml", "csv", "html", "http", "json", "xml", "yaml", "javascript" },
+require("nvim-treesitter").setup({
 	auto_install = false,
 	sync_install = false,
-	-- ...
-	highlight = {
-		-- ...
-		additional_vim_regex_highlighting = { "markdown" },
-	},
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown" },
+	callback = function()
+		vim.treesitter.start()
+	end,
 })
 
 local lsp_signature_config = {
