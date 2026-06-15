@@ -25,6 +25,9 @@ cat /proc/sys/kernel/random/entropy_avail
 # clone device
 sudo dd bs=64k conv=noerror,sync status=progress if=<device>
 
+# write iso, raw image to disk
+sudo dd if=<source_image> of=<device> bs=4M status=progress conv=fdatasync
+
 # show system max supported open files
 cat /proc/sys/fs/file-max
 
