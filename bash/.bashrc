@@ -1,7 +1,7 @@
 # See bash(1) for more options
 set -o pipefail
 # If not running interactively, don't do anything
-[[ $- != *i* ]] || return
+[[ $- != *i* ]] && return
 
 # Time out for root user
 if (($UID == 0)); then
