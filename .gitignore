@@ -1,4 +1,5 @@
 *.swp
+result
 docker/.docker/.build*
 history
 nix/nix/netrc
