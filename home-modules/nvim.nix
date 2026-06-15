@@ -100,12 +100,13 @@ in
                   owner = "ms-jpq";
                   repo = "coq_nvim";
                   rev = "7911f272700449891cbe79e3f87690c4ac638c91";
-                  hash = "";
+                  hash = "sha256-kP+LrA9Rs0Kfx8eTJ0Cpt5Yg/7RDZS8Ujkm7M8D2pHM=";
                 };
                 meta = {
                   homepage = "https://github.com/ms-jpq/coq_nvim";
                   hydraPlatforms = [ ];
                 };
+                doCheck = false;
               };
               type = "lua";
             }
