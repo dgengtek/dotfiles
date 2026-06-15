@@ -30,6 +30,12 @@ gpg-connect-agent reloadagent /bye
 # gpg agent update, reload tty for current shell
 gpg-connect-agent updatestartuptty /bye
 
+# gpg agent get serial number of card
+gpg-connect-agent 'scd serialno' /bye
+
+# gpg agent unlock card
+gpg-connect-agent 'scd checkpin <serial_number>' /bye
+
 # list stored keygrips
 gpg-connect-agent 'keyinfo --list' /bye
 
@@ -87,3 +93,5 @@ gpg --delete-keys
 
 # delete secret key
 gpg --delete-secret-keys
+
+$ serial_number: gpg-connect-agent 'scd serialno' /bye | awk '{print $3}' | strip.py
