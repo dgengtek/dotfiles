@@ -254,7 +254,8 @@ in
           # Python
           ruff
           (python3.withPackages (ps: with ps; [
-          pynvim
+            pynvim
+            pynvim-pp
           ]))
           # Lua
           lua-language-server

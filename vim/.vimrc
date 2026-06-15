@@ -100,7 +100,6 @@ set statusline +=%{&ff}%*            "file format
 set statusline +=%y%*                "file type
 set statusline +=\ %<%F%*            "full path
 set statusline +=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
-set statusline +=%{fugitive#statusline()}
 set statusline +=%4l,%v\ %*             "virtual column number
 set statusline +=0x%04B\ %*          "character under cursor
 set statusline +=%#warningmsg#
