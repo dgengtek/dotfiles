@@ -1,22 +1,22 @@
 # See bash(1) for more options
 set -o pipefail
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && exit 3
+[[ $- != *i* ]] || return
 
 # Time out for root user
 if (($UID == 0)); then
-	TMOUT=900
+  TMOUT=900
 fi
 
 source_file() {
-	if [[ -f $1 ]]; then
-		source "$1"
-	fi
+  if [[ -f $1 ]]; then
+    source "$1"
+  fi
 }
 source_dir() {
-	while IFS= read -r -d $'\0' file; do
-		source_file "$file"
-	done < <(find -L "$1" -type f -not -name *.swp -print0 | LC_COLLATE=C sort -dz)
+  while IFS= read -r -d $'\0' file; do
+    source_file "$file"
+  done < <(find -L "$1" -type f -not -name *.swp -print0 | LC_COLLATE=C sort -dz)
 }
 
 export PATH_BASH_CONFIG="$HOME/.config/bash.d/"
@@ -40,9 +40,9 @@ source_dir "$PATH_BASH_CONFIG/completion"
 source_file "$HOME/.LESS_TERMCAP"
 
 if [[ -d "$HOME/.anacron" ]]; then
-	/usr/sbin/anacron -s \
-		-t ${HOME}/.anacron/etc/anacrontab \
-		-S ${HOME}/.anacron/spool
+  /usr/sbin/anacron -s \
+    -t ${HOME}/.anacron/etc/anacrontab \
+    -S ${HOME}/.anacron/spool
 fi
 
 # Set GPG TTY
@@ -51,14 +51,14 @@ export GPG_TTY=$(tty)
 # Set SSH to use gpg-agent
 unset SSH_AGENT_PID
 if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
-	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
 # Refresh gpg-agent tty in case user switches into an X session
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
 if command -v starship 2>&1 | logger -t bashrc -p user.info; then
-	source_file "$PATH_BASH_CONFIG/config/starship_init"
+  source_file "$PATH_BASH_CONFIG/config/starship_init"
 fi
 unset source_file
 unset source_dir
