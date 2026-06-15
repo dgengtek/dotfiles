@@ -115,11 +115,11 @@ end
 remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 
 local coq = require("coq")
--- require('lspconfig').yamlls.setup(coq.lsp_ensure_capabilities())
+-- require('lspconfig').yamlls.setup()
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 vim.lsp.config(
 	"pylsp",
-	coq.lsp_ensure_capabilities({
+	{
 		settings = {
 			pylsp = {
 				plugins = {
@@ -139,16 +139,15 @@ vim.lsp.config(
 )
 vim.lsp.enable("pylsp")
 -- bash
-vim.lsp.config("bashls", coq.lsp_ensure_capabilities())
+vim.lsp.config("bashls")
 vim.lsp.enable("bashls")
 -- does not work
-vim.lsp.config("nushell", coq.lsp_ensure_capabilities())
+vim.lsp.config("nushell")
 vim.lsp.enable("nushell")
 -- nix lsp
 vim.lsp.config(
 	"nil_ls",
-	coq.lsp_ensure_capabilities({
-		autostart = true,
+	{
 		-- capabilities = caps,
 		-- cmd = { lsp_path },
 		settings = {
@@ -159,24 +158,24 @@ vim.lsp.config(
 				},
 			},
 		},
-	})
+	}
 )
 vim.lsp.enable("nil_ls")
 -- nickel
-vim.lsp.config("nickel_ls", coq.lsp_ensure_capabilities())
+vim.lsp.config("nickel_ls")
 vim.lsp.enable("nickel_ls")
-vim.lsp.config("rust_analyzer", coq.lsp_ensure_capabilities())
+vim.lsp.config("rust_analyzer")
 vim.lsp.enable("rust_analyzer")
 vim.lsp.config(
 	"ruff",
-	coq.lsp_ensure_capabilities({
+	{
 		init_options = {
 			settings = {
 				-- Any extra CLI arguments for `ruff` go here.
 				args = {},
 			},
 		},
-	})
+	}
 )
 vim.lsp.enable("ruff")
 
