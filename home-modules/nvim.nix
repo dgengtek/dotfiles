@@ -91,7 +91,7 @@ in
               plugin = pkgs.vimUtils.buildVimPlugin {
                 pname = "coq_nvim";
                 version = "0-unstable-16-06-26";
-                buildInputs = with pkgs.python313packages; [
+                buildInputs = with pkgs.python313Packages; [
                   pynvim-pp
                   pyyaml
                   std2
