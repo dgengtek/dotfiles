@@ -232,8 +232,6 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.selene,
 		-- lua formatter
 		null_ls.builtins.formatting.stylua,
-		require("none-ls-shellcheck.diagnostics"),
-		require("none-ls-shellcheck.code_actions"),
 		-- TODO: fix different languages, dictionary not good enough, remove global vale.ini
 		-- prose, markdown, tex, asciidoc
 		-- null_ls.builtins.diagnostics.vale,
