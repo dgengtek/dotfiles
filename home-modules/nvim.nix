@@ -254,6 +254,7 @@ in
           # Python
           ruff
           (python3.withPackages (ps: with ps; [
+          pynvim
           ]))
           # Lua
           lua-language-server
@@ -295,7 +296,7 @@ in
           nls # nickel lsp
           nushell # nu lsp
           vale # prose, markdown, tex,
-          nodePackages.textlint # text, markdown formatter
+          textlint # text, markdown formatter
         ];
       })
     ];
