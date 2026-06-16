@@ -82,7 +82,6 @@ vim.g.coq_settings = {
 		recommended = false,
 		eval_snips = "<leader>j",
 	},
-	auto_start = "shut-up",
 }
 
 -- https://github.com/windwp/nvim-autopairs
@@ -139,7 +138,6 @@ vim.lsp.config(
 )
 vim.lsp.enable("pylsp")
 -- bash
-vim.lsp.config("bashls")
 vim.lsp.enable("bashls")
 -- does not work
 vim.lsp.config("nushell")
