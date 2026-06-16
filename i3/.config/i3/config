@@ -214,7 +214,7 @@ bindsym $mod+2 mode $mode_ws2
 bindsym $mod+3 mode $mode_ws3
 bindsym $mod+4 mode $mode_ws4
 
-set $screen0 DisplayPort-1
+set $screen0 DisplayPort-2
 set $screen1 DVI-D-0
 
 set $ws1_01 "1:1+1 shells"
