@@ -135,7 +135,7 @@ vim.lsp.config(
 				},
 			},
 		},
-	})
+	}
 )
 vim.lsp.enable("pylsp")
 -- bash
