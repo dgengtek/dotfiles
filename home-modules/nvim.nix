@@ -33,7 +33,7 @@ in
           vim.o.exrc = false
           vim.cmd('source ${vimrc}')
 
-          " https://neovim.io/doc/user/lua-guide.html#lua-guide
+          -- https://neovim.io/doc/user/lua-guide.html#lua-guide
           require('config')
           require('commands')
           require('mapping')
