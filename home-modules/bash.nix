@@ -9,7 +9,7 @@
     enable = true;
     enableCompletion = true;
     sessionVariables = {
-      PATH_BASH_CONFIG = config.xdg.configFile."bash.d".source;
+      PATH_BASH_CONFIG = config.xdg.configFile."bash.d".target;
     };
     initExtra = ''
       # See bash(1) for more options
