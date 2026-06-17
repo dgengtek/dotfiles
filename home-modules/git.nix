@@ -21,13 +21,13 @@
 
     iniContent = {
       commit = {
-        template = builtins.readFile ../git/.config/git/gitmessage;
+        template = "${../git/.config/git/gitmessage}";
       };
       core = {
         editor = "vim";
         whitespace = "trailing-space,space-before-tab";
         askpass = "";
-        excludesFile = builtins.readFile ../git/.config/git/ignore;
+        excludesFile = "${../git/.config/git/ignore}";
       };
       merge = {
         tool = "nvimdiff";
