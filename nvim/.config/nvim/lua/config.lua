@@ -116,65 +116,53 @@ remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 local coq = require("coq")
 -- require('lspconfig').yamlls.setup()
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
-vim.lsp.config(
-	"pylsp",
-	{
-		settings = {
-			pylsp = {
-				plugins = {
-					flake8 = {
-						enabled = false,
-					},
-					pycodestyle = {
-						enabled = false,
-					},
-					pyflakes = {
-						enabled = false,
-					},
+vim.lsp.config("pylsp", {
+	settings = {
+		pylsp = {
+			plugins = {
+				flake8 = {
+					enabled = false,
+				},
+				pycodestyle = {
+					enabled = false,
+				},
+				pyflakes = {
+					enabled = false,
 				},
 			},
 		},
-	}
-)
+	},
+})
 vim.lsp.enable("pylsp")
 -- bash
 vim.lsp.enable("bashls")
 -- does not work
-vim.lsp.config("nushell")
 vim.lsp.enable("nushell")
 -- nix lsp
-vim.lsp.config(
-	"nil_ls",
-	{
-		-- capabilities = caps,
-		-- cmd = { lsp_path },
-		settings = {
-			["nil"] = {
-				testSetting = 42,
-				formatting = {
-					command = { "nixpkgs-fmt" },
-				},
+vim.lsp.config("nil_ls", {
+	-- capabilities = caps,
+	-- cmd = { lsp_path },
+	settings = {
+		["nil"] = {
+			testSetting = 42,
+			formatting = {
+				command = { "nixpkgs-fmt" },
 			},
 		},
-	}
-)
+	},
+})
 vim.lsp.enable("nil_ls")
 -- nickel
-vim.lsp.config("nickel_ls")
 vim.lsp.enable("nickel_ls")
-vim.lsp.config("rust_analyzer")
 vim.lsp.enable("rust_analyzer")
-vim.lsp.config(
-	"ruff",
-	{
-		init_options = {
-			settings = {
-				-- Any extra CLI arguments for `ruff` go here.
-				args = {},
-			},
+vim.lsp.config("ruff", {
+	init_options = {
+		settings = {
+			-- Any extra CLI arguments for `ruff` go here.
+			args = {},
 		},
-	}
-)
+	},
+})
 vim.lsp.enable("ruff")
 
 require("lspfuzzy").setup({})
