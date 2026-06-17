@@ -3,6 +3,7 @@
 let
   cfg = config.dotfiles.neovim;
   nvim_path = "../nvim/.config/nvim";
+  vimrc = ../vim/.vimrc;
 in
 {
   options.dotfiles.neovim = with lib; {
@@ -11,10 +12,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    xdg.enable = true;
-    xdg.configFile."nvim/lua".source = ./. + "/${nvim_path}/lua";
-
+    xdg = {
+      enable = true;
+      configFile."nvim/lua".source = ./. + "/${nvim_path}/lua";
+    };
 
     # if required, reference the final packaged neovim output
     # config.programs.neovim.finalPackage
@@ -28,7 +29,17 @@ in
         withNodeJs = false;
         withPython3 = true;
         withRuby = false;
-        extraConfig = builtins.readFile (./. + "/${nvim_path}/init.vim");
+        initLua = ''
+          vim.o.exrc = false
+          vim.cmd('source ${vimrc}')
+
+          " https://neovim.io/doc/user/lua-guide.html#lua-guide
+          require('config')
+          require('commands')
+          require('mapping')
+
+          vim.cmd.colorscheme('kanagawa')
+        '';
         #extraLuaConfig = "";
         plugins =
           let
@@ -282,15 +293,7 @@ in
 
       (lib.mkIf cfg.enableLSP {
         plugins = with pkgs.vimPlugins; [
-          (
-            let
-              lspServers = pkgs.writeText "lsp_servers.json" builtins.toJSON lsp_servers;
-            in
-            {
-              plugin = nvim-lspconfig;
-              type = "lua";
-            }
-          )
+          nvim-lspconfig
           lsp_signature-nvim
           nvim-autopairs
           # {

@@ -1,0 +1,9 @@
+{ config, options, lib, pkgs, ... }:
+{
+  imports = [
+    ./dunst.nix
+    ./bash.nix
+    ./tmux.nix
+    ./git.nix
+  ];
+}

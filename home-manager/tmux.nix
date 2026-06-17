@@ -1,0 +1,299 @@
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  inherit (lib)
+    literalExpression
+    mkEnableOption
+    mkOption
+    optionalString
+    types
+    ;
+
+  cfg = config.programs.tmux;
+
+  pluginName = p: if types.package.check p then p.pname else p.plugin.pname;
+
+  pluginModule = types.submodule {
+    options = {
+      plugin = lib.mkPackageOption pkgs.tmuxPlugins "plugin" {
+        example = "pkgs.tmuxPlugins.sensible";
+        default = null;
+        pkgsText = "pkgs.tmuxPlugins";
+        extraDescription = "Path of the configuration file to include.";
+      };
+
+      extraConfig = mkOption {
+        type = types.lines;
+        description = "Additional configuration for the associated plugin.";
+        default = "";
+      };
+    };
+  };
+
+  defaultKeyMode = "emacs";
+  defaultResize = 5;
+  defaultShortcut = "b";
+  defaultTerminal = "screen";
+  defaultShell = null;
+
+  boolToStr = value: if value then "on" else "off";
+
+  configPlugins = {
+    assertions = [
+      (
+        let
+          hasBadPluginName = p: !(lib.hasPrefix "tmuxplugin" (pluginName p));
+          badPlugins = lib.filter hasBadPluginName cfg.plugins;
+        in
+        {
+          assertion = badPlugins == [ ];
+          message =
+            ''Invalid tmux plugin (not prefixed with "tmuxplugins"): ''
+            + lib.concatMapStringsSep ", " pluginName badPlugins;
+        }
+      )
+    ];
+
+    xdg.configFile."tmux/tmux.conf".text = ''
+      # ============================================= #
+      # Load plugins with Home Manager                #
+      # --------------------------------------------- #
+
+      ${
+        (lib.concatMapStringsSep "\n\n" (p: ''
+          # ${pluginName p}
+          # ---------------------
+          ${p.extraConfig or ""}
+          run-shell ${if types.package.check p then p.rtp else p.plugin.rtp}
+        '') cfg.plugins)
+      }
+      # ============================================= #
+    '';
+  };
+
+in
+{
+  disabledModules = [ "programs/tmux.nix" ];
+  options = {
+    programs.tmux = {
+      aggressiveResize = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          Resize the window to the size of the smallest session for
+          which it is the current window.
+        '';
+      };
+
+      baseIndex = mkOption {
+        default = 0;
+        example = 1;
+        type = types.ints.unsigned;
+        description = "Base index for windows and panes.";
+      };
+
+      clock24 = mkOption {
+        default = false;
+        type = types.bool;
+        description = "Use 24 hour clock.";
+      };
+
+      customPaneNavigationAndResize = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          Override the hjkl and HJKL bindings for pane navigation and
+          resizing in VI mode.
+        '';
+      };
+
+      disableConfirmationPrompt = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          Disable confirmation prompt before killing a pane or window
+        '';
+      };
+
+      enable = mkEnableOption "tmux";
+
+      escapeTime = mkOption {
+        default = 10;
+        example = 0;
+        type = types.ints.unsigned;
+        description = ''
+          Time in milliseconds for which tmux waits after an escape is
+          input.
+        '';
+      };
+
+      extraConfig = mkOption {
+        type = types.lines;
+        default = "";
+        description = ''
+          Additional configuration to add to
+          {file}`tmux.conf`.
+        '';
+      };
+
+      focusEvents = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          On supported terminals, request focus events and pass them through to
+          applications running in tmux.
+        '';
+      };
+
+      historyLimit = mkOption {
+        default = 2000;
+        example = 5000;
+        type = types.ints.positive;
+        description = "Maximum number of lines held in window history.";
+      };
+
+      keyMode = mkOption {
+        default = defaultKeyMode;
+        example = "vi";
+        type = types.enum [
+          "emacs"
+          "vi"
+        ];
+        description = "VI or Emacs style shortcuts.";
+      };
+
+      mouse = mkEnableOption "mouse support";
+
+      newSession = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          Automatically spawn a session if trying to attach and none
+          are running.
+        '';
+      };
+
+      package = lib.mkPackageOption pkgs "tmux" { nullable = true; };
+
+      reverseSplit = mkOption {
+        default = false;
+        type = types.bool;
+        description = "Reverse the window split shortcuts.";
+      };
+
+      resizeAmount = mkOption {
+        default = defaultResize;
+        example = 10;
+        type = types.ints.positive;
+        description = "Number of lines/columns when resizing.";
+      };
+
+      sensibleOnTop = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Run the sensible plugin at the top of the configuration. It
+          is possible to override the sensible settings using the
+          {option}`programs.tmux.extraConfig` option.
+        '';
+      };
+
+      prefix = mkOption {
+        default = null;
+        example = "C-a";
+        type = types.nullOr types.str;
+        description = ''
+          Set the prefix key. Overrules the "shortcut" option when set.
+        '';
+      };
+
+      shortcut = mkOption {
+        default = defaultShortcut;
+        example = "a";
+        type = types.str;
+        description = ''
+          CTRL following by this key is used as the main shortcut.
+        '';
+      };
+
+      terminal = mkOption {
+        default = defaultTerminal;
+        example = "screen-256color";
+        type = types.str;
+        description = "Set the $TERM variable.";
+      };
+
+      shell = mkOption {
+        default = defaultShell;
+        example = literalExpression "\${pkgs.zsh}/bin/zsh";
+        type = with types; nullOr str;
+        description = "Set the default-shell tmux variable.";
+      };
+
+      secureSocket = mkOption {
+        default = pkgs.stdenv.isLinux;
+        type = types.bool;
+        description = ''
+          Store tmux socket under {file}`/run`, which is more
+          secure than {file}`/tmp`, but as a downside it doesn't
+          survive user logout.
+        '';
+      };
+
+      tmuxp.enable = mkEnableOption "tmuxp";
+
+      plugins = mkOption {
+        type =
+          with types;
+          listOf (either package pluginModule)
+          // {
+            description = "list of plugin packages or submodules";
+          };
+        description = ''
+          List of tmux plugins to be included at the end of your tmux
+          configuration. The sensible plugin, however, is defaulted to
+          run at the top of your configuration.
+        '';
+        default = [ ];
+        example = lib.literalExpression ''
+          with pkgs; [
+            tmuxPlugins.cpu
+            {
+              plugin = tmuxPlugins.resurrect;
+              extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+            }
+            {
+              plugin = tmuxPlugins.continuum;
+              extraConfig = '''
+                set -g @continuum-restore 'on'
+                set -g @continuum-save-interval '60' # minutes
+              ''';
+            }
+          ]
+        '';
+      };
+    };
+  };
+
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        home.packages =
+          lib.optional (cfg.package != null) cfg.package ++ lib.optional cfg.tmuxp.enable pkgs.tmuxp;
+      }
+
+      { xdg.configFile."tmux/tmux.conf".text = lib.mkBefore cfg.extraConfig; }
+
+      (lib.mkIf cfg.secureSocket {
+        home.sessionVariables = {
+          TMUX_TMPDIR = ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+        };
+      })
+
+      (lib.mkIf (cfg.plugins != [ ]) configPlugins)
+    ]
+  );
+}

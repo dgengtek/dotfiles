@@ -1,0 +1,222 @@
+{ config, options, lib, pkgs, ... }:
+{
+  programs.tmux = {
+    enable = true;
+    tmuxp.enable = true;
+    plugins =
+      with pkgs.tmuxPlugins; [
+        # in any tmux mode press prefix + u to list all urls on bottom
+        urlview
+        # prefix + tab
+        extrakto
+        {
+          plugin = prefix-highlight;
+          extraConfig = ''
+            set -g @prefix_highlight_fg 'colour10' # default is 'colour231', colour 10 green
+            set -g @prefix_highlight_bg 'colour9'  # default is 'colour04', colour 9 red
+
+            set -g @prefix_highlight_show_copy_mode 'on'
+            set -g @prefix_highlight_copy_mode_attr 'fg=colour9,bg=colour10,bold' # default is 'fg=default,bg=yellow'
+          '';
+        }
+        {
+          plugin = tmux-thumbs;
+          extraConfig = ''
+            set -g @thumbs-regexp-1 '[a-z]+@[a-z]+.com' # Match emails
+            set -g @thumbs-regexp-2 '[a-f0-9]{2}:[a-f0-9]{2}:[a-f0-9]{2}:[a-f0-9]{2}:[a-f0-9]{2}:[a-f0-9]{2}:' # Match MAC addresses
+            set -g @thumbs-regexp-3 '[a-z0-9]+-[^ ]+' # kubernetes pods
+          '';
+        }
+        # logging
+        #   Key binding: prefix + shift + p
+        #   File name format: tmux-#{session_name}-#{window_index}-#{pane_index}-%Y%m%dT%H%M%S.log
+        #   File path: $HOME (user home dir)
+        #     Example file: ~/tmux-my-session-0-1-20140527T165614.log
+        # screen capture
+        #   Key binding: prefix + alt + p
+        #   File name format: tmux-screen-capture-#{session_name}-#{window_index}-#{pane_index}-%Y%m%dT%H%M%S.log
+        #   File path: $HOME (user home dir)
+        #     Example file: tmux-screen-capture-my-session-0-1-20140527T165614.log
+        # save complete history
+        #   Key binding: prefix + alt + shift + p
+        #   File name format: tmux-history-#{session_name}-#{window_index}-#{pane_index}-%Y%m%dT%H%M%S.log
+        #   File path: $HOME (user home dir)
+        #     Example file: tmux-history-my-session-0-1-20140527T165614.log
+        # clear pane history
+        #   Key binding: prefix + alt + c
+        logging
+      ];
+    extraConfig = ''
+      unbind C-b
+      unbind n
+      unbind p
+
+      set-option -g prefix C-x
+
+      set-option -g lock-command vlock
+      set -s escape-time 0
+
+      set -g base-index 1
+      setw -g pane-base-index 1
+      set-option -g visual-activity off
+      set-option -g visual-bell on
+      set-option -g visual-silence off
+      set-option -g renumber-windows on
+      set-window-option -g monitor-activity on
+      set-window-option -g monitor-bell on
+      set-window-option -g silence-action none
+      set-option -g activity-action other
+      set-option -g bell-action other
+      set-option -g set-titles on
+      set-option -g set-titles-string "#T (#h:#S)"
+      set-option -sa terminal-overrides ',alacritty:RGB'
+      set-option -a terminal-features 'alacritty:RGB'
+      set-option -g focus-events on
+      ################################################################################
+      # pane
+      set -g pane-border-style "fg=#ffffff" # white
+      set -g pane-border-style "bg=#000000" # black
+      set -g pane-active-border-style "fg=#006fb8"
+      set -g pane-active-border-style "bg=default"
+      set -g window-style 'fg=#bababa,bg=#333333'
+      # gray foreground
+      #set -g window-active-style 'fg=#bababa,bg=#000000'
+      # white foreground
+      # set -g window-active-style 'fg=#ffffff,bg=#000000'
+      # white fg
+      #set -g window-active-style 'fg=colour15,bg=black'
+      # kanagawa
+      set -g window-active-style 'fg=#dcd7ba,bg=#1f1f28'
+      set -g display-panes-time 2000
+
+
+      ################################################################################
+      # status bar
+      #setw -g window-status-current-fg colour15
+      setw -g window-status-current-style "bg=#006fb8 bold"
+      setw -g window-status-current-format '#I#[fg=colour250]:#[fg=colour255]#W#[fg=colour50]#F '
+
+      setw -g window-status-style "fg=#ffffff dim" # white
+      setw -g window-status-style "bg=#000000 dim" # black
+      setw -g window-status-format '#I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
+
+      setw -g window-status-bell-style "fg=#eeeeee bold" # grey
+      setw -g window-status-bell-style "bg=#800000 bold" # maroon
+
+      setw -g automatic-rename on
+      setw -g automatic-rename-format "#{pane_current_command}"
+      setw -g xterm-keys on
+
+      # status line
+      set -g status-justify left
+      set -g status-style "bg=default"
+      set -g status-style "fg=#ffffff" # white
+      set -g status-interval 2
+
+      ################################################################################
+
+      # messaging
+      set -g message-style "fg=#ffffff" # white
+      set -g message-style "bg=blue"
+      set -g message-command-style "fg=#de382b" # red
+      set -g message-command-style "bg=#010101" # black
+
+      ################################################################################
+
+      set -g history-limit 100000
+      set -g history-file ~/.tmux_history
+
+      ## set the default TERM
+      #set -g default-terminal screen-256color
+      #set -ga terminal-overrides ",xterm-256color:Tc"
+
+      ## update the TERM variable of terminal emulator when creating a new session or attaching a existing session
+      #set -g update-environment 'DISPLAY SSH_ASKPASS GPG_TTY SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY'
+      #set -g update-environment 'DISPLAY SSH_ASKPASS GPG_TTY SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY TERM'
+
+      set-option -g mouse off
+
+      ################################################################################
+      #y and p as in vim
+      bind Enter copy-mode
+      bind -T copy-mode-vi 'v' send-keys -X begin-selection
+      bind -T copy-mode-vi 'Space' send-keys -X halfpage-down
+      bind -T copy-mode-vi 'Bspace' send-keys -X halfpage-up
+      bind -T copy-mode-vi 'y' send-keys -X copy-selection
+      bind < copy-mode
+      # copy tmux buffer to clipboard
+      bind-key C-y run "tmux save-buffer - | xsel -i -p -b"
+      # paste clipboard to tmux buffer
+      bind-key C-p run "xsel -o | tmux load-buffer - ; tmux paste-buffer"
+      bind-key q confirm-before -p "kill-session #S? (y/n)" kill-session
+      bind-key Q confirm-before -p "kill-server? (y/n)" kill-server
+      bind-key C-x send-key C-x
+
+
+      bind -T copy-mode-vi v send -X begin-selection
+      bind -T copy-mode-vi C-v send -X rectangle-toggle
+      bind -T copy-mode-vi y send -X copy-selection-and-cancel
+      bind -T copy-mode-vi Escape send -X cancel
+      bind -T copy-mode-vi H send -X start-of-line
+      bind -T copy-mode-vi L send -X end-of-line
+
+      if -b 'command -v xsel > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xsel -i -b"'
+      if -b '! command -v xsel > /dev/null 2>&1 && command -v xclip > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
+
+
+      bind b list-buffers  # list paste buffers
+      bind p paste-buffer  # paste from the top paste buffer
+      bind P choose-buffer # choose which buffer to paste from
+      ################################################################################
+
+      # change split pane commands
+      unbind '"'
+      unbind %
+      bind | split-window -h -c "#{pane_current_path}"
+      bind - split-window -v -c "#{pane_current_path}"
+
+
+
+      ################################################################################
+      set -g mode-keys vi
+      # moving between panes with vim movement keys
+      bind h select-pane -L
+      bind j select-pane -D
+      bind k select-pane -U
+      bind l select-pane -R
+      # moving between windows with vim movement keys
+      bind -r C-h select-window -t :-
+      bind -r C-l select-window -t :+
+      bind Tab last-window        # move to last active window
+      # resize panes with vim movement keys
+      bind -r H resize-pane -L 20
+      bind -r L resize-pane -R 20
+
+      bind -r J resize-pane -D 10
+      bind -r K resize-pane -U 10
+
+      bind -r C-k send-keys -R C-l \; clear-history
+      ################################################################################
+      # actions
+      bind-key R source-file ~/.tmux.conf \; \
+                         display-message "source-file done"
+      bind-key ] display-panes
+
+      bind-key -T prefix C-g split-window \
+        "$SHELL --login -i -c 'navi --print | tmux load-buffer -b navitmp - ; tmux paste-buffer -p -t {last} -b navitmp -d'"
+      ################################################################################
+      # modes
+      setw -g clock-mode-colour colour135
+      setw -g status-style "fg=colour15 bold"
+      setw -g status-style "bg=default bold"
+
+      ################################################################################
+      # plugin options
+      set -g status-justify left
+      set -g status-interval 1
+      set -g status-right-length 256
+      set -g status-left "#{prefix_highlight}"
+
+    '';
+  };
+}

@@ -16,6 +16,7 @@
   outputs = { self, nixpkgs, nixpkgs-stable, home-manager, haumea, scripts }@inputs:
     let
       system = "x86_64-linux";
+      username = "dgeng";
       pkgs = import nixpkgs-stable { config = { }; overlays = [ ]; inherit system; };
     in
     {
@@ -27,21 +28,29 @@
         ];
       };
 
-      homeModules.dgeng.nvim = import ./home-modules/nvim.nix;
+      homeModules.dgeng = {
+        nvim = import ./home-modules/nvim.nix;
+        config = import ./home-modules/config.nix;
+      };
 
+      homeManagerModules = {
+        tmux = import ./home-manager/tmux.nix;
+      };
       homeConfigurations."dgeng@wsdg" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs-stable.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [
+          self.homeManagerModules.tmux
           self.homeModules.dgeng.nvim
+          self.homeModules.dgeng.config
           {
             dotfiles = {
               neovim.enable = true;
               neovim.enableLSP = true;
             };
             home = {
-              username = "dgeng";
-              homeDirectory = "/home/dgeng";
+              inherit username;
+              homeDirectory = "/home/${username}";
               stateVersion = "26.05";
             };
             programs.home-manager.enable = true;
