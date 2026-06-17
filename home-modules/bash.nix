@@ -4,12 +4,15 @@
     enable = true;
     configFile."bash.d".source = ../bash/.config/bash.d;
   };
-  programs.starship.enable = true;
+  programs.starship = {
+    enable = true;
+  };
   programs.bash = {
     enable = true;
     enableCompletion = true;
     sessionVariables = {
       PATH_BASH_CONFIG = config.xdg.configFile."bash.d".target;
+      STARSHIP_CONFIG = "${../starship/.config/starship.toml}";
     };
     initExtra = ''
       # See bash(1) for more options
