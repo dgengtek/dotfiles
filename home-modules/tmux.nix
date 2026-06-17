@@ -216,7 +216,6 @@
       set -g status-interval 1
       set -g status-right-length 256
       set -g status-left "#{prefix_highlight}"
-
     '';
   };
 }

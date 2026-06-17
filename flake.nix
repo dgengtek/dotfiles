@@ -8,12 +8,17 @@
     };
     scripts.url = "github:dgengtek/scripts";
 
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     haumea = {
       url = "github:nix-community/haumea/v0.2.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, haumea, scripts }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix, haumea, scripts }@inputs:
     let
       system = "x86_64-linux";
       username = "dgeng";
@@ -43,6 +48,7 @@
           self.homeManagerModules.tmux
           self.homeModules.dgeng.nvim
           self.homeModules.dgeng.config
+          sops-nix.homeManagerModules.sops
           {
             dotfiles = {
               neovim.enable = true;

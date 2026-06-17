@@ -5,5 +5,8 @@
     ./bash.nix
     ./tmux.nix
     ./git.nix
+    ./email.nix
+    ./sops.nix
+    ./pass.nix
   ];
 }
