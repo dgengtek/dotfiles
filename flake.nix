@@ -13,12 +13,15 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    ops-vars.url = "git+ssh://git/ops/ops-vars";
+    nixutils.url = "git+ssh://git/ops/nixutils";
+
     haumea = {
       url = "github:nix-community/haumea/v0.2.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix, haumea, scripts }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix, ops-vars, nixutils, haumea, scripts }@inputs:
     let
       system = "x86_64-linux";
       username = "dgeng";
@@ -41,22 +44,25 @@
       homeManagerModules = {
         tmux = import ./home-manager/tmux.nix;
       };
+
       homeConfigurations."dgeng@wsdg" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs-stable.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = { inherit inputs; libdg = inputs.nixutils.lib.${system}; };
         modules = [
           self.homeManagerModules.tmux
           self.homeModules.dgeng.nvim
           self.homeModules.dgeng.config
           sops-nix.homeManagerModules.sops
+          ops-vars.homeModules.dgeng.accounts
           {
             dotfiles = {
               neovim.enable = true;
               neovim.enableLSP = true;
+              email.enable = true;
             };
             home = {
               inherit username;
-              homeDirectory = "/home/${username}";
+              homeDirectory = "/home/intranet.dgeng.eu/${username}";
               stateVersion = "26.05";
             };
             programs.home-manager.enable = true;
