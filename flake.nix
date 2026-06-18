@@ -62,7 +62,7 @@
             };
             home = {
               inherit username;
-              homeDirectory = "/home/intranet.dgeng.eu/${username}";
+              homeDirectory = "/home/${username}";
               stateVersion = "26.05";
             };
             programs.home-manager.enable = true;
