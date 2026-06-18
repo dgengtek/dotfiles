@@ -11,7 +11,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.neomutt = {
       enable = true;
-      sidebar.enable = true;
       extraConfig = ''
         set hidden_host
         set abort_nosubject
