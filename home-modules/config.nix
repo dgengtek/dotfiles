@@ -8,5 +8,7 @@
     ./email.nix
     ./sops.nix
     ./pass.nix
+    ./fzf.nix
+    ./navi.nix
   ];
 }

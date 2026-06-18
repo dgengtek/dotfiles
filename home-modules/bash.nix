@@ -13,6 +13,13 @@
     sessionVariables = {
       PATH_BASH_CONFIG = config.xdg.configFile."bash.d".target;
       STARSHIP_CONFIG = "${../starship/.config/starship.toml}";
+      LESSCHARSET = "utf-8";
+      PAGER = "less";
+      SYSTEMD_PAGER = "less";
+      VISUAL = "nvim";
+      GIT_EDITOR = "nvim";
+      SUDO_EDITOR = "nvim";
+      LIBVIRT_DEFAULT_URI = "qemu:///system";
     };
     initExtra = ''
       # See bash(1) for more options
@@ -36,10 +43,8 @@
 
       source_file "$PATH_BASH_CONFIG/options"
 
-      source_dir "$PATH_BASH_CONFIG/exports"
       source_dir "$PATH_BASH_CONFIG/utils"
       source_dir "$PATH_BASH_CONFIG/aliases"
-
       # override with custom completions
       source_dir "$PATH_BASH_CONFIG/completion"
 
