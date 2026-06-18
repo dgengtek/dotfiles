@@ -55,6 +55,7 @@ in
         # view html
         alternative_order text/plain text/enriched text/html
 
+        unbind index c
         macro index 'cc' '<change-folder>?<change-dir><home>^K=<enter>'
         macro index 'ce' '<change-folder>'
         macro index 'ci' '<change-folder>+INBOX<enter>'
@@ -69,7 +70,9 @@ in
 
         bind index j next-entry
         bind index k previous-entry
+        unbind index J
         bind index Jt next-thread
+        unbind index K
         bind index Kt previous-thread
         bind index Jj root-message
 
@@ -84,6 +87,7 @@ in
         bind index n search-next
         bind index N search-opposite
 
+        unbind index g
         bind index gg first-entry
         bind index G last-entry
 
@@ -92,6 +96,7 @@ in
 
         bind index l collapse-thread
         bind index z collapse-all
+        unbind index d
         bind index dt delete-thread
         bind index dm delete-message
 
@@ -122,6 +127,7 @@ in
         bind pager n search-next
         bind pager N search-opposite
 
+        unbind pager g
         bind pager gg top
         bind pager G bottom
 
