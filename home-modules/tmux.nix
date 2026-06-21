@@ -69,7 +69,7 @@
       set-option -g bell-action other
       set-option -g set-titles on
       set-option -g set-titles-string "#T (#h:#S)"
-      set-option -sa terminal-overrides ',alacritty:RGB'
+      set -g default-terminal tmux-256color
       set-option -a terminal-features 'alacritty:RGB'
       set-option -g focus-events on
       ################################################################################
@@ -126,9 +126,6 @@
       set -g history-limit 100000
       set -g history-file ~/.tmux_history
 
-      ## set the default TERM
-      #set -g default-terminal screen-256color
-      #set -ga terminal-overrides ",xterm-256color:Tc"
 
       ## update the TERM variable of terminal emulator when creating a new session or attaching a existing session
       #set -g update-environment 'DISPLAY SSH_ASKPASS GPG_TTY SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY'
