@@ -79,6 +79,7 @@ in
             nvim-treesitter
             nvim-treesitter-context
             nvim-treesitter-textobjects
+            luaPackages.tree-sitter-cli
             none-ls-nvim
             nvim-web-devicons
             plenary-nvim
@@ -96,7 +97,12 @@ in
             {
               plugin = firenvim;
               type = "lua";
-              config = ''vim.fn["firenvim#install"](0)'';
+              config = ''
+                local prolog = [[
+                exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
+                ]]
+                vim.fn["firenvim#install"](0, prolog)
+              '';
             }
             {
               plugin = pkgs.vimUtils.buildVimPlugin {
@@ -284,6 +290,7 @@ in
         extraPackages = with pkgs; [
           (python313.withPackages (ps: with ps; [
           ]))
+          ueberzugpp
           ripgrep
           fd
           fzf
@@ -311,6 +318,7 @@ in
           # Python
           ruff
           (python3.withPackages (ps: with ps; [
+            python-lsp-server
           ]))
           # Lua
           lua-language-server
@@ -326,6 +334,9 @@ in
           # bash, nickel
           topiary # nickel, sh, json fmt
           bash-language-server
+
+          # latex
+          biber
 
 
           # tools
@@ -348,6 +359,8 @@ in
 
           # Go
           go
+
+          rust-analyzer
 
           nls # nickel lsp
           nushell # nu lsp
