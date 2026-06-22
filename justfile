@@ -22,3 +22,6 @@ install *args: prepare (setup args)
 
 home:
     nix run home-manager -- switch --flake ".#dgeng@wsdg"
+
+build:
+    NIXPKGS_ALLOW_UNFREE=1 home-manager build --impure --flake .
