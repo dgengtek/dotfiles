@@ -93,16 +93,9 @@ in
                 vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
               '';
             }
-            {
-              plugin = firenvim;
-              type = "lua";
-              config = ''
-                local prolog = [[
-                exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
-                ]]
-                vim.fn["firenvim#install"](0, prolog)
-              '';
-            }
+            # run this after for firenvim
+            # exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
+            firenvim
             {
               plugin = pkgs.vimUtils.buildVimPlugin {
                 pname = "coq_nvim";
