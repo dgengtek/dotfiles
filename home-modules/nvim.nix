@@ -79,7 +79,6 @@ in
             nvim-treesitter
             nvim-treesitter-context
             nvim-treesitter-textobjects
-            luaPackages.tree-sitter-cli
             none-ls-nvim
             nvim-web-devicons
             plenary-nvim
@@ -291,6 +290,7 @@ in
           (python313.withPackages (ps: with ps; [
           ]))
           ueberzugpp
+          luaPackages.tree-sitter-cli
           ripgrep
           fd
           fzf
