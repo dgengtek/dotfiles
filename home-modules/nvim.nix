@@ -11,20 +11,21 @@ in
     enableLSP = mkEnableOption "enableLSP";
   };
 
-  home.packages = [
-    (pkgs.writeShellApplication {
-      name = "firenvim-install";
-      text = ''
-        exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
-      '';
-    })
-  ];
-
   config = lib.mkIf cfg.enable {
     xdg = {
       enable = true;
       configFile."nvim/lua".source = ./. + "/${nvim_path}/lua";
     };
+
+    home.packages = [
+      (pkgs.writeShellApplication {
+        name = "firenvim-install";
+        text = ''
+          exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
+        '';
+      })
+    ];
+
 
     # if required, reference the final packaged neovim output
     # config.programs.neovim.finalPackage
