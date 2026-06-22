@@ -11,6 +11,15 @@ in
     enableLSP = mkEnableOption "enableLSP";
   };
 
+  home.packages = [
+    (pkgs.writeShellApplication {
+      name = "firenvim-install";
+      text = ''
+        exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
+      '';
+    })
+  ];
+
   config = lib.mkIf cfg.enable {
     xdg = {
       enable = true;
@@ -93,8 +102,6 @@ in
                 vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
               '';
             }
-            # run this after for firenvim
-            # exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
             firenvim
             {
               plugin = pkgs.vimUtils.buildVimPlugin {
