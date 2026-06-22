@@ -11,5 +11,6 @@
     ./fzf.nix
     ./navi.nix
     ./audio.nix
+    ./sway.nix
   ];
 }
