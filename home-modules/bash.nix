@@ -11,7 +11,7 @@
     enable = true;
     enableCompletion = true;
     sessionVariables = {
-      PATH_BASH_CONFIG = config.xdg.configFile."bash.d".target;
+      PATH_BASH_CONFIG = config.homeDirectory + "/" + config.xdg.configFile."bash.d".target;
       STARSHIP_CONFIG = "${../starship/.config/starship.toml}";
       LESSCHARSET = "utf-8";
       PAGER = "less";
