@@ -10,5 +10,6 @@
     ./pass.nix
     ./fzf.nix
     ./navi.nix
+    ./audio.nix
   ];
 }
