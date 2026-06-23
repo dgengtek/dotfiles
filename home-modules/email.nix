@@ -9,6 +9,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.programs = [ pkgs.w3m ];
+
+    xdg.configFile.".mailcap".text = ''
+      text/*; nvim -R %s; needsterminal
+      text/html; w3m -dump %s; needsterminal; copiousoutput
+    '';
     programs.neomutt = {
       enable = true;
       extraConfig = ''
