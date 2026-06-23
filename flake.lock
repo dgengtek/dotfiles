@@ -63603,11 +63603,11 @@
         "systems": "systems_372"
       },
       "locked": {
-        "lastModified": 1781795917,
-        "narHash": "sha256-6lCEh+jnIOBpEqclzOBG4775eVall3/CdbrwXBJO8NM=",
+        "lastModified": 1782238275,
+        "narHash": "sha256-ctCESZTU5/s1Hmztx7dwE3jlvihAZtF15P4fXB4G2FI=",
         "ref": "refs/heads/master",
-        "rev": "a69397a98bf5573a53713c0f9fce8c0c1b4f3dac",
-        "revCount": 184,
+        "rev": "4552c07aae394dd43ee24bee37560d1dd3f1bae3",
+        "revCount": 185,
         "type": "git",
         "url": "ssh://git/ops/nixutils"
       },
