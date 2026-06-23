@@ -64,13 +64,7 @@ in
         alternative_order text/plain text/enriched text/html
 
         unbind index c
-        macro index 'cc' '<change-folder>?<change-dir><home>^K=<enter>'
-        macro index 'ce' '<change-folder>'
-        macro index 'ci' '<change-folder>+INBOX<enter>'
-        macro index 'cs' '<change-folder>+sent<enter>'
-        macro index 'ct' '<change-folder>+trash<enter>'
-        macro index 'ca' '<change-folder>+archive<enter>'
-
+        macro index 'cc' '<change-folder>?<enter>'
 
         bind attach <return> view-mailcap
 
