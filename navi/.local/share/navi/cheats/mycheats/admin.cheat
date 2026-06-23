@@ -220,7 +220,7 @@ sysctl vm.dirty_ratio vm.dirty_background_ratio vm.swappiness
 
 % password
 # encrypt a prompted password and copy to system clipboard
-systemd-ask-password -n | gpg --armor --batch --encrypt -r <benutzer> | xclip -selection c
+systemd-ask-password -n | gpg --armor --batch --encrypt -r <benutzer> | wl-clip -i -selection c
 
 # generate 1024 random byte password
 head -c 32 /dev/urandom | base64
@@ -235,7 +235,7 @@ export <NAME>=$(systemd-ask-password -n)
 pwgen.py -c 1 <length>
 
 # copy a password to clipboard
-pwgen.py -a -c 1 32 | xclip -selection c; sleep 15 && echo -n "cleared pw" | xclip -selection c
+pwgen.py -a -c 1 32 | wl-clip -i -selection c; sleep 15 && printf '' | wl-clip -i -selection c
 
 # get random salt
 head -c 40 /dev/random | base64 |

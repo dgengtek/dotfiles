@@ -1,6 +1,6 @@
 set default-bg "#000000"
 set default-fg "#000000"
-map <C-y> feedkeys ":exec sh -c \"echo $FILE | xclip -i -sel clip\"<Return>"
+map <C-y> feedkeys ":exec sh -c \"echo $FILE | wl-clip -i -sel clip\"<Return>"
 
 /* https://github.com/rebelot/kanagawa.nvim/blob/db960cfda5546b3882fdc8f8d0f024894181da8f/extras/zathura.conf */
 set notification-error-bg       "#1F1F28"

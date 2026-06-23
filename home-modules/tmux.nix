@@ -142,9 +142,9 @@
       bind -T copy-mode-vi 'y' send-keys -X copy-selection
       bind < copy-mode
       # copy tmux buffer to clipboard
-      bind-key C-y run "tmux save-buffer - | xsel -i -p -b"
+      bind-key C-y run "tmux save-buffer - | wl-clip -i -selection c"
       # paste clipboard to tmux buffer
-      bind-key C-p run "xsel -o | tmux load-buffer - ; tmux paste-buffer"
+      bind-key C-p run "wl-clip -o -selection c | tmux load-buffer - ; tmux paste-buffer"
       bind-key q confirm-before -p "kill-session #S? (y/n)" kill-session
       bind-key Q confirm-before -p "kill-server? (y/n)" kill-server
       bind-key C-x send-key C-x
@@ -157,8 +157,7 @@
       bind -T copy-mode-vi H send -X start-of-line
       bind -T copy-mode-vi L send -X end-of-line
 
-      if -b 'command -v xsel > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xsel -i -b"'
-      if -b '! command -v xsel > /dev/null 2>&1 && command -v xclip > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
+      if -b 'command -v wl-clip > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | wl-clip -i -selection clipboard >/dev/null 2>&1"'
 
 
       bind b list-buffers  # list paste buffers

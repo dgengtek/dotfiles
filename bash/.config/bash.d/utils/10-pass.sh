@@ -39,8 +39,8 @@ f_show_password() {
   fi
 
   if [[ -n "$DISPLAY" ]]; then
-    echo -n "$result" | xclip -selection clipboard -i
-    (sleep 10 && echo -n "empty" | xclip -selection clipboard -i &)
+    echo -n "$result" | wl-clip -selection clipboard -i
+    (sleep 10 && echo -n | wl-clip -selection clipboard -i &)
   else
     local -r tmux_buffer_name="clipboard"
     tmux set-buffer -b "$tmux_buffer_name" "$result" || rc=1
@@ -94,16 +94,16 @@ f_pass_login() {
     echo "No username in data." >&2
     return 1
   fi
-  echo -n "$username" | xclip -selection clipboard -i
+  echo -n "$username" | wl-clip -selection clipboard -i
   read -r -p "Press enter to copy password"
 
   if ((is_yaml)); then
-    echo -n "$data" | nu --stdin --no-newline -c "from yaml | get password" | xclip -selection clipboard -i
+    echo -n "$data" | nu --stdin --no-newline -c "from yaml | get password" | wl-clip -selection clipboard -i
   else
-    echo -n "$data" | sed -n 1p | xclip -selection clipboard -i
+    echo -n "$data" | sed -n 1p | wl-clip -selection clipboard -i
   fi
   echo "clearing in 10secs" >&2
-  (sleep 10 && echo -n "empty" | xclip -selection clipboard -i &)
+  (sleep 10 && echo -n | wl-clip -selection clipboard -i &)
 }
 alias pwp=f_show_password
 alias pwlogin=f_pass_login

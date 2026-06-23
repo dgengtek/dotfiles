@@ -26,10 +26,10 @@ alias pushdbashd="pushd $PATH_BASH_CONFIG"
 alias root="sudo -i"
 
 # clipboard
-alias systemclipboard="xclip -selection c"
-alias clip=systemclipboard
-alias clipclear="printf '' | xclip -i"
-alias clippaste="systemclipboard -o"
+alias systemclipboard="wl-clip -selection c"
+alias clip="systemclipboard -i -selection c"
+alias clipclear="printf '' | wl-clip -i; printf '' | wl-clip -i -selection c"
+alias clippaste="systemclipboard -o -selection c"
 
 alias h="history"
 alias htail="history 10"

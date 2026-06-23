@@ -1,10 +1,13 @@
 % system
 
 # Copy environment variable to clipboard
-echo "<env_var_value>" | xclip -selection c
+echo -n "<env_var_value>" | wl-clip -i -selection c
 
 # Copy to clipboard
-| xclip -selection c
+| wl-clip -i -selection c
+
+# clear clipboard
+printf '' | wl-clip -i; printf '' | wl-clip -i -selection c
 
 # List path available commands
 which "<cmd>"
