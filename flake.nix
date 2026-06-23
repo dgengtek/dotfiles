@@ -33,6 +33,7 @@
           pkgs.stow
           pkgs.python3
           scripts.lib.build
+          pkgs.home-manager
         ];
       };
 
