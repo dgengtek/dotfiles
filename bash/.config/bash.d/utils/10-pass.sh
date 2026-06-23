@@ -38,7 +38,7 @@ f_show_password() {
     result=$(echo "$data" | sed -n 1p)
   fi
 
-  if [[ -n "$DISPLAY" ]]; then
+  if [[ -n "$WAYLAND_DISPLAY" ]]; then
     echo -n "$result" | wl-clip -selection clipboard -i
     (sleep 10 && echo -n | wl-clip -selection clipboard -i &)
   else
