@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, scripts, ... }:
 {
   xdg = {
     enable = true;
@@ -12,6 +12,7 @@
     enableCompletion = true;
     sessionVariables = {
       PATH_BASH_CONFIG = config.home.homeDirectory + "/" + config.xdg.configFile."bash.d".target;
+      PATH_USER_SCRIPTS = "${scripts}";
       STARSHIP_CONFIG = "${../starship/.config/starship.toml}";
       LESSCHARSET = "utf-8";
       PAGER = "less";

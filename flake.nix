@@ -6,13 +6,13 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    scripts.url = "github:dgengtek/scripts";
 
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    scripts.url = "git+ssh://git/dgeng/scripts";
     ops-vars.url = "git+ssh://git/ops/ops-vars";
     nixutils.url = "git+ssh://git/ops/nixutils";
 
@@ -48,7 +48,11 @@
 
       homeConfigurations."dgeng@wsdg" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs-stable.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs system; libdg = inputs.nixutils.lib.${system}; };
+        extraSpecialArgs = {
+          inherit inputs system;
+          libdg = inputs.nixutils.lib.${system};
+          scripts = scripts.lib.build;
+        };
         modules = [
           self.homeManagerModules.tmux
           self.homeModules.dgeng.nvim
