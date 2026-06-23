@@ -23,7 +23,7 @@ __is_filetype() {
   if ! command -v nu 2>&1 | logger -t bashrc -p user.info; then
     return 1
   fi
-  nu --stdin -c "from $1 | describe" | rg -q "^record"
+  { nu --stdin -c "from $1 | describe" | rg -q "^record" >&/dev/null; } || false
 }
 
 alias __is_yaml="__is_filetype yaml"
