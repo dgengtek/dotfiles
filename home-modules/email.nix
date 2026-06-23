@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.programs = [ pkgs.w3m ];
+    home.packages = [ pkgs.w3m ];
 
     xdg.configFile.".mailcap".text = ''
       text/*; nvim -R %s; needsterminal
