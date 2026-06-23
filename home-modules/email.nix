@@ -12,6 +12,8 @@ in
     programs.neomutt = {
       enable = true;
       extraConfig = ''
+        set pgp_default_key = E8A7BB8D37C341113C3DCAD8853206476F1DF5A1
+        set pgp_sign_as = 0x7239FA16084C3CAD
         set hidden_host
         set abort_nosubject
         set status_on_top
