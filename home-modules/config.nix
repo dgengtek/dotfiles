@@ -1,6 +1,7 @@
 { config, options, lib, pkgs, ... }:
 {
   imports = [
+    ./etc.nix
     ./dunst.nix
     ./bash.nix
     ./tmux.nix
@@ -12,5 +13,8 @@
     ./navi.nix
     ./audio.nix
     ./sway.nix
+    ./alacritty.nix
+    ./pueue.nix
+    ./nushell.nix
   ];
 }

@@ -47,7 +47,7 @@
 
       homeConfigurations."dgeng@wsdg" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs-stable.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs; libdg = inputs.nixutils.lib.${system}; };
+        extraSpecialArgs = { inherit inputs system; libdg = inputs.nixutils.lib.${system}; };
         modules = [
           self.homeManagerModules.tmux
           self.homeModules.dgeng.nvim

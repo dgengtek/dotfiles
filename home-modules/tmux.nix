@@ -126,11 +126,6 @@
       set -g history-limit 100000
       set -g history-file ~/.tmux_history
 
-
-      ## update the TERM variable of terminal emulator when creating a new session or attaching a existing session
-      #set -g update-environment 'DISPLAY SSH_ASKPASS GPG_TTY SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY'
-      #set -g update-environment 'DISPLAY SSH_ASKPASS GPG_TTY SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY TERM'
-
       set-option -g mouse off
 
       ################################################################################
