@@ -21,7 +21,7 @@ in
       (pkgs.writeShellApplication {
         name = "firenvim-install";
         text = ''
-          exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
+          exec '${config.programs.neovim.finalPackage}/bin/nvim' --headless '+call firenvim#install(0) | q'
         '';
       })
     ];
