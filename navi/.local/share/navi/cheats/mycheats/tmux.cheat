@@ -8,6 +8,15 @@ else
   run.sh -q -n -- alacritty -e bash --init-file <(cat ~/.bashrc;echo "tmuxp load <tmuxp_session>";echo "exit 0")
 fi
 
+# view tmux config
+less $XDG_CONFIG_HOME/tmux/tmux.conf
+
+# get all keybinds
+tmux list-keys | less
+
+# reload tmux config
+tmux source-file $XDG_CONFIG_HOME/tmux/tmux.conf
+
 # copy, select in tmux
 tmux copy-mode
 
@@ -32,10 +41,10 @@ tmux lock-client -t <client>
 # lock session
 tmux lock-session -t <session>
 
-# display the environment 
+# display the environment
 tmux show-environment -t <session>
 
-# display the global environment 
+# display the global environment
 tmux show-environment -g -t <session>
 
 # show the current session name
@@ -134,7 +143,7 @@ tmux break-pane -s '<pane>' -t '<window>'
 # switch to session
 tmux switch-client -t <session>
 
-$ client: tmux list-clients --- --column 1 --delimiter ':' 
+$ client: tmux list-clients --- --column 1 --delimiter ':'
 $ session: tmux list-sessions --- --column 1 --delimiter ':' --preview 'tmux capture-pane -t {1} -p'
 $ window: tmux list-windows --- --column 1 --delimiter ':' --preview 'tmux capture-pane -t {1} -p'
 $ pane: tmux list-panes --- --column 1 --delimiter ':' --preview 'tmux capture-pane -t {1} -p'

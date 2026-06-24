@@ -1,0 +1,7 @@
+% sway, windowmanager
+
+# Get a json output of all windows in the current i3-wm session
+swaymsg -t get_tree | jq
+
+# get sway config
+less $XDG_CONFIG_HOME/sway/config
