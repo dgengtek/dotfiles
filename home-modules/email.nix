@@ -64,7 +64,7 @@ in
         alternative_order text/plain text/enriched text/html
 
         unbind index c
-        macro index 'cc' '<change-folder>?<enter>'
+        macro index 'cc' '<change-folder>'
 
         bind attach <return> view-mailcap
 
