@@ -70,8 +70,12 @@
       set-option -g bell-action other
       set-option -g set-titles on
       set-option -g set-titles-string "#T (#h:#S)"
+
       set -g default-terminal tmux-256color
       set-option -a terminal-features 'alacritty:RGB'
+      # This forces tmux to treat the TTY as having more colors than it claims
+      set -as terminal-overrides ",linux:colors=256"
+
       set-option -g focus-events on
       ################################################################################
       # pane
@@ -176,8 +180,8 @@
       bind k select-pane -U
       bind l select-pane -R
       # moving between windows with vim movement keys
-      bind -r C-h select-window -t :-
-      bind -r C-l select-window -t :+
+      bind -r C-h previous-window
+      bind -r C-l next-window
       bind Tab last-window        # move to last active window
       # resize panes with vim movement keys
       bind -r H resize-pane -L 20
