@@ -184,7 +184,7 @@ in
 
       selection = {
         save_to_clipboard = true;
-        semantic_escape_chars = ",│`|:\\\"' ()[]{}<>";
+        semantic_escape_chars = ",│`|:\"' ()[]{}<>";
       };
 
       window = {
