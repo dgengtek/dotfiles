@@ -72,8 +72,6 @@ in
         { action = "Paste"; key = "Paste"; }
         { action = "Copy"; key = "Copy"; }
         { action = "ClearLogNotice"; key = "L"; mods = "Control"; }
-        { chars = "\f"; key = "L"; mods = "Control"; }
-        # ... (Die restlichen Keybindings folgen dem gleichen Muster)
       ];
 
       mouse.bindings = [
