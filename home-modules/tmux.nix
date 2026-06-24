@@ -3,6 +3,7 @@
   programs.tmux = {
     enable = true;
     tmuxp.enable = true;
+    keyMode = "vi";
     plugins =
       with pkgs.tmuxPlugins; [
         # in any tmux mode press prefix + u to list all urls on bottom
@@ -169,7 +170,6 @@
 
 
       ################################################################################
-      set -g mode-keys vi
       # moving between panes with vim movement keys
       bind h select-pane -L
       bind j select-pane -D
