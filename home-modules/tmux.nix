@@ -1,5 +1,6 @@
 { config, options, lib, pkgs, ... }:
 {
+  xdg.configFile."tmuxp".source = ../tmux/.config/tmuxp;
   programs.tmux = {
     enable = true;
     tmuxp.enable = true;
