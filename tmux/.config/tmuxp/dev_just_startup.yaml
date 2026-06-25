@@ -1,4 +1,4 @@
-session_name: "dev rust - ${PWD}"
+session_name: "dev - ${PWD}"
 start_directory: "${PWD}" # load session relative to config location (project root).
 windows:
   - window_name: sh
@@ -7,17 +7,15 @@ windows:
     #options:
     #  main-pane-height: 35
     panes:
-      - shell_command:
-          - nvim Cargo.toml
-        focus: true
-      - just wcheck
+      - focus: true
+      - just test
   - window_name: src
     #layout: main-horizontal
     start_directory: src/
     panes:
-    - nvim main.rs
+      - null
   - window_name: tests
     #layout: main-horizontal
     start_directory: tests/
     panes:
-    - just wtest
+      - null

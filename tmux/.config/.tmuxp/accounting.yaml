@@ -1,9 +1,0 @@
-session_name: "accounting"
-start_directory: "${HOME}/bigx/workspace/accounting"
-windows:
-- window_name: accounting
-  #layout: main-horizontal
-  panes:
-    - shell_command:
-      - source ~/.local/venv/tools/bin/activate
-      - ledger b

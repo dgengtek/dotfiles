@@ -1,5 +1,5 @@
 session_name: ansible-dev
-start_directory: /mnt/hdd/bigX/ansible
+start_directory: /mnt/hdd/bigx/ansible
 windows:
   - window_name: browse
     layout: even-horizontal

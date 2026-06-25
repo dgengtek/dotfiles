@@ -6,7 +6,6 @@ windows:
     #layout: main-horizontal
     panes:
       - shell_command:
-          - "source ${HOME}/.local/venv/tools/bin/activate"
           - task
   - window_name: privat
     layout: main-vertical
@@ -18,8 +17,7 @@ windows:
           - command cd "${HOME}/mnt/privat/"
   - window_name: accounting
     #layout: main-horizontal
-    start_directory: "${HOME}/mnt/bigx/workspace/accounting"
+    start_directory: "${XDG_DATA_HOME}/repos/accounting"
     panes:
       - shell_command:
-          - source ~/.local/venv/tools/bin/activate
           - ledger b

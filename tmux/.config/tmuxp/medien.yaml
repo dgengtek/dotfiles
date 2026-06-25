@@ -1,7 +1,7 @@
 session_name: "medien"
 start_directory: "${HOME}" # load session relative to config location (project root).
 windows:
-  - window_name: mutt
+  - window_name: neomutt
     focus: True
     #layout: main-horizontal
     panes:
@@ -9,21 +9,21 @@ windows:
           - |
             mkdir /tmp/startup_gpg2_lock \
             && read \
-            && retry.sh "nix run nixpkgs/nixos-25.11#gocryptfs -- /mnt/nfs/data/privat ${HOME}/mnt/privat" \
+            && mkdir -p ${HOME}/mnt/privat \
+            && retry.sh "nix run nixpkgs/nixos-26.05#gocryptfs -- /auto/data/privat ${HOME}/mnt/privat" \
             && gpg-connect-agent updatestartuptty /bye \
             && rmdir /tmp/startup_gpg2_lock \
-            && mutt
+            && neomutt
   - window_name: 'music'
     layout: even-vertical
     panes:
       - shell_command:
           - |
-            command cd ${HOME}/downloads/music \
-            && systemctl --user restart mpd mpd-mpris mpris-proxy \
+            command cd ${HOME}/Musik \
             && mpc \
             && prompt_run.py --format pueue add -g q -- '"yt-dlp -f '"'"'(bestvideo[width>=1920]/bestvideo)+bestaudio/best'"'"' -x --no-playlist --output '"'"'%(title)s.%(ext)s'"'"' '"'"'{}'"'"'"'
       - shell_command:
           - |
-            while ! test -d '/mnt/nfs/data/music/'; do sleep 1; done \
-            && command cd /mnt/nfs/data/music/ \
+            while ! test -d '/auto/data/music/'; do sleep 1; done \
+            && command cd /auto/data/music/ \
             && fzf

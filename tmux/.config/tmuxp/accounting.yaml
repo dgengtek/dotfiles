@@ -1,0 +1,8 @@
+session_name: "accounting"
+start_directory: "${XDG_DATA_HOME}/repos/accounting"
+windows:
+  - window_name: accounting
+    #layout: main-horizontal
+    panes:
+      - shell_command:
+          - ledger b
