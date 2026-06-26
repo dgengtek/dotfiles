@@ -51,6 +51,7 @@
         extraSpecialArgs = {
           inherit inputs system;
           libdg = inputs.nixutils.lib.${system};
+          ops_vars = ops-vars.vars.${system};
         };
         modules = [
           self.homeManagerModules.tmux
