@@ -4,12 +4,12 @@ let
 in
 {
   home.file.".pulumi/credentials.json".text = builtins.toJSON {
-    current = "postgres://user_pulumi@postgres.p.${env.domain}:5432?sslmode=require\u0026connect_timeout=30";
+    current = "postgres://user_pulumi@postgres.p.${env.domain}:5432?sslmode=require\\u0026connect_timeout=30";
     accessTokens = {
-      "postgres://user_pulumi@postgres.p.${env.domain}:5432?sslmode=require\u0026connect_timeout=30" = "";
+      "postgres://user_pulumi@postgres.p.${env.domain}:5432?sslmode=require\\u0026connect_timeout=30" = "";
     };
     accounts = {
-      "postgres://user_pulumi@postgres.p.${env.domain}:5432?sslmode=require\u0026connect_timeout=30" = {
+      "postgres://user_pulumi@postgres.p.${env.domain}:5432?sslmode=require\\u0026connect_timeout=30" = {
         "lastValidatedAt" = "0001-01-01T00:00:00Z";
       };
     };
