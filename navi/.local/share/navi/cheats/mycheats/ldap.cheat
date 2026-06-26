@@ -11,3 +11,6 @@ ldapsearch -Z -W -x '(memberof=cn=admin,ou=groups,<dc>' uid
 
 # get all objects from config
 ldapsearch -H ldap://localhost:389 -W -x -b "cn=config" -D "cn=admin,cn=config" '(objectclass=*)'
+
+# get ldap schemas
+ldapsearch -Z -W -D "cn=root,cn=config" -LLL -b "cn=schema,cn=config"
