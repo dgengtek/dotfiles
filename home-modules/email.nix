@@ -63,9 +63,6 @@ in
         # view html
         alternative_order text/plain text/enriched text/html
 
-        unbind index c
-        macro index 'cc' '<change-folder>'
-
         bind attach <return> view-mailcap
 
         bind index <f8> imap-fetch-mail
