@@ -65,7 +65,16 @@ in
 
         bind attach <return> view-mailcap
 
-        bind index cf change-folder
+        set status_format = "%f %m msgs %* %P"
+
+        unbind index c
+        bind index cf "<change-folder>?" "show incoming mailboxes list"
+        macro index cc "<change-folder>$folder<enter>"
+        macro index 'ci' '<change-folder>=$spoolfile<enter>'
+        macro index 'cs' '<change-folder>=$record<enter>'
+        macro index 'ct' '<change-folder>=$trash<enter>'
+        macro index 'cd' '<change-folder>=$postponed<enter>'
+
         bind index <f8> imap-fetch-mail
 
         bind index j next-entry
