@@ -65,6 +65,7 @@ in
 
         bind attach <return> view-mailcap
 
+        bind index cf change-folder
         bind index <f8> imap-fetch-mail
 
         bind index j next-entry
