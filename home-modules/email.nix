@@ -17,6 +17,7 @@ in
     '';
     programs.neomutt = {
       enable = true;
+      unmailboxes = true;
       extraConfig = ''
         set pgp_default_key = E8A7BB8D37C341113C3DCAD8853206476F1DF5A1
         set pgp_sign_as = 0x7239FA16084C3CAD
@@ -68,12 +69,8 @@ in
         set status_format = "%f %m msgs %* %P"
 
         unbind index c
-        macro index cf "<change-folder>?"
-        macro index cc "<change-folder>$folder<enter>"
-        macro index 'ci' "<change-folder>=$spoolfile<enter>"
-        macro index 'cs' "<change-folder>=$record<enter>"
-        macro index 'ct' "<change-folder>=$trash<enter>"
-        macro index 'cd' "<change-folder>=$postponed<enter>"
+        unbind index y
+        macro index cc "<change-folder>?"
 
         bind index <f8> imap-fetch-mail
 
