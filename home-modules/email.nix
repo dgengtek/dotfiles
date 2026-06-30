@@ -70,10 +70,10 @@ in
         unbind index c
         macro index cf "<change-folder>?"
         macro index cc "<change-folder>$folder<enter>"
-        macro index 'ci' '<change-folder>=$spoolfile<enter>'
-        macro index 'cs' '<change-folder>=$record<enter>'
-        macro index 'ct' '<change-folder>=$trash<enter>'
-        macro index 'cd' '<change-folder>=$postponed<enter>'
+        macro index 'ci' "<change-folder>=$spoolfile<enter>"
+        macro index 'cs' "<change-folder>=$record<enter>"
+        macro index 'ct' "<change-folder>=$trash<enter>"
+        macro index 'cd' "<change-folder>=$postponed<enter>"
 
         bind index <f8> imap-fetch-mail
 
