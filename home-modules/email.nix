@@ -69,6 +69,7 @@ in
         set status_format = "%f %m msgs %* %P"
 
         unbind index c
+        unbind index cd
         unbind index y
         macro index cc "<change-folder>?"
 
