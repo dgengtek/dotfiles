@@ -68,7 +68,7 @@ in
         set status_format = "%f %m msgs %* %P"
 
         unbind index c
-        bind index cf "<change-folder>?" "show incoming mailboxes list"
+        macro index cf "<change-folder>?"
         macro index cc "<change-folder>$folder<enter>"
         macro index 'ci' '<change-folder>=$spoolfile<enter>'
         macro index 'cs' '<change-folder>=$record<enter>'
