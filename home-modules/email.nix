@@ -66,8 +66,6 @@ in
 
         bind attach <return> view-mailcap
 
-        set status_format = "%f %m msgs %* %P"
-
         unbind index c
         unbind index cd
         unbind index y
