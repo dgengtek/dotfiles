@@ -303,6 +303,7 @@ in
         plugins = with pkgs.vimPlugins; [
           nvim-lspconfig
           lsp_signature-nvim
+          nvim-autopairs
           # {
           #   plugin = nvim-dap;
           #   type = "lua";
