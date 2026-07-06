@@ -18,6 +18,18 @@ in
     programs.neomutt = {
       enable = true;
       unmailboxes = true;
+      binds = [
+        {
+          key = "c";
+          map = "index";
+          action = "noop";
+        }
+        {
+          key = "cd";
+          map = "index";
+          action = "noop";
+        }
+      ];
       extraConfig = ''
         set pgp_default_key = E8A7BB8D37C341113C3DCAD8853206476F1DF5A1
         set pgp_sign_as = 0x7239FA16084C3CAD
@@ -66,8 +78,6 @@ in
 
         bind attach <return> view-mailcap
 
-        unbind index c
-        unbind index cd
         unbind index y
         macro index cc "<change-folder>?"
 
