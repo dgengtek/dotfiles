@@ -25,6 +25,9 @@ du -sh
 # list inode usage
 df --inodes
 
+# shred all files in directory
+fd --type d --hidden --print0 . "<path>" | parallel -0 shred -uvz
+
 # shred safely
 shred -uzn 3
 

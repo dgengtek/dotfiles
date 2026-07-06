@@ -208,6 +208,15 @@ nix run github:nix-community/nixos-generators -- -c ./configuration.nix -f qcow
 # get flake inputs dependencies
 nix flake metadata
 
+# option do not hit narinfo cache
+--option narinfo-cache-negative-ttl 0
+
+# option timeout fast
+--option connect-timeout 5
+
+# option local build only
+--max-jobs <max_jobs> --fallback --option builders '' --option builders-use-substitutes false --option substituters 'https://cache.nixos.org/' --option extra-substituters ''
+
 # export nar archive of a nix closure
 nix-store --export $(nix-store --query --requisites $(nix path-info --derivation <package>)) |
 
