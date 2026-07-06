@@ -21,12 +21,12 @@ in
       binds = [
         {
           key = "c";
-          map = "index";
+          map = [ "index" ];
           action = "noop";
         }
         {
           key = "cd";
-          map = "index";
+          map = [ "index" ];
           action = "noop";
         }
       ];
