@@ -255,9 +255,9 @@ in
               config = ''require("colorizer").setup({})'';
             }
             {
-              plugin = comment-nvim;
+              plugin = mini-comment;
               type = "lua";
-              config = ''require("Comment").setup()'';
+              config = ''require("mini.comment").setup()'';
             }
             kanagawa-nvim
             solarized-nvim
