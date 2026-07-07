@@ -9,16 +9,16 @@ local nmap = build_keymap_set("n")
 local vmap = build_keymap_set("v")
 
 -- coq Keybindings
-imap("<Esc>", [[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]], { expr = true, silent = true })
-imap("<C-c>", [[pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]], { expr = true, silent = true })
-imap("<BS>", [[pumvisible() ? "\<C-e><BS>" : "\<BS>"]], { expr = true, silent = true })
+imap("<Esc>", [[pumvisible() ? "<C-e><Esc>" : "<Esc>"]], { expr = true, silent = true })
+imap("<C-c>", [[pumvisible() ? "<C-e><C-c>" : "<C-c>"]], { expr = true, silent = true })
+imap("<BS>", [[pumvisible() ? "<C-e><BS>" : "<BS>"]], { expr = true, silent = true })
 imap(
 	"<CR>",
-	[[pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"]],
+	[[pumvisible() ? (complete_info().selected == -1 ? "<C-e><CR>" : "<C-y>") : "<CR>"]],
 	{ expr = true, silent = true }
 )
-imap("<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true, silent = true })
-imap("<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<BS>"]], { expr = true, silent = true })
+imap("<Tab>", [[pumvisible() ? "<C-n>" : "<Tab>"]], { expr = true, silent = true })
+imap("<S-Tab>", [[pumvisible() ? "<C-p>" : "<BS>"]], { expr = true, silent = true })
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
