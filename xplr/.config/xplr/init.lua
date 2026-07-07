@@ -67,6 +67,9 @@ xplr.config.layouts.custom.inspectdir = {
 	},
 }
 
+-- Basic settings
+xplr.config.general.mouse_enabled = false
+
 xplr.config.general.table.header.cols = {
 	{ format = "index", style = {} },
 	{ format = "path", style = {} },
@@ -284,5 +287,29 @@ xplr.config.modes.builtin.switch_layout.key_bindings.on_key["p"] = {
 	messages = {
 		"PopMode",
 		{ SwitchLayoutCustom = "split_preview" },
+	},
+}
+
+-- Define custom keybindings
+xplr.config.modes.builtin.default.key_bindings.on_key["c"] = {
+	help = "custom commands",
+	messages = {
+		{ SwitchModeCustom = "custom_commands" },
+	},
+}
+
+xplr.config.modes.custom.custom_commands = {
+	name = "custom commands",
+	key_bindings = {
+		on_key = {
+			["n"] = {
+				help = "new tmux window",
+				messages = { { BashExec = "tmux neww -c $PWD" } },
+			},
+			["r"] = {
+				help = "open alacritty",
+				messages = { { BashExec = "alacritty &" } },
+			},
+		},
 	},
 }

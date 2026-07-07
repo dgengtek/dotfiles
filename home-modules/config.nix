@@ -16,5 +16,14 @@
     ./alacritty.nix
     ./pueue.nix
     ./nushell.nix
+    ./yazi.nix
+    ./xplr.nix
+    ./zathura.nix
+    ./rofi.nix
+    ./broot.nix
+    ./zk.nix
+    ./less.nix
+    ./taskwarrior.nix
+    ./procs.nix
   ];
 }
