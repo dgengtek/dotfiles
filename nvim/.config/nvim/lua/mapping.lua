@@ -9,13 +9,16 @@ local nmap = build_keymap_set("n")
 local vmap = build_keymap_set("v")
 
 -- coq Keybindings
-imap("<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true, desc = "abort coq" })
-imap("<c-c>", [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true, desc = "abort coq" })
-imap("<tab>", [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true, desc = "select next" })
-imap("<s-tab>", [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true, desc = "select previous" })
--- coq defaults
--- imap('<bs>', [[pumvisible() ? "<c-e><bs>"  : "<bs>"]], { expr = true, noremap = true })
--- imap('<cr>', [[pumvisible() ? (complete_info().selected == -1 ? "<c-e><cr>" : "<c-y>") : "<cr>"]], { expr = true, noremap = true })
+imap("<Esc>", [[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]], { expr = true, silent = true })
+imap("<C-c>", [[pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]], { expr = true, silent = true })
+imap("<BS>", [[pumvisible() ? "\<C-e><BS>" : "\<BS>"]], { expr = true, silent = true })
+imap(
+	"<CR>",
+	[[pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"]],
+	{ expr = true, silent = true }
+)
+imap("<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true, silent = true })
+imap("<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<BS>"]], { expr = true, silent = true })
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
