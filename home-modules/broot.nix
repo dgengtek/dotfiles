@@ -1,5 +1,31 @@
 { config, options, lib, pkgs, ... }:
 {
+  xdg.configFile = {
+    "broot/cd.toml".text = ''
+      [[verbs]]
+      invocation = "ok"
+      key = "enter"
+      leave_broot = true
+      execution = ":cd"
+      apply_to = "directory"
+    '';
+    "broot/select.toml".text = ''
+      [[verbs]]
+      invocation = "ok"
+      key = "enter"
+      leave_broot = true
+      execution = ":print_path"
+      apply_to = "file"
+    '';
+    "broot/selectd.toml".text = ''
+      [[verbs]]
+      invocation = "ok"
+      key = "enter"
+      leave_broot = true
+      execution = ":print_path"
+      apply_to = "directory"
+    '';
+  };
   programs.broot = {
     enable = true;
 
