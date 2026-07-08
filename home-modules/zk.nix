@@ -67,7 +67,7 @@ in
       };
     };
   };
-  home.file.".config/zk/templates" = {
+  xdg.configFile."zk/templates" = {
     source = ../zk/.config/zk/templates;
     recursive = true;
   };
