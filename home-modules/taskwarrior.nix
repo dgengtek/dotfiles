@@ -100,7 +100,7 @@
 
       report.next.columns=id,project,tags,context,state,description.count,outcome,urgency
       report.next.labels=ID,Project,Tags,Context,State,Description,Outcome,U
-      report.next.filter=status:pending -WAITING ((state:'nextaction' and project:'''') or state:'proj' or state:'await') limit:page -BLOCKED
+      report.next.filter=status:pending -WAITING ((state:'nextaction' and project:''') or state:'proj' or state:'await') limit:page -BLOCKED
 
       report.decide.columns=id,priority,value,effort,description,tags,context,state,outcome,project
       report.decide.labels=ID,Priority,Value,Effort,Desc,Tags,Context,State,Outcome,Project
