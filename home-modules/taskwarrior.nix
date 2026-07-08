@@ -1,8 +1,44 @@
 { config, options, lib, pkgs, ... }:
+let
+  data = "${config.xdg.dataHome}/task";
+  hooks =
+    pkgs.python3Packages.buildPythonApplication {
+      pname = "taskwarrior-hooks";
+      version = "1.0";
+
+      src = ../taskwarrior/.task/hooks;
+      format = "other";
+
+      dependencies = [ pkgs.python3Packages.tasklib ];
+
+      dontBuild = true;
+      installPhase = ''
+        TARGET_DIR=$out/${pkgs.python3.sitePackages}
+        mkdir -p $TARGET_DIR
+        mkdir -p $out/bin
+
+        cp task_utilities.py $TARGET_DIR/
+        cp task_tags_relation_mapping.py $TARGET_DIR/
+
+        cp *.py $out/bin/
+        # filter libs
+        rm $out/bin/task_utilities.py $out/bin/task_tags_relation_mapping.py
+
+        chmod +x $out/bin/*.py
+      '';
+    };
+in
 {
+  xdg.dataFile = {
+    "task/hooks/on-add-priority".source = "${hooks}/bin/on-add-priority.py";
+    "task/hooks/on-add-tags-map".source = "${hooks}/bin/task_tags_relation_mapping_add.py";
+    "task/hooks/on-modify-priority".source = "${hooks}/bin/on-add-priority.py";
+    "task/hooks/on-modify-tags-maps".source = "${hooks}/bin/task_tags_relation_mapping_modify.py";
+    "task/hooks/on-modify.timewarrior".source = "${hooks}/bin/on-modify.timewarrior.py";
+  };
   programs.taskwarrior = {
     enable = true;
-    dataLocation = "~/.task";
+    dataLocation = data;
     colorTheme = "dark-violets-256";
 
     extraConfig = ''
@@ -91,7 +127,7 @@
       urgency.user.tag.life.coefficient=5
       urgency.user.tag.lifegoal.coefficient=5
 
-        # --- Reports ---
+      # --- Reports ---
       report.mailr.labels=Project,Description,Dependency,Tags,Due,Sched,Start,Until,End,Entry
       report.mailr.columns=project,description,depends,tags,due.remaining,scheduled.countdown,start.age,until.remaining,end.remaining,entry.age
       report.mailr.filter=status:pending -WAITING
@@ -107,10 +143,11 @@
       report.decide.filter=(status:pending -WAITING) and state.not:'proj' and state.not:'maybe' -project limit:page
       report.decide.sort=urgency-
 
-      report.maybe.columns=id,priority,project,context,description.count,outcome
-      report.maybe.labels=ID,P,Project,Context,Description,Outcome
-      report.maybe.filter=state:maybe
-      report.maybe.sort=urgency-
+      report.review.columns=id,priority,project,context,description.count,outcome
+      report.review.labels=ID,P,Project,Context,Description,Outcome
+      report.review.filter=state:maybe
+      report.review.sort=urgency-
+      report.review.description=Review maybe tasks
 
       report.inbox.columns=id,priority,project,context,description.count,outcome
       report.inbox.labels=ID,P,Project,Context,Description,Outcome
@@ -140,12 +177,6 @@
       report.project.filter=(state:proj or +project) and limit:none and project.not:""
       report.project.labels=ID,A,Deps,T,Desc,State,R,Wait,S,Due,Until,Note
       report.project.sort=urgency-,due+
-
-      report.review.columns=id,project,tags,state,description
-      report.review.labels=ID,Project,Tags,State,Description
-      report.review.filter=state:maybe or state:proj
-      report.review.sort=project+,urgency-
-      report.review.description=Review projects and 'maybe' items.
 
       report.focus.columns=id,project,description
       report.focus.labels=ID,Project,Description
