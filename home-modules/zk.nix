@@ -45,9 +45,9 @@ in
 
       tool = {
         editor = "nvim";
-        shell = lib.getBin pkgs.bashInteractive;
-        pager = "${lib.getBin pkgs.less} -FIRX";
-        fzf-preview = "${lib.getBin pkgs.bat} -p --color always {-1}";
+        shell = lib.getExe pkgs.bashInteractive;
+        pager = "${lib.getExe pkgs.less} -FIRX";
+        fzf-preview = "${lib.getExe pkgs.bat} -p --color always {-1}";
         fzf-options = "--multi";
       };
 
