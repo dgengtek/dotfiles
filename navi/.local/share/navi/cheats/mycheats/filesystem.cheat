@@ -26,7 +26,7 @@ du -sh
 df --inodes
 
 # shred all files in directory
-fd --type f --hidden --print0 . "<path>" | parallel -0 shred -uvz
+fd --type f --hidden --print0 . "<rdirectory>" | parallel -0 shred -uvz
 
 # shred safely
 shred -uzn 3

@@ -27,6 +27,9 @@ echo <envvars_tmux>
 # select a relative directory or bookmarked directory
 <directory>
 
+# select a relative directory
+<rdirectory>
+
 # select a yaml file
 <compgen_file_yaml>
 
@@ -56,6 +59,7 @@ $ compgen_file_json: fd --type f --follow --exclude ".git" '.*\.json' "<path>" -
 
 $ fsbookmark: zoxide query -l --- --preview 'tree -C {} | head -200'
 $ directory: { zoxide query -l; fd --type d --hidden --follow --exclude ".git"; } --- --preview 'tree -C {} | head -200'
+$ rdirectory: fd --type d --hidden --follow --exclude ".git" --- --preview 'tree -C {} | head -200'
 $ filename: fd --type f --follow --exclude ".git" . "<directory>" --- --preview 'bat --color=always --style=numbers --line-range=:500 {}'
 
 $ binary: compgen -c | uniq
