@@ -26,5 +26,7 @@
     ./taskwarrior.nix
     ./procs.nix
     ./mpd.nix
+    ./jrnl.nix
+    ./ledger.nix
   ];
 }
