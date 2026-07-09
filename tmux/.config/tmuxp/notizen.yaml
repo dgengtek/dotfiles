@@ -12,7 +12,7 @@ windows:
           - jrnl
   - window_name: notizbuch
     layout: even-horizontal
-    start_directory: ~/notizbuch
+    start_directory: "${ZK_NOTEBOOK_DIR}"
     focus: true
     panes:
       - shell_command:
@@ -29,6 +29,6 @@ windows:
     layout: even-horizontal
     panes:
       - shell_command:
-          - while ! test -d "${HOME}/mnt/privat/notizbuch_privat/"; do sleep 1; done
+          - while ! test -d "${HOME}/mnt/privat/zettelkasten/"; do sleep 1; done
           - command cd "${HOME}/mnt/privat/zettelkasten"
           - zk index; zk list --format oneline --limit 30 --sort modified
