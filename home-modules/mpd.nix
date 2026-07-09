@@ -11,7 +11,7 @@ in
     };
     mpd = {
       enable = true;
-      musicDirectory = "/auto/data/${config.home.username}/music";
+      musicDirectory = "/auto/data/music";
       network = {
         inherit port listenAddress;
       };
