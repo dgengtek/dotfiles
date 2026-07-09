@@ -25,5 +25,6 @@
     ./less.nix
     ./taskwarrior.nix
     ./procs.nix
+    ./mpd.nix
   ];
 }
