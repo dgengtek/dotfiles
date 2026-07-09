@@ -10,7 +10,7 @@
     height = 600
     origin = top-right
     notification_limit = 20
-    offset = 20x30
+    offset = 00x60
     alignment = center
     show_age_threshold = 60
     sticky_history = yes
