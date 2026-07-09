@@ -17,4 +17,5 @@ in
       };
     };
   };
+  home.packages = [ pkgs.mpc ];
 }
