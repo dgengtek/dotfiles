@@ -15,6 +15,25 @@ in
     xdg = {
       enable = true;
       configFile."nvim/lua".source = ./. + "/${nvim_path}/lua";
+      desktopEntries = lib.optionalAttrs pkgs.stdenv.isLinux {
+        neovim = {
+          name = "Neovim";
+          genericName = "editor";
+          exec = "nvim -f %F";
+          mimeType = [
+            "text/html"
+            "text/xml"
+            "text/plain"
+            "text/english"
+            "text/x-makefile"
+            "text/x-c++hdr"
+            "text/x-tex"
+            "application/x-shellscript"
+          ];
+          terminal = false;
+          type = "Application";
+        };
+      };
     };
 
     home.packages = [
@@ -85,7 +104,10 @@ in
             # required for syntax highlighting and folds.
             treesitter-queries = map (p: p.associatedQuery) treesitter-grammars;
           in
-          with pkgs.vimPlugins; [
+          with pkgs.vimPlugins;
+          treesitter-grammars ++
+          treesitter-queries ++
+          [
             nvim-treesitter
             nvim-treesitter-context
             nvim-treesitter-textobjects
