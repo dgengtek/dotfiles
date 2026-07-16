@@ -15,6 +15,12 @@ in
       network = {
         inherit port listenAddress;
       };
+      extraConfig = ''
+        audio_output {
+          type "pulse"
+          name "MPD pipewire-pulse output"
+        }
+      '';
     };
   };
   home.packages = [ pkgs.mpc ];
