@@ -14,6 +14,6 @@
 
   sops = {
     age.keyFile = "${config.xdg.configHome}/.age.key";
-    defaultSopsFile = ./secrets.yaml;
+    defaultSopsFile = ../secrets.yaml;
   };
 }
