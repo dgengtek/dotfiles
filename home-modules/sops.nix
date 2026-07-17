@@ -13,6 +13,7 @@
   };
 
   sops = {
+    gnupg.home = "${config.home.homeDirectory}/.gnupg";
     age.keyFile = "${config.xdg.configHome}/.age.key";
     defaultSopsFile = ../secrets.yaml;
   };
