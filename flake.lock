@@ -63603,11 +63603,11 @@
         "systems": "systems_372"
       },
       "locked": {
-        "lastModified": 1783356754,
-        "narHash": "sha256-eE5PvE2lsL9Ri9Fz3gTcvf+17WZVHWScn9Zv00In4S4=",
+        "lastModified": 1784135839,
+        "narHash": "sha256-1Q1TzFDVf8v+DKMrRXPgvREUdo/d/W6IndBGCqGVBH0=",
         "ref": "refs/heads/master",
-        "rev": "3031b07e519d4be6b5319f3c22192849e96fea07",
-        "revCount": 189,
+        "rev": "9aad40bc1d0d7514189a4d638854ddff902a027f",
+        "revCount": 191,
         "type": "git",
         "url": "ssh://git/ops/nixutils"
       },
@@ -68783,11 +68783,11 @@
         "systems": "systems_747"
       },
       "locked": {
-        "lastModified": 1783523973,
-        "narHash": "sha256-2AU8Sl+oFk2gdVZaWwrYKW3S5GgammbZQBsGs4IcTmg=",
+        "lastModified": 1784127788,
+        "narHash": "sha256-9rJgmKNvzp2co5xpcv/a0BODRx1/5cmb1YIQT2pCJcA=",
         "ref": "refs/heads/master",
-        "rev": "8e8e27cfc9ed9e08102aad30f4da0a4e9deee253",
-        "revCount": 475,
+        "rev": "0b9cc662fa30e1cbdad4119f8bf3bf30957dd6f9",
+        "revCount": 479,
         "type": "git",
         "url": "ssh://git/ops/ops-vars"
       },
@@ -111171,11 +111171,11 @@
         "uv2nix": "uv2nix_350"
       },
       "locked": {
-        "lastModified": 1782238039,
-        "narHash": "sha256-0h3ZCgBRd8UbKfrdlPXYqeBAZvvEc5pdgOfKIUAz/f8=",
+        "lastModified": 1784312476,
+        "narHash": "sha256-Kbd6UtCb3KydmewSYjrBOGASgx/vUXyuNUcIDCn23/Q=",
         "ref": "refs/heads/master",
-        "rev": "b07a97c5866ce1e744ff17fa5ee7fd2650cead35",
-        "revCount": 651,
+        "rev": "6605fe2c0ab1aaab7a841bae2a0b99ecbcd205d8",
+        "revCount": 655,
         "type": "git",
         "url": "ssh://git/dgeng/scripts"
       },

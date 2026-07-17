@@ -28,5 +28,6 @@
     ./mpd.nix
     ./jrnl.nix
     ./ledger.nix
+    ./minio-client.nix
   ];
 }
