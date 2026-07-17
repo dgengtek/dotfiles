@@ -72,7 +72,7 @@ in
         #extraLuaConfig = "";
         plugins =
           let
-            treesitter-grammars = with pkgs.nvim-treesitter-parsers; [
+            treesitter-grammars = with pkgs.vimPlugins.nvim-treesitter-parsers; [
               nix
               python
               rust
