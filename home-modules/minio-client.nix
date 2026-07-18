@@ -5,8 +5,7 @@ in
 {
   home = {
     sessionVariables = {
-      MC_CONFIG_DIR = "${config.xdg.configHome}/mc/config.json";
-
+      MC_CONFIG_DIR = "${config.xdg.configHome}/mc";
     };
   };
 
