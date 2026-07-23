@@ -25,7 +25,7 @@ in
         "version": "10",
         "aliases": {
           "bigdata": {
-            "url": "https,,/api-bigdata.p.${env.domain}",
+            "url": "https://api-bigdata.p.${env.domain}",
             "accessKey": "${config.sops.placeholder."minio_access_key"}",
             "secretKey": "${config.sops.placeholder."minio_secret_key"}",
             "api": "s3v4",
