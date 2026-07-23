@@ -12,10 +12,12 @@ in
   systemd.user.tmpfiles.rules = [
     "L ${config.xdg.configHome}/mc/config.json - - - - ${config.sops.templates.mc_config.path}"
   ];
+
   sops.secrets = {
     minio_access_key = { };
     minio_secret_key = { };
   };
+
   # xdg.configFile."mc/config.json" = config.sops.templates.mc_config.path;
   sops.templates."mc_config" = {
     content = ''
@@ -29,15 +31,15 @@ in
             "api": "s3v4",
             "path": "auto"
           },
-          "bigtmp = {
-            "url = "https://api-bigtmp.p.${env.domain}",
+          "bigtmp": {
+            "url": "https://api-bigtmp.p.${env.domain}",
             "accessKey": "${config.sops.placeholder."minio_access_key"}",
             "secretKey": "${config.sops.placeholder."minio_secret_key"}",
             "api": "s3v4",
             "path": "auto"
           },
-          "builds = {
-            "url = "https://api-builds.p.${env.domain}",
+          "builds": {
+            "url": "https://api-builds.p.${env.domain}",
             "accessKey": "${config.sops.placeholder."minio_access_key"}",
             "secretKey": "${config.sops.placeholder."minio_secret_key"}",
             "api": "s3v4",
