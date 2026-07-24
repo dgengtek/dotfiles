@@ -29,5 +29,6 @@
     ./jrnl.nix
     ./ledger.nix
     ./minio-client.nix
+    ./anki.nix
   ];
 }
