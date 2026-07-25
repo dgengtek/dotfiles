@@ -1,11 +1,8 @@
-version = "1.1.0"
-
-local home = os.getenv("HOME")
-package.path = home .. "/.config/xplr/plugins/?/init.lua;" .. home .. "/.config/xplr/plugins/?.lua;" .. package.path
+-- local home = os.getenv("HOME")
 
 ---@diagnostic disable
 -- selene: allow(unscoped_variables)
-local xplr = xplr or {}
+xplr = xplr or {}
 ---@diagnostic enable
 xplr.config.modes.custom.fzxplr = {
 	name = "fzxplr",
@@ -69,7 +66,7 @@ xplr.config.layouts.custom.inspectdir = {
 }
 
 -- Basic settings
-xplr.config.general.mouse_enabled = false
+xplr.config.general.enable_mouse = false
 
 xplr.config.general.table.header.cols = {
 	{ format = "index", style = {} },
