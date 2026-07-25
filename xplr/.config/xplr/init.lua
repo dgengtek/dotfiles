@@ -1,10 +1,11 @@
-version = "0.21.9"
+version = "1.1.0"
 
 local home = os.getenv("HOME")
 package.path = home .. "/.config/xplr/plugins/?/init.lua;" .. home .. "/.config/xplr/plugins/?.lua;" .. package.path
 
 ---@diagnostic disable
-local xplr = xplr -- The globally exposed configuration to be overridden.
+-- selene: allow(unscoped_variables)
+local xplr = xplr or {}
 ---@diagnostic enable
 xplr.config.modes.custom.fzxplr = {
 	name = "fzxplr",
@@ -15,13 +16,13 @@ xplr.config.modes.custom.fzxplr = {
 				messages = {
 					{
 						BashExec = [===[
-              PTH=$(cat "${XPLR_PIPE_DIRECTORY_NODES_OUT:?}" | awk -F/ '{print $NF}' | fzf)
-              if [ -d "$PTH" ]; then
-                "$XPLR" -m 'ChangeDirectory: %q' "$PTH"
-              else
-                "$XPLR" -m 'FocusPath: %q' "$PTH"
-              fi
-            ]===],
+  PTH=$(cat "${XPLR_PIPE_DIRECTORY_NODES_OUT:?}" | awk -F/ '{print $NF}' | fzf)
+  if [ -d "$PTH" ]; then
+  "$XPLR" -m 'ChangeDirectory: %q' "$PTH"
+  else
+  "$XPLR" -m 'FocusPath: %q' "$PTH"
+  fi
+]===],
 					},
 					"PopMode",
 				},
