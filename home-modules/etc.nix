@@ -16,7 +16,11 @@ in
       };
     };
   };
-
+  home.packages = [
+    pkgs.zathura
+    pkgs.foliate
+    pkgs.swayimg
+  ];
   xdg = {
     mime.enable = true;
     mimeApps = {
@@ -40,11 +44,11 @@ in
         "x-scheme-handler/about" = [ "firefox.desktop" ];
         "x-scheme-handler/unknown" = [ "firefox.desktop" ];
 
-        "images/png" = [ "feh.desktop" ];
-        "images/jpg" = [ "feh.desktop" ];
-        "images/webp" = [ "feh.desktop" ];
-        "images/svg+xml" = [ "feh.desktop" ];
-        "images/jpeg" = [ "feh.desktop" ];
+        "images/png" = [ "swayimg.desktop" ];
+        "images/jpg" = [ "swayimg.desktop" ];
+        "images/webp" = [ "swayimg.desktop" ];
+        "images/svg+xml" = [ "swayimg.desktop" ];
+        "images/jpeg" = [ "swayimg.desktop" ];
       };
     };
   };
