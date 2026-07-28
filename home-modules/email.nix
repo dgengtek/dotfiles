@@ -6,7 +6,7 @@ let
     name = "addAttachments";
     runtimeInputs = [ pkgs.fzf pkgs.fd ];
     text = ''
-      cd $HOME
+      cd "$HOME"
 
       export FZF_DEFAULT_COMMAND='fd -t f -e pdf -e png -e jpg -e zip -e tar -e gz -e rar -e html -e md --absolute-path'
 
