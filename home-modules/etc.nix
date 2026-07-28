@@ -16,4 +16,36 @@ in
       };
     };
   };
+
+  xdg = {
+    mime.enable = true;
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = [ "zathura.desktop" ];
+
+        "application/epub+zip" = [ "com.github.johnfactotum.Foliate.desktop" ];
+        "application/x-mobipocket-ebook" = [ "com.github.johnfactotum.Foliate.desktop" ];
+
+        "application/x-extension-htm" = [ "firefox.desktop" ];
+        "application/x-extension-html" = [ "firefox.desktop" ];
+        "application/x-extension-shtml" = [ "firefox.desktop" ];
+        "application/x-extension-xht" = [ "firefox.desktop" ];
+        "application/x-extension-xhtml" = [ "firefox.desktop" ];
+        "application/xhtml+xml" = [ "firefox.desktop" ];
+        "text/html" = [ "firefox.desktop" ];
+        "x-scheme-handler/chrome" = [ "firefox.desktop" ];
+        "x-scheme-handler/http" = [ "firefox.desktop" ];
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
+        "x-scheme-handler/about" = [ "firefox.desktop" ];
+        "x-scheme-handler/unknown" = [ "firefox.desktop" ];
+
+        "images/png" = [ "feh.desktop" ];
+        "images/jpg" = [ "feh.desktop" ];
+        "images/webp" = [ "feh.desktop" ];
+        "images/svg+xml" = [ "feh.desktop" ];
+        "images/jpeg" = [ "feh.desktop" ];
+      };
+    };
+  };
 }
