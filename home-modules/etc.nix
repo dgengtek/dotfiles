@@ -46,11 +46,11 @@ in
         "x-scheme-handler/about" = [ "firefox.desktop" ];
         "x-scheme-handler/unknown" = [ "firefox.desktop" ];
 
-        "images/png" = [ "swayimg.desktop" ];
-        "images/jpg" = [ "swayimg.desktop" ];
-        "images/webp" = [ "swayimg.desktop" ];
-        "images/svg+xml" = [ "swayimg.desktop" ];
-        "images/jpeg" = [ "swayimg.desktop" ];
+        "image/png" = [ "swayimg.desktop" ];
+        "image/jpg" = [ "swayimg.desktop" ];
+        "image/webp" = [ "swayimg.desktop" ];
+        "image/svg+xml" = [ "swayimg.desktop" ];
+        "image/jpeg" = [ "swayimg.desktop" ];
 
         "video/avi" = [ "mplayer.desktop" "smplayer.desktop" ];
         "video/mp4" = [ "mplayer.desktop" "smplayer.desktop" ];
@@ -85,11 +85,11 @@ in
         "audio/ogg" = [ "mplayer.desktop" "smplayer.desktop" ];
       };
       associations.removed = {
-        "images/png" = [ "gimagereader-gtk.desktop" ];
-        "images/jpg" = [ "gimagereader-gtk.desktop" ];
-        "images/webp" = [ "gimagereader-gtk.desktop" ];
-        "images/svg+xml" = [ "gimagereader-gtk.desktop" ];
-        "images/jpeg" = [ "gimagereader-gtk.desktop" ];
+        "image/png" = [ "gimagereader-gtk.desktop" ];
+        "image/jpg" = [ "gimagereader-gtk.desktop" ];
+        "image/webp" = [ "gimagereader-gtk.desktop" ];
+        "image/svg+xml" = [ "gimagereader-gtk.desktop" ];
+        "image/jpeg" = [ "gimagereader-gtk.desktop" ];
 
         "application/pdf" = [ "calibre.desktop" ];
         "application/epub+zip" = [ "calibre.desktop" ];
