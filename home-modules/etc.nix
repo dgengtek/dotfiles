@@ -16,10 +16,12 @@ in
       };
     };
   };
-  home.packages = [
-    pkgs.zathura
-    pkgs.foliate
-    pkgs.swayimg
+  home.packages = with pkgs; [
+    zathura
+    foliate
+    swayimg
+    mplayer
+    smplayer
   ];
   xdg = {
     mime.enable = true;
@@ -49,6 +51,38 @@ in
         "images/webp" = [ "swayimg.desktop" ];
         "images/svg+xml" = [ "swayimg.desktop" ];
         "images/jpeg" = [ "swayimg.desktop" ];
+
+        "video/avi" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/mp4" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/flv" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/mpeg" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/quicktime" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/vnd.rn-realvideo" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/x-matroska" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/x-ms-asf" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/x-msvideo" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/x-ms-wmv" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/x-ogm+ogg" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/x-theora" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/webm" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/ac3" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/mp4" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/mpeg" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/vnd.rn-realaudio" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/vorbis" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-adpcm" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-matroska" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-mp2" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-mp3" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-ms-wma" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-vorbis" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-wav" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/mpegurl" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-mpegurl" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-scpls" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/x-pn-realaudio" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/flac" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "audio/ogg" = [ "mplayer.desktop" "smplayer.desktop" ];
       };
       associations.removed = {
         "images/png" = [ "gimagereader-gtk.desktop" ];
