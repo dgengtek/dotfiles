@@ -2,6 +2,19 @@
 let
   accountFilename = account: config.xdg.configHome + "/neomutt/" + account.name;
   cfg = config.dotfiles.email;
+  addAttachments = pkgs.writeShellApplication {
+    name = "addAttachments";
+    runtimeInputs = [ pkgs.fzf pkgs.fd ];
+    text = ''
+      cd $HOME
+
+      export FZF_DEFAULT_COMMAND='fd -t f -e pdf -e png -e jpg -e zip -e tar -e gz -e rar -e html -e md --absolute-path'
+
+      while read -d $'\0' -r attachment; do
+        echo "push 'a$attachment<enter>'"
+      done < <(fzf --print0 -m --prompt='Choose attachments >')
+    '';
+  };
 in
 {
   options.dotfiles.email = with lib; {
@@ -9,13 +22,24 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.w3m ];
+    home.packages = [
+      pkgs.lynx
+      pkgs.poppler-utils
+      pkgs.pandoc
+    ];
 
-    xdg.configFile.".mailcap".text = ''
+    xdg.configFile."mailcap".text = ''
       text/*; nvim -R %s; needsterminal
-      text/html; w3m -dump %s; needsterminal; copiousoutput
+      text/html; lynx -dump %s; needsterminal; copiousoutput
+
+      application/pdf; pdftotext -layout %s -; copiousoutput;
+      # application/pdf; /usr/bin/xdg-open %s ; copiousoutput
+      application/postscript ; /usr/bin/xdg-open %s ; copiousoutput
+      application/msword; pandoc --from docx --to plain %s; copiousoutput
+      application/rtf; pandoc --from rtf --to plain %s; copiousoutput
     '';
     programs.neomutt = {
+      # https://docs.neomutt.org/reference/config
       enable = true;
       unmailboxes = true;
       binds = [
@@ -38,6 +62,7 @@ in
         set status_on_top
         set menu_move_off = no
         set menu_scroll = no
+        unset message_id_format
 
         set sort_alias = alias
         set reverse_alias = yes
@@ -77,8 +102,12 @@ in
         alternative_order text/plain text/enriched text/html
 
         bind attach <return> view-mailcap
+        set mailcap_path = "${config.xdg.configHome}/mailcap"
+        set preferred_languages = "de,en"
 
         unbind index y
+        unbind editor <space>
+        macro compose \Ca ":source ${addAttachments}|<enter>"
         macro index cc "<change-folder>?"
 
         bind index <f8> imap-fetch-mail
