@@ -1,0 +1,7 @@
+% nixos
+
+# user profile
+ls /etc/profiles/per-user/$(id -n -u)
+
+# global profile
+ls /run/current-system/sw/
