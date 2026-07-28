@@ -51,5 +51,12 @@ in
         "images/jpeg" = [ "swayimg.desktop" ];
       };
     };
+    associations.removed = {
+      "images/png" = [ "gimagereader-gtk.desktop" ];
+      "images/jpg" = [ "gimagereader-gtk.desktop" ];
+      "images/webp" = [ "gimagereader-gtk.desktop" ];
+      "images/svg+xml" = [ "gimagereader-gtk.desktop" ];
+      "images/jpeg" = [ "gimagereader-gtk.desktop" ];
+    };
   };
 }
