@@ -50,13 +50,17 @@ in
         "images/svg+xml" = [ "swayimg.desktop" ];
         "images/jpeg" = [ "swayimg.desktop" ];
       };
-    };
-    associations.removed = {
-      "images/png" = [ "gimagereader-gtk.desktop" ];
-      "images/jpg" = [ "gimagereader-gtk.desktop" ];
-      "images/webp" = [ "gimagereader-gtk.desktop" ];
-      "images/svg+xml" = [ "gimagereader-gtk.desktop" ];
-      "images/jpeg" = [ "gimagereader-gtk.desktop" ];
+      associations.removed = {
+        "images/png" = [ "gimagereader-gtk.desktop" ];
+        "images/jpg" = [ "gimagereader-gtk.desktop" ];
+        "images/webp" = [ "gimagereader-gtk.desktop" ];
+        "images/svg+xml" = [ "gimagereader-gtk.desktop" ];
+        "images/jpeg" = [ "gimagereader-gtk.desktop" ];
+
+        "application/pdf" = [ "calibre.desktop" ];
+        "application/epub+zip" = [ "calibre.desktop" ];
+        "application/x-mobipocket-ebook" = [ "calibre.desktop" ];
+      };
     };
   };
 }
