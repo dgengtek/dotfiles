@@ -21,14 +21,14 @@ in
     foliate
     swayimg
     mplayer
-    smplayer
+    vlc
   ];
   xdg = {
     mime.enable = true;
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = [ "zathura.desktop" ];
+        "application/pdf" = [ "org.pwmt.zathura.desktop" ];
 
         "application/epub+zip" = [ "com.github.johnfactotum.Foliate.desktop" ];
         "application/x-mobipocket-ebook" = [ "com.github.johnfactotum.Foliate.desktop" ];
@@ -52,37 +52,37 @@ in
         "image/svg+xml" = [ "swayimg.desktop" ];
         "image/jpeg" = [ "swayimg.desktop" ];
 
-        "video/avi" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/mp4" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/flv" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/mpeg" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/quicktime" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/vnd.rn-realvideo" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/x-matroska" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/x-ms-asf" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/x-msvideo" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/x-ms-wmv" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/x-ogm+ogg" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/x-theora" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "video/webm" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/ac3" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/mp4" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/mpeg" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/vnd.rn-realaudio" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/vorbis" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-adpcm" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-matroska" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-mp2" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-mp3" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-ms-wma" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-vorbis" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-wav" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/mpegurl" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-mpegurl" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-scpls" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/x-pn-realaudio" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/flac" = [ "mplayer.desktop" "smplayer.desktop" ];
-        "audio/ogg" = [ "mplayer.desktop" "smplayer.desktop" ];
+        "video/avi" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/mp4" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/flv" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/mpeg" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/quicktime" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/vnd.rn-realvideo" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/x-matroska" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/x-ms-asf" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/x-msvideo" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/x-ms-wmv" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/x-ogm+ogg" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/x-theora" = [ "vlc.desktop" "mplayer.desktop" ];
+        "video/webm" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/ac3" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/mp4" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/mpeg" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/vnd.rn-realaudio" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/vorbis" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-adpcm" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-matroska" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-mp2" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-mp3" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-ms-wma" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-vorbis" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-wav" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/mpegurl" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-mpegurl" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-scpls" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/x-pn-realaudio" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/flac" = [ "vlc.desktop" "mplayer.desktop" ];
+        "audio/ogg" = [ "vlc.desktop" "mplayer.desktop" ];
       };
       associations.removed = {
         "image/png" = [ "gimagereader-gtk.desktop" ];
