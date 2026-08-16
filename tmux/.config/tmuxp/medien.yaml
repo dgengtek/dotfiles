@@ -8,7 +8,6 @@ windows:
       - shell_command:
           - |
             mkdir /tmp/startup_gpg2_lock \
-            && read \
             && mkdir -p ${HOME}/mnt/privat \
             && retry.sh "gocryptfs /auto/data/privat ${HOME}/mnt/privat" \
             && gpg-connect-agent updatestartuptty /bye \
