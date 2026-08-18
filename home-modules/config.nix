@@ -30,5 +30,6 @@
     ./ledger.nix
     ./minio-client.nix
     ./anki.nix
+    ./foliate.nix
   ];
 }

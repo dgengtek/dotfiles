@@ -18,7 +18,6 @@ in
   };
   home.packages = with pkgs; [
     zathura
-    foliate
     swayimg
     mplayer
     vlc
