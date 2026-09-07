@@ -3,5 +3,17 @@
 # Get a json output of all windows in the current i3-wm session
 swaymsg -t get_tree | jq
 
+# disable outputs
+swaymsg 'output * power off'
+
+# enable outputs
+swaymsg 'output * power on'
+
+# get display outputs from wlr-randr
+wlr-randr
+
+# get display outputs from wlr-randr
+swaymsg -t get_outputs
+
 # get sway config
 less $XDG_CONFIG_HOME/sway/config
