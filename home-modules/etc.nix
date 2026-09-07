@@ -16,12 +16,19 @@ in
       };
     };
   };
-  home.packages = with pkgs; [
-    zathura
-    swayimg
-    mplayer
-    vlc
-  ];
+  home = {
+    packages = with pkgs; [
+      zathura
+      swayimg
+      mplayer
+      mpv
+      smplayer
+    ];
+    sessionVariables = {
+      QT_QPA_PLATFORM = "wayland-egl";
+    };
+  };
+
   xdg = {
     mime.enable = true;
     mimeApps = {
