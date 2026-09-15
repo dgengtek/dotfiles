@@ -29,14 +29,14 @@ in
     ];
 
     xdg.configFile."mailcap".text = ''
-      text/*; nvim -R %s; needsterminal
       text/html; lynx -dump %s; needsterminal; copiousoutput
+      text/*; nvim -R %s; needsterminal
 
-      application/pdf; pdftotext -layout %s -; copiousoutput;
-      # application/pdf; /usr/bin/xdg-open %s ; copiousoutput
-      application/postscript ; /usr/bin/xdg-open %s ; copiousoutput
       application/msword; pandoc --from docx --to plain %s; copiousoutput
       application/rtf; pandoc --from rtf --to plain %s; copiousoutput
+      # application/postscript ; xdg-open %s ; copiousoutput
+      # application/pdf; pdftotext -layout %s -; copiousoutput;
+      # application/pdf; xdg-open %s ; copiousoutput
     '';
     programs.neomutt = {
       # https://docs.neomutt.org/reference/config
