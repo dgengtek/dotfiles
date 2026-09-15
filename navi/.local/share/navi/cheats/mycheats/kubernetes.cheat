@@ -9,6 +9,9 @@ kubectl patch storageclass <storageclass> -p '{"metadata": {"annotations":{"stor
 # set a default ingressclass
 kubectl patch ingressclasses <ingressclass> -p '{"metadata": {"annotations":{"ingressclass.kubernetes.io/is-default-class":"true"}}}'
 
+# get pods from a priorityclass
+kubectl get pods -A -o jsonpath='{range .items[?(@.spec.priorityClassName=="<priority_class_name>")]}{.metadata.namespace}{"\t"}{.metadata.name}{"\n"}{end}'
+
 # get api server url
 kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 
@@ -274,6 +277,7 @@ $ resource_rollout: echo -e 'deployment,daemonset,replicaset,statefulset' | tr '
 $ node: kubectl get nodes -o name --- --preview 'kubectl describe node {}'
 $ context: kubectl config get-contexts -o name
 $ namespace: kubectl get namespaces -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n'
+$ priority_class_name: kubectl get priorityclasses.scheduling.k8s.io -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
 
 
 $ nresource: kubectl -n <namespace> get <resource> -o json | jq -r '.items[] | ("-n " + .metadata.namespace + " " + .kind + "/" + .metadata.name)' --- --delimiter ' ' --preview 'kubectl describe -n {2} {3}'
