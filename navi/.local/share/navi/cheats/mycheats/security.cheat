@@ -1,0 +1,13 @@
+% sicherheit, passwörter
+@ template
+
+# generiere oath authenticator code
+ykman oath accounts code <oath_accounts>
+
+# Generate hmac-sha1 challenge response
+ykman otp chalresp --generate 2
+
+# Add a code to oath accounts
+zbarimg <filename> --quiet --raw | xargs ykman oath accounts uri
+
+$ oath_accounts: ykman oath accounts list
