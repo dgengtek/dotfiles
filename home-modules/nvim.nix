@@ -223,23 +223,6 @@ in
             fzf-wrapper
             fzf-vim
             {
-              plugin = pkgs.vimUtils.buildVimPlugin {
-                pname = "registers.nvim";
-                version = "main";
-                src = pkgs.fetchurl {
-                  url = "https://codeberg.org/fosk/registers.nvim/archive/main.tar.gz";
-                  hash = "sha256-NhNpiU7F/x3bJ25Cnk9y6UB6ZPEji0a79KZ4MMewq08=";
-                };
-                meta = {
-                  homepage = "https://codeberg.org/fosk/registers.nvim";
-                  license = lib.meta.getLicenseFromSpdxId "GPL-3.0-only";
-                  hydraPlatforms = [ ];
-                };
-              };
-              type = "lua";
-              config = ''require("registers").setup()'';
-            }
-            {
               plugin = fidget-nvim;
               type = "lua";
               config = ''require("fidget").setup()'';
