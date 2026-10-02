@@ -4,10 +4,10 @@
     enable = true;
     settings = {
       colors = {
-        body = null;
-        date = null;
-        tags = null;
-        title = null;
+        body = "none";
+        date = "none";
+        tags = "none";
+        title = "none";
       };
       journals = {
         default = "${config.home.homeDirectory}/mnt/privat/dokumente/logbuch/log.txt";
@@ -23,7 +23,7 @@
       tagsymbols = "@";
       template = false;
       timeformat = "%Y-%m-%d %H:%M";
-      version = "v4.2.1";
+      version = "v4.2";
     };
   };
 }
