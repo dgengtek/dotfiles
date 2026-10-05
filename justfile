@@ -1,4 +1,5 @@
 set shell := ["bash", "-uc"]
+alias d := dev
 
 setup_ini := "./setup.ini"
 
