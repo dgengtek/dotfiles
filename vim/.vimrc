@@ -142,6 +142,7 @@ endif
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType nickel setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType nix setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType nft setlocal ts=4 sts=4 sw=4 expandtab
 "endif
 
 au BufRead,BufNewFile *.adoc,*.asciidoc setfiletype asciidoc
@@ -149,6 +150,7 @@ au BufRead,BufNewFile *.sls setfiletype sls
 au BufRead,BufNewFile *.nix setfiletype nix
 au BufRead,BufNewFile *.ncl setfiletype nickel
 au BufRead,BufNewFile *.jinja,*.jinja2,*.j2 setfiletype jinja
+au BufRead,BufNewFile *.nft,*.nftables setfiletype nft
 au BufRead,BufNewFile *.yaml,*.yml setfiletype yaml
 au BufRead,BufNewFile *.toml setfiletype toml
 au BufRead,BufNewFile *.rs setfiletype rust
