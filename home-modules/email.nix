@@ -34,6 +34,7 @@ in
 
       application/msword; pandoc --from docx --to plain %s; copiousoutput
       application/rtf; pandoc --from rtf --to plain %s; copiousoutput
+      image/*; swayimg %s
       # application/postscript ; xdg-open %s ; copiousoutput
       # application/pdf; pdftotext -layout %s -; copiousoutput;
       # application/pdf; xdg-open %s ; copiousoutput
@@ -186,83 +187,109 @@ in
         # '?' is used for search-opposite
         bind pager <f12> help
 
-
-        # Colors
+        # Colors – Kanagawa Wave
         #--------------------------------------------------------------------------
+        set color_directcolor = yes
 
-        # Colours for items in the index
-        color index brightcyan black ~N
-        #color index brightgreen black "~N (~x byers.world)|(~x byers.x)|(~x langly.levallois123.axialys.net)|(~x the.earth.li)"
-        color index brightyellow black ~F
-        color index black green ~T
-        color index brightred black ~D
-        mono index bold ~N
-        mono index bold ~F
-        mono index bold ~T
-        mono index bold ~D
+        # Palette (your definition)
+        #  0  #1f1f28   black / bg
+        #  1  #c34043   red
+        #  2  #76946a   green
+        #  3  #c0a36e   yellow
+        #  4  #7e9cd8   blue
+        #  5  #957fb8   magenta
+        #  6  #6a9589   cyan
+        #  7  #dcd7ba   white / fg
+        #  8  #727169   brightblack
+        #  9  #e82424   brightred
+        # 10  #98bb6c   brightgreen
+        # 11  #e6c384   brightyellow
+        # 12  #7fb4ca   brightblue
+        # 13  #938aa9   brightmagenta
+        # 14  #7aa89f   brightcyan
+        # 15  #dcd7ba   brightwhite
 
-        # Highlights inside the body of a message.
+        # Index
+        color index          #7aa89f #1f1f28 ~N          # new
+        color index          #e6c384 #1f1f28 ~F          # flagged
+        color index          #1f1f28 #76946a ~T          # tagged
+        color index          #e82424 #1f1f28 ~D          # deleted
+        color index          #dcd7ba #1f1f28 ~A          # all (normal)
+        mono  index bold ~N
+        mono  index bold ~F
+        mono  index bold ~T
+        mono  index bold ~D
 
-        # URLs
-        color body brightgreen black "(http|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
-        color body brightgreen black "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
-        mono body bold "(http|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
-        mono body bold "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+        # Body highlights
+        color body #98bb6c #1f1f28 "(http|https|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
+        color body #98bb6c #1f1f28 "mailto:[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+"
+        color body #98bb6c #1f1f28 "[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+\\.[a-zA-Z]{2,}"
+        mono  body bold "(http|https|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
+        mono  body bold "mailto:[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+"
 
-        # email addresses
-        color body brightgreen black "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
-        #mono body bold "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+        # Headers
+        # Core addressing
+        color header #76946a #1f1f28 "^(From|from):"
+        color header #76946a #1f1f28 "^(To|to):"
+        color header #76946a #1f1f28 "^(Cc|cc):"
+        color header #76946a #1f1f28 "^(Bcc|bcc):"
+        color header #76946a #1f1f28 "^(Date|date):"
 
-        # header
-        color header green black "^from:"
-        color header green black "^to:"
-        color header green black "^cc:"
-        color header green black "^date:"
-        color header yellow black "^newsgroups:"
-        color header yellow black "^reply-to:"
-        color header brightcyan black "^subject:"
-        color header red black "^x-spam-rule:"
-        color header green black "^x-mailer:"
-        color header yellow black "^message-id:"
-        color header yellow black "^Organization:"
-        color header yellow black "^Organisation:"
-        color header yellow black "^User-Agent:"
-        color header yellow black "^message-id: .*pine"
-        color header yellow black "^X-Fnord:"
-        color header yellow black "^X-WebTV-Stationery:"
-        color header yellow black "^X-Message-Flag:"
-        color header yellow black "^X-Spam-Status:"
-        color header yellow black "^X-SpamProbe:"
-        color header red black "^X-SpamProbe: SPAM"
+        # Subject (most important)
+        color header #7aa89f #1f1f28 "^(Subject|subject):"
 
+        # Reply / threading
+        color header #c0a36e #1f1f28 "^(Reply-To|reply-to):"
+        color header #c0a36e #1f1f28 "^(In-Reply-To|in-reply-to):"
+        color header #c0a36e #1f1f28 "^(References|references):"
+        color header #c0a36e #1f1f28 "^(Message-ID|message-id):"
 
-        # Coloring quoted text - coloring the first 7 levels:
-        color quoted cyan black
-        color quoted1 yellow black
-        color quoted2 red black
-        color quoted3 green black
-        color quoted4 cyan black
-        color quoted5 yellow black
-        color quoted6 red black
-        color quoted7 green black
+        # Lists
+        color header #7e9cd8 #1f1f28 "^(List-Id|list-id):"
+        color header #7e9cd8 #1f1f28 "^(List-Post|list-post):"
+        color header #7e9cd8 #1f1f28 "^(List-Unsubscribe|list-unsubscribe):"
 
+        # Meta / technical
+        color header #c0a36e #1f1f28 "^(User-Agent|user-agent|X-Mailer|x-mailer):"
+        color header #c0a36e #1f1f28 "^(Organization|organisation|Organisation):"
+        color header #c0a36e #1f1f28 "^(Content-Type|content-type):"
+        color header #c0a36e #1f1f28 "^(Content-Transfer-Encoding|content-transfer-encoding):"
+        color header #c0a36e #1f1f28 "^(MIME-Version|mime-version):"
 
-        # Default color definitions
-        #color hdrdefault white green
-        color signature brightmagenta black
-        color indicator black cyan
-        color attachment black green
-        color error red black
-        color message white black
-        color search brightwhite magenta
-        color status brightyellow blue
-        color tree brightblue black
-        color normal white black
-        color tilde green black
-        color bold brightyellow black
-        #color underline magenta black
-        color markers brightcyan black
-        # Colour definitions when on a mono screen
+        # Spam / danger
+        color header #e82424 #1f1f28 "^(X-Spam-Status|x-spam-status|X-SpamProbe|x-spamprobe):"
+        color header #e82424 #1f1f28 "^(X-Spam-Flag|x-spam-flag):.*YES"
+        color header #e82424 #1f1f28 "^(X-SpamProbe|x-spamprobe): SPAM"
+
+        # Quoted text (7 levels)
+        color quoted  #6a9589 #1f1f28
+        color quoted1 #c0a36e #1f1f28
+        color quoted2 #c34043 #1f1f28
+        color quoted3 #76946a #1f1f28
+        color quoted4 #6a9589 #1f1f28
+        color quoted5 #c0a36e #1f1f28
+        color quoted6 #c34043 #1f1f28
+        color quoted7 #76946a #1f1f28
+
+        # General UI
+        color normal     #dcd7ba #1f1f28
+        color indicator  #1f1f28 #6a9589          # selected line
+        color status     #e6c384 #2a2a37          # status bar
+        color tree       #7e9cd8 #1f1f28
+        color attachment #1f1f28 #76946a
+        color signature  #957fb8 #1f1f28
+        color search     #1f1f28 #e6c384
+        color error      #e82424 #1f1f28
+        color message    #dcd7ba #1f1f28
+        color tilde      #76946a #1f1f28
+        color markers    #7aa89f #1f1f28
+        color bold       #e6c384 #1f1f28
+        color progress   #1f1f28 #7e9cd8
+
+        # Optional: default header color (everything not matched above)
+        color hdrdefault #dcd7ba #1f1f28
+
+        # Mono fallbacks
         mono bold bold
         mono underline underline
         mono indicator reverse
