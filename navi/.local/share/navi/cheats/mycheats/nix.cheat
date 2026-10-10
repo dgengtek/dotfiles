@@ -36,6 +36,9 @@ nix-shell -E "with import <nixpkgs> {}; callPackage <nix_file> {}"
 # get derivation values generated from nix file
 nix show-derivation $(nix-instantiate <nix_file>)
 
+# update flakes, commit
+nix flake update && git add flake.nix flake.lock && git commit -m "u flake"
+
 # push package nix store paths to remote s3 cache
 nix-store --query --requisites $(nix path-info --derivation "<package>") \
 | nix copy --stdin --to "s3://nix-cache?endpoint=api-bigtmp"
