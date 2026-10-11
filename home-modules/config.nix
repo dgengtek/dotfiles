@@ -31,5 +31,6 @@
     ./minio-client.nix
     ./anki.nix
     ./foliate.nix
+    ./nix.nix
   ];
 }
