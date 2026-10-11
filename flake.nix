@@ -12,9 +12,21 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    scripts.url = "git+ssh://git/dgeng/scripts";
-    ops-vars.url = "git+ssh://git/ops/ops-vars";
-    nixutils.url = "git+ssh://git/ops/nixutils";
+    scripts = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+      url = "git+ssh://git/dgeng/scripts";
+    };
+    ops-vars = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+      url = "git+ssh://git/ops/ops-vars";
+    };
+    nixutils = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+      url = "git+ssh://git/ops/nixutils";
+    };
 
     haumea = {
       url = "github:nix-community/haumea/v0.2.2";
