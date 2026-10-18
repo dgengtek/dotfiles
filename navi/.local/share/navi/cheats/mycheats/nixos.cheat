@@ -5,3 +5,12 @@ ls /etc/profiles/per-user/$(id -n -u)
 
 # global profile
 ls /run/current-system/sw/
+
+# list generations
+nixos-rebuild list-generations
+
+# switch to another generation
+/nix/var/nix/profiles/system-<generation>-link/bin/switch-to-configuration switch
+
+
+$ generations: nixos-rebuild list-generations | sed 1d --- --column 0
