@@ -5,7 +5,7 @@
   };
 
   systemd.user.tmpfiles.rules = [
-    "L ${config.xdg.configHome}/nix/nix-access-tokens.conf - - - - ${config.sops.templates.nix_conf.path}"
+    "L ${config.xdg.configHome}/nix/nix-access-tokens.conf - - - - ${config.sops.templates.nix-access-tokens.path}"
   ];
 
   nix.extraOptions = ''
