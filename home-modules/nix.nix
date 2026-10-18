@@ -9,7 +9,7 @@
   ];
 
   nix.extraOptions = ''
-    include ${config.xdg.configHome}/nix/nix-access-tokens.conf
+    !include ${config.xdg.configHome}/nix/nix-access-tokens.conf
   '';
 
   sops.templates."nix-access-tokens" = {
