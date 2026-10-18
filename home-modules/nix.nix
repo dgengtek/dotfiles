@@ -4,8 +4,12 @@
     github_access_token = { };
   };
 
+  systemd.user.tmpfiles.rules = [
+    "L ${config.xdg.configHome}/nix/nix-access-tokens.conf - - - - ${config.sops.templates.nix_conf.path}"
+  ];
+
   nix.extraOptions = ''
-    include ${config.sops.templates.nix-access-tokens.path}
+    include ${config.xdg.configHome}/nix/nix-access-tokens.conf
   '';
 
   sops.templates."nix-access-tokens" = {
