@@ -6,6 +6,12 @@ while ! nc -zv <hostname> <port> 2>/dev/null; do sleep 1; done
 # get current default ip gateway route
 command ip -d -json route | jq '.[] | select(.dst == "default")'
 
+# debug networking
+networkctl status --no-pager; ip -d link show; ip route show table all; ip rule show all
+
+# log invalid connections
+sysctl -w net.netfilter.nf_conntrack_log_invalid=6
+
 # Kill a process running on a given port
 sudo lsof -i :<port> \
    | awk '{l=$2} END {print l}' \
