@@ -72,10 +72,10 @@
       set-option -g set-titles on
       set-option -g set-titles-string "#T (#h:#S)"
 
-      set -g default-terminal tmux-256color
-      set-option -a terminal-features 'alacritty:RGB'
-      # This forces tmux to treat the TTY as having more colors than it claims
-      set -as terminal-overrides ",linux:colors=256"
+      set -g default-terminal "tmux-256color"
+      set -as terminal-features ",alacritty:RGB"
+      # also keep the older form for compatibility
+      set -as terminal-overrides ",alacritty:RGB"
 
       set-option -g focus-events on
       ################################################################################
