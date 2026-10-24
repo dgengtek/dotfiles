@@ -187,107 +187,106 @@ in
         # '?' is used for search-opposite
         bind pager <f12> help
 
-        # Colors – Kanagawa Wave
-        #--------------------------------------------------------------------------
-        set color_directcolor = yes
+        # ---------- Kanagawa Wave – 256 colour version ----------
+        # Works with TERM=alacritty / tmux-256color (no truecolor required)
 
-        # Palette (your definition)
-        #  0  #1f1f28   black / bg
-        #  1  #c34043   red
-        #  2  #76946a   green
-        #  3  #c0a36e   yellow
-        #  4  #7e9cd8   blue
-        #  5  #957fb8   magenta
-        #  6  #6a9589   cyan
-        #  7  #dcd7ba   white / fg
-        #  8  #727169   brightblack
-        #  9  #e82424   brightred
-        # 10  #98bb6c   brightgreen
-        # 11  #e6c384   brightyellow
-        # 12  #7fb4ca   brightblue
-        # 13  #938aa9   brightmagenta
-        # 14  #7aa89f   brightcyan
-        # 15  #dcd7ba   brightwhite
+        # Palette mapping (approximate)
+        #  0  #1f1f28 → color236   (main bg)
+        #  1  #c34043 → color167   (red)
+        #  2  #76946a → color108   (green)
+        #  3  #c0a36e → color179   (yellow)
+        #  4  #7e9cd8 → color110   (blue)
+        #  5  #957fb8 → color139   (magenta)
+        #  6  #6a9589 → color109   (cyan)
+        #  7  #dcd7ba → color223   (fg / white)
+        #  8  #727169 → color243   (bright black)
+        #  9  #e82424 → color203   (bright red)
+        # 10  #98bb6c → color114   (bright green)
+        # 11  #e6c384 → color179   (bright yellow)
+        # 12  #7fb4ca → color117   (bright blue)
+        # 13  #938aa9 → color146   (bright magenta)
+        # 14  #7aa89f → color116   (bright cyan)
+        # 15  #dcd7ba → color223   (bright white)
+        #     #2a2a37 → color236   (NeoMutt bg)
+        #     #363646 → color238   (status bg)
 
         # Index
-        color index          #7aa89f #1f1f28 ~N          # new
-        color index          #e6c384 #1f1f28 ~F          # flagged
-        color index          #1f1f28 #76946a ~T          # tagged
-        color index          #e82424 #1f1f28 ~D          # deleted
-        color index          #dcd7ba #1f1f28 ~A          # all (normal)
+        color index          color116 color236 ~N          # new
+        color index          color179 color236 ~F          # flagged
+        color index          color236 color108 ~T          # tagged
+        color index          color203 color236 ~D          # deleted
+        color index          color223 color236 ~A          # normal
         mono  index bold ~N
         mono  index bold ~F
         mono  index bold ~T
         mono  index bold ~D
 
         # Body highlights
-        color body #98bb6c #1f1f28 "(http|https|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
-        color body #98bb6c #1f1f28 "mailto:[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+"
-        color body #98bb6c #1f1f28 "[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+\\.[a-zA-Z]{2,}"
+        color body color114 color236 "(http|https|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
+        color body color114 color236 "mailto:[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+"
+        color body color114 color236 "[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+\\.[a-zA-Z]{2,}"
         mono  body bold "(http|https|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
         mono  body bold "mailto:[-a-zA-Z0-9._%+-]+@[-a-zA-Z0-9.]+"
 
         # Headers
         # Core addressing
-        color header #76946a #1f1f28 "^(From|from):"
-        color header #76946a #1f1f28 "^(To|to):"
-        color header #76946a #1f1f28 "^(Cc|cc):"
-        color header #76946a #1f1f28 "^(Bcc|bcc):"
-        color header #76946a #1f1f28 "^(Date|date):"
+        color header color108 color236 "^(From|from):"
+        color header color108 color236 "^(To|to):"
+        color header color108 color236 "^(Cc|cc):"
+        color header color108 color236 "^(Bcc|bcc):"
+        color header color108 color236 "^(Date|date):"
 
-        # Subject (most important)
-        color header #7aa89f #1f1f28 "^(Subject|subject):"
+        # Subject
+        color header color116 color236 "^(Subject|subject):"
 
         # Reply / threading
-        color header #c0a36e #1f1f28 "^(Reply-To|reply-to):"
-        color header #c0a36e #1f1f28 "^(In-Reply-To|in-reply-to):"
-        color header #c0a36e #1f1f28 "^(References|references):"
-        color header #c0a36e #1f1f28 "^(Message-ID|message-id):"
+        color header color179 color236 "^(Reply-To|reply-to):"
+        color header color179 color236 "^(In-Reply-To|in-reply-to):"
+        color header color179 color236 "^(References|references):"
+        color header color179 color236 "^(Message-ID|message-id):"
 
         # Lists
-        color header #7e9cd8 #1f1f28 "^(List-Id|list-id):"
-        color header #7e9cd8 #1f1f28 "^(List-Post|list-post):"
-        color header #7e9cd8 #1f1f28 "^(List-Unsubscribe|list-unsubscribe):"
+        color header color110 color236 "^(List-Id|list-id):"
+        color header color110 color236 "^(List-Post|list-post):"
+        color header color110 color236 "^(List-Unsubscribe|list-unsubscribe):"
 
         # Meta / technical
-        color header #c0a36e #1f1f28 "^(User-Agent|user-agent|X-Mailer|x-mailer):"
-        color header #c0a36e #1f1f28 "^(Organization|organisation|Organisation):"
-        color header #c0a36e #1f1f28 "^(Content-Type|content-type):"
-        color header #c0a36e #1f1f28 "^(Content-Transfer-Encoding|content-transfer-encoding):"
-        color header #c0a36e #1f1f28 "^(MIME-Version|mime-version):"
+        color header color179 color236 "^(User-Agent|user-agent|X-Mailer|x-mailer):"
+        color header color179 color236 "^(Organization|organisation|Organisation):"
+        color header color179 color236 "^(Content-Type|content-type):"
+        color header color179 color236 "^(Content-Transfer-Encoding|content-transfer-encoding):"
+        color header color179 color236 "^(MIME-Version|mime-version):"
 
         # Spam / danger
-        color header #e82424 #1f1f28 "^(X-Spam-Status|x-spam-status|X-SpamProbe|x-spamprobe):"
-        color header #e82424 #1f1f28 "^(X-Spam-Flag|x-spam-flag):.*YES"
-        color header #e82424 #1f1f28 "^(X-SpamProbe|x-spamprobe): SPAM"
+        color header color203 color236 "^(X-Spam-Status|x-spam-status|X-SpamProbe|x-spamprobe):"
+        color header color203 color236 "^(X-Spam-Flag|x-spam-flag):.*YES"
+        color header color203 color236 "^(X-SpamProbe|x-spamprobe): SPAM"
 
         # Quoted text (7 levels)
-        color quoted  #6a9589 #1f1f28
-        color quoted1 #c0a36e #1f1f28
-        color quoted2 #c34043 #1f1f28
-        color quoted3 #76946a #1f1f28
-        color quoted4 #6a9589 #1f1f28
-        color quoted5 #c0a36e #1f1f28
-        color quoted6 #c34043 #1f1f28
-        color quoted7 #76946a #1f1f28
+        color quoted  color109 color236
+        color quoted1 color179 color236
+        color quoted2 color167 color236
+        color quoted3 color108 color236
+        color quoted4 color109 color236
+        color quoted5 color179 color236
+        color quoted6 color167 color236
+        color quoted7 color108 color236
 
-        # General UI
-        color normal     #dcd7ba #1f1f28
-        color indicator  #1f1f28 #6a9589          # selected line
-        color status     #e6c384 #2a2a37          # status bar
-        color tree       #7e9cd8 #1f1f28
-        color attachment #1f1f28 #76946a
-        color signature  #957fb8 #1f1f28
-        color search     #1f1f28 #e6c384
-        color error      #e82424 #1f1f28
-        color message    #dcd7ba #1f1f28
-        color tilde      #76946a #1f1f28
-        color markers    #7aa89f #1f1f28
-        color bold       #e6c384 #1f1f28
-        color progress   #1f1f28 #7e9cd8
-
-        # Optional: default header color (everything not matched above)
-        color hdrdefault #dcd7ba #1f1f28
+        # General UI – NeoMutt has its own background
+        color normal     color223 color236
+        color indicator  color236 color109          # selected line
+        color status     color179 color238          # status bar
+        color tree       color110 color236
+        color attachment color236 color108
+        color signature  color139 color236
+        color search     color236 color179
+        color error      color203 color236
+        color message    color223 color236
+        color tilde      color108 color236
+        color markers    color116 color236
+        color bold       color179 color236
+        color progress   color236 color110
+        color hdrdefault color223 color236
 
         # Mono fallbacks
         mono bold bold
