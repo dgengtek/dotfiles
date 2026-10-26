@@ -9,6 +9,9 @@ sudo docker rmi <image_id>
 # Remove all images from the local image store
 sudo docker rmi $(sudo docker images -q) --force
 
+# copy nix build docker image to registry
+https_proxy="" skopeo copy --insecure-policy docker-archive:./result docker://${REGISTRY_URL#https://}:8082/nix:m9chbf70z3989dnyh0qgba6hm74y4mv2 --dest-compress --dest-compress-format=gzip
+
 # Remove all containers
 sudo docker rm $(sudo docker ps -aq)
 
@@ -113,7 +116,7 @@ sudo docker update --restart=no $(sudo docker ps -a -q)
 % docker, registry
 
 # set docker username, password and url
-export DOCKER_URL="<url>" DOCKER_USERNAME="<username>" DOCKER_PASSWORD="$(systemd-ask-password -n)" 
+export DOCKER_URL="<url>" DOCKER_USERNAME="<username>" DOCKER_PASSWORD="$(systemd-ask-password -n)"
 
 # get catalog
 curl \
