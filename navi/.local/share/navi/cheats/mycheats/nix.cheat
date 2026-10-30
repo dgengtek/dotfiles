@@ -137,6 +137,9 @@ nix-build -E 'with (import <nixpkgs>{}); <package>.override {  }'
 # override package on a local repo
 nix-build -E 'with (import ./default.nix{}); <package>.override {  }'
 
+# use the latest nixpkgs instead of host pinned
+nix run --override-flake nixpkgs github:NixOS/nixpkgs nixpkgs#<package>
+
 # build specified derive file
 nix-store --realise <derivation>
 
