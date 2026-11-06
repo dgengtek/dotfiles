@@ -5,7 +5,9 @@ set -a
 # ------------------------------------------------------------------------------
 LESS="-RSWFX $LESS"
 LESSCHARSET=utf-8
-PAGER="less"
+# PAGER="less"
+PAGER="bat --paging=always"
+MANPAGER="sh -c 'col -bx | bat -l man -p'"
 #if command -v "vimpager"; then
 #  PAGER="vimpager"
 #  SYSTEMD_PAGER="$PAGER"
