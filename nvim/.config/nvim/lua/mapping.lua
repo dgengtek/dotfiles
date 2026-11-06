@@ -86,7 +86,7 @@ end, { desc = "select tabs" })
 nmap("<space>b", function()
 	require("fzf-lua").buffers()
 end, { desc = "select buffers" })
-nmap("<space>w", function()
+nmap("<space>x", function()
 	require("fzf-lua").windows()
 end, { desc = "select windows" })
 
