@@ -1,0 +1,31 @@
+% linux, cli, moreutils
+
+# Edit command output mid-pipe using your default text editor ($EDITOR)
+command1 | vipe | command2
+
+# Safely output to a file without truncating it during read (prevents empty files)
+<command> | sponge <file>
+
+# Add a timestamp prefix to every line of stdout
+<command> | ts '[%Y-%m-%d %H:%M:%S]'
+
+# Run command quietly; print output only if the command fails (non-zero exit)
+chronic <command>
+
+# Simultaneously pipe stdout to multiple downstream commands
+<command> | pee "<cmd1>" "<cmd2>"
+
+# Execute a command only if standard input is non-empty
+<command> | ifne <action_command>
+
+# Perform boolean set operations (and, or, not, xor) on two files
+combine <file1> <operator> <file2>
+
+# Translate numeric error codes or system error macros (e.g. ENOENT, 2)
+errno <error_code>
+
+# Interactively edit directory contents (rename/delete files in an editor)
+vidir <directory>
+
+$ operator: echo "and not or xor" | tr ' ' '\n'
+$ directory: find . -maxdepth 2 -type d
