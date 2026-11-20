@@ -38,6 +38,9 @@
       system = "x86_64-linux";
       username = "dgeng";
       pkgs = import nixpkgs-stable { config = { }; overlays = [ ]; inherit system; };
+      pkgs-unstable = import nixpkgs {
+        inherit system;
+      };
     in
     {
       devShells.${system}.default = pkgs.mkShell {
@@ -61,7 +64,7 @@
       homeConfigurations."dgeng@wsdg" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs-stable.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
-          inherit inputs system;
+          inherit inputs system pkgs-unstable;
           libdg = inputs.nixutils.lib.${system};
           ops_vars = ops-vars.vars.${system};
         };

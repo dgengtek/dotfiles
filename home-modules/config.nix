@@ -28,7 +28,7 @@
     ./mpd.nix
     ./jrnl.nix
     ./ledger.nix
-    ./minio-client.nix
+    ./rustfs-cli.nix
     ./anki.nix
     ./foliate.nix
     ./nix.nix
