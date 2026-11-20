@@ -15,6 +15,8 @@ in
         };
       };
     };
+    ".ansible.cfg".text = ''
+    '';
   };
   home = {
     packages = with pkgs; [
