@@ -8,9 +8,12 @@
     "L ${config.xdg.configHome}/nix/nix-access-tokens.conf - - - - ${config.sops.templates.nix-access-tokens.path}"
   ];
 
-  nix.extraOptions = ''
-    !include ${config.xdg.configHome}/nix/nix-access-tokens.conf
-  '';
+  nix = {
+    package = pkgs.nix;
+    extraOptions = ''
+      !include ${config.xdg.configHome}/nix/nix-access-tokens.conf
+    '';
+  };
 
   sops.templates."nix-access-tokens" = {
     content = ''
